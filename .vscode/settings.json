@@ -1,0 +1,22 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "plugins/*/.claude-plugin/plugin.json"
+      ],
+      "url": "./.skillsmith/schemas/plugin.schema.json"
+    },
+    {
+      "fileMatch": [
+        ".claude-plugin/marketplace.json"
+      ],
+      "url": "./.skillsmith/schemas/marketplace.schema.json"
+    },
+    {
+      "fileMatch": [
+        "skills/*/*/evals/evals.json"
+      ],
+      "url": "./.skillsmith/schemas/skill-frontmatter.schema.json"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "epistemics",
+  "version": "0.1.0",
+  "description": "Judgment discipline: falsification passes, adversarial review, crux identification",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

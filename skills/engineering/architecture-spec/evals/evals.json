@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "write an architecture spec for our new ingestion service" },
+    { "prompt": "help me spec out the architecture for a skills monorepo" },
+    { "prompt": "draft a design doc for the payment pipeline" },
+    { "prompt": "turn our discussion into an architecture specification" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "explain microservices architecture", "note": "educational — no document being authored" },
+    { "prompt": "review this architecture spec I wrote", "note": "review is falsification-review territory, not authoring" },
+    { "prompt": "draw an architecture diagram of our system" },
+    { "prompt": "what architecture does Netflix use for streaming" }
+  ]
+}

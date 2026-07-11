@@ -1,0 +1,41 @@
+[marketplace]
+name = "skillsmith-marketplace"
+owner = { name = "Dakota" }
+
+[categories]
+allowed = ["engineering", "productivity", "misc"]
+
+# Groupings assemble skills/agents/hooks/mcp into installable plugins.
+# A skill belongs to exactly one plugin.
+[[plugin]]
+name = "productivity-tools"
+version = "0.1.0"
+description = "Work discipline: handoffs, transitions, work-item definition"
+skills = ["cold-read", "define-work-items", "handoff"]
+
+[[plugin]]
+name = "epistemics"
+version = "0.1.0"
+description = "Judgment discipline: falsification passes, adversarial review, crux identification"
+skills = ["falsification-review", "ground-truth-research"]
+agents = ["falsification-reviewer"]
+
+[[plugin]]
+name = "engineering-core"
+version = "0.1.0"
+description = "Engineering workflow orchestrators: specs, surveys, decisions"
+skills = ["architecture-spec", "codebase-survey", "discovery-map"]
+
+[policy]
+"max-skill-body-tokens" = 5000
+"max-listing-chars" = 1536
+"min-trigger-hit-rate" = 0.85
+"security-tier" = "strict"
+"network-allowlist" = []
+"composition-allowlist" = [
+  "architecture-spec->falsification-review",
+  "discovery-map->cold-read",
+  "discovery-map->define-work-items",
+  "discovery-map->falsification-review",
+  "discovery-map->ground-truth-research",
+]

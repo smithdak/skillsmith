@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "what's the latest version of Bun and does it compile to Windows targets" },
+    { "prompt": "design this integration around the current Claude Code plugin format" },
+    { "prompt": "is the konstraint project still maintained?" },
+    { "prompt": "what's the best vector database right now" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "explain how the TCP three-way handshake works", "note": "protocol fundamentals — stable" },
+    { "prompt": "what's the Pythagorean theorem" },
+    { "prompt": "refactor this function to remove the nested loops", "note": "no volatile fact load-bearing" },
+    { "prompt": "when was the US Constitution signed", "note": "settled history" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "survey this codebase for me" },
+    { "prompt": "I just inherited this repo — help me get oriented" },
+    { "prompt": "map out this project, I've never seen it before" },
+    { "prompt": "onboard me to this codebase" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "explain what this function does", "note": "single-artifact question, not orientation" },
+    { "prompt": "find the bug in auth.ts" },
+    { "prompt": "review my PR", "note": "change review, not repo orientation" },
+    { "prompt": "how are teams structuring monorepos these days", "note": "industry question — no repo present" }
+  ]
+}

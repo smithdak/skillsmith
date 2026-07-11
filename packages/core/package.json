@@ -1,0 +1,9 @@
+{
+  "name": "@skillsmith/core",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "test": "bun test", "typecheck": "bunx tsc --noEmit" },
+  "dependencies": { "zod": "^4.4.3" },
+  "devDependencies": { "typescript": "^5", "@types/bun": "latest" }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "engineering-core",
+  "version": "0.1.0",
+  "description": "Engineering workflow orchestrators: specs, surveys, decisions",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

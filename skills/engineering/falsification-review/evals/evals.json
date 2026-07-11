@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "should we migrate our monolith to microservices?" },
+    { "prompt": "I think we should rewrite this service in Rust — thoughts?" },
+    { "prompt": "sanity check this decision: we're dropping IE11 support next sprint" },
+    { "prompt": "is 6 weeks a realistic estimate for the auth migration?" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "what's the difference between TCP and UDP", "note": "factual explanation, no judgment rendered" },
+    { "prompt": "list the pros and cons of PostgreSQL vs MySQL", "note": "neutral survey — no conclusion is being endorsed" },
+    { "prompt": "how do I set up a GitHub Actions workflow", "note": "how-to" },
+    { "prompt": "fix the failing test in auth.test.ts" }
+  ]
+}

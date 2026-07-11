@@ -1,0 +1,10 @@
+{
+  "name": "skillsmith",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "skillsmith": "./src/main.ts" },
+  "dependencies": {
+    "@skillsmith/core": "workspace:*",
+    "citty": "^0.1.6"
+  }
+}

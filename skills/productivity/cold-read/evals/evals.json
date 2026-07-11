@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "will the team understand this handoff doc without me there to explain it?" },
+    { "prompt": "check that this runbook is self-contained before I publish it" },
+    { "prompt": "review this ticket for completeness before I send it to the contractor" },
+    { "prompt": "does this README make sense to someone who's never seen the project?" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "review my code before I merge", "note": "code review, not document self-sufficiency" },
+    { "prompt": "proofread this for grammar and typos", "note": "copyedit — different axis" },
+    { "prompt": "summarize this document for me" },
+    { "prompt": "sanity check this decision", "note": "correctness axis — falsification-review territory" }
+  ]
+}

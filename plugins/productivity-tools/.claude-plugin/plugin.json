@@ -1,0 +1,13 @@
+{
+  "name": "productivity-tools",
+  "version": "0.1.0",
+  "description": "Work discipline: handoffs, transitions, work-item definition",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "write a handoff for the next shift" },
+    { "prompt": "prepare handoff notes before I log off" },
+    { "prompt": "I need to hand this project off to Sarah" },
+    { "prompt": "I'm going on vacation next week — document where things stand so someone can pick this up" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "summarize this conversation", "note": "a summary is a recap; a handoff is a forward-looking state document" },
+    { "prompt": "write up the meeting minutes" },
+    { "prompt": "what did we decide about the database schema", "note": "recall question, not a handoff request" },
+    { "prompt": "review my code before I merge" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "skillsmith-marketplace",
+  "owner": {
+    "name": "Dakota"
+  },
+  "plugins": [
+    {
+      "name": "engineering-core",
+      "source": "./plugins/engineering-core",
+      "description": "Engineering workflow orchestrators: specs, surveys, decisions"
+    },
+    {
+      "name": "epistemics",
+      "source": "./plugins/epistemics",
+      "description": "Judgment discipline: falsification passes, adversarial review, crux identification"
+    },
+    {
+      "name": "productivity-tools",
+      "source": "./plugins/productivity-tools",
+      "description": "Work discipline: handoffs, transitions, work-item definition"
+    }
+  ]
+}

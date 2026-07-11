@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "write a ticket for the login timeout bug" },
+    { "prompt": "turn this discussion into user stories" },
+    { "prompt": "create a work item for adding SSO support" },
+    { "prompt": "document this as a backlog item with acceptance criteria" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "what's the status of my open tickets", "note": "query, not authoring" },
+    { "prompt": "help me prioritize the backlog", "note": "prioritization is a different job" },
+    { "prompt": "write a PRD for the payments feature", "note": "document-scale product spec, not a work item" },
+    { "prompt": "how long will the auth migration take", "note": "estimation, not definition" }
+  ]
+}

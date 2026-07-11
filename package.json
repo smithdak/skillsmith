@@ -1,0 +1,6 @@
+{
+  "name": "skillsmith-monorepo",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "engines": { "bun": ">=1.3.14" }
+}

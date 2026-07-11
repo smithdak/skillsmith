@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "chart a discovery map for migrating our billing system off the legacy provider" },
+    { "prompt": "this rewrite is way too big to plan in one session — break the unknowns into investigation tickets" },
+    { "prompt": "work through the next ticket on the discovery map" },
+    { "prompt": "we have a vague idea for a partner API — set up a map of what we need to figure out" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "survey this codebase for me", "note": "orientation in existing code — codebase-survey's job" },
+    { "prompt": "write a ticket for the login timeout bug", "note": "single known item — define-work-items" },
+    { "prompt": "create a project plan with a timeline for the Q3 launch", "note": "scheduling known work, not resolving unknowns" },
+    { "prompt": "what's left on the roadmap this quarter", "note": "status query" }
+  ]
+}
