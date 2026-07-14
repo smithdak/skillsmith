@@ -123,13 +123,17 @@ export async function validateSkill(
     if (isShellLike && !firstLine.startsWith("#!")) {
       diagnostics.push(error("V6", `${at} → ${script}`, "script has no shebang"));
     }
-    try {
-      const mode = statSync(abs).mode;
-      if (isShellLike && (mode & 0o111) === 0) {
-        diagnostics.push(warning("V6", `${at} → ${script}`, "script is not executable (chmod +x)"));
+    // Windows has no POSIX mode bits (statSync reports exec only for .exe-like
+    // extensions), so the check would always warn there; CI covers it on Linux.
+    if (process.platform !== "win32") {
+      try {
+        const mode = statSync(abs).mode;
+        if (isShellLike && (mode & 0o111) === 0) {
+          diagnostics.push(warning("V6", `${at} → ${script}`, "script is not executable (chmod +x)"));
+        }
+      } catch {
+        /* stat failure: file listed but unreadable — surfaced elsewhere */
       }
-    } catch {
-      /* stat failure: file listed but unreadable — surfaced elsewhere */
     }
 
     // S2: network-touching

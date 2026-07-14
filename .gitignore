@@ -1,0 +1,16 @@
+# Dependencies (bun.lock is committed; installed modules are not)
+node_modules/
+
+# Runtime / environment
+.env
+.env.*
+!.env.example
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+*.stackdump
+
+# Logs and scratch output
+*.log
+*.tmp

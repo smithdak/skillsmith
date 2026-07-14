@@ -1,7 +1,7 @@
 {
   "name": "engineering-core",
   "version": "0.1.0",
-  "description": "Engineering workflow orchestrators: specs, surveys, decisions",
+  "description": "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards",
   "author": {
     "name": "Dakota"
   },

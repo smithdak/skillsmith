@@ -23,8 +23,8 @@ agents = ["falsification-reviewer"]
 [[plugin]]
 name = "engineering-core"
 version = "0.1.0"
-description = "Engineering workflow orchestrators: specs, surveys, decisions"
-skills = ["architecture-spec", "codebase-survey", "discovery-map"]
+description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards"
+skills = ["architecture-spec", "codebase-survey", "discovery-map", "wizard"]
 
 [policy]
 "max-skill-body-tokens" = 5000

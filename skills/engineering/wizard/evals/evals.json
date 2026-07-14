@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "make me a setup wizard for Supabase — env keys, auth redirect URLs, the works" },
+    { "prompt": "write a script that walks me through setting up Stripe for this repo" },
+    { "prompt": "turn this onboarding runbook into an interactive script the next dev can run" },
+    { "prompt": "I keep re-explaining the Vercel + Neon setup — build me a guided script that asks for each value and writes the .env" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "add STRIPE_SECRET_KEY to my .env", "note": "direct edit — no human journey to guide" },
+    { "prompt": "write a bash script to back up the database every night", "note": "unattended automation, not human-in-the-loop" },
+    { "prompt": "how do I set up Stripe webhooks?", "note": "a question — answer in chat, don't generate a script" },
+    { "prompt": "walk me through how authentication works in this codebase", "note": "explanation of existing code, not a generated procedure" }
+  ]
+}

@@ -7,7 +7,7 @@
     {
       "name": "engineering-core",
       "source": "./plugins/engineering-core",
-      "description": "Engineering workflow orchestrators: specs, surveys, decisions"
+      "description": "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards"
     },
     {
       "name": "epistemics",

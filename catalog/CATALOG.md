@@ -4,13 +4,14 @@
 
 ## engineering-core
 
-Engineering workflow orchestrators: specs, surveys, decisions
+Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards
 
 | Skill | Category | Invocation | Maturity | Description |
 |---|---|---|---|---|
 | architecture-spec | engineering | user | stable | Co-authors a versioned architecture specification through iterative artifact revisions: design invariants, open-decisions register, volatility isolation, and kill/pivot triggers. Use this skill when the user asks to "write an architecture spec", "spec out" a system, "draft a design doc", or turn a technical discussion into a specification. Not for explaining architectural concepts or reviewing an existing document. |
 | codebase-survey | engineering | user | stable | Maps an unfamiliar repository fast: deterministic inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. Use this skill when the user says "survey this codebase", "help me get oriented in this repo", "map out this project", or has inherited or cloned a codebase and needs orientation. Not for explaining a specific function, finding a specific bug, or reviewing a change. |
 | discovery-map | engineering | user | experimental | Plans work too large and too foggy for one session as a shared map of investigation tickets, resolved one per session until the route to a named destination is clear. Use this skill when the user wants to "chart a discovery map", "break the unknowns into tickets", plan a large vague effort across sessions, or "work through the next ticket on the map". Not for orienting in existing code, writing a single work item, or scheduling known work. |
+| wizard | engineering | user | experimental | Generates an interactive bash wizard that walks a human step by step through a manual procedure — third-party service setup, a one-off migration, an A-to-B state transition — opening each URL, capturing values with confirmation gates, and writing .env entries and GitHub Actions secrets. Use this skill when the user says "make me a setup wizard", "write a script that walks me through setting up" a service, or "turn this runbook into an interactive script". Not for fully automatable work (write a plain script), answering setup questions in chat, or unattended CI automation. |
 
 Composes: architecture-spec → falsification-review (cross-plugin); discovery-map → cold-read (cross-plugin); discovery-map → define-work-items (cross-plugin); discovery-map → falsification-review (cross-plugin); discovery-map → ground-truth-research (cross-plugin)
 
@@ -20,6 +21,7 @@ Composes: architecture-spec → falsification-review (cross-plugin); discovery-m
 |---|---|---|---|---|
 | codebase-survey | scripts/deps.sh | sh | no | `b828a5edd0dd915b…` |
 | codebase-survey | scripts/inventory.sh | sh | no | `86e6dd9cdfb29b17…` |
+| wizard | scripts/template.sh | bash | no | `19de52b02df85f86…` |
 
 ## epistemics
 

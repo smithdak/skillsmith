@@ -124,7 +124,9 @@ describe("validate quality tier", () => {
     });
     const r = await rulesFor(root, config, "script-skill");
     expect(r.diagnostics.some((d) => d.rule === "V6" && d.severity === "error")).toBe(true);
-    expect(r.diagnostics.some((d) => d.rule === "V6" && d.severity === "warning")).toBe(true);
+    // The exec-bit check is skipped on Windows — no POSIX mode bits there.
+    const expectWarning = process.platform !== "win32";
+    expect(r.diagnostics.some((d) => d.rule === "V6" && d.severity === "warning")).toBe(expectWarning);
   });
 
   test("V8: missing evals errors; insufficient cases error", async () => {
