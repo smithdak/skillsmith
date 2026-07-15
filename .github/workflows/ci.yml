@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Validate (schema + quality + security, strict)
+        run: bun packages/cli/src/main.ts validate --strict
+      - name: Drift gate (committed artifacts == generate output)
+        run: bun packages/cli/src/main.ts check
+      - name: Tests
+        run: bun test
+      - name: Typecheck
+        run: bunx tsc --noEmit
+        working-directory: packages/core

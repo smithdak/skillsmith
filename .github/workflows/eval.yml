@@ -1,0 +1,22 @@
+name: Trigger evals
+
+# Manual dispatch only: eval calls the Anthropic API (costs real money, and
+# the judge is intentionally non-deterministic), and fork PRs never receive
+# secrets on a public repo anyway. Run it after changing descriptions or
+# eval cases: gh workflow run eval.yml
+on:
+  workflow_dispatch:
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Trigger hit-rate evals (fails below policy minimum)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: bun packages/cli/src/main.ts eval
