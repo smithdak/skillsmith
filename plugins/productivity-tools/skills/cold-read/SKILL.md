@@ -54,6 +54,17 @@ have to ask, guess, or search:
    provably lacks: environment details, credentials locations, tribal
    naming. State it or link it.
 
+## Maker-checker escalation
+
+An inline pass is a *simulated* cold read — the simulator still holds the
+full conversation, and contamination is exactly the failure mode being
+checked for. For deliverables leaving the session — handoffs, runbooks,
+work items someone else will execute — spawn the `cold-reader` agent with
+the document and the named audience only, never the conversation: the
+agent's ignorance is the instrument. Reserve the agent for documents
+others will act on (subagent review costs ~7x tokens); inline passes
+suffice while a draft is still iterating in-session.
+
 ## Failure handling
 
 Fixable failures get fixed inline. Genuine unknowns — things the author

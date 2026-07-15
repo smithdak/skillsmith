@@ -20,7 +20,7 @@ Browse everything first in [catalog/CATALOG.md](catalog/CATALOG.md) — includin
 | **engineering-core** | `architecture-spec` · `codebase-survey` · `discovery-map` · `doc-visuals` · `feature-spec` · `wizard` | Workflow orchestrators (specs, repo surveys, discovery planning, setup wizards) plus the doc-visuals rendering discipline they compose |
 | **code-craft** | `deep-modules` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design |
 | **epistemics** | `falsification-review` · `ground-truth-research` · `research-note` + the `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source fact verification, durable research notes |
-| **productivity-tools** | `cold-read` · `define-work-items` · `handoff` · `issue-triage` | Work discipline: self-sufficient documents, testable work items, structured handoffs, issue triage |
+| **productivity-tools** | `cold-read` · `define-work-items` · `handoff` · `issue-triage` + the `cold-reader` agent | Work discipline: self-sufficient documents, testable work items, structured handoffs, issue triage |
 
 Skills compose across plugins (e.g. `architecture-spec` runs `falsification-review` as its verification pass); every edge is declared in frontmatter, enforced by rule V12, and listed in the catalog.
 

@@ -62,4 +62,6 @@ Work discipline: handoffs, transitions, work-item definition, issue triage
 | handoff | productivity | user | stable | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Produces a structured work handoff a cold reader can act on without access to the conversation. Use this skill when the user says "handoff", "hand this off", asks for "handoff notes" or "transition notes", or wants to document where things stand before stopping, switching contexts, or transferring work to someone else. |
 | issue-triage | productivity | user | experimental | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Moves issue-tracker items through an explicit triage state machine — categorize as bug or enhancement, verify the claim against the codebase, then route to needs-info, ready-for-agent, ready-for-human, or wontfix with an evidence-backed write-up. Use this skill when the user says "triage the backlog", "what issues need my attention", "let's look at #42", or "move #42 to ready-for-agent". Not for implementing fixes, reviewing code, or roadmap prioritization. |
 
+Agents: cold-reader
+
 Composes: define-work-items → cold-read; handoff → cold-read; issue-triage → define-work-items

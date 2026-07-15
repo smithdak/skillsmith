@@ -12,6 +12,7 @@ name = "productivity-tools"
 version = "0.1.0"
 description = "Work discipline: handoffs, transitions, work-item definition, issue triage"
 skills = ["cold-read", "define-work-items", "handoff", "issue-triage"]
+agents = ["cold-reader"]
 
 [[plugin]]
 name = "epistemics"
