@@ -33,7 +33,7 @@ Composes: architecture-spec → falsification-review (cross-plugin); discovery-m
 |---|---|---|---|---|
 | codebase-survey | scripts/deps.sh | sh | no | `b828a5edd0dd915b…` |
 | codebase-survey | scripts/inventory.sh | sh | no | `86e6dd9cdfb29b17…` |
-| wizard | scripts/template.sh | bash | no | `19de52b02df85f86…` |
+| wizard | scripts/template.sh | bash | no | `9f85de3f67a5930f…` |
 
 ## epistemics
 

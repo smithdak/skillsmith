@@ -1,5 +1,11 @@
 # Contributing
 
+This is the short form. The full guides live in [docs/](docs/README.md):
+[skill authoring](docs/skill-authoring.md) (frontmatter reference, description
+craft, composition), [validation rules](docs/validation-rules.md) (every V/S
+failure with its fix), [evals](docs/evals.md), and
+[configuration](docs/configuration.md).
+
 ## Authoring flow
 1. `skillsmith scaffold skill <name>` — starts in skills/drafts/ (lenient).
 2. Write the skill: goal + boundaries + verification, not micro-checklists.

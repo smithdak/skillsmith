@@ -33,6 +33,8 @@ Every finding (`src/diagnostics.ts`) carries a rule id, a path-anchored location
 
 ## Rule reference
 
+One line per rule; the fix-oriented deep reference is [docs/validation-rules.md](../../docs/validation-rules.md).
+
 ### Quality tier (V1–V14)
 
 | Rule | Enforces |
@@ -42,7 +44,7 @@ Every finding (`src/diagnostics.ts`) carries a rule id, a path-anchored location
 | V3 | Description contains explicit trigger phrasing ("use when…", quoted user phrases) |
 | V4 | Body ≤ 500 lines and ≈ ≤ 5000 tokens (policy `max-skill-body-tokens`; chars/4 estimate) |
 | V5 | References at most one level deep; no reference→reference chains |
-| V6 | Scripts have a shebang and the executable bit (bit check is a warning on Windows) |
+| V6 | Scripts have a shebang and the executable bit (bit check is a warning; skipped on Windows, CI covers it on Linux) |
 | V7 | Imperative/infinitive voice, no first/second-person narration; agent descriptions need an `<example>` block |
 | V8 | `evals/evals.json` present and valid: ≥ 3 should-trigger, ≥ 3 should-not-trigger, no TODO placeholders |
 | V9 | Plugin-shipped agents may not declare `hooks`/`mcpServers`/`permissionMode` (privilege-escalation guard) |
@@ -58,13 +60,13 @@ Every finding (`src/diagnostics.ts`) carries a rule id, a path-anchored location
 |---|---|
 | S1 | Every shipped script is inventoried: path, interpreter, network flag, SHA-256 (surfaced in the catalog) |
 | S2 | Network-touching scripts must be in `[policy]."network-allowlist"` |
-| S3 | Hook command handlers must declare intent via an adjacent comment |
-| S4 | Secrets patterns (private keys, AWS keys, GitHub PATs, Anthropic API keys) fail in any shipped file |
-| S5 | External marketplace sources must be sha-pinned (supply-chain) |
+| S3 | Hook command handlers must declare intent via an adjacent comment *(schema check exists; not yet wired into any command)* |
+| S4 | Secrets patterns (private keys, AWS keys, GitHub PATs, Anthropic API keys) fail in scripts and the SKILL.md body |
+| S5 | External marketplace sources must be sha-pinned (supply-chain) — emitted by `generate`, not `validate` |
 | S6 | *(unassigned)* |
 | S7 | Dependency manifests inside `scripts/` trigger an audit warning |
 
-Severity of S-rules scales with `[policy]."security-tier"` (this repo runs `strict`). Skills in `skills/drafts/` are exempt from both tiers — schema validation only.
+Severity of S2 and S5 scales with `[policy]."security-tier"` (this repo runs `strict`); the other S-rules have fixed severities. Skills in `skills/drafts/` are exempt from both tiers — schema validation only.
 
 ## Public API
 
