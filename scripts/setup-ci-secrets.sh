@@ -96,10 +96,12 @@ confirm() {
   [[ "$reply" =~ ^[Yy] ]]
 }
 
-# _existing KEY — current value of KEY in ENV_FILE, if any.
+# _existing KEY — current value of KEY in ENV_FILE, if any. Strips a
+# trailing CR so CRLF .env files can't leak \r into captured values.
 _existing() {
   [[ -f "$ENV_FILE" ]] || return 1
   local line; line=$(grep -E "^${1}=" "$ENV_FILE" | tail -n1) || return 1
+  line=${line%$'\r'}
   printf '%s' "${line#*=}"
 }
 
@@ -114,6 +116,7 @@ ask() {
     printf '  %s%s%s ' "$BOLD" "$prompt" "$RESET"
   fi
   read -r input || true
+  input=${input%$'\r'}
   [[ -z "$input" && -n "$current" ]] && input="$current"
   printf -v "$key" '%s' "$input"
 }
@@ -129,6 +132,10 @@ ask_secret() {
   fi
   read -rs input || true
   printf '\n'
+  # ConHost-hosted bash (PowerShell → bash.exe) can deliver Enter as a
+  # literal \r in the buffer — inside an HTTP header that \r poisons
+  # every request the value is used in. Strip it.
+  input=${input%$'\r'}
   [[ -z "$input" && -n "$current" ]] && input="$current"
   printf -v "$key" '%s' "$input"
 }
