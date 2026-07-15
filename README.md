@@ -17,9 +17,10 @@ Browse everything first in [catalog/CATALOG.md](catalog/CATALOG.md) — includin
 
 | Plugin | Skills | Focus |
 |---|---|---|
-| **engineering-core** | `architecture-spec` · `codebase-survey` · `discovery-map` · `wizard` | Workflow orchestrators: specs, repo surveys, discovery planning, guided setup wizards |
-| **epistemics** | `falsification-review` · `ground-truth-research` + the `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source fact verification |
-| **productivity-tools** | `cold-read` · `define-work-items` · `handoff` | Work discipline: self-sufficient documents, testable work items, structured handoffs |
+| **engineering-core** | `architecture-spec` · `codebase-survey` · `discovery-map` · `feature-spec` · `wizard` | Workflow orchestrators: specs, repo surveys, discovery planning, guided setup wizards |
+| **code-craft** | `deep-modules` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design |
+| **epistemics** | `falsification-review` · `ground-truth-research` · `research-note` + the `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source fact verification, durable research notes |
+| **productivity-tools** | `cold-read` · `define-work-items` · `handoff` · `issue-triage` | Work discipline: self-sufficient documents, testable work items, structured handoffs, issue triage |
 
 Skills compose across plugins (e.g. `architecture-spec` runs `falsification-review` as its verification pass); every edge is declared in frontmatter, enforced by rule V12, and listed in the catalog.
 
@@ -69,9 +70,11 @@ Pre-PR gate — all three must pass: `validate --strict && generate && check`.
 
 Package docs: [`packages/core`](packages/core/README.md) (the pipeline library — all logic lives here) and [`packages/cli`](packages/cli/README.md) (thin command wrapper).
 
+Deep documentation lives in [`docs/`](docs/README.md): [architecture](docs/architecture.md), [skill authoring](docs/skill-authoring.md), the [validation rules reference](docs/validation-rules.md), [evals](docs/evals.md), and the [`skillsmith.toml` reference](docs/configuration.md).
+
 ## Authoring a skill
 
-The five-step flow, in full in [CONTRIBUTING.md](CONTRIBUTING.md):
+The five-step flow — short form in [CONTRIBUTING.md](CONTRIBUTING.md), full guide with the reasoning in [docs/skill-authoring.md](docs/skill-authoring.md):
 
 1. **Scaffold** — `bun packages/cli/src/main.ts scaffold skill <name>` starts it in `skills/drafts/` (lenient: exempt from quality/security tiers, excluded from generation).
 2. **Write** — goal, boundaries, and verification; not micro-checklists. Body ≤ 500 lines / ≈ 5000 tokens. Deterministic work goes in `scripts/`, on-demand docs in `references/` (one level deep).
@@ -79,25 +82,27 @@ The five-step flow, in full in [CONTRIBUTING.md](CONTRIBUTING.md):
 4. **Promote** — move the folder to `skills/engineering|productivity|misc/` and assign it to a plugin in `skillsmith.toml`.
 5. **Gate** — `validate --strict && generate && check`.
 
-The rules that bite most often: the description is the **trigger surface** (what it does *and* when, with quoted user phrasings — V3); never instruct the model to show or explain its reasoning (V13); never hand-edit generated files.
+The rules that bite most often: the description is the **trigger surface** (what it does *and* when, with quoted user phrasings — V3); never instruct the model to show or explain its reasoning (V13); never hand-edit generated files. Every rule, with fixes: [docs/validation-rules.md](docs/validation-rules.md).
 
 ## Repository map
 
 ```
 skills/              skill sources, one folder per skill (SKILL.md + evals/ + scripts/ + references/)
-  engineering/         architecture-spec, codebase-survey, discovery-map,
-                       falsification-review, ground-truth-research, wizard
-  productivity/        cold-read, define-work-items, handoff
+  engineering/         architecture-spec, codebase-survey, deep-modules, discovery-map,
+                       falsification-review, feature-spec, ground-truth-research,
+                       research-note, tdd, wizard
+  productivity/        cold-read, define-work-items, handoff, issue-triage
   misc/  drafts/       empty; drafts/ is the lenient staging area
 agents/              agent sources (falsification-reviewer.md)
 hooks/ mcp/ commands/  source slots, currently empty
 skillsmith.toml      plugin groupings + policy — the assembly manifest
 packages/core/       @skillsmith/core — discovery → validate → generate → check → eval
 packages/cli/        skillsmith CLI — thin citty wrapper over core
+docs/                deep documentation: architecture, authoring, rules, evals, config
 plugins/             GENERATED installable plugins
 .claude-plugin/      GENERATED marketplace.json
 catalog/             GENERATED human-readable catalog with script inventory
-.skillsmith/         GENERATED JSON Schemas (editor tooling) + eval results
+.skillsmith/         editor JSON Schemas (written by init) + committed eval results (source)
 ```
 
 ## License

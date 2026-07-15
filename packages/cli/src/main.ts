@@ -49,7 +49,10 @@ async function loadConfig(repoRoot: string) {
   }
   const raw = (await import(configPath)).default;
   const result = validateSkillsmithConfig(raw, { path: "skillsmith.toml" });
-  if (!result.value) {
+  // Semantic errors (duplicate skill claims, drafts in the allowlist) arrive
+  // as diagnostics alongside a parsed value — they must fail just like shape
+  // errors, or generate would silently ship a plugin missing its skills.
+  if (!result.value || result.diagnostics.some((d) => d.severity === "error")) {
     printDiagnostics(result.diagnostics, "claude-code");
     process.exit(2);
   }
