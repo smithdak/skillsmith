@@ -103,6 +103,8 @@ const posix = (p: string) => p.split(sep).join("/");
 
 export async function discover(repoRoot: string, opts: {
   allowedCategories: readonly string[];
+  /** V2 cap override from [policy]."max-listing-chars"; defaults to LIMITS.listingCharCap. */
+  listingCharCap?: number;
 }): Promise<DiscoveryResult> {
   const diagnostics: Diagnostic[] = [];
   const skills: DiscoveredSkill[] = [];
@@ -139,6 +141,7 @@ export async function discover(repoRoot: string, opts: {
     // Drafts: schema tier only (lenient) — skip V-rules, still must parse.
     const ccResult = validateClaudeCodeFrontmatter(split.value.frontmatter, {
       path: relPath,
+      listingCharCap: opts.listingCharCap,
     });
     if (!ccResult.value) {
       diagnostics.push(...ccResult.diagnostics);

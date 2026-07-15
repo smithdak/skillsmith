@@ -67,7 +67,7 @@ export type ClaudeCodeFrontmatter = z.infer<typeof claudeCodeFrontmatterSchema>;
 
 export function validateClaudeCodeFrontmatter(
   raw: unknown,
-  ctx: { path: string },
+  ctx: { path: string; listingCharCap?: number },
 ): ValidationResult<ClaudeCodeFrontmatter> {
   const diagnostics: Diagnostic[] = [];
   const parsed = claudeCodeFrontmatterSchema.safeParse(raw);
@@ -116,15 +116,18 @@ export function validateClaudeCodeFrontmatter(
     );
   }
 
-  // Listing projection (V2): description + when_to_use share the 1536-char listing cap.
+  // Listing projection (V2): description + when_to_use share the listing cap.
+  // The cap is [policy]."max-listing-chars" when a config is in play (passed
+  // through discovery); LIMITS.listingCharCap is the standalone default.
+  const cap = ctx.listingCharCap ?? LIMITS.listingCharCap;
   const listingChars =
     fm.description.length + (fm.when_to_use?.length ?? 0);
-  if (listingChars > LIMITS.listingCharCap) {
+  if (listingChars > cap) {
     diagnostics.push(
       error(
         "V2",
         `${ctx.path}#/description`,
-        `listing projection ${listingChars} chars exceeds the ${LIMITS.listingCharCap}-char cap (description + when_to_use)`,
+        `listing projection ${listingChars} chars exceeds the ${cap}-char cap (description + when_to_use)`,
         ["claude-code"],
       ),
     );

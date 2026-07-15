@@ -13,7 +13,7 @@
  * into immediate rigor.
  */
 import { join } from "node:path";
-import { generateJsonSchemas } from "./index.ts";
+import { generateJsonSchemas } from "./schemas/json-schemas.ts";
 import { canonicalJson } from "./generate.ts";
 
 export type FileSet = Map<string, string>;
@@ -146,7 +146,8 @@ Claude Code skills monorepo, managed by skillsmith.
       "json.schemas": [
         { fileMatch: ["plugins/*/.claude-plugin/plugin.json"], url: "./.skillsmith/schemas/plugin.schema.json" },
         { fileMatch: [".claude-plugin/marketplace.json"], url: "./.skillsmith/schemas/marketplace.schema.json" },
-        { fileMatch: ["skills/*/*/evals/evals.json"], url: "./.skillsmith/schemas/skill-frontmatter.schema.json" },
+        { fileMatch: ["skills/*/*/evals/evals.json"], url: "./.skillsmith/schemas/evals.schema.json" },
+        { fileMatch: ["hooks/*/hooks.json"], url: "./.skillsmith/schemas/hooks.schema.json" },
       ],
     }),
   );
@@ -244,8 +245,9 @@ export function buildHookScaffold(name: string): FileSet {
             hooks: [
               {
                 type: "command",
-                // S3: state WHY this hook exists next to the command.
-                command: "TODO — intent: describe what this gate enforces",
+                command: "TODO your-command-here",
+                // S3: the comment field is the declared intent — required.
+                comment: "TODO — intent: describe what this gate enforces",
               },
             ],
           },

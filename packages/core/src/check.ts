@@ -24,8 +24,9 @@ export interface CheckResult {
   drifts: Drift[];
 }
 
-/** Directories whose contents are wholly owned by generation. */
-const GENERATED_ROOTS = ["plugins", "catalog", ".claude-plugin"] as const;
+/** Directories whose contents are wholly owned by generation. (.skillsmith
+ * itself is NOT listed: eval-results.json in it is source, not artifact.) */
+const GENERATED_ROOTS = ["plugins", "catalog", ".claude-plugin", ".skillsmith/schemas"] as const;
 
 const posix = (p: string) => p.split(sep).join("/");
 

@@ -11,6 +11,7 @@ import { statSync } from "node:fs";
 import type { DiscoveredSkill, DiscoveryResult } from "./discovery.ts";
 import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
 import { validateEvalsFile } from "./schemas/evals.ts";
+import { validateHooksFile } from "./schemas/hooks.ts";
 import { validateComposition, type CompositionEdge } from "./composition.ts";
 import { LIMITS } from "./constants.ts";
 import { type Diagnostic, error, warning } from "./diagnostics.ts";
@@ -172,10 +173,18 @@ export async function validateSkill(
     });
   }
 
-  // S4 also applies to the body and references.
+  // S4 also applies to the body and to reference files (they ship too).
   for (const [pattern, label] of SECRET_PATTERNS) {
     if (pattern.test(skill.body)) {
       diagnostics.push(error("S4", at, `possible ${label} in SKILL.md body`));
+    }
+  }
+  for (const ref of referenceFiles) {
+    const text = await Bun.file(join(skill.dir, ref)).text();
+    for (const [pattern, label] of SECRET_PATTERNS) {
+      if (pattern.test(text)) {
+        diagnostics.push(error("S4", `${at} → ${ref}`, `possible ${label} in shipped file`));
+      }
     }
   }
 
@@ -255,6 +264,15 @@ export async function validateAll(
     const result = await validateSkill(skill, config);
     diagnostics.push(...result.diagnostics);
     inventories.set(skill.name, result.inventory);
+  }
+  // Hook sets: schema + S3 over the file contents (discovery reads them raw).
+  for (const hookSet of discovery.hookSets) {
+    try {
+      const raw = JSON.parse(hookSet.content);
+      diagnostics.push(...validateHooksFile(raw, { path: hookSet.path }).diagnostics);
+    } catch (e) {
+      diagnostics.push(error("SCHEMA", hookSet.path, `invalid JSON: ${String(e)}`));
+    }
   }
   const composition = validateComposition(discovery, config);
   diagnostics.push(...composition.diagnostics);

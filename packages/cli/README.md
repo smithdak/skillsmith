@@ -21,7 +21,7 @@ Scaffold a `skill | agent | hook | mcp | plugin`. Skills start in `skills/drafts
 Flags: `--category`, `--description`.
 
 ### `skillsmith validate`
-Run schema + quality (V1–V14) + security (S1–S7) tiers over the skill and agent sources plus the config. (Hook and MCP file contents are not yet content-validated by any command.) See the [rule reference](../core/README.md#rule-reference).
+Run schema + quality (V1–V14) + security (S1–S7) tiers over the skill, agent, and hook sources plus the config. (MCP file contents are checked at generate-time merge only.) See the [rule reference](../core/README.md#rule-reference).
 Flags: `--tier all|schema|quality|security`.
 
 ```
@@ -30,7 +30,7 @@ skillsmith validate: 0 error(s), 0 warning(s) [tier=all, profile=claude-code]
 ```
 
 ### `skillsmith generate`
-Emit the derived artifacts — `plugins/`, `.claude-plugin/marketplace.json`, `catalog/CATALOG.md` — from sources. Output is deterministic byte-for-byte. `--dry-run` prints the plan without writing. (The editor JSON Schemas in `.skillsmith/schemas/` are written by `init`, not `generate`.)
+Emit the derived artifacts — `plugins/`, `.claude-plugin/marketplace.json`, `catalog/CATALOG.md`, `.skillsmith/schemas/` — from sources. Output is deterministic byte-for-byte. `--dry-run` prints the plan without writing.
 
 ### `skillsmith check`
 The CI drift gate: fails (exit 1) if any committed artifact differs from what `generate` would write right now, reporting each file as modified, stale, or missing.

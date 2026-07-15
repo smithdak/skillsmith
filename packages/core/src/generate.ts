@@ -17,6 +17,7 @@ import type { Marketplace } from "./schemas/marketplace.ts";
 import { validatePluginManifest } from "./schemas/plugin-manifest.ts";
 import { validateMarketplace } from "./schemas/marketplace.ts";
 import { renderCatalog } from "./catalog.ts";
+import { generateJsonSchemas } from "./schemas/json-schemas.ts";
 import type { ScriptInventoryEntry } from "./validate.ts";
 import type { EvalResultsFile } from "./eval.ts";
 import type { CompositionEdge } from "./composition.ts";
@@ -258,6 +259,11 @@ export function buildPlan(
     "catalog/CATALOG.md",
     renderCatalog(shippedSkills, discovery, config, opts?.inventories, opts?.evalResults, opts?.edges),
   );
+
+  // --- editor JSON Schemas (from the zod layer; drift-guarded like any artifact) ---
+  for (const [name, schema] of Object.entries(generateJsonSchemas())) {
+    files.set(`.skillsmith/schemas/${name}`, canonicalJson(schema));
+  }
 
   return { files, copies, diagnostics };
 }

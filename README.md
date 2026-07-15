@@ -102,7 +102,7 @@ docs/                deep documentation: architecture, authoring, rules, evals, 
 plugins/             GENERATED installable plugins
 .claude-plugin/      GENERATED marketplace.json
 catalog/             GENERATED human-readable catalog with script inventory
-.skillsmith/         editor JSON Schemas (written by init) + committed eval results (source)
+.skillsmith/         schemas/ GENERATED (editor tooling) + committed eval results (source)
 ```
 
 ## License

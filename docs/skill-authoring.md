@@ -186,9 +186,8 @@ Skills are the mature path; the other source types assemble the same way
   `mcpServers`, or `permissionMode` (V9, privilege-escalation guard), and
   Cowork-bound agents should stick to `model: inherit` and the proven
   toolsets ([schema](../packages/core/src/schemas/agent-frontmatter.ts)).
-- **Hooks** (`hooks/<set>/hooks.json`) — one set per plugin in v0.1; command
-  handlers carry a declared-intent comment (S3 — the [schema](../packages/core/src/schemas/hooks.ts)
-  exists but is not yet run by any command; expect the wiring to land with
-  the first shipped hook set).
+- **Hooks** (`hooks/<set>/hooks.json`) — one set per plugin in v0.1; every
+  command handler declares its intent in a `comment` field (S3);
+  [schema](../packages/core/src/schemas/hooks.ts), enforced by `validate`.
 - **MCP servers** (`mcp/<name>.mcp.json`) — merged per plugin into one
   `.mcp.json`; duplicate server keys are errors.
