@@ -23,8 +23,8 @@ agents = ["falsification-reviewer"]
 [[plugin]]
 name = "engineering-core"
 version = "0.1.0"
-description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards"
-skills = ["architecture-spec", "codebase-survey", "discovery-map", "feature-spec", "wizard"]
+description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the doc-visuals rendering discipline they compose"
+skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "wizard"]
 
 [[plugin]]
 name = "code-craft"

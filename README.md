@@ -17,7 +17,7 @@ Browse everything first in [catalog/CATALOG.md](catalog/CATALOG.md) — includin
 
 | Plugin | Skills | Focus |
 |---|---|---|
-| **engineering-core** | `architecture-spec` · `codebase-survey` · `discovery-map` · `feature-spec` · `wizard` | Workflow orchestrators: specs, repo surveys, discovery planning, guided setup wizards |
+| **engineering-core** | `architecture-spec` · `codebase-survey` · `discovery-map` · `doc-visuals` · `feature-spec` · `wizard` | Workflow orchestrators (specs, repo surveys, discovery planning, setup wizards) plus the doc-visuals rendering discipline they compose |
 | **code-craft** | `deep-modules` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design |
 | **epistemics** | `falsification-review` · `ground-truth-research` · `research-note` + the `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source fact verification, durable research notes |
 | **productivity-tools** | `cold-read` · `define-work-items` · `handoff` · `issue-triage` | Work discipline: self-sufficient documents, testable work items, structured handoffs, issue triage |
@@ -86,24 +86,29 @@ The rules that bite most often: the description is the **trigger surface** (what
 
 ## Repository map
 
+```text
+skills/            skill sources — one folder per skill
+  engineering/     11 skills: specs, surveys, review disciplines, tdd, wizard
+  productivity/    4 skills: cold-read, define-work-items, handoff, issue-triage
+  drafts/          lenient staging area — schema checks only, never generated
+  misc/            empty category slot
+agents/            agent sources (falsification-reviewer.md)
+hooks/             empty source slot
+mcp/               empty source slot
+commands/          empty source slot
+skillsmith.toml    plugin groupings + policy — the assembly manifest
+packages/
+  core/            @skillsmith/core — the whole pipeline, and its test suite
+  cli/             skillsmith CLI — thin citty wrapper over core
+docs/              architecture, authoring, validation rules, evals, config
+plugins/           GENERATED installable plugins
+.claude-plugin/    GENERATED marketplace.json
+catalog/           GENERATED catalog with per-script inventory
+.skillsmith/       schemas/ GENERATED + eval-results.json (committed source)
 ```
-skills/              skill sources, one folder per skill (SKILL.md + evals/ + scripts/ + references/)
-  engineering/         architecture-spec, codebase-survey, deep-modules, discovery-map,
-                       falsification-review, feature-spec, ground-truth-research,
-                       research-note, tdd, wizard
-  productivity/        cold-read, define-work-items, handoff, issue-triage
-  misc/  drafts/       empty; drafts/ is the lenient staging area
-agents/              agent sources (falsification-reviewer.md)
-hooks/ mcp/ commands/  source slots, currently empty
-skillsmith.toml      plugin groupings + policy — the assembly manifest
-packages/core/       @skillsmith/core — discovery → validate → generate → check → eval
-packages/cli/        skillsmith CLI — thin citty wrapper over core
-docs/                deep documentation: architecture, authoring, rules, evals, config
-plugins/             GENERATED installable plugins
-.claude-plugin/      GENERATED marketplace.json
-catalog/             GENERATED human-readable catalog with script inventory
-.skillsmith/         schemas/ GENERATED (editor tooling) + committed eval results (source)
-```
+
+Each skill folder holds `SKILL.md` plus optional `evals/`, `scripts/`, and
+`references/` — anatomy in [docs/skill-authoring.md](docs/skill-authoring.md).
 
 ## License
 

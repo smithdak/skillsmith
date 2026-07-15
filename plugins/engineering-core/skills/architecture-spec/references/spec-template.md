@@ -32,7 +32,9 @@ hand-edited"), not aspirations ("the system is maintainable").
 
 **Structure/taxonomy** — directory trees, module boundaries, naming rules.
 State the *rules* that generate the structure, not only the snapshot, so
-additions don't require re-deriving intent. Separate one-axis concerns:
+additions don't require re-deriving intent. Trees and diagrams here follow
+the doc-visuals discipline: derived from the real tree, one aligned
+annotation column, generated territory marked. Separate one-axis concerns:
 domain vs lifecycle, category vs maturity — mixing axes in one hierarchy
 forces file moves when state changes.
 
