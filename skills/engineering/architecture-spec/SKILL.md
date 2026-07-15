@@ -9,7 +9,7 @@ description: >-
   architectural concepts or reviewing an existing document.
 license: MIT
 metadata:
-  skillsmith-composes: "falsification-review"
+  skillsmith-composes: "doc-visuals, falsification-review"
   skillsmith-invocation: "user"
   skillsmith-maturity: "stable"
 user-invocable: true
@@ -47,6 +47,10 @@ in order of leverage:
 4. **Kill/pivot triggers** — the observable conditions under which the
    architecture is wrong, stated before building. Deciding these in
    advance is cheap; deciding them mid-crisis is not.
+
+Directory trees, pipeline diagrams, and interface examples carry the
+spec's most-trusted claims — render them with the doc-visuals
+discipline so they stay legible and verifiable against the code.
 
 ## Work by revision
 

@@ -32,6 +32,11 @@
       "cases": 8,
       "failing": 0
     },
+    "doc-visuals": {
+      "hitRate": 1,
+      "cases": 9,
+      "failing": 0
+    },
     "falsification-review": {
       "hitRate": 1,
       "cases": 8,
@@ -43,9 +48,9 @@
       "failing": 0
     },
     "ground-truth-research": {
-      "hitRate": 1,
+      "hitRate": 0.875,
       "cases": 8,
-      "failing": 0
+      "failing": 1
     },
     "handoff": {
       "hitRate": 1,

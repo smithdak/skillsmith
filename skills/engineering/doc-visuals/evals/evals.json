@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "the repository map in our README is really hard to read — fix it" },
+    { "prompt": "add a mermaid diagram of the request flow to the architecture doc" },
+    { "prompt": "this README is a wall of text, give it a proper directory tree and make it scannable" },
+    { "prompt": "clean up the code examples in this guide, the commands and output are all jumbled together" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "check this handoff doc will make sense without me", "note": "self-sufficiency pass, not visual formatting" },
+    { "prompt": "survey this codebase for me", "note": "repo orientation, not document rendering" },
+    { "prompt": "explain what this sequence diagram is showing", "note": "comprehension of an existing diagram, not production" },
+    { "prompt": "design a logo and color palette for the project", "note": "graphic design, not document structure" },
+    { "prompt": "fix the typos and grammar in CONTRIBUTING.md", "note": "prose editing is out of scope" }
+  ]
+}

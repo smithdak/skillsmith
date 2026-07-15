@@ -9,6 +9,7 @@ description: >-
   function, finding a specific bug, or reviewing a change.
 license: MIT
 metadata:
+  skillsmith-composes: "doc-visuals"
   skillsmith-invocation: "user"
   skillsmith-maturity: "stable"
 user-invocable: true
@@ -57,6 +58,9 @@ roughly 50k lines.
 ## Phase 3 — synthesis
 
 Assemble the survey using the template in references/survey-guide.md.
+Render the visual elements — the Shape section's repository map, any
+diagram, every command example — with the doc-visuals discipline; a
+survey is navigation, and navigation that doesn't scan is noise.
 Ordering rule: purpose and stack first, unknowns last — and the unknowns
 section is mandatory. A survey that reports no unknowns after an hour in a
 foreign codebase is reporting confidence, not knowledge.

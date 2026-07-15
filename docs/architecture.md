@@ -37,13 +37,32 @@ flowchart LR
     E --> R[".skillsmith/eval-results.json<br/>(SOURCE, committed)"] --> G
 ```
 
-| Stage | Module | Contract |
-|---|---|---|
-| 1. Discover | [`discovery.ts`](../packages/core/src/discovery.ts) | The **only** module that scans the filesystem for reads. Globs `skills/*/*/SKILL.md`, `agents/**/*.md`, `hooks/*/hooks.json`, `mcp/*.mcp.json`; skill and agent frontmatter is schema-validated at parse time; hook and MCP file contents are read raw here and validated downstream (hooks in stage 2, MCP at generate-time merge); returns sorted `DiscoveryResult`. |
-| 2. Validate | [`validate.ts`](../packages/core/src/validate.ts) + [`composition.ts`](../packages/core/src/composition.ts) | Quality (V) and security (S) rules that need file *contents* — bodies, scripts, references, evals, hook sets. Also produces two artifacts consumed downstream: the per-skill **script inventory** (path, interpreter, network flag, SHA-256) and the declared **composition edges**. |
-| 3. Generate | [`generate.ts`](../packages/core/src/generate.ts) | Pure function `(DiscoveryResult, SkillsmithConfig) → GeneratePlan` — a map of repo-relative path → content plus a source→dest copy list. No I/O; `writePlan()` applies it to disk. |
-| 4. Check | [`check.ts`](../packages/core/src/check.ts) | Diffs the plan against the working tree. Three drift classes: **missing** (plan owns a path that doesn't exist), **modified** (bytes differ), **stale** (a file inside generated territory — `plugins/`, `catalog/`, `.claude-plugin/`, `.skillsmith/schemas/` — the plan no longer owns). No behavior-altering flags by design (`--cwd`/`--json` only). |
-| 5. Eval | [`eval.ts`](../packages/core/src/eval.ts) | LLM-judge trigger evals — the one intentionally non-deterministic stage. See [Evals](evals.md). |
+1. **Discover** — [`discovery.ts`](../packages/core/src/discovery.ts) is the
+   **only** module that scans the filesystem for reads. It globs
+   `skills/*/*/SKILL.md`, `agents/**/*.md`, `hooks/*/hooks.json`,
+   `mcp/*.mcp.json`; skill and agent frontmatter is schema-validated at parse
+   time; hook and MCP file contents are read raw here and validated
+   downstream (hooks in stage 2, MCP at generate-time merge). Returns a
+   sorted `DiscoveryResult`.
+2. **Validate** — [`validate.ts`](../packages/core/src/validate.ts) +
+   [`composition.ts`](../packages/core/src/composition.ts) run the quality
+   (V) and security (S) rules that need file *contents* — bodies, scripts,
+   references, evals, hook sets. Also produces two artifacts consumed
+   downstream: the per-skill **script inventory** (path, interpreter,
+   network flag, SHA-256) and the declared **composition edges**.
+3. **Generate** — [`generate.ts`](../packages/core/src/generate.ts) is a pure
+   function `(DiscoveryResult, SkillsmithConfig) → GeneratePlan` — a map of
+   repo-relative path → content plus a source→dest copy list. No I/O;
+   `writePlan()` applies it to disk.
+4. **Check** — [`check.ts`](../packages/core/src/check.ts) diffs the plan
+   against the working tree. Three drift classes: **missing** (plan owns a
+   path that doesn't exist), **modified** (bytes differ), **stale** (a file
+   inside generated territory — `plugins/`, `catalog/`, `.claude-plugin/`,
+   `.skillsmith/schemas/` — the plan no longer owns). No behavior-altering
+   flags by design (`--cwd`/`--json` only).
+5. **Eval** — [`eval.ts`](../packages/core/src/eval.ts) runs LLM-judge
+   trigger evals — the one intentionally non-deterministic stage. See
+   [Evals](evals.md).
 
 Supporting modules: [`catalog.ts`](../packages/core/src/catalog.ts) renders
 `CATALOG.md` from plan inputs; [`scaffold.ts`](../packages/core/src/scaffold.ts)

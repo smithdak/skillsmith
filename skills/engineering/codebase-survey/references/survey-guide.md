@@ -36,7 +36,8 @@ percentile in size. High churn + high size + low tests = flag it.
 <what this is, in one paragraph; languages/frameworks from manifests>
 
 ## Shape
-<inventory.sh highlights: size, structure, notable imbalances>
+<inventory.sh highlights: size, structure, notable imbalances; render any
+directory tree per doc-visuals: one entry per line, aligned annotations>
 
 ## Entry points
 - <path> — <what it starts> — <invoked by>
