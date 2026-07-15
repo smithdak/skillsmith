@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "let's build the coupon validation feature test-first" },
+    { "prompt": "TDD this bugfix — failing test first, then the fix" },
+    { "prompt": "red-green-refactor the new rate limiter with me" },
+    { "prompt": "write a failing test for the parser bug before touching any code" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "run the test suite and tell me what's failing", "note": "running tests, not driving development with them" },
+    { "prompt": "add unit tests for the existing auth module", "note": "retrofitting tests onto shipped code, not test-first" },
+    { "prompt": "why does this vitest mock keep returning undefined?", "note": "debugging a broken test, not the loop" },
+    { "prompt": "refactor this function to be more readable", "note": "refactoring under green is its own activity, not TDD" }
+  ]
+}

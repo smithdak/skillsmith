@@ -1,0 +1,76 @@
+{
+  "judgeModel": "claude-sonnet-4-6",
+  "runDate": "2026-07-15",
+  "skills": {
+    "architecture-spec": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "codebase-survey": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "cold-read": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "deep-modules": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "define-work-items": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "discovery-map": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "falsification-review": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "feature-spec": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "ground-truth-research": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "handoff": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "issue-triage": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "research-note": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "tdd": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    },
+    "wizard": {
+      "hitRate": 1,
+      "cases": 8,
+      "failing": 0
+    }
+  }
+}

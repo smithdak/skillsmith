@@ -5,6 +5,11 @@
   },
   "plugins": [
     {
+      "name": "code-craft",
+      "source": "./plugins/code-craft",
+      "description": "Implementation discipline: test-driven red-green loops and deep-module interface design"
+    },
+    {
       "name": "engineering-core",
       "source": "./plugins/engineering-core",
       "description": "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards"
@@ -12,12 +17,12 @@
     {
       "name": "epistemics",
       "source": "./plugins/epistemics",
-      "description": "Judgment discipline: falsification passes, adversarial review, crux identification"
+      "description": "Judgment discipline: falsification passes, adversarial review, crux identification, durable research"
     },
     {
       "name": "productivity-tools",
       "source": "./plugins/productivity-tools",
-      "description": "Work discipline: handoffs, transitions, work-item definition"
+      "description": "Work discipline: handoffs, transitions, work-item definition, issue triage"
     }
   ]
 }

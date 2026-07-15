@@ -10,21 +10,27 @@ allowed = ["engineering", "productivity", "misc"]
 [[plugin]]
 name = "productivity-tools"
 version = "0.1.0"
-description = "Work discipline: handoffs, transitions, work-item definition"
-skills = ["cold-read", "define-work-items", "handoff"]
+description = "Work discipline: handoffs, transitions, work-item definition, issue triage"
+skills = ["cold-read", "define-work-items", "handoff", "issue-triage"]
 
 [[plugin]]
 name = "epistemics"
 version = "0.1.0"
-description = "Judgment discipline: falsification passes, adversarial review, crux identification"
-skills = ["falsification-review", "ground-truth-research"]
+description = "Judgment discipline: falsification passes, adversarial review, crux identification, durable research"
+skills = ["falsification-review", "ground-truth-research", "research-note"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "engineering-core"
 version = "0.1.0"
 description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards"
-skills = ["architecture-spec", "codebase-survey", "discovery-map", "wizard"]
+skills = ["architecture-spec", "codebase-survey", "discovery-map", "feature-spec", "wizard"]
+
+[[plugin]]
+name = "code-craft"
+version = "0.1.0"
+description = "Implementation discipline: test-driven red-green loops and deep-module interface design"
+skills = ["deep-modules", "tdd"]
 
 [policy]
 "max-skill-body-tokens" = 5000
@@ -38,4 +44,6 @@ skills = ["architecture-spec", "codebase-survey", "discovery-map", "wizard"]
   "discovery-map->define-work-items",
   "discovery-map->falsification-review",
   "discovery-map->ground-truth-research",
+  "feature-spec->cold-read",
+  "feature-spec->deep-modules",
 ]

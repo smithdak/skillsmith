@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "triage the open issues and tell me what needs my attention" },
+    { "prompt": "let's look at issue #128" },
+    { "prompt": "move #42 to ready-for-agent and write the brief" },
+    { "prompt": "anything in the backlog still waiting on my input?" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "fix the bug reported in #57", "note": "implementation, not triage" },
+    { "prompt": "write a ticket for the caching bug we just found", "note": "authoring a new work item, not routing an existing one" },
+    { "prompt": "review PR #12 for code quality", "note": "code review, not triage" },
+    { "prompt": "which features should we prioritize this quarter?", "note": "roadmap strategy, outside the state machine" }
+  ]
+}
