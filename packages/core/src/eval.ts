@@ -242,7 +242,12 @@ export function anthropicJudge(opts: {
         await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
         continue;
       }
-      if (!res.ok) throw new Error(`judge API ${res.status}: ${await res.text()}`);
+      if (!res.ok) {
+        const body = await res.text();
+        throw new Error(
+          `judge API ${res.status} (request-id: ${res.headers.get("request-id") ?? "none"}): ${body || "<empty body>"}`,
+        );
+      }
       const data = (await res.json()) as { content?: { type: string; text?: string }[] };
       const text = (data.content ?? [])
         .filter((b) => b.type === "text")

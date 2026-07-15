@@ -89,10 +89,16 @@ needs scrolls away. Don't touch the library above the marker.
 ## 4 — Verify and hand off
 
 - `bash -n <script>`; run `shellcheck` if available; `chmod +x <script>`.
+  On Windows the chmod does not persist — set the bit in git instead
+  (`git update-index --chmod=+x <script>`) if the wizard is committed,
+  or Linux checkouts get a non-executable script.
 - Don't run it end-to-end — it opens browsers and blocks on human input.
   Trace it statically instead: every value from step 1 is captured and
   lands where step 1 said, and every `set_secret` name exactly matches a
   `secrets.*` reference in CI.
-- Tell the user how to run it. If it's a repeatable setup path, commit
-  it and link it from the README so the next person runs the script
-  instead of asking an AI.
+- Tell the user how to run it. For Windows users, name Git Bash
+  explicitly — `& "C:\Program Files\Git\bin\bash.exe" <script>` from
+  PowerShell — because a bare `bash` resolves to the WSL shim on most
+  machines and dies with an execvpe error. If it's a repeatable setup
+  path, commit it and link it from the README so the next person runs
+  the script instead of asking an AI.
