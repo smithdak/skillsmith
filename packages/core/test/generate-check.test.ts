@@ -158,6 +158,11 @@ describe("generate + check end-to-end", () => {
 
     const mcp = JSON.parse(plan.files.get("plugins/review-tools/.mcp.json")!);
     expect(mcp.mcpServers["issue-store"].command).toBe("node");
+
+    // Editor JSON Schemas are plan-owned (and therefore drift-guarded).
+    for (const name of ["evals", "hooks", "plugin", "marketplace", "skill-frontmatter", "skillsmith-config"]) {
+      expect(plan.files.has(`.skillsmith/schemas/${name}.schema.json`)).toBe(true);
+    }
   });
 
   test("generate is deterministic (two plans, identical bytes)", async () => {

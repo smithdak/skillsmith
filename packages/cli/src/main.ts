@@ -4,7 +4,7 @@
  * load config, call core, render diagnostics, exit-code semantics.
  */
 import { defineCommand, runMain } from "citty";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import {
   discover,
   buildPlan,
@@ -81,10 +81,13 @@ const generateCmd = defineCommand({
   meta: { name: "generate", description: "Emit all derived artifacts (plugins/, marketplace.json, catalog/) from sources" },
   args: { ...sharedArgs, "dry-run": { type: "boolean", description: "print the plan without writing", default: false } },
   async run({ args }) {
-    const repoRoot = join(process.cwd(), args.cwd);
+    const repoRoot = resolve(process.cwd(), args.cwd);
     const profile = args.profile as Profile;
     const config = await loadConfig(repoRoot);
-    const discovery = await discover(repoRoot, { allowedCategories: config.categories.allowed });
+    const discovery = await discover(repoRoot, {
+      allowedCategories: config.categories.allowed,
+      listingCharCap: config.policy["max-listing-chars"],
+    });
     const { inventories, edges } = await validateAll(discovery, config);
     const evalResults = await loadEvalResults(repoRoot);
     const plan = buildPlan(discovery, config, { inventories, evalResults, edges });
@@ -107,9 +110,12 @@ const checkCmd = defineCommand({
   meta: { name: "check", description: "CI drift gate: fail if committed artifacts differ from what generate would write" },
   args: { cwd: sharedArgs.cwd, json: sharedArgs.json },
   async run({ args }) {
-    const repoRoot = join(process.cwd(), args.cwd);
+    const repoRoot = resolve(process.cwd(), args.cwd);
     const config = await loadConfig(repoRoot);
-    const discovery = await discover(repoRoot, { allowedCategories: config.categories.allowed });
+    const discovery = await discover(repoRoot, {
+      allowedCategories: config.categories.allowed,
+      listingCharCap: config.policy["max-listing-chars"],
+    });
     const { inventories, edges } = await validateAll(discovery, config);
     const evalResults = await loadEvalResults(repoRoot);
     const plan = buildPlan(discovery, config, { inventories, evalResults, edges });
@@ -145,10 +151,13 @@ const validateCmd = defineCommand({
     },
   },
   async run({ args }) {
-    const repoRoot = join(process.cwd(), args.cwd);
+    const repoRoot = resolve(process.cwd(), args.cwd);
     const profile = args.profile as Profile;
     const config = await loadConfig(repoRoot);
-    const discovery = await discover(repoRoot, { allowedCategories: config.categories.allowed });
+    const discovery = await discover(repoRoot, {
+      allowedCategories: config.categories.allowed,
+      listingCharCap: config.policy["max-listing-chars"],
+    });
     const { diagnostics } = await validateAll(discovery, config);
 
     const tierOf = (rule: string) =>
@@ -178,7 +187,7 @@ const initCmd = defineCommand({
     categories: { type: "string" as const, description: "comma-separated domain categories", default: "engineering,productivity,misc" },
   },
   async run({ args }) {
-    const repoRoot = join(process.cwd(), args.cwd);
+    const repoRoot = resolve(process.cwd(), args.cwd);
     const owner = args.owner || process.env.USER || "owner";
     const files = buildInitFiles({
       marketplaceName: args.name,
@@ -203,7 +212,7 @@ const scaffoldCmd = defineCommand({
     description: { type: "string" as const, description: "(plugin) description", default: "" },
   },
   async run({ args }) {
-    const repoRoot = join(process.cwd(), args.cwd);
+    const repoRoot = resolve(process.cwd(), args.cwd);
     const name = args.name as string;
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(name)) {
       console.error(`skillsmith scaffold: "${name}" is not kebab-case`);
@@ -264,7 +273,7 @@ const evalCmd = defineCommand({
     concurrency: { type: "string" as const, description: "parallel judge calls", default: "4" },
   },
   async run({ args }) {
-    const repoRoot = join(process.cwd(), args.cwd);
+    const repoRoot = resolve(process.cwd(), args.cwd);
     const profile = args.profile as Profile;
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
@@ -272,7 +281,10 @@ const evalCmd = defineCommand({
       process.exit(2);
     }
     const config = await loadConfig(repoRoot);
-    const discovery = await discover(repoRoot, { allowedCategories: config.categories.allowed });
+    const discovery = await discover(repoRoot, {
+      allowedCategories: config.categories.allowed,
+      listingCharCap: config.policy["max-listing-chars"],
+    });
     const report = await runTriggerEvals(discovery, config, {
       judge: anthropicJudge({ apiKey, model: args.model }),
       judgeModel: args.model,

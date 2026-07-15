@@ -60,8 +60,8 @@ One line per rule; the fix-oriented deep reference is [docs/validation-rules.md]
 |---|---|
 | S1 | Every shipped script is inventoried: path, interpreter, network flag, SHA-256 (surfaced in the catalog) |
 | S2 | Network-touching scripts must be in `[policy]."network-allowlist"` |
-| S3 | Hook command handlers must declare intent via an adjacent comment *(schema check exists; not yet wired into any command)* |
-| S4 | Secrets patterns (private keys, AWS keys, GitHub PATs, Anthropic API keys) fail in scripts and the SKILL.md body |
+| S3 | Hook command handlers must declare intent via a `comment` field on the handler |
+| S4 | Secrets patterns (private keys, AWS keys, GitHub PATs, Anthropic API keys) fail in scripts, the SKILL.md body, and references |
 | S5 | External marketplace sources must be sha-pinned (supply-chain) — emitted by `generate`, not `validate` |
 | S6 | *(unassigned)* |
 | S7 | Dependency manifests inside `scripts/` trigger an audit warning |

@@ -162,6 +162,13 @@
           "items": {
             "type": "string"
           }
+        },
+        "composition-allowlist": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -169,7 +176,8 @@
         "max-listing-chars",
         "min-trigger-hit-rate",
         "security-tier",
-        "network-allowlist"
+        "network-allowlist",
+        "composition-allowlist"
       ],
       "additionalProperties": false
     }

@@ -50,24 +50,7 @@ export {
   type SkillsmithConfig,
 } from "./schemas/skillsmith-config.ts";
 
-/**
- * JSON Schema export for editor tooling (`skillsmith init` drops .vscode
- * associations pointing at these).
- */
-import { toJSONSchema } from "zod";
-import { claudeCodeFrontmatterSchema } from "./schemas/claude-code-frontmatter.ts";
-import { pluginManifestSchema } from "./schemas/plugin-manifest.ts";
-import { marketplaceSchema } from "./schemas/marketplace.ts";
-import { skillsmithConfigSchema } from "./schemas/skillsmith-config.ts";
-
-export function generateJsonSchemas(): Record<string, unknown> {
-  return {
-    "skill-frontmatter.schema.json": toJSONSchema(claudeCodeFrontmatterSchema),
-    "plugin.schema.json": toJSONSchema(pluginManifestSchema),
-    "marketplace.schema.json": toJSONSchema(marketplaceSchema),
-    "skillsmith-config.schema.json": toJSONSchema(skillsmithConfigSchema),
-  };
-}
+export { generateJsonSchemas } from "./schemas/json-schemas.ts";
 
 export {
   discover,

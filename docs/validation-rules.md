@@ -55,10 +55,11 @@ forbidden substrings.
 ### V2 — listing projection over 1536 chars
 **Error · claude-code · [`claude-code-frontmatter.ts`](../packages/core/src/schemas/claude-code-frontmatter.ts)**
 
-`description` + `when_to_use` together must fit the 1536-char cap
-(`LIMITS.listingCharCap`) — that is the budget each skill gets in the
-system-prompt listing. **Fix:** cut the description down to trigger-relevant
-content; move explanation into the body.
+`description` + `when_to_use` together must fit the listing cap — the budget
+each skill gets in the system-prompt listing. The cap is
+`[policy]."max-listing-chars"` (default 1536 via `LIMITS.listingCharCap`).
+**Fix:** cut the description down to trigger-relevant content; move
+explanation into the body.
 
 ### V3 — description lacks trigger phrasing
 **Warning · all profiles · [`agent-skills-standard.ts`](../packages/core/src/schemas/agent-skills-standard.ts)**
@@ -193,22 +194,23 @@ listed in `[policy]."network-allowlist"`. **Fix:** remove the network call, or
 add the script path to the allowlist as a conscious, reviewable decision.
 
 ### S3 — hook command handlers must declare intent
-**Warning · all profiles · [`schemas/hooks.ts`](../packages/core/src/schemas/hooks.ts) — not yet wired into any command**
+**Warning · all profiles · [`schemas/hooks.ts`](../packages/core/src/schemas/hooks.ts)**
 
-The schema check exists (every `type: "command"` handler surfaces a warning
-demanding a declared-intent comment adjacent to the hook), but no command
-currently runs `validateHooksFile` over `hooks/` — the source slot is empty
-today, and hook-set contents are copied into plugins unvalidated. Treat S3 as
-the contract the first shipped hook set must meet, and expect the wiring to
-land with it.
+Hooks run arbitrary commands on harness events, so each `type: "command"`
+handler must carry its justification: a non-empty `comment` field on the
+handler (JSON has no comments; the field is the adjacent comment). Hook-set
+contents are validated by `validateAll`, so this — plus unknown-event
+warnings and invalid-JSON errors — surfaces in `validate`, `generate`, and
+`check`. **Fix:** add `"comment": "why this gate exists"` next to the command.
 
 ### S4 — secrets in shipped files
 **Error · all profiles · [`validate.ts`](../packages/core/src/validate.ts)**
 
 Pattern scan for private key blocks, AWS access key ids, GitHub PATs,
 Anthropic API keys, and hardcoded credential assignments — applied to every
-script and to the SKILL.md body. **Fix:** remove the secret and rotate it;
-reference secrets by environment variable name instead.
+script, the SKILL.md body, and every file under `references/` (everything
+that ships). **Fix:** remove the secret and rotate it; reference secrets by
+environment variable name instead.
 
 ### S5 — external marketplace sources must be sha-pinned
 **Error under strict tier (else warning) · [`schemas/marketplace.ts`](../packages/core/src/schemas/marketplace.ts) — emitted by `generate`, not `validate`**

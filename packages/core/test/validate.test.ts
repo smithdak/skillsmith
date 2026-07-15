@@ -201,6 +201,45 @@ describe("validate security tier", () => {
     expect(r.diagnostics.some((d) => d.rule === "S4" && d.severity === "error")).toBe(true);
   });
 
+  test("S4: secret in a reference file errors (references ship too)", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "leaky-ref", {
+      references: { "setup.md": "export the key: AKIAIOSFODNN7EXAMPLE\n" },
+    });
+    const r = await rulesFor(root, config, "leaky-ref");
+    expect(
+      r.diagnostics.some(
+        (d) => d.rule === "S4" && d.severity === "error" && d.path.includes("references/setup.md"),
+      ),
+    ).toBe(true);
+  });
+
+  test("hook sets are validated by validateAll (S3 + invalid JSON)", async () => {
+    const { root, config } = makeRepo();
+    mkdirSync(join(root, "hooks", "no-intent"), { recursive: true });
+    writeFileSync(
+      join(root, "hooks", "no-intent", "hooks.json"),
+      JSON.stringify({
+        PreToolUse: [{ matcher: "Bash", hooks: [{ type: "command", command: "./gate.sh" }] }],
+      }),
+    );
+    mkdirSync(join(root, "hooks", "broken"), { recursive: true });
+    writeFileSync(join(root, "hooks", "broken", "hooks.json"), "{ not json");
+
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const { diagnostics } = await validateAll(d, config);
+    expect(
+      diagnostics.some(
+        (x) => x.rule === "S3" && x.severity === "warning" && x.path.startsWith("hooks/no-intent"),
+      ),
+    ).toBe(true);
+    expect(
+      diagnostics.some(
+        (x) => x.rule === "SCHEMA" && x.severity === "error" && x.path.startsWith("hooks/broken"),
+      ),
+    ).toBe(true);
+  });
+
   test("drafts are exempt from the V/S tiers in validateAll", async () => {
     const { root, config } = makeRepo();
     const dir = join(root, "skills", "drafts", "rough");

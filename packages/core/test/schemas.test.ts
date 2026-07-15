@@ -80,6 +80,14 @@ describe("claude-code-frontmatter (profile-scoped)", () => {
     expect(r.diagnostics.some((d) => d.rule === "V2" && d.severity === "error")).toBe(true);
   });
 
+  test("V2 cap is the policy knob when passed (max-listing-chars)", () => {
+    const fm = { name: "short-one", description: 'Use when "short". ' + "a".repeat(200) };
+    const under = validateClaudeCodeFrontmatter(fm, { path: "p" });
+    expect(under.diagnostics.filter((d) => d.rule === "V2")).toHaveLength(0);
+    const over = validateClaudeCodeFrontmatter(fm, { path: "p", listingCharCap: 100 });
+    expect(over.diagnostics.some((d) => d.rule === "V2" && d.severity === "error")).toBe(true);
+  });
+
   test("exitCode: strict promotes warnings", () => {
     const r = validateClaudeCodeFrontmatter(
       { name: "y-skill", description: 'Use when "y".', frobnicate: 1 },
@@ -145,7 +153,7 @@ describe("marketplace", () => {
 });
 
 describe("hooks", () => {
-  test("known event + command handler parses; S3 intent warning attaches", () => {
+  test("known event + command handler parses; S3 warns without a comment field", () => {
     const r = validateHooksFile(
       {
         PreToolUse: [
@@ -156,6 +164,23 @@ describe("hooks", () => {
     );
     expect(r.value).toBeDefined();
     expect(r.diagnostics.some((d) => d.rule === "S3" && d.severity === "warning")).toBe(true);
+  });
+
+  test("S3 satisfied by a declared-intent comment field", () => {
+    const r = validateHooksFile(
+      {
+        PreToolUse: [
+          {
+            matcher: "Bash",
+            hooks: [
+              { type: "command", command: "./gate.sh", comment: "blocks force-push to main" },
+            ],
+          },
+        ],
+      },
+      { path: "hooks/hooks.json" },
+    );
+    expect(r.diagnostics.filter((d) => d.rule === "S3")).toHaveLength(0);
   });
 
   test("unknown event warns per-profile, never errors", () => {
@@ -262,9 +287,16 @@ describe("skillsmith-config", () => {
 });
 
 describe("json schema export", () => {
-  test("all four schemas convert", () => {
+  test("all six schemas convert", () => {
     const schemas = generateJsonSchemas();
-    expect(Object.keys(schemas)).toHaveLength(4);
+    expect(Object.keys(schemas).sort()).toEqual([
+      "evals.schema.json",
+      "hooks.schema.json",
+      "marketplace.schema.json",
+      "plugin.schema.json",
+      "skill-frontmatter.schema.json",
+      "skillsmith-config.schema.json",
+    ]);
     for (const s of Object.values(schemas)) {
       expect((s as Record<string, unknown>).type ?? (s as Record<string, unknown>).$schema).toBeDefined();
     }

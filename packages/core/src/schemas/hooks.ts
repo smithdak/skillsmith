@@ -20,6 +20,8 @@ export const hookHandlerSchema = z.looseObject({
   command: z.string().optional(),
   /** For type: "prompt" | "agent". */
   prompt: z.string().optional(),
+  /** S3: declared intent for command handlers — JSON's stand-in for an adjacent comment. */
+  comment: z.string().optional(),
   timeout: z.number().int().positive().optional(),
 });
 
@@ -96,14 +98,15 @@ export function validateHooksFile(
             error("SCHEMA", at, `handler type "${handler.type}" requires a prompt`),
           );
         }
-        // S3: command handlers must declare intent (enforced at file level by
-        // the security tier — surfaced here as a warning when command present).
-        if (handler.type === "command" && handler.command) {
+        // S3: command handlers run arbitrary commands on harness events, so
+        // each must carry its justification — a non-empty `comment` field
+        // (JSON has no comments; the field is the adjacent comment).
+        if (handler.type === "command" && handler.command && !handler.comment?.trim()) {
           diagnostics.push(
             warning(
               "S3",
               at,
-              "command handler — security tier requires a declared-intent comment adjacent to this hook",
+              "command handler has no declared intent — add a `comment` field stating why this hook exists",
             ),
           );
         }

@@ -81,7 +81,7 @@ composition edges) are in [`skillsmith.toml`](../skillsmith.toml).
 ```toml
 [policy]
 "max-skill-body-tokens" = 5000       # V4 token ceiling (chars/4 estimate)
-"max-listing-chars" = 1536           # reserved; the V2 cap currently reads LIMITS.listingCharCap
+"max-listing-chars" = 1536           # V2 cap: description + when_to_use listing budget
 "min-trigger-hit-rate" = 0.85        # eval gate: below this → V8 error
 "security-tier" = "strict"           # "strict" | "standard"
 "network-allowlist" = []             # S2: script paths allowed to touch the network
@@ -90,10 +90,10 @@ composition edges) are in [`skillsmith.toml`](../skillsmith.toml).
 
 - **`max-skill-body-tokens`** (default 5000) — V4 fails a SKILL.md body whose
   chars/4 estimate exceeds it. The 500-line cap is fixed alongside it.
-- **`max-listing-chars`** (default 1536) — declared policy for the listing
-  budget. The V2 check currently enforces the constant
-  `LIMITS.listingCharCap` from [`constants.ts`](../packages/core/src/constants.ts)
-  rather than reading this knob, so changing it here does not move the gate today.
+- **`max-listing-chars`** (default 1536, from `LIMITS.listingCharCap` in
+  [`constants.ts`](../packages/core/src/constants.ts)) — the V2 cap on
+  `description` + `when_to_use`, the budget each skill gets in the
+  system-prompt listing.
 - **`min-trigger-hit-rate`** (default 0.85) — after `skillsmith eval`, any
   skill scoring below this emits a V8 error ([evals guide](evals.md)).
 - **`security-tier`** — under `strict`, S2 (undeclared network-touching
