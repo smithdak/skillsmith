@@ -18,7 +18,7 @@ agents = ["cold-reader"]
 name = "epistemics"
 version = "0.1.0"
 description = "Judgment discipline: falsification passes, adversarial review, crux identification, durable research"
-skills = ["falsification-review", "ground-truth-research", "research-note"]
+skills = ["deep-research", "falsification-review", "ground-truth-research", "research-note"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
@@ -32,6 +32,12 @@ name = "code-craft"
 version = "0.1.0"
 description = "Implementation discipline: test-driven red-green loops and deep-module interface design"
 skills = ["deep-modules", "tdd"]
+
+[[plugin]]
+name = "marketing"
+version = "0.1.0"
+description = "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
+skills = ["brand-voice", "content-angles", "content-scorer", "growth-experiments", "outbound-builder", "podcast-repurposer", "seo-brief"]
 
 [policy]
 "max-skill-body-tokens" = 5000

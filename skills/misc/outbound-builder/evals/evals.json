@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "build me a cold email sequence targeting VP of Engineering at Series B startups" },
+    { "prompt": "write cold outreach for our new devtools product — need a 4-touch cadence" },
+    { "prompt": "my cold email reply rate is 0.8%, help me optimize the sequence" },
+    { "prompt": "create an outbound cadence for prospecting mid-market SaaS companies" },
+    { "prompt": "I need a prospecting sequence for HR directors at companies with 200–500 employees" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write an email to our existing customers announcing the new feature", "note": "customer announcement, not cold outreach" },
+    { "prompt": "draft a newsletter for our subscriber list", "note": "newsletter to opt-in list, not cold outreach" },
+    { "prompt": "write a follow-up email to someone I met at a conference who gave me their card", "note": "warm outreach, not cold sequence" },
+    { "prompt": "create an event invitation email for our webinar", "note": "event invite, not prospecting cadence" }
+  ]
+}

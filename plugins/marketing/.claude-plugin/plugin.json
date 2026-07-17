@@ -1,0 +1,13 @@
+{
+  "name": "marketing",
+  "version": "0.1.0",
+  "description": "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

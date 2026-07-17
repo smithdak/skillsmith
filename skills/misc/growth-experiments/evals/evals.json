@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "design an A/B test for our onboarding flow — current activation rate is 34%" },
+    { "prompt": "we ran a test for 2 weeks, variant got 8.4% vs control's 7.1% on 5000 users each — is this significant?" },
+    { "prompt": "how long do I need to run this experiment to get a reliable result?" },
+    { "prompt": "help me set up a proper experiment to test two different pricing page layouts" },
+    { "prompt": "analyze my A/B test: control 320 conversions from 4200 visits, variant 381 from 4150" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "set up event tracking in our analytics so we can measure button clicks", "note": "instrumentation implementation, not experiment design" },
+    { "prompt": "run a user interview session to understand why people are dropping off at checkout", "note": "qualitative usability research, not A/B testing" },
+    { "prompt": "build a multi-armed bandit to automatically allocate traffic to the best variant", "note": "bandit/reinforcement approach, explicitly excluded from this skill" },
+    { "prompt": "what metrics should we track for our SaaS product?", "note": "metrics strategy question, not experiment design" }
+  ]
+}

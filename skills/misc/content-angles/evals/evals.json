@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "what should I write about on the topic of AI in customer support?" },
+    { "prompt": "find me 5 angles for a blog post on developer productivity" },
+    { "prompt": "I want to write about remote work burnout — what's the most differentiated take?" },
+    { "prompt": "help me ideate content around B2B SaaS pricing — everything feels overdone" },
+    { "prompt": "generate topic variants for a piece on technical debt, I don't want to repeat what's already out there" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write a 1500-word blog post about remote work best practices", "note": "writing the piece, not finding angles" },
+    { "prompt": "score my existing article about developer productivity", "note": "quality scoring, not angle research — content-scorer territory" },
+    { "prompt": "research whether remote work actually reduces productivity — cite sources and verify claims", "note": "fact-checked deep research, not content angle ideation" },
+    { "prompt": "what keywords should I target for our developer tools category?", "note": "SEO keyword research, not content angle generation" }
+  ]
+}

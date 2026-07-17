@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "turn this podcast transcript into a blog post and LinkedIn content" },
+    { "prompt": "repurpose this episode — I need a newsletter section and some tweets" },
+    { "prompt": "podcast to blog: here's the transcript from episode 47" },
+    { "prompt": "extract pull quotes and a LinkedIn post from this interview transcript" },
+    { "prompt": "I recorded a 45-minute episode, help me get maximum content distribution from it" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write a script for my next podcast episode about AI in marketing", "note": "writing from scratch, not repurposing existing content" },
+    { "prompt": "transcribe this audio file for me", "note": "transcription task, no content transformation" },
+    { "prompt": "score the quality of this podcast transcript before I publish the blog version", "note": "quality scoring of existing content — content-scorer territory" },
+    { "prompt": "edit this video clip for social media", "note": "video editing guidance, not content repurposing from text" }
+  ]
+}

@@ -20,6 +20,11 @@
       "description": "Judgment discipline: falsification passes, adversarial review, crux identification, durable research"
     },
     {
+      "name": "marketing",
+      "source": "./plugins/marketing",
+      "description": "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
+    },
+    {
       "name": "productivity-tools",
       "source": "./plugins/productivity-tools",
       "description": "Work discipline: handoffs, transitions, work-item definition, issue triage"

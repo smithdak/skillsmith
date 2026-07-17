@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "expert panel this blog post before I publish it" },
+    { "prompt": "score my landing page copy — I want a real panel of critics, not just suggestions" },
+    { "prompt": "rate these two email subject line variants and tell me which wins" },
+    { "prompt": "run this through the panel and give me a quality score" },
+    { "prompt": "quality check my sales page copy, I want it to hit 90 before we launch" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "fix the typos and grammar in this email", "note": "proofreading, not expert-panel scoring" },
+    { "prompt": "does this headline include the right keywords for SEO?", "note": "SEO audit, not quality scoring" },
+    { "prompt": "does this copy match our brand voice guidelines?", "note": "brand consistency check, different discipline" },
+    { "prompt": "rewrite this paragraph to be shorter", "note": "mechanical edit, not scoring" }
+  ]
+}
