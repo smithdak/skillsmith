@@ -15,7 +15,7 @@ Composes: tdd → deep-modules
 
 ## engineering-core
 
-Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the doc-visuals rendering discipline they compose
+Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture and doc-visuals disciplines they compose
 
 | Skill | Category | Invocation | Maturity | Triggering | Description |
 |---|---|---|---|---|---|
@@ -24,6 +24,7 @@ Engineering workflow orchestrators: specs, surveys, decisions, guided setup wiza
 | discovery-map | engineering | user | experimental | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Plans work too large and too foggy for one session as a shared map of investigation tickets, resolved one per session until the route to a named destination is clear. Use this skill when the user wants to "chart a discovery map", "break the unknowns into tickets", plan a large vague effort across sessions, or "work through the next ticket on the map". Not for orienting in existing code, writing a single work item, or scheduling known work. |
 | doc-visuals | engineering | both | experimental | 100% (9/9, claude-sonnet-4-6, 2026-07-15) | Crafts the visual layer of technical documents — repository maps, mermaid diagrams, code blocks, and tables — so structure lands at a glance and every element survives its renderer. Use this skill when producing or revising a document that contains a directory tree, an architecture or flow diagram, command examples, or comparison tables, or when the user says "add a diagram", "the repo map is hard to read", "make this README scannable", or "clean up the formatting in this doc". Not for prose editing, verifying a document is self-contained, or reviewing technical correctness. |
 | feature-spec | engineering | user | experimental | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Synthesizes the current conversation into a build-ready feature spec (a PRD): problem, solution, user stories, implementation and testing decisions, out-of-scope — captured from what was already discussed, never by re-interviewing. Use this skill when the user says "turn this into a spec", "write up what we discussed as a PRD", "capture this thread as a spec", or wants a feature discussion made buildable. Not for system-wide architecture documents and not for eliciting requirements that were never discussed. |
+| information-architecture | engineering | both | experimental | — | Organizes a body of content or a pile of files into a structure a stranger can navigate — deciding what splits into its own file, how pieces nest, what lands up front versus on demand, and how each is named, ordered, and linked. Use this skill when a document or README has grown into one long dump, when a folder or repo has become a flat or "misc"-ridden pile, or when the user says "organize these files", "this doc should be split up", "where should this live", "give this a sensible structure", or "the information architecture is a mess". Not for authoring the visual elements inside a document (see doc-visuals), writing the prose, or reviewing technical correctness. |
 | wizard | engineering | user | experimental | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Generates an interactive bash wizard that walks a human step by step through a manual procedure — third-party service setup, a one-off migration, an A-to-B state transition — opening each URL, capturing values with confirmation gates, and writing .env entries and GitHub Actions secrets. Use this skill when the user says "make me a setup wizard", "write a script that walks me through setting up" a service, or "turn this runbook into an interactive script". Not for fully automatable work (write a plain script), answering setup questions in chat, or unattended CI automation. |
 
 Composes: architecture-spec → doc-visuals; architecture-spec → falsification-review (cross-plugin); codebase-survey → doc-visuals; discovery-map → cold-read (cross-plugin); discovery-map → define-work-items (cross-plugin); discovery-map → falsification-review (cross-plugin); discovery-map → ground-truth-research (cross-plugin); feature-spec → cold-read (cross-plugin); feature-spec → deep-modules (cross-plugin)
@@ -35,6 +36,7 @@ Composes: architecture-spec → doc-visuals; architecture-spec → falsification
 | codebase-survey | scripts/deps.sh | sh | no | `b828a5edd0dd915b…` |
 | codebase-survey | scripts/inventory.sh | sh | no | `86e6dd9cdfb29b17…` |
 | doc-visuals | scripts/repo-map.sh | sh | no | `709829ca72f1042f…` |
+| information-architecture | scripts/inventory.sh | sh | no | `5e593eac1e918185…` |
 | wizard | scripts/template.sh | bash | no | `9f85de3f67a5930f…` |
 
 ## epistemics
