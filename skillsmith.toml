@@ -23,7 +23,7 @@ agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "engineering-core"
-version = "0.1.0"
+version = "0.2.0"
 description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture and doc-visuals disciplines they compose"
 skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "wizard"]
 
