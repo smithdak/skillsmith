@@ -12,7 +12,7 @@
     {
       "name": "engineering-core",
       "source": "./plugins/engineering-core",
-      "description": "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the doc-visuals rendering discipline they compose"
+      "description": "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture and doc-visuals disciplines they compose"
     },
     {
       "name": "epistemics",
