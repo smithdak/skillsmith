@@ -1,0 +1,4 @@
+# Force LF in the working tree for all text files. Generated artifacts embed
+# byte-derived data (script-inventory SHA-256, ordering), so a CRLF smudge on a
+# Windows checkout would diverge from CI (Linux) and flake the drift gate.
+* text=auto eol=lf

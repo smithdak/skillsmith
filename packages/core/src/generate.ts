@@ -240,7 +240,9 @@ export function buildPlan(
       ? { description: config.marketplace.description }
       : {}),
     plugins: [...config.plugin]
-      .sort((a, b) => a.name.localeCompare(b.name))
+      // Codepoint order, not localeCompare: output must be byte-identical
+      // across platforms (CI vs author machine) or the drift gate flakes.
+      .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
       .map((p) => ({
         name: p.name,
         source: `./plugins/${p.name}`,

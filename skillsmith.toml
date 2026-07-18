@@ -39,6 +39,18 @@ version = "0.1.0"
 description = "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
 skills = ["brand-voice", "content-angles", "content-scorer", "growth-experiments", "outbound-builder", "podcast-repurposer", "seo-brief"]
 
+[[plugin]]
+name = "tldraw-canvas"
+version = "0.1.0"
+description = "tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images"
+skills = ["mermaid-to-tldraw", "tldraw-animation", "tldraw-diagram", "tldraw-export"]
+
+[[plugin]]
+name = "secrets-ops"
+version = "0.1.0"
+description = "1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account"
+skills = ["op-github-secrets", "op-secrets"]
+
 [policy]
 "max-skill-body-tokens" = 5000
 "max-listing-chars" = 1536

@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "replace my .env secrets with 1Password op:// references" },
+    { "prompt": "set up op run so this project pulls its API keys from 1Password" },
+    { "prompt": "stop storing plaintext keys in .env, use 1Password instead" },
+    { "prompt": "make my env file safe to commit using 1Password secret references" },
+    { "prompt": "inject secrets from our 1Password vault at runtime instead of hardcoding them" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "push these secrets into GitHub Actions from 1Password", "note": "CI secret sync, belongs to op-github-secrets" },
+    { "prompt": "write a wizard that walks me through getting my Stripe API keys", "note": "interactive capture from a dashboard, belongs to wizard" },
+    { "prompt": "rotate the database password and update it everywhere", "note": "secret rotation ops, not converting to op:// references" },
+    { "prompt": "what's the difference between 1Password and Bitwarden?", "note": "product comparison, not a setup task" }
+  ]
+}

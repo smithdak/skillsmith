@@ -67,6 +67,7 @@ export {
   type GeneratePlan,
 } from "./generate.ts";
 export { checkPlan, type CheckResult, type Drift } from "./check.ts";
+export { versionGuard, pluginSnapshot, type PluginSnapshot } from "./version-guard.ts";
 export { renderCatalog } from "./catalog.ts";
 
 export {

@@ -24,6 +24,7 @@ The CLI (no bin link — run the entry directly from repo root):
 bun packages/cli/src/main.ts validate --strict   # schema + quality (V) + security (S) tiers
 bun packages/cli/src/main.ts generate            # emit plugins/, marketplace.json, catalog/
 bun packages/cli/src/main.ts check               # CI drift gate: committed artifacts == generate output
+bun packages/cli/src/main.ts version-guard --base origin/main   # fail if a plugin's content changed since base without a version bump
 bun packages/cli/src/main.ts scaffold skill <name>   # new skill in skills/drafts/
 bun packages/cli/src/main.ts eval                # trigger-hit-rate evals; needs ANTHROPIC_API_KEY
 ```
@@ -35,6 +36,8 @@ Pre-PR gate (from CONTRIBUTING.md): `validate --strict && generate && check` mus
 **Sources (hand-edited):** `skills/<category>/<name>/`, `agents/`, `hooks/`, `mcp/`, `commands/`, and `skillsmith.toml` (plugin groupings + policy).
 
 **Generated (never hand-edit):** `plugins/`, `.claude-plugin/marketplace.json`, `catalog/CATALOG.md`, `.skillsmith/schemas/`. Fix the source and rerun `generate`; `check` fails CI on any drift.
+
+**Plugin versioning is enforced.** A plugin's `version` in `skillsmith.toml` must be bumped whenever its shipped content changes, or Claude Code cannot pick up the update (installed plugins refresh by version, not content). `version-guard` catches this in CI — it compares each plugin's committed bytes against the base branch and fails if content moved without a bump. It is line-ending-insensitive (the repo is LF-canonical) and exempts brand-new plugins. Logic lives in `packages/core/src/version-guard.ts` (pure comparison); the git IO to read the base ref lives in the CLI command.
 
 `skillsmith.toml` assigns each skill to exactly one `[[plugin]]` grouping and sets `[policy]` knobs (token caps, `min-trigger-hit-rate` 0.85, `composition-allowlist` for skill→skill references). `skills/drafts/` is lenient and excluded from generation; promoting a skill = moving its folder to a domain category (`engineering` | `productivity` | `misc`) and adding it to a plugin in the toml.
 

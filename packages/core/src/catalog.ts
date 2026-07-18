@@ -12,6 +12,12 @@ import type { CompositionEdge } from "./composition.ts";
 
 const esc = (s: string) => s.replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
 
+/** Codepoint order, NOT localeCompare: catalog output must be byte-identical
+ * across platforms or the drift gate fails when CI (Linux ICU) and an author's
+ * machine (e.g. Windows ICU) disagree on locale-aware ordering of hyphenated
+ * names. The rest of the pipeline sorts the same way (plain `.sort()`). */
+const byCodepoint = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+
 export function renderCatalog(
   shipped: { skill: DiscoveredSkill; plugin: string }[],
   discovery: DiscoveryResult,
@@ -36,7 +42,7 @@ export function renderCatalog(
   }
 
   for (const grouping of [...config.plugin].sort((a, b) =>
-    a.name.localeCompare(b.name),
+    byCodepoint(a.name, b.name),
   )) {
     lines.push(`## ${grouping.name}`);
     if (grouping.description) {
@@ -52,7 +58,7 @@ export function renderCatalog(
     );
     lines.push(badges ? "|---|---|---|---|---|---|" : "|---|---|---|---|---|");
     const entries = (byPlugin.get(grouping.name) ?? []).sort((a, b) =>
-      a.skill.name.localeCompare(b.skill.name),
+      byCodepoint(a.skill.name, b.skill.name),
     );
     for (const { skill } of entries) {
       const meta = skill.frontmatter.metadata ?? {};

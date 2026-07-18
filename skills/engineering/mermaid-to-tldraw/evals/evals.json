@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "convert this mermaid flowchart into editable tldraw shapes" },
+    { "prompt": "I have mermaid source, import it into tldraw as real nodes" },
+    { "prompt": "turn my mermaid graph into a tldraw canvas I can rearrange" },
+    { "prompt": "take this ```mermaid``` block and make it a .tldr with movable boxes" },
+    { "prompt": "paste-mermaid-into-tldraw but as a script — mermaid to tldraw shapes" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write a mermaid diagram of the auth sequence", "note": "authoring mermaid text, not converting it" },
+    { "prompt": "make a tldraw diagram of our architecture from this description", "note": "prose to tldraw, belongs to tldraw-diagram" },
+    { "prompt": "render this mermaid to a PNG for my slides", "note": "mermaid to image, not to tldraw shapes" },
+    { "prompt": "my mermaid diagram won't render on GitHub, fix the syntax", "note": "mermaid syntax debugging, not conversion" }
+  ]
+}

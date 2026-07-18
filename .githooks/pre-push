@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Local mirror of the CI version-guard: refuse to push if a plugin's shipped
+# content changed since origin/main without a version bump in skillsmith.toml.
+# Opt in with:  git config core.hooksPath .githooks
+set -euo pipefail
+
+# Best-effort: make sure we have the base branch to compare against.
+git fetch --no-tags --quiet origin main || true
+
+bun packages/cli/src/main.ts version-guard --base origin/main

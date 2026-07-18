@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "animate this tldraw diagram so the boxes slide into place" },
+    { "prompt": "make these tldraw shapes pulse continuously when the file opens" },
+    { "prompt": "add a camera tour that pans through my tldraw board region by region" },
+    { "prompt": "create a tldraw animation loop for the flowing arrow" },
+    { "prompt": "I want the nodes on my tldraw canvas to move with easing, not jump" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "generate a static .tldr of our architecture", "note": "authoring a still canvas, belongs to tldraw-diagram" },
+    { "prompt": "export my tldraw canvas to a png", "note": "still-image export, belongs to tldraw-export" },
+    { "prompt": "add a CSS fade-in animation to my landing page hero", "note": "web/CSS animation, not tldraw" },
+    { "prompt": "render my tldraw animation as an mp4 video", "note": "tldraw has no video export; not what this skill produces" }
+  ]
+}

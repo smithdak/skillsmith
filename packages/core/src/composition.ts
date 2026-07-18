@@ -150,6 +150,9 @@ export function validateComposition(
     }
   }
 
-  edges.sort((a, b) => a.composer.localeCompare(b.composer) || a.target.localeCompare(b.target));
+  // Codepoint order, not localeCompare: edges are rendered into CATALOG.md, so
+  // their order must be byte-identical across platforms (CI vs author machine).
+  const cp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
+  edges.sort((a, b) => cp(a.composer, b.composer) || cp(a.target, b.target));
   return { edges, diagnostics };
 }
