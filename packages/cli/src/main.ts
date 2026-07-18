@@ -4,12 +4,15 @@
  * load config, call core, render diagnostics, exit-code semantics.
  */
 import { defineCommand, runMain } from "citty";
-import { join, resolve } from "node:path";
+import { join, resolve, sep } from "node:path";
 import {
   discover,
   buildPlan,
   writePlan,
   checkPlan,
+  versionGuard,
+  pluginSnapshot,
+  type PluginSnapshot,
   validateAll,
   validateSkillsmithConfig,
   buildInitFiles,
@@ -312,13 +315,98 @@ const evalCmd = defineCommand({
   },
 });
 
+/** Run git, returning stdout on success. Non-orchestration git IO lives here in
+ * the CLI so core stays pure. */
+async function git(cwd: string, ...gitArgs: string[]): Promise<{ ok: boolean; stdout: string }> {
+  const proc = Bun.spawn(["git", ...gitArgs], { cwd, stdout: "pipe", stderr: "ignore" });
+  const stdout = await new Response(proc.stdout).text();
+  const code = await proc.exited;
+  return { ok: code === 0, stdout };
+}
+
+const posixPath = (p: string) => p.split(sep).join("/");
+
+/** First ref that resolves to a commit, so the guard degrades gracefully when
+ * origin/main was never fetched (shallow checkout, fresh clone, local hook). */
+async function resolveBaseRef(cwd: string, preferred: string): Promise<string | undefined> {
+  for (const ref of [preferred, "main", "HEAD"]) {
+    if ((await git(cwd, "rev-parse", "--verify", "--quiet", `${ref}^{commit}`)).ok) return ref;
+  }
+  return undefined;
+}
+
+/** Current committed plugin files, from disk (== committed once `check` is clean). */
+async function currentPluginFiles(repoRoot: string, name: string): Promise<Map<string, string>> {
+  const files = new Map<string, string>();
+  const glob = new Bun.Glob(`plugins/${name}/**/*`);
+  // dot:true — plugin.json lives under the hidden .claude-plugin/ directory.
+  for await (const rel of glob.scan({ cwd: repoRoot, onlyFiles: true, dot: true })) {
+    const path = posixPath(rel);
+    files.set(path, await Bun.file(join(repoRoot, rel)).text());
+  }
+  return files;
+}
+
+/** Baseline plugin files at a git ref (empty map ⇒ plugin didn't exist there). */
+async function baselinePluginFiles(repoRoot: string, ref: string, name: string): Promise<Map<string, string>> {
+  const files = new Map<string, string>();
+  const listed = await git(repoRoot, "ls-tree", "-r", "--name-only", ref, "--", `plugins/${name}`);
+  if (!listed.ok) return files;
+  for (const path of listed.stdout.split("\n").map((l) => l.trim()).filter(Boolean)) {
+    const shown = await git(repoRoot, "show", `${ref}:${path}`);
+    if (shown.ok) files.set(posixPath(path), shown.stdout);
+  }
+  return files;
+}
+
+const versionGuardCmd = defineCommand({
+  meta: {
+    name: "version-guard",
+    description: "Fail if a plugin's shipped content changed since a base ref without a version bump",
+  },
+  args: {
+    cwd: sharedArgs.cwd,
+    json: sharedArgs.json,
+    base: { type: "string" as const, description: "git ref to compare against", default: "origin/main" },
+  },
+  async run({ args }) {
+    const repoRoot = resolve(process.cwd(), args.cwd);
+    const config = await loadConfig(repoRoot);
+
+    const base = await resolveBaseRef(repoRoot, args.base);
+    if (!base) {
+      console.error(`skillsmith version-guard: no baseline ref (tried ${args.base}, main, HEAD) — skipping`);
+      return;
+    }
+
+    const baseline: PluginSnapshot[] = [];
+    const current: PluginSnapshot[] = [];
+    for (const grouping of config.plugin) {
+      const baseFiles = await baselinePluginFiles(repoRoot, base, grouping.name);
+      if (baseFiles.size > 0) baseline.push(pluginSnapshot(grouping.name, baseFiles));
+      current.push(pluginSnapshot(grouping.name, await currentPluginFiles(repoRoot, grouping.name)));
+    }
+
+    const diagnostics = versionGuard(baseline, current);
+    if (args.json) {
+      console.log(JSON.stringify({ base, diagnostics }, null, 2));
+    } else if (diagnostics.length > 0) {
+      printDiagnostics(diagnostics, "claude-code");
+      console.error(`\nskillsmith version-guard: ${diagnostics.length} plugin(s) changed without a version bump (base ${base})`);
+    } else {
+      console.error(`skillsmith version-guard: clean (base ${base})`);
+    }
+    process.exit(diagnostics.length > 0 ? 1 : 0);
+  },
+});
+
 const main = defineCommand({
   meta: {
     name: "skillsmith",
     version: "0.1.0",
     description: `Generate, validate, and drift-check Claude Code skill monorepos (${SCHEMA_TARGET})`,
   },
-  subCommands: { init: initCmd, scaffold: scaffoldCmd, generate: generateCmd, check: checkCmd, validate: validateCmd, eval: evalCmd },
+  subCommands: { init: initCmd, scaffold: scaffoldCmd, generate: generateCmd, check: checkCmd, "version-guard": versionGuardCmd, validate: validateCmd, eval: evalCmd },
 });
 
 runMain(main);

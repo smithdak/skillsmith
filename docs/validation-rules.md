@@ -231,6 +231,34 @@ Reserved; no rule currently emits S6.
 A `package.json` or `requirements.txt` inside a skill's `scripts/` means the
 script bundle pulls third-party code at run time — audit before shipping.
 
+## Plugin versioning (`VERSION`)
+
+### VERSION — plugin content changed without a version bump
+**Error · emitted by `version-guard`, not `validate` · [`version-guard.ts`](../packages/core/src/version-guard.ts)**
+
+Installed plugins are refreshed by **version**, not by content hash — so if a
+plugin's shipped bytes change but its `version` in `skillsmith.toml` stays the
+same, Claude Code silently keeps the old copy. `version-guard` compares each
+plugin's committed content against a base git ref (`--base`, default
+`origin/main`) and fails when content moved without a bump.
+
+It is **not** part of `validate`/`check`, because it needs git history that only
+exists in CI (or a fetched local clone). CI runs it after the drift gate:
+`git fetch origin main && version-guard --base origin/main`. Locally, run the
+same, or install the pre-push hook at [`.githooks/pre-push`](../.githooks/pre-push)
+via `git config core.hooksPath .githooks`.
+
+Behavior worth knowing:
+- **Line-ending-insensitive.** The repo is LF-canonical (`generate` emits LF);
+  the guard normalizes CRLF→LF before hashing, so a Windows autocrlf working
+  tree does not read as "changed."
+- **New plugins are exempt** — there is no baseline version to bump against.
+- **The version field itself is normalized out** of the content hash, so a bump
+  alone never counts as a content change (no chicken-and-egg).
+
+**Fix:** bump the plugin's `version` in `skillsmith.toml`, rerun `generate`, and
+commit.
+
 ## Running the tiers selectively
 
 ```sh
