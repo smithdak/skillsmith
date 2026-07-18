@@ -1,0 +1,13 @@
+{
+  "name": "secrets-ops",
+  "version": "0.1.0",
+  "description": "1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

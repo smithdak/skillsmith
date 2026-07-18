@@ -28,6 +28,16 @@
       "name": "productivity-tools",
       "source": "./plugins/productivity-tools",
       "description": "Work discipline: handoffs, transitions, work-item definition, issue triage"
+    },
+    {
+      "name": "secrets-ops",
+      "source": "./plugins/secrets-ops",
+      "description": "1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account"
+    },
+    {
+      "name": "tldraw-canvas",
+      "source": "./plugins/tldraw-canvas",
+      "description": "tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images"
     }
   ]
 }

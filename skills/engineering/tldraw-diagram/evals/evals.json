@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "make me a tldraw diagram of our checkout flow with boxes and arrows" },
+    { "prompt": "generate a .tldr file I can open and edit in tldraw" },
+    { "prompt": "turn this service architecture into a tldraw whiteboard" },
+    { "prompt": "build an editable canvas of these five microservices and how they talk" },
+    { "prompt": "I want a tldraw document with three frames and connectors, not a picture" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "export my existing tldraw file to a PNG", "note": "rendering to image, belongs to tldraw-export" },
+    { "prompt": "convert this mermaid flowchart into tldraw shapes", "note": "mermaid conversion, belongs to mermaid-to-tldraw" },
+    { "prompt": "write a mermaid sequence diagram for the login flow", "note": "authoring mermaid text, not a tldraw file" },
+    { "prompt": "add a diagram to my README that renders on GitHub", "note": "doc-visuals / mermaid-in-markdown, not a .tldr canvas" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "should_trigger": [
+    { "prompt": "load secrets from 1Password in my GitHub Actions workflow" },
+    { "prompt": "stop pasting API keys into GitHub repo secrets, pull them from 1Password in CI" },
+    { "prompt": "use a 1Password service account token in our deploy workflow" },
+    { "prompt": "wire op:// references into GitHub Actions so CI resolves them at run time" },
+    { "prompt": "set up 1password/load-secrets-action for this repo's pipeline" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "replace my local .env with op:// references and op run", "note": "local runtime injection, belongs to op-secrets" },
+    { "prompt": "add a GitHub Actions secret with the value I'll paste", "note": "storing a plaintext secret, the opposite of this skill" },
+    { "prompt": "write a wizard to walk me through creating a GitHub personal access token", "note": "interactive human setup, belongs to wizard" },
+    { "prompt": "why is my GitHub Actions workflow failing on the test step?", "note": "CI debugging, unrelated to secret loading" }
+  ]
+}
