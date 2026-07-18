@@ -36,7 +36,7 @@ Composes: architecture-spec → doc-visuals; architecture-spec → falsification
 | codebase-survey | scripts/deps.sh | sh | no | `b828a5edd0dd915b…` |
 | codebase-survey | scripts/inventory.sh | sh | no | `86e6dd9cdfb29b17…` |
 | doc-visuals | scripts/repo-map.sh | sh | no | `709829ca72f1042f…` |
-| information-architecture | scripts/inventory.sh | sh | no | `7de1ac4eb1610d64…` |
+| information-architecture | scripts/inventory.sh | sh | no | `5e593eac1e918185…` |
 | wizard | scripts/template.sh | bash | no | `9f85de3f67a5930f…` |
 
 ## epistemics
