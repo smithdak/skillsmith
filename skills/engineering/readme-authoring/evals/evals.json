@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "write a README for this project" },
+    { "prompt": "our README is way out of date — it describes half the features we actually have" },
+    { "prompt": "the front page of the repo doesn't explain what this thing does, can you fix it?" },
+    { "prompt": "improve the readme, it's not doing us any favors on GitHub" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "the directory tree in this doc is hard to read", "note": "visual layer of a document — belongs to doc-visuals" },
+    { "prompt": "our docs folder is a flat pile, where should these files live?", "note": "multi-file organization — information-architecture" },
+    { "prompt": "document every option this CLI accepts", "note": "API/option reference, not a README" },
+    { "prompt": "write the CONTRIBUTING guide for the repo", "note": "a dedicated file the README only links to" }
+  ]
+}

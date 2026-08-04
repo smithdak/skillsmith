@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml)
 [![Bun](https://img.shields.io/badge/Bun-%E2%89%A5%201.3.14-000000?logo=bun&logoColor=white)](https://bun.sh)
-[![Skills](https://img.shields.io/badge/skills-37-brightgreen)](catalog/CATALOG.md)
+[![Skills](https://img.shields.io/badge/skills-38-brightgreen)](catalog/CATALOG.md)
 [![Plugins](https://img.shields.io/badge/plugins-9-blue)](catalog/CATALOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -34,11 +34,11 @@ Skills rot in predictable ways: descriptions that never trigger, bodies that blo
 
 ## Plugins
 
-Nine installable plugins, 37 skills, 2 agents. Install individually — a skill belongs to exactly one plugin.
+Nine installable plugins, 38 skills, 2 agents. Install individually — a skill belongs to exactly one plugin.
 
 | Plugin | Skills | What it's for |
 |---|---|---|
-| **engineering-core** `0.3.0` | `architecture-spec` · `codebase-survey` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `skill-authoring` · `wizard` | Workflow orchestrators — specs, repo surveys, discovery planning, setup wizards — plus the structure and rendering disciplines they compose |
+| **engineering-core** `0.4.0` | `architecture-spec` · `codebase-survey` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `readme-authoring` · `skill-authoring` · `wizard` | Workflow orchestrators — specs, repo surveys, discovery planning, setup wizards — plus the structure, rendering, and authoring disciplines they compose |
 | **epistemics** `0.2.0` | `deep-research` · `falsification-review` · `ground-truth-research` · `research-note` + `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source verification, durable research notes |
 | **security** `0.1.0` | `threat-model` · `security-diff-review` · `hardening-proposal` · `define-security-policy` | Repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals |
 | **productivity-tools** `0.1.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` + `cold-reader` agent | Work discipline: self-sufficient documents, testable work items, structured handoffs |
@@ -126,7 +126,7 @@ The repo also ships a `skill-authoring` skill that encodes this discipline — i
 
 ```text
 skills/                  skill sources — one folder per skill
-  engineering/           26 skills: specs, surveys, review, security, frontend, tldraw, secrets
+  engineering/           27 skills: specs, surveys, review, security, frontend, tldraw, secrets
   misc/                  7 skills: the marketing set
   productivity/          4 skills: cold-read, define-work-items, handoff, issue-triage
   drafts/                lenient staging area — schema checks only, never generated

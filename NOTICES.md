@@ -40,6 +40,26 @@ https://www.apache.org/licenses/LICENSE-2.0 .
 
 ---
 
+## github/awesome-copilot
+
+- Source: https://github.com/github/awesome-copilot
+- License: MIT, Copyright GitHub, Inc.
+- Adapted into: `skills/engineering/readme-authoring/` (from the
+  `create-readme` skill), including its structure reference.
+- Nature of changes: the README guidance (section ordering, the rule that
+  LICENSE/CONTRIBUTING/CHANGELOG belong in dedicated files, GFM and GitHub
+  admonition usage, emoji restraint, conditional logo use) was re-expressed
+  in skillsmith's format and extended with a derive-claims-from-the-repository
+  discipline and a pre-publish accuracy checklist. The original's runtime
+  dependency on fetching four external exemplar READMEs was replaced with an
+  inline structural skeleton.
+
+MIT license terms (permission notice) — the software is provided "as is",
+without warranty; the copyright and permission notice are retained here per
+the license.
+
+---
+
 ## davidondrej/skills
 
 - Source: https://github.com/davidondrej/skills
