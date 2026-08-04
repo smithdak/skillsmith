@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "audit this UI and tell me how to make it look more polished" },
+    { "prompt": "our existing site works but looks dated — improve how it looks without a rewrite" },
+    { "prompt": "clean up this page's design, it feels unfinished" },
+    { "prompt": "do a design pass on our dashboard and upgrade the craft" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "build a brand new landing page for the launch", "note": "greenfield — belongs to frontend-craft" },
+    { "prompt": "review this PR for security vulnerabilities", "note": "security review, not design" },
+    { "prompt": "is this component's state logic correct?", "note": "code correctness, not craft" },
+    { "prompt": "organize these markdown files into a sensible structure", "note": "information architecture, not UI" }
+  ]
+}

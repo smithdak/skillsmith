@@ -1,0 +1,13 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "description": "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, and non-destructively audit and upgrade the craft of an existing interface",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

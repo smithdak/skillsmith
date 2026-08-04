@@ -16,16 +16,16 @@ agents = ["cold-reader"]
 
 [[plugin]]
 name = "epistemics"
-version = "0.1.0"
+version = "0.2.0"
 description = "Judgment discipline: falsification passes, adversarial review, crux identification, durable research"
 skills = ["deep-research", "falsification-review", "ground-truth-research", "research-note"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "engineering-core"
-version = "0.2.0"
-description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture and doc-visuals disciplines they compose"
-skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "wizard"]
+version = "0.3.0"
+description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture, doc-visuals, and skill-authoring disciplines they compose"
+skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "skill-authoring", "wizard"]
 
 [[plugin]]
 name = "code-craft"
@@ -34,8 +34,20 @@ description = "Implementation discipline: test-driven red-green loops and deep-m
 skills = ["deep-modules", "tdd"]
 
 [[plugin]]
-name = "marketing"
+name = "security"
 version = "0.1.0"
+description = "Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring"
+skills = ["define-security-policy", "hardening-proposal", "security-diff-review", "threat-model"]
+
+[[plugin]]
+name = "frontend"
+version = "0.1.0"
+description = "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, and non-destructively audit and upgrade the craft of an existing interface"
+skills = ["frontend-craft", "frontend-redesign"]
+
+[[plugin]]
+name = "marketing"
+version = "0.2.0"
 description = "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
 skills = ["brand-voice", "content-angles", "content-scorer", "growth-experiments", "outbound-builder", "podcast-repurposer", "seo-brief"]
 
@@ -65,4 +77,5 @@ skills = ["op-github-secrets", "op-secrets"]
   "discovery-map->ground-truth-research",
   "feature-spec->cold-read",
   "feature-spec->deep-modules",
+  "hardening-proposal->falsification-review",
 ]

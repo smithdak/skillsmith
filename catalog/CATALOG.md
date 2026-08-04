@@ -15,7 +15,7 @@ Composes: tdd → deep-modules
 
 ## engineering-core
 
-Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture and doc-visuals disciplines they compose
+Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture, doc-visuals, and skill-authoring disciplines they compose
 
 | Skill | Category | Invocation | Maturity | Triggering | Description |
 |---|---|---|---|---|---|
@@ -25,6 +25,7 @@ Engineering workflow orchestrators: specs, surveys, decisions, guided setup wiza
 | doc-visuals | engineering | both | experimental | 100% (9/9, claude-sonnet-4-6, 2026-07-15) | Crafts the visual layer of technical documents — repository maps, mermaid diagrams, code blocks, and tables — so structure lands at a glance and every element survives its renderer. Use this skill when producing or revising a document that contains a directory tree, an architecture or flow diagram, command examples, or comparison tables, or when the user says "add a diagram", "the repo map is hard to read", "make this README scannable", or "clean up the formatting in this doc". Not for prose editing, verifying a document is self-contained, or reviewing technical correctness. |
 | feature-spec | engineering | user | experimental | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Synthesizes the current conversation into a build-ready feature spec (a PRD): problem, solution, user stories, implementation and testing decisions, out-of-scope — captured from what was already discussed, never by re-interviewing. Use this skill when the user says "turn this into a spec", "write up what we discussed as a PRD", "capture this thread as a spec", or wants a feature discussion made buildable. Not for system-wide architecture documents and not for eliciting requirements that were never discussed. |
 | information-architecture | engineering | both | experimental | — | Organizes a body of content or a pile of files into a structure a stranger can navigate — deciding what splits into its own file, how pieces nest, what lands up front versus on demand, and how each is named, ordered, and linked. Use this skill when a document or README has grown into one long dump, when a folder or repo has become a flat or "misc"-ridden pile, or when the user says "organize these files", "this doc should be split up", "where should this live", "give this a sensible structure", or "the information architecture is a mess". Not for authoring the visual elements inside a document (see doc-visuals), writing the prose, or reviewing technical correctness. |
+| skill-authoring | engineering | both | experimental | — | Authors and audits agent skills so they trigger reliably and stay within their token budget: a description that routes, a body scoped by progressive disclosure, and deterministic work pushed to scripts and references. Use this skill when the user says "write a skill", "author a SKILL.md", "why isn't my skill triggering", "review this skill", or "audit our skills for quality". Not for writing the underlying tool or script a skill wraps, and not for general prose editing. |
 | wizard | engineering | user | experimental | 100% (8/8, claude-sonnet-4-6, 2026-07-15) | Generates an interactive bash wizard that walks a human step by step through a manual procedure — third-party service setup, a one-off migration, an A-to-B state transition — opening each URL, capturing values with confirmation gates, and writing .env entries and GitHub Actions secrets. Use this skill when the user says "make me a setup wizard", "write a script that walks me through setting up" a service, or "turn this runbook into an interactive script". Not for fully automatable work (write a plain script), answering setup questions in chat, or unattended CI automation. |
 
 Composes: architecture-spec → doc-visuals; architecture-spec → falsification-review (cross-plugin); codebase-survey → doc-visuals; discovery-map → cold-read (cross-plugin); discovery-map → define-work-items (cross-plugin); discovery-map → falsification-review (cross-plugin); discovery-map → ground-truth-research (cross-plugin); feature-spec → cold-read (cross-plugin); feature-spec → deep-modules (cross-plugin)
@@ -53,6 +54,15 @@ Judgment discipline: falsification passes, adversarial review, crux identificati
 Agents: falsification-reviewer
 
 Composes: deep-research → ground-truth-research; research-note → ground-truth-research
+
+## frontend
+
+Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, and non-destructively audit and upgrade the craft of an existing interface
+
+| Skill | Category | Invocation | Maturity | Triggering | Description |
+|---|---|---|---|---|---|
+| frontend-craft | engineering | both | experimental | — | Designs and builds high-craft web UI that does not read as machine-generated: infers the brief, sets explicit variance/motion/density dials, and forbids the generic defaults that mark AI-built pages. Use this skill when the user says "build a landing page", "design a hero section", "make this UI look less generic", "this looks AI-generated — make it feel crafted", or is generating marketing, portfolio, or product-site frontend. Not for backend or data work, auditing an existing UI you did not just build, or diagrams inside technical docs. |
+| frontend-redesign | engineering | both | experimental | — | Upgrades the craft of an existing web UI without a rewrite: scans the current interface, diagnoses specific defects against an audit checklist, and applies the smallest changes that raise quality. Use this skill when the user says "improve how this looks", "audit this UI", "make our existing site look more polished", "clean up this page's design", or points at a live interface that works but feels dated or unfinished. Not for building a new page from scratch, backend work, or reviewing code for correctness or security. |
 
 ## marketing
 
@@ -91,6 +101,19 @@ Composes: define-work-items → cold-read; handoff → cold-read; issue-triage �
 |---|---|---|---|---|---|
 | op-github-secrets | engineering | user | experimental | — | Wires GitHub Actions to pull secrets from 1Password at run time instead of storing long-lived copies in GitHub — using the 1Password load-secrets action with op:// references and a scoped service-account token, so CI reads secrets on demand and 1Password masks them in logs. Use this skill when the user says "load secrets from 1Password in GitHub Actions", "stop pasting secrets into GitHub repo settings", "use a 1Password service account in CI", or wants a workflow that resolves op:// references during a job. Not for local runtime injection (see op-secrets) or an interactive human setup script (see the wizard skill). |
 | op-secrets | engineering | user | experimental | — | Moves a project's secrets out of plaintext and into 1Password secret references (op:// URIs) that resolve at runtime via the op CLI, producing a safe-to-commit .env template and an op run launch path so no real credential ever lands on disk. Use this skill when the user says "use 1Password for my env vars", "replace my .env secrets with op references", "set up op run for this project", "stop storing API keys in plaintext", or wants credentials injected from a 1Password vault at run time. Not for building an interactive service-setup script that captures values from a human (see the wizard skill), or for pushing secrets into GitHub Actions (see op-github-secrets). |
+
+## security
+
+Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring
+
+| Skill | Category | Invocation | Maturity | Triggering | Description |
+|---|---|---|---|---|---|
+| define-security-policy | engineering | user | experimental | — | Authors a repository's SECURITY.md interactively: scope, security invariants, what is in and out of bounds, reportability criteria, and accepted risks — with a diff preview and an approval gate before writing. Use this skill when the user says "write a SECURITY.md", "define our security policy", "document what's in scope for security reports", or "set up a vulnerability disclosure policy". Not for modeling threats, reviewing a change, or proposing fixes to existing findings. |
+| hardening-proposal | engineering | user | experimental | — | Turns a set of security findings into a decision-ready hardening proposal: clusters them by the invariant they violate, defines a falsifiable target invariant, and presents a baseline plus two or three genuinely distinct options with an honest tradeoff matrix. Use this skill when the user says "how should we fix these findings", "propose a hardening plan", "what are our options to close this class of bugs", or has a list of vulnerabilities and needs an architectural response rather than one patch at a time. Not for writing a single fix, triaging findings, or authoring a security policy document. |
+| security-diff-review | engineering | both | experimental | — | Security review of a code change — a diff, pull request, or branch — anchored to what changed but deliberately swept out to sibling call sites of any shared helper the change touches. Use this skill when the user says "security review this PR", "is this change safe to merge", "check this diff for vulnerabilities", or asks for a security pass on a branch before it ships. Not for auditing a whole repository from scratch, triaging an already-filed finding, or establishing the trust boundaries a review runs against. |
+| threat-model | engineering | both | experimental | — | Establishes a repository-scoped threat model before any security finding work begins: trust boundaries, assets, attacker stories, and a severity calibration basis the rest of the review inherits. Use this skill when the user says "threat model this service", "what's our attack surface", "map the trust boundaries before the audit", or before running a security review that would otherwise anchor to a single diff or subsystem. Not for triaging an existing finding, reviewing one changed file, or explaining a named vulnerability class. |
+
+Composes: hardening-proposal → falsification-review (cross-plugin)
 
 ## tldraw-canvas
 

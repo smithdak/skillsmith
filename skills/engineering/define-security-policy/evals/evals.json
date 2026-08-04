@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "write a SECURITY.md for this repo" },
+    { "prompt": "define our security policy and what's in scope for reports" },
+    { "prompt": "set up a vulnerability disclosure policy for the project" },
+    { "prompt": "document which parts of the system are in bounds for security researchers" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "threat model the authentication flow", "note": "threat modeling, not policy authoring" },
+    { "prompt": "is this pull request safe to merge?", "note": "diff review" },
+    { "prompt": "how should we remediate these findings?", "note": "hardening proposal" },
+    { "prompt": "write a privacy policy for our marketing site", "note": "not a security policy / out of domain" }
+  ]
+}

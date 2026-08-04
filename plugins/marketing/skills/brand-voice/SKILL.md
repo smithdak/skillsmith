@@ -68,7 +68,11 @@ it use subheads in short content?
 **Anti-patterns**: things the samples consistently avoid. A brand
 that never uses superlatives, never hedges with "perhaps" or "might",
 never writes a passive construction — these exclusions are as
-defining as inclusions.
+defining as inclusions. For the generic AI-writing tells worth
+excluding by default — hollow words, binary-contrast puffery,
+throat-clearing openers, summary-recap endings — draw on the taxonomy
+in [references/ai-slop-patterns.md](references/ai-slop-patterns.md),
+while protecting any pattern the samples show is a deliberate choice.
 
 ## Write the voice spec
 

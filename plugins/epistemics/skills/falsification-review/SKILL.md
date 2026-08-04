@@ -50,6 +50,15 @@ Work through these before writing the conclusion:
 5. **Attach confidence with a driver.** High / moderate / low, and for
    anything below high, the specific missing evidence that would raise it.
 
+## Falsifying a security finding
+
+When the conclusion under test is a security finding — "an attacker can do
+X" — the falsification bar is higher and class-specific: the honest move is
+to try to prove the attacker *cannot*, with proof at the altitude the
+vulnerability class demands. Proof tuples per class and a confidence
+calibration ladder are in
+[references/validation-guidance.md](references/validation-guidance.md).
+
 ## Maker-checker escalation
 
 For document-scale deliverables — specs, estimate packs, plans, SOWs —

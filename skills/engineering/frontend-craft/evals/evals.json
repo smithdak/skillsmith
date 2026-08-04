@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "build a landing page for our developer tool" },
+    { "prompt": "this hero section looks super generic — make it feel crafted" },
+    { "prompt": "design a portfolio homepage that doesn't look AI-generated" },
+    { "prompt": "the marketing site works but the UI is bland, can you make it look premium?" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "the existing dashboard needs a full design audit and upgrade", "note": "auditing existing UI — belongs to frontend-redesign" },
+    { "prompt": "add a mermaid diagram to this README", "note": "doc visuals, not UI craft" },
+    { "prompt": "fix the failing API test in the checkout service", "note": "backend, not frontend" },
+    { "prompt": "extract our brand voice from these copy samples", "note": "verbal voice, not visual craft" }
+  ]
+}

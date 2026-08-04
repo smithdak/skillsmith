@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "we have a dozen findings from the audit — how should we fix them?" },
+    { "prompt": "propose a hardening plan for this class of injection bugs" },
+    { "prompt": "what are our options to close this whole category of vulnerabilities?" },
+    { "prompt": "turn these security findings into an architectural response with tradeoffs" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write the patch to fix this one SQL injection", "note": "single fix, not an options proposal" },
+    { "prompt": "which of these findings are real?", "note": "triage, not remediation planning" },
+    { "prompt": "draft a SECURITY.md for the project", "note": "policy authoring" },
+    { "prompt": "explain the difference between DAST and SAST", "note": "concept question" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "security review this PR before we merge it" },
+    { "prompt": "is this change safe to merge? check the diff for vulnerabilities" },
+    { "prompt": "run a security pass on my feature branch" },
+    { "prompt": "does this diff introduce any security issues?" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "audit the whole codebase for security problems", "note": "repo-wide audit, not diff-scoped" },
+    { "prompt": "we got a CVE report for a dependency, help me triage it", "note": "triaging an existing finding, not reviewing a change" },
+    { "prompt": "what are the trust boundaries in this service?", "note": "threat modeling, not diff review" },
+    { "prompt": "review this PR for code style and naming", "note": "general code review, not security" }
+  ]
+}

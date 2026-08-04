@@ -48,6 +48,25 @@ Sort each load-bearing claim by volatility:
 - Form an independent estimate before adopting any number the user
   supplied; when the two diverge, present both and the reason for the gap.
 
+## Corroborate, then close the gaps
+
+Stopping at the first plausible source is how a confident wrong answer gets
+through. Hold each load-bearing claim to a completion bar: corroborate it
+against multiple independent primary sources, or state explicitly that
+independent sources are scarce and the claim rests on one. Two pages
+repeating the same upstream press release are one source, not two.
+
+Before finishing, run one gap round: list what is still missing,
+contradictory, or resting on a single source, then do another pass to close
+those. Repeat until a pass surfaces nothing new. The gap round is where
+single-source claims and quiet contradictions get caught.
+
+Keep the three kinds of statement separate rather than blending them into a
+false consensus: what the sources **confirm**, what you **infer** from them,
+and what remains **unresolved**. When sources genuinely disagree, present the
+disagreement and the stronger-sourced side — do not average them into a
+claim no source makes.
+
 ## Report
 
 Every time-sensitive claim carries its basis: verified, with the source's

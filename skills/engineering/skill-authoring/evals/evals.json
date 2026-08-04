@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "help me write a new skill for our marketplace" },
+    { "prompt": "why isn't my SKILL.md triggering when I ask for it?" },
+    { "prompt": "review this skill and tell me if the description is any good" },
+    { "prompt": "audit our skills — some of them never fire when they should" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write the bash script that this skill will call", "note": "authoring the wrapped tool, not the skill" },
+    { "prompt": "edit this blog post to read more smoothly", "note": "general prose editing" },
+    { "prompt": "what does progressive disclosure mean in UX design?", "note": "concept from a different domain" },
+    { "prompt": "install the skills plugin into my Claude Code setup", "note": "installation, not authoring" }
+  ]
+}

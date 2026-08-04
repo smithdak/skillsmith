@@ -1,0 +1,14 @@
+{
+  "should_trigger": [
+    { "prompt": "threat model this payments service before we start the audit" },
+    { "prompt": "what's our attack surface for the public API?" },
+    { "prompt": "map the trust boundaries in this repo so we know where to focus the security review" },
+    { "prompt": "before we hunt for bugs, I want a proper threat model of the whole system" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "is this SQL query vulnerable to injection?", "note": "single-finding assessment, not a repo-scoped model" },
+    { "prompt": "explain how CSRF works", "note": "concept explanation, no system to model" },
+    { "prompt": "review the security of this one changed file", "note": "diff-scoped review — belongs to security-diff-review" },
+    { "prompt": "write a SECURITY.md for our repo", "note": "policy authoring, not threat modeling" }
+  ]
+}
