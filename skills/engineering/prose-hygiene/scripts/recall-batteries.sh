@@ -47,7 +47,7 @@ search() {
       -- "$SCOPE"
   else
     # shellcheck disable=SC2086
-    grep -rnP $flag -e "$pattern" \
+    grep -rnE $flag -e "$pattern" \
       --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor \
       -- "$SCOPE"
   fi
