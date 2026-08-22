@@ -36,6 +36,24 @@ describe("agent-skills-standard", () => {
     expect(rules.filter((x) => x === "V1")).toHaveLength(2);
   });
 
+  test("allowed-tools accepts the spec's space-separated string and an array", () => {
+    const ctx = { path: "skills/engineering/git-ops/SKILL.md", directoryName: "git-ops" };
+    const desc = 'Runs git maintenance. Use this skill when the user says "tidy the repo".';
+    const asString = validateStandardFrontmatter(
+      { name: "git-ops", description: desc, "allowed-tools": "Bash(git:*) Read" },
+      ctx,
+    );
+    expect(asString.diagnostics).toHaveLength(0);
+    expect(asString.value?.["allowed-tools"]).toBe("Bash(git:*) Read");
+
+    const asArray = validateStandardFrontmatter(
+      { name: "git-ops", description: desc, "allowed-tools": ["Bash(git:*)", "Read"] },
+      ctx,
+    );
+    expect(asArray.diagnostics).toHaveLength(0);
+    expect(asArray.value?.["allowed-tools"]).toEqual(["Bash(git:*)", "Read"]);
+  });
+
   test("V3 warns when no trigger phrasing", () => {
     const r = validateStandardFrontmatter(
       { name: "tdd", description: "A skill about test driven development." },

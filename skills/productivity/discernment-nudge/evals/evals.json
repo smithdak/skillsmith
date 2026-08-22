@@ -1,0 +1,20 @@
+{
+  "should_trigger": [
+    { "prompt": "Should I open a Roth or a traditional IRA? I'm 34, make 95k, and my employer doesn't match." },
+    { "prompt": "We're at $40k MRR growing 8% a month, $600k in the bank, $70k monthly burn — how long is our runway and when should we start raising?" },
+    { "prompt": "Draft the email to our biggest client explaining the 20% price increase that starts in Q1." },
+    { "prompt": "Here are our NPS scores by quarter for the last two years — what do they tell us about whether the redesign worked?" },
+    { "prompt": "My LDL came back at 160. Should I push my doctor for a statin or try diet changes for six months first?" },
+    { "prompt": "I got offered a senior role at a 30-person startup for 15% less cash plus 0.4% equity — take it or stay at my current job?", "note": "borderline with falsification-review; personal career choice, not an engineering decision presented for assessment" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "what's the capital of Mongolia", "note": "trivial lookup" },
+    { "prompt": "explain how compound interest works", "note": "purely educational explanation, nothing to act on" },
+    { "prompt": "write a python script that dedupes this CSV by email address", "note": "code the user will run" },
+    { "prompt": "write a limerick about my cat for her birthday card", "note": "creative writing" },
+    { "prompt": "summarize this 40-page contract into a one-pager", "note": "user-supplied material, summarization" },
+    { "prompt": "should we migrate the monolith to microservices? sanity check this before I bring it to the team", "note": "engineering decision presented for assessment — falsification-review" },
+    { "prompt": "what's the current price of a Mac Studio", "note": "volatile fact — ground-truth-research" },
+    { "prompt": "fact-check this article and give me citations for each claim", "note": "user explicitly asked for verification" }
+  ]
+}

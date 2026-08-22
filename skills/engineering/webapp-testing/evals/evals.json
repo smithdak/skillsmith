@@ -1,0 +1,17 @@
+{
+  "should_trigger": [
+    { "prompt": "start the dev server and walk through the signup flow in a real browser to make sure it actually works end to end" },
+    { "prompt": "the dashboard is blank after login on localhost:5173 — load it headless and tell me what the console says" },
+    { "prompt": "take a screenshot of each step of the checkout so I can see what the user sees" },
+    { "prompt": "write a playwright script that submits the contact form and verifies the success toast appears" },
+    { "prompt": "open dist/index.html directly in chromium and confirm the modal opens when the CTA is clicked", "note": "static HTML via file://, no server" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "write a failing unit test for the date parser before you fix it", "note": "red-green unit loop — tdd" },
+    { "prompt": "build a landing page for the product launch", "note": "greenfield UI construction — frontend-craft" },
+    { "prompt": "our settings page looks dated, do a design pass and polish it", "note": "craft upgrade of existing UI — frontend-redesign" },
+    { "prompt": "export my tldraw canvas to a PNG", "note": "headless-browser render of a tldraw file — tldraw-export" },
+    { "prompt": "is this PR safe to merge? check the diff for vulnerabilities", "note": "security-diff-review" },
+    { "prompt": "run the jest suite and tell me which tests fail", "note": "running a unit suite — no browser involved, no skill" }
+  ]
+}

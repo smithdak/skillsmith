@@ -32,8 +32,12 @@ export const agentSkillsStandardSchema = z.looseObject({
   license: z.string().optional(),
   compatibility: z.string().max(LIMITS.compatibilityMax).optional(),
   metadata: z.record(z.string(), z.string()).optional(),
-  /** Experimental in the standard. */
-  "allowed-tools": z.array(z.string()).optional(),
+  /**
+   * Experimental in the standard, which defines it as a space-separated
+   * string (`allowed-tools: Bash(git:*) Read`). An array is also accepted
+   * because the Claude Code layer and older skills write it that way.
+   */
+  "allowed-tools": z.union([z.string(), z.array(z.string())]).optional(),
 });
 
 export type AgentSkillsStandard = z.infer<typeof agentSkillsStandardSchema>;
