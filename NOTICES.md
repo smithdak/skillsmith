@@ -115,3 +115,59 @@ the license.
 MIT license terms (permission notice) — the software is provided "as is",
 without warranty; the copyright and permission notice are retained here per
 the license.
+
+---
+
+## anthropics/skills
+
+- Source: https://github.com/anthropics/skills
+- License: Apache License 2.0, Copyright Anthropic, PBC
+- Adapted into: `skills/engineering/webapp-testing/` (from the
+  `webapp-testing` skill, including `scripts/with_server.py` and the
+  `references/playwright-patterns.md` reference) and
+  `skills/productivity/discernment-nudge/` (from the `discernment-nudge`
+  skill).
+- Nature of changes: the webapp-testing decision tree,
+  reconnaissance-then-action pattern, and server-lifecycle helper were
+  re-expressed in skillsmith's format. The helper was rewritten with
+  process-group teardown on POSIX and Windows, a readiness host flag,
+  per-server log files, and an already-listening check; the three example
+  scripts were consolidated into one reference in both Python and
+  TypeScript with the sandbox output paths removed. The discernment-nudge
+  trigger and carve-out rules and the exact output format were kept; the
+  description was rewritten to this repo's trigger-surface form and a
+  boundary against the sibling `falsification-review` skill was added.
+
+The Apache 2.0 license requires that adapted files state they were changed
+(§4(b)); the inline "Adapted from anthropics/skills … (Apache-2.0)" lines in
+those files satisfy this. A copy of the Apache License 2.0 is available at
+https://www.apache.org/licenses/LICENSE-2.0 .
+
+---
+
+## deepseek-ai/deepseek-harness
+
+- Source: https://github.com/deepseek-ai/deepseek-harness
+- License: MIT, Copyright (c) 2026 DeepSeek
+- Adapted into: `skills/engineering/prose-hygiene/` (from the
+  `dsh-trim-cot-leakage` and `dsh-prose-standard` skills, including the
+  recall batteries as `scripts/recall-batteries.sh` and the keep-rules and
+  coverage-by-location references), `skills/engineering/postmortem/` (from
+  `docs/postmortem/` — the write-one-when criteria and section structure),
+  and `skills/engineering/stacked-prs/` (from the `dsh-merging-stacked-prs`
+  skill and the `responding-to-pr-review-on-a-stack` cookbook, including
+  the `gh stack` command and GraphQL reference).
+- Nature of changes: the leakage taxonomy, the resolvable-at-HEAD test, the
+  complete-proposition rule, the required-coverage-by-location list, the
+  post-mortem criteria and structure, and the stack landing and
+  review-propagation procedure were re-expressed in skillsmith's voice and
+  generalized away from the DeepSeek Harness repository. Everything specific
+  to that repository — its Agent Notes system, pre-push check scripts,
+  `change-scope` tooling, documentation budgets, bilingual pairing rules,
+  the Chinese-language recall battery, and the harness-internal examples —
+  was omitted, not ported. The recall-battery script gained a GNU grep
+  fallback; the calibration examples were written fresh.
+
+MIT license terms (permission notice) — the software is provided "as is",
+without warranty; the copyright and permission notice are retained here per
+the license.

@@ -16,16 +16,16 @@ agents = ["cold-reader"]
 
 [[plugin]]
 name = "epistemics"
-version = "0.2.0"
-description = "Judgment discipline: falsification passes, adversarial review, crux identification, durable research"
-skills = ["deep-research", "falsification-review", "ground-truth-research", "research-note"]
+version = "0.3.0"
+description = "Judgment discipline: falsification passes, adversarial review, crux identification, post-answer discernment nudges, durable research"
+skills = ["deep-research", "discernment-nudge", "falsification-review", "ground-truth-research", "research-note"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "engineering-core"
-version = "0.4.0"
-description = "Engineering workflow orchestrators: specs, surveys, decisions, guided setup wizards — plus the information-architecture, doc-visuals, readme-authoring, and skill-authoring disciplines they compose"
-skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "readme-authoring", "skill-authoring", "wizard"]
+version = "0.5.0"
+description = "Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose"
+skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "postmortem", "prose-hygiene", "readme-authoring", "skill-authoring", "wizard"]
 
 [[plugin]]
 name = "code-craft"
@@ -41,9 +41,9 @@ skills = ["define-security-policy", "hardening-proposal", "security-diff-review"
 
 [[plugin]]
 name = "frontend"
-version = "0.1.0"
-description = "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, and non-destructively audit and upgrade the craft of an existing interface"
-skills = ["frontend-craft", "frontend-redesign"]
+version = "0.2.0"
+description = "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright"
+skills = ["frontend-craft", "frontend-redesign", "webapp-testing"]
 
 [[plugin]]
 name = "marketing"
@@ -62,6 +62,12 @@ name = "secrets-ops"
 version = "0.1.0"
 description = "1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account"
 skills = ["op-github-secrets", "op-secrets"]
+
+[[plugin]]
+name = "pr-workflow"
+version = "0.1.0"
+description = "Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension"
+skills = ["stacked-prs"]
 
 [policy]
 "max-skill-body-tokens" = 5000

@@ -1,0 +1,18 @@
+{
+  "should_trigger": [
+    { "prompt": "we just spent three days tracking down the double-billing bug — write a postmortem" },
+    { "prompt": "write up an RCA for yesterday's outage, the logs are in incident-2026-08-14.log and the fix is commit 3f9a2c1" },
+    { "prompt": "document how the race condition in the queue consumer slipped past CI and prod monitoring so nobody has to rediscover it" },
+    { "prompt": "incident report for the data-loss bug: timeline with the commits and the sequence numbers from the replication log" },
+    { "prompt": "we finally found the root cause of the flaky deploys — turn what we learned into a post-mortem for the team" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "draft a design doc for the new event pipeline", "note": "forward-looking — architecture-spec" },
+    { "prompt": "write a handoff so whoever picks this up tomorrow knows where I stopped", "note": "session state — handoff" },
+    { "prompt": "triage the open issues and tell me what's urgent", "note": "issue-triage" },
+    { "prompt": "write a ticket for the bug we just found", "note": "work item — define-work-items" },
+    { "prompt": "find the bug in the checkout flow", "note": "debugging, not documenting — no skill" },
+    { "prompt": "research how Postgres advisory locks behave under failover and leave notes in the repo", "note": "open question — research-note" },
+    { "prompt": "was moving to Kafka the right call? sanity check it", "note": "falsification-review" }
+  ]
+}
