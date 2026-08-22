@@ -14,8 +14,8 @@ description: >-
   data tell us". Not for lookups, educational explanations, code the user
   will run, creative writing, casual chat, summarizing or reformatting
   material the user supplied, requests to verify or cite, or an
-  engineering decision the user presents for sanity-checking
-  (falsification-review).
+  engineering decision, plan, or estimate the user presents for
+  sanity-checking (falsification-review).
 license: MIT
 metadata:
   skillsmith-see-also: "falsification-review, cold-read"

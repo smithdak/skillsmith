@@ -12,9 +12,10 @@ description: >-
   skill when the user says "land this PR stack", "merge #412 through #414
   in order", "the reviewer found a bug in the middle PR — fix it and carry
   it up", "sync my stacked branches after main moved", or "which PRs are
-  in this stack". Not for opening or merging a single PR, reviewing one PR
-  for bugs (built-in /code-review), security review of a diff
-  (security-diff-review), issue triage, or handoff notes.
+  in this stack". Not for a lone PR that is not part of a stack — opening
+  it, merging it when CI passes, reviewing it for bugs (built-in
+  /code-review) — nor security review of a diff (security-diff-review),
+  issue triage, or handoff notes.
 license: MIT
 metadata:
   skillsmith-see-also: "security-diff-review"

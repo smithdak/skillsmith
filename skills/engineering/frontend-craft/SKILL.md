@@ -4,11 +4,11 @@ description: >-
   Designs and builds high-craft web UI that does not read as machine-generated:
   infers the brief, sets explicit variance/motion/density dials, and forbids
   the generic defaults that mark AI-built pages. Use this skill when the user
-  says "build a landing page", "design a hero section", "make this UI look
-  less generic", "this looks AI-generated — make it feel crafted", or is
-  generating marketing, portfolio, or product-site frontend. Not for backend
-  or data work, auditing an existing UI you did not just build, or diagrams
-  inside technical docs.
+  says "build a landing page", "design a hero section", "make the page
+  you're building feel crafted, not AI-generated", or is generating new
+  marketing, portfolio, or product-site frontend. Not for backend or data
+  work, polishing or upgrading UI that already exists (frontend-redesign),
+  or diagrams inside technical docs.
 license: MIT
 metadata:
   skillsmith-see-also: "frontend-redesign, doc-visuals, brand-voice"
