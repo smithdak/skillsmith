@@ -1,0 +1,3 @@
+# The drift gate owns README.md's managed block byte-for-byte; formatter
+# realignment (e.g. table padding) trips `skillsmith check` in CI.
+README.md
