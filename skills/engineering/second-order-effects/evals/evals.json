@@ -1,0 +1,18 @@
+{
+  "should_trigger": [
+    { "prompt": "if we move to per-seat pricing for the API, what breaks downstream?" },
+    { "prompt": "we're capping refunds at $50 — play out how customers and support adapt around it" },
+    { "prompt": "unintended consequences of requiring senior review on every deploy?" },
+    { "prompt": "we want to rank help docs by freshness instead of relevance — second-order effects?" },
+    { "prompt": "who games this new referral reward system, and how?" },
+    { "prompt": "policy proposal: no meetings before noon. trace the ripple effects through the org" }
+  ],
+  "should_not_trigger": [
+    { "prompt": "run a premortem on the migration before we start", "note": "execution-failure rehearsal of an agreed plan — premortem" },
+    { "prompt": "is the willingness-to-pay claim behind per-seat pricing even true?", "note": "premise verification — falsification-review plus evidence" },
+    { "prompt": "threat model the billing service", "note": "attacker entry points — threat-model" },
+    { "prompt": "explain what a Goodhart's-law problem is", "note": "concept explanation in the abstract" },
+    { "prompt": "design the new pricing page UI", "note": "UI construction — frontend-craft" },
+    { "prompt": "estimate the revenue impact of per-seat pricing", "note": "quantity forecast — estimate; feeds this skill but is not it" }
+  ]
+}

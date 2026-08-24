@@ -153,5 +153,5 @@ Every fixed PR's current diff contains the correction at the layer that
 introduced the issue. GraphQL reports one official stack in the expected
 order, and each child's diff against its parent shows only that child's
 changes. Unresolved threads, approvals, mergeability, and checks were
-re-audited after the last rewritten push. Every PR you call landed reports
-`MERGED`, and no deleted branch was still the base of an open PR.
+re-audited after the last rewritten push. Every PR reported as landed
+reports `MERGED`, and no deleted branch was still the base of an open PR.

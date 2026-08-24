@@ -1,8 +1,8 @@
 ---
 name: podcast-repurposer
 description: >-
-  Converts a podcast episode or transcript into a set of platform-
-  ready content assets: a long-form blog post, an email newsletter
+  Converts a podcast episode or transcript into a set of
+  platform-ready content assets: a long-form blog post, an email newsletter
   section, LinkedIn and X posts, and a pull-quote set. Use this
   skill when the user says "turn my podcast into content", "repurpose
   this episode", "podcast to blog", "extract clips from this

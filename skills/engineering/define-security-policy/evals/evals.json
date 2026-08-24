@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "write a SECURITY.md for this repo" },
-    { "prompt": "define our security policy and what's in scope for reports" },
-    { "prompt": "set up a vulnerability disclosure policy for the project" },
-    { "prompt": "document which parts of the system are in bounds for security researchers" }
+    {
+      "prompt": "write a SECURITY.md for this repo"
+    },
+    {
+      "prompt": "define our security policy and what's in scope for reports"
+    },
+    {
+      "prompt": "set up a vulnerability disclosure policy for the project"
+    },
+    {
+      "prompt": "document which parts of the system are in bounds for security researchers"
+    },
+    {
+      "prompt": "we need a SECURITY.md before launch \u2014 scope it to the API only, marketing site excluded"
+    },
+    {
+      "prompt": "what should our vulnerability disclosure policy promise reporters?"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "threat model the authentication flow", "note": "threat modeling, not policy authoring" },
-    { "prompt": "is this pull request safe to merge?", "note": "diff review" },
-    { "prompt": "how should we remediate these findings?", "note": "hardening proposal" },
-    { "prompt": "write a privacy policy for our marketing site", "note": "not a security policy / out of domain" }
+    {
+      "prompt": "threat model the authentication flow",
+      "note": "threat modeling, not policy authoring"
+    },
+    {
+      "prompt": "is this pull request safe to merge?",
+      "note": "diff review"
+    },
+    {
+      "prompt": "how should we remediate these findings?",
+      "note": "hardening proposal"
+    },
+    {
+      "prompt": "write a privacy policy for our marketing site",
+      "note": "not a security policy / out of domain"
+    },
+    {
+      "prompt": "is CVE-2026-21878 exploitable in our stack?",
+      "note": "triaging an existing finding"
+    },
+    {
+      "prompt": "harden the auth middleware",
+      "note": "implementing fixes, not authoring policy"
+    }
   ]
 }

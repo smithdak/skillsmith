@@ -1,14 +1,46 @@
 {
   "should_trigger": [
-    { "prompt": "write a handoff for the next shift" },
-    { "prompt": "prepare handoff notes before I log off" },
-    { "prompt": "I need to hand this project off to Sarah" },
-    { "prompt": "I'm going on vacation next week — document where things stand so someone can pick this up" }
+    {
+      "prompt": "write a handoff for the next shift"
+    },
+    {
+      "prompt": "prepare handoff notes before I log off"
+    },
+    {
+      "prompt": "I need to hand this project off to Sarah"
+    },
+    {
+      "prompt": "I'm going on vacation next week \u2014 document where things stand so someone can pick this up"
+    },
+    {
+      "prompt": "contract ends Friday \u2014 leave notes so the FTE taking over isn't lost"
+    },
+    {
+      "prompt": "session's ending; capture where things stand so tomorrow picks up clean"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "summarize this conversation", "note": "a summary is a recap; a handoff is a forward-looking state document" },
-    { "prompt": "write up the meeting minutes" },
-    { "prompt": "what did we decide about the database schema", "note": "recall question, not a handoff request" },
-    { "prompt": "review my code before I merge" }
+    {
+      "prompt": "summarize this conversation",
+      "note": "a summary is a recap; a handoff is a forward-looking state document"
+    },
+    {
+      "prompt": "write up the meeting minutes"
+    },
+    {
+      "prompt": "what did we decide about the database schema",
+      "note": "recall question, not a handoff request"
+    },
+    {
+      "prompt": "review my code before I merge"
+    },
+    {
+      "prompt": "write the annual report",
+      "note": "reporting artifact, forward-looking state doc"
+    },
+    {
+      "prompt": "email Sarah a status update",
+      "note": "communication, not handoff document"
+    }
   ]
 }

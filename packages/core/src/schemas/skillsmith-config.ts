@@ -56,6 +56,10 @@ export const skillsmithConfigSchema = z.strictObject({
   }),
   categories: categoriesSchema,
   plugin: z.array(pluginGroupingSchema).min(1),
+  /** Harness targets generate() emits for. claude-code is always emitted. */
+  targets: z
+    .array(z.enum(["claude-code", "generic", "codex", "opencode"]))
+    .default(["claude-code"]),
   // Zod 4: .default() bypasses parsing; .prefault() parses the fallback so
   // inner field defaults apply.
   policy: policySchema.prefault({}),

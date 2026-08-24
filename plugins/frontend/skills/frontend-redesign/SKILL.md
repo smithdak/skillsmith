@@ -44,7 +44,8 @@ smallest change that fixes it. Rank by impact-per-effort — the changes that
 most raise perceived quality for the least disruption go first. Typography
 and spacing usually top the list; they carry most of perceived craft and are
 low-risk to change. Distinguish a genuine defect from a deliberate choice
-you would have made differently: taste disagreements are not defects.
+that simply differs from the auditor's taste: taste disagreements are not
+defects.
 
 ## Fix
 

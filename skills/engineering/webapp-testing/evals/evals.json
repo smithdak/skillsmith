@@ -1,17 +1,60 @@
 {
   "should_trigger": [
-    { "prompt": "start the dev server and walk through the signup flow in a real browser to make sure it actually works end to end" },
-    { "prompt": "the dashboard is blank after login on localhost:5173 — load it headless and tell me what the console says" },
-    { "prompt": "take a screenshot of each step of the checkout so I can see what the user sees" },
-    { "prompt": "write a playwright script that submits the contact form and verifies the success toast appears" },
-    { "prompt": "open dist/index.html directly in chromium and confirm the modal opens when the CTA is clicked", "note": "static HTML via file://, no server" }
+    {
+      "prompt": "start the dev server and walk through the signup flow in a real browser to make sure it actually works end to end"
+    },
+    {
+      "prompt": "the dashboard is blank after login on localhost:5173 \u2014 load it headless and tell me what the console says"
+    },
+    {
+      "prompt": "take a screenshot of each step of the checkout so I can see what the user sees"
+    },
+    {
+      "prompt": "write a playwright script that submits the contact form and verifies the success toast appears"
+    },
+    {
+      "prompt": "open dist/index.html directly in chromium and confirm the modal opens when the CTA is clicked",
+      "note": "static HTML via file://, no server"
+    },
+    {
+      "prompt": "verify the OAuth redirect actually lands on /callback in a real browser before we ship"
+    },
+    {
+      "prompt": "the modal traps keyboard focus on Safari \u2014 reproduce it headless and show me the console"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write a failing unit test for the date parser before you fix it", "note": "red-green unit loop — tdd" },
-    { "prompt": "build a landing page for the product launch", "note": "greenfield UI construction — frontend-craft" },
-    { "prompt": "our settings page looks dated, do a design pass and polish it", "note": "craft upgrade of existing UI — frontend-redesign" },
-    { "prompt": "export my tldraw canvas to a PNG", "note": "headless-browser render of a tldraw file — tldraw-export" },
-    { "prompt": "is this PR safe to merge? check the diff for vulnerabilities", "note": "security-diff-review" },
-    { "prompt": "run the jest suite and tell me which tests fail", "note": "running a unit suite — no browser involved, no skill" }
+    {
+      "prompt": "write a failing unit test for the date parser before you fix it",
+      "note": "red-green unit loop \u2014 tdd"
+    },
+    {
+      "prompt": "build a landing page for the product launch",
+      "note": "greenfield UI construction \u2014 frontend-craft"
+    },
+    {
+      "prompt": "our settings page looks dated, do a design pass and polish it",
+      "note": "craft upgrade of existing UI \u2014 frontend-redesign"
+    },
+    {
+      "prompt": "export my tldraw canvas to a PNG",
+      "note": "headless-browser render of a tldraw file \u2014 tldraw-export"
+    },
+    {
+      "prompt": "is this PR safe to merge? check the diff for vulnerabilities",
+      "note": "security-diff-review"
+    },
+    {
+      "prompt": "run the jest suite and tell me which tests fail",
+      "note": "running a unit suite \u2014 no browser involved, no skill"
+    },
+    {
+      "prompt": "write jest unit tests for the cart reducer",
+      "note": "unit level \u2014 no browser involved"
+    },
+    {
+      "prompt": "improve our LCP score",
+      "note": "performance engineering, not behavior verification"
+    }
   ]
 }

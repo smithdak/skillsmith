@@ -61,7 +61,7 @@ calibration ladder are in
 
 ## Maker-checker escalation
 
-For document-scale deliverables — specs, estimate packs, plans, SOWs —
+For document-scale deliverables — specs, sizing packs, plans, SOWs —
 inline checking is insufficient: the author's context biases the check.
 Spawn the `falsification-reviewer` agent with the complete draft and act on
 its findings before presenting. Reserve this for deliverables; inline passes

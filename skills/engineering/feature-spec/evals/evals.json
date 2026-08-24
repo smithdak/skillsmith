@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "ok we've talked this through — turn the conversation into a spec" },
-    { "prompt": "write up what we just discussed as a PRD" },
-    { "prompt": "capture everything we decided about the export feature into a spec doc" },
-    { "prompt": "summarize this thread into a spec I can hand to the team to build" }
+    {
+      "prompt": "ok we've talked this through \u2014 turn the conversation into a spec"
+    },
+    {
+      "prompt": "write up what we just discussed as a PRD"
+    },
+    {
+      "prompt": "capture everything we decided about the export feature into a spec doc"
+    },
+    {
+      "prompt": "summarize this thread into a spec I can hand to the team to build"
+    },
+    {
+      "prompt": "capture this brainstorm as a PRD so engineering can start Monday"
+    },
+    {
+      "prompt": "we've settled the notifications design \u2014 write the spec from everything discussed above"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "spec out the architecture for the new event pipeline", "note": "system-level architecture document, different skill" },
-    { "prompt": "write a ticket for the login redirect bug", "note": "single work item, not a feature spec" },
-    { "prompt": "what should we build next quarter?", "note": "open discussion — nothing decided yet to synthesize" },
-    { "prompt": "review this PRD I wrote and tell me what's missing", "note": "reviewing an existing document, not producing one" }
+    {
+      "prompt": "spec out the architecture for the new event pipeline",
+      "note": "system-level architecture document, different skill"
+    },
+    {
+      "prompt": "write a ticket for the login redirect bug",
+      "note": "single work item, not a feature spec"
+    },
+    {
+      "prompt": "what should we build next quarter?",
+      "note": "open discussion \u2014 nothing decided yet to synthesize"
+    },
+    {
+      "prompt": "review this PRD I wrote and tell me what's missing",
+      "note": "reviewing an existing document, not producing one"
+    },
+    {
+      "prompt": "interview me until we figure out what to build",
+      "note": "nothing decided yet to synthesize \u2014 grilling"
+    },
+    {
+      "prompt": "break this spec into implementable tickets",
+      "note": "decomposition \u2014 define-work-items"
+    }
   ]
 }

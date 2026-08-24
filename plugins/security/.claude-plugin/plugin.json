@@ -1,6 +1,6 @@
 {
   "name": "security",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring",
   "author": {
     "name": "Dakota"

@@ -1,0 +1,51 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "we're migrating the monolith to two services next quarter \u2014 run a premortem before we commit"
+    },
+    {
+      "prompt": "launch is in three weeks. imagine it's six months out and this rollout went badly \u2014 why?"
+    },
+    {
+      "prompt": "before we sign this vendor contract, stress-test it: what kills this a year from now?"
+    },
+    {
+      "prompt": "run a premortem on the Q3 replatform plan and give me kill triggers for the big risks"
+    },
+    {
+      "prompt": "we sign the datacenter-exit contract Friday \u2014 premortem the migration plan first"
+    },
+    {
+      "prompt": "stress-test our SOC2 timeline: assume we missed the audit date; write me the story of why"
+    },
+    {
+      "prompt": "before launch week, imagine it's January and this rollout flopped \u2014 work backwards with me"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "should we even do the replatform at all? sanity check that call",
+      "note": "conclusion under test \u2014 falsification-review, not execution-risk mapping"
+    },
+    {
+      "prompt": "write the postmortem for yesterday's checkout outage",
+      "note": "the failure already happened \u2014 postmortem looks backward"
+    },
+    {
+      "prompt": "the multi-tenant idea is still fuzzy \u2014 interrogate me until the scope resolves",
+      "note": "idea still forming \u2014 grilling elicits; a premortem needs an agreed plan first"
+    },
+    {
+      "prompt": "add tests covering the export edge cases",
+      "note": "implementation task \u2014 no plan-level risk exercise involved"
+    },
+    {
+      "prompt": "what did we decide last week about the rollout phases?",
+      "note": "recall question about existing decisions"
+    },
+    {
+      "prompt": "review this risk register spreadsheet for completeness",
+      "note": "static artifact review, not a forward failure exercise"
+    }
+  ]
+}

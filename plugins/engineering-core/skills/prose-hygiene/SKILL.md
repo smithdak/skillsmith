@@ -147,5 +147,5 @@ durable references and keeping dead ones — so calibrate against
 Every remaining citation in scope resolves at HEAD. Each trimmed passage,
 diffed against the propositions enumerated for it, lost nothing a caller or
 maintainer relies on. The batteries, re-run over the same scope, return only
-hits you have classified as sanctioned keeps. Nothing under a vendored,
+hits classified above as sanctioned keeps. Nothing under a vendored,
 generated, fixture, or archived path changed.

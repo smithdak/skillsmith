@@ -2,8 +2,25 @@
 
 [![CI](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml)
 [![Bun](https://img.shields.io/badge/Bun-%E2%89%A5%201.3.14-000000?logo=bun&logoColor=white)](https://bun.sh)
-[![Skills](https://img.shields.io/badge/skills-38-brightgreen)](catalog/CATALOG.md)
-[![Plugins](https://img.shields.io/badge/plugins-9-blue)](catalog/CATALOG.md)
+<!-- skillsmith:start -->
+[![Skills](https://img.shields.io/badge/skills-50-brightgreen)](catalog/CATALOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-10-blue)](catalog/CATALOG.md)
+
+**10 installable plugins, 50 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
+
+| Plugin | Version | Skills | What it's for |
+|---|---|---|---|
+| **productivity-tools** + `cold-reader` agent | `0.2.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` · `writing-for-agents` | Work discipline: handoffs, transitions, work-item definition, issue triage |
+| **epistemics** + `falsification-reviewer` agent | `0.7.0` | `deep-research` · `discernment-nudge` · `estimate` · `falsification-review` · `grilling` · `ground-truth-research` · `premortem` · `research-note` · `second-order-effects` | Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research |
+| **engineering-core** | `0.6.0` | `architecture-spec` · `codebase-survey` · `decision-record` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `postmortem` · `prose-hygiene` · `readme-authoring` · `skill-authoring` · `wizard` | Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose |
+| **code-craft** | `0.2.0` | `deep-modules` · `diagnose-bugs` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions |
+| **security** | `0.1.1` | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring |
+| **frontend** | `0.2.1` | `frontend-craft` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
+| **marketing** | `0.2.1` | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design |
+| **tldraw-canvas** | `0.1.1` | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images |
+| **secrets-ops** | `0.1.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account |
+| **pr-workflow** | `0.1.1` | `stacked-prs` | Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension |
+<!-- skillsmith:end -->
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **A Claude Code skills monorepo where every installable artifact is compiled from source.** Plugins, the marketplace manifest, and the catalog are generated, validated, and drift-checked by the tool that lives in the same repo.
@@ -20,6 +37,7 @@ Skills rot in predictable ways: descriptions that never trigger, bodies that blo
 - **Profile-scoped diagnostics** — every finding declares which validators it applies to (`standard`, `claude-code`, `cowork`), because these enforce empirically different rules.
 - **Trigger-hit-rate evals** — an LLM judge measures whether each skill actually fires on real user phrasings, gated at 0.85.
 - **Script transparency** — every executable a skill ships is inventoried in the catalog with its interpreter, network-touching flag, and SHA-256.
+- **Multi-harness output** — beyond Claude Code plugins, `generate` emits a dependency-free Agent Skills tree (`dist/generic/`) that any SKILL.md-standard harness (Codex, opencode, …) can consume, drift-checked like every other artifact.
 - **Enforced plugin versioning** — CI fails if a plugin's shipped content changes without a version bump, because Claude Code refreshes installed plugins by version, not content.
 
 ## Quick start
@@ -34,19 +52,22 @@ Skills rot in predictable ways: descriptions that never trigger, bodies that blo
 
 ## Plugins
 
-Nine installable plugins, 38 skills, 2 agents. Install individually — a skill belongs to exactly one plugin.
+<!-- skillsmith:start -->
+**Ten installable plugins, 44 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Live versions live in [catalog/CATALOG.md](catalog/CATALOG.md) and the marketplace manifest; this table stays out of the version-syncing business.
 
 | Plugin | Skills | What it's for |
 |---|---|---|
-| **engineering-core** `0.4.0` | `architecture-spec` · `codebase-survey` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `readme-authoring` · `skill-authoring` · `wizard` | Workflow orchestrators — specs, repo surveys, discovery planning, setup wizards — plus the structure, rendering, and authoring disciplines they compose |
-| **epistemics** `0.2.0` | `deep-research` · `falsification-review` · `ground-truth-research` · `research-note` + `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source verification, durable research notes |
-| **security** `0.1.0` | `threat-model` · `security-diff-review` · `hardening-proposal` · `define-security-policy` | Repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals |
-| **productivity-tools** `0.1.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` + `cold-reader` agent | Work discipline: self-sufficient documents, testable work items, structured handoffs |
-| **code-craft** `0.1.0` | `deep-modules` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design |
-| **frontend** `0.1.0` | `frontend-craft` · `frontend-redesign` | Build web UI that refuses generic AI-default patterns; non-destructively audit and upgrade an existing interface |
-| **marketing** `0.2.0` | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Content scoring, outbound sequences, angle research, repurposing, growth experiment design |
-| **tldraw-canvas** `0.1.0` | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | Author editable `.tldr` files from a description, convert Mermaid to tldraw shapes, export canvases |
-| **secrets-ops** `0.1.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secrets: `op://` references with `op run`, and scoped service accounts for GitHub Actions |
+| **engineering-core** | `architecture-spec` · `codebase-survey` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `postmortem` · `prose-hygiene` · `readme-authoring` · `skill-authoring` · `wizard` | Workflow orchestrators — specs, repo surveys, discovery planning, post-mortems, setup wizards — plus the structure, rendering, prose-hygiene, and authoring disciplines they compose |
+| **epistemics** | `deep-research` · `discernment-nudge` · `falsification-review` · `ground-truth-research` · `research-note` + `falsification-reviewer` agent | Judgment discipline: adversarial review, crux identification, live-source verification, durable research notes |
+| **security** | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, SECURITY.md authoring |
+| **productivity-tools** | `cold-read` · `define-work-items` · `handoff` · `issue-triage` + `cold-reader` agent | Work discipline: self-sufficient documents, testable work items, structured handoffs, triage routing |
+| **code-craft** | `deep-modules` · `diagnose-bugs` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design, root-cause diagnosis for bugs and regressions |
+| **frontend** | `frontend-craft` · `frontend-redesign` · `webapp-testing` | Build high-craft web UI that refuses generic AI-default patterns, upgrade existing interfaces non-destructively, verify behavior in a real browser |
+| **marketing** | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Content scoring, outbound sequences, angle research, repurposing, growth experiment design |
+| **tldraw-canvas** | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | Author editable `.tldr` files from a description, animate canvases, convert Mermaid to tldraw shapes, export images |
+| **secrets-ops** | `op-github-secrets` · `op-secrets` | 1Password-backed secrets: `op://` references with `op run`, and scoped service accounts for GitHub Actions |
+| **pr-workflow** | `stacked-prs` | Land, review-fix, sync, and merge dependent GitHub PR stacks via the official `gh stack` extension |
+<!-- skillsmith:end -->
 
 Skills compose across plugins — `architecture-spec` runs `falsification-review` as its verification pass, `hardening-proposal` pressure-tests its recommendation the same way. Every edge is declared in frontmatter, enforced by rule V12, and listed in the catalog.
 
@@ -126,9 +147,9 @@ The repo also ships a `skill-authoring` skill that encodes this discipline — i
 
 ```text
 skills/                  skill sources — one folder per skill
-  engineering/           27 skills: specs, surveys, review, security, frontend, tldraw, secrets
+  engineering/           32 skills: specs, surveys, diagnosis, review, security, frontend, tldraw, secrets
   misc/                  7 skills: the marketing set
-  productivity/          4 skills: cold-read, define-work-items, handoff, issue-triage
+  productivity/          5 skills: cold-read, define-work-items, discernment-nudge, handoff, issue-triage
   drafts/                lenient staging area — schema checks only, never generated
 agents/                  agent sources (cold-reader, falsification-reviewer)
 hooks/ mcp/ commands/    empty source slots

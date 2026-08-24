@@ -1,3 +1,8 @@
+# Harness targets generate() emits alongside the Claude Code plugins.
+# "generic" writes a dependency-free Agent Skills tree to dist/generic/
+# that any SKILL.md-standard harness (codex, opencode, ...) can consume.
+targets = ["claude-code", "generic", "codex", "opencode"]
+
 [marketplace]
 name = "skillsmith-marketplace"
 owner = { name = "Dakota" }
@@ -9,51 +14,51 @@ allowed = ["engineering", "productivity", "misc"]
 # A skill belongs to exactly one plugin.
 [[plugin]]
 name = "productivity-tools"
-version = "0.1.0"
+version = "0.2.0"
 description = "Work discipline: handoffs, transitions, work-item definition, issue triage"
-skills = ["cold-read", "define-work-items", "handoff", "issue-triage"]
+skills = ["cold-read", "define-work-items", "handoff", "issue-triage", "writing-for-agents"]
 agents = ["cold-reader"]
 
 [[plugin]]
 name = "epistemics"
-version = "0.3.0"
-description = "Judgment discipline: falsification passes, adversarial review, crux identification, post-answer discernment nudges, durable research"
-skills = ["deep-research", "discernment-nudge", "falsification-review", "ground-truth-research", "research-note"]
+version = "0.7.0"
+description = "Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research"
+skills = ["deep-research", "discernment-nudge", "estimate", "falsification-review", "grilling", "ground-truth-research", "premortem", "research-note", "second-order-effects"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "engineering-core"
-version = "0.5.0"
+version = "0.6.0"
 description = "Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose"
-skills = ["architecture-spec", "codebase-survey", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "postmortem", "prose-hygiene", "readme-authoring", "skill-authoring", "wizard"]
+skills = ["architecture-spec", "codebase-survey", "decision-record", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "postmortem", "prose-hygiene", "readme-authoring", "skill-authoring", "wizard"]
 
 [[plugin]]
 name = "code-craft"
-version = "0.1.0"
-description = "Implementation discipline: test-driven red-green loops and deep-module interface design"
-skills = ["deep-modules", "tdd"]
+version = "0.2.0"
+description = "Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions"
+skills = ["deep-modules", "diagnose-bugs", "tdd"]
 
 [[plugin]]
 name = "security"
-version = "0.1.0"
+version = "0.1.1"
 description = "Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring"
 skills = ["define-security-policy", "hardening-proposal", "security-diff-review", "threat-model"]
 
 [[plugin]]
 name = "frontend"
-version = "0.2.0"
+version = "0.2.1"
 description = "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright"
 skills = ["frontend-craft", "frontend-redesign", "webapp-testing"]
 
 [[plugin]]
 name = "marketing"
-version = "0.2.0"
+version = "0.2.1"
 description = "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
 skills = ["brand-voice", "content-angles", "content-scorer", "growth-experiments", "outbound-builder", "podcast-repurposer", "seo-brief"]
 
 [[plugin]]
 name = "tldraw-canvas"
-version = "0.1.0"
+version = "0.1.1"
 description = "tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images"
 skills = ["mermaid-to-tldraw", "tldraw-animation", "tldraw-diagram", "tldraw-export"]
 
@@ -65,7 +70,7 @@ skills = ["op-github-secrets", "op-secrets"]
 
 [[plugin]]
 name = "pr-workflow"
-version = "0.1.0"
+version = "0.1.1"
 description = "Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension"
 skills = ["stacked-prs"]
 
@@ -77,6 +82,7 @@ skills = ["stacked-prs"]
 "network-allowlist" = []
 "composition-allowlist" = [
   "architecture-spec->falsification-review",
+  "decision-record->ground-truth-research",
   "discovery-map->cold-read",
   "discovery-map->define-work-items",
   "discovery-map->falsification-review",

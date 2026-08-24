@@ -1,15 +1,52 @@
 {
   "should_trigger": [
-    { "prompt": "build a landing page for our developer tool" },
-    { "prompt": "design a portfolio homepage that doesn't look AI-generated" },
-    { "prompt": "create a pricing page for the new product — three tiers, and please don't make it look like every other SaaS page" },
-    { "prompt": "I need a hero section for a launch site, something with real visual character rather than the usual gradient-and-cards template" }
+    {
+      "prompt": "build a landing page for our developer tool"
+    },
+    {
+      "prompt": "design a portfolio homepage that doesn't look AI-generated"
+    },
+    {
+      "prompt": "create a pricing page for the new product \u2014 three tiers, and please don't make it look like every other SaaS page"
+    },
+    {
+      "prompt": "I need a hero section for a launch site, something with real visual character rather than the usual gradient-and-cards template"
+    },
+    {
+      "prompt": "build a docs landing page that feels editorial and premium, nothing template-shaped"
+    },
+    {
+      "prompt": "create the hero for our AI product page \u2014 high variance allowed, zero default-SaaS look"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "the existing dashboard needs a full design audit and upgrade", "note": "auditing existing UI — belongs to frontend-redesign" },
-    { "prompt": "the marketing site works but the UI is bland, can you make it look premium?", "note": "polishing a live interface — frontend-redesign" },
-    { "prompt": "add a mermaid diagram to this README", "note": "doc visuals, not UI craft" },
-    { "prompt": "fix the failing API test in the checkout service", "note": "backend, not frontend" },
-    { "prompt": "extract our brand voice from these copy samples", "note": "verbal voice, not visual craft" }
+    {
+      "prompt": "the existing dashboard needs a full design audit and upgrade",
+      "note": "auditing existing UI \u2014 belongs to frontend-redesign"
+    },
+    {
+      "prompt": "the marketing site works but the UI is bland, can you make it look premium?",
+      "note": "polishing a live interface \u2014 frontend-redesign"
+    },
+    {
+      "prompt": "add a mermaid diagram to this README",
+      "note": "doc visuals, not UI craft"
+    },
+    {
+      "prompt": "fix the failing API test in the checkout service",
+      "note": "backend, not frontend"
+    },
+    {
+      "prompt": "extract our brand voice from these copy samples",
+      "note": "verbal voice, not visual craft"
+    },
+    {
+      "prompt": "make the settings modal keyboard accessible",
+      "note": "targeted fix on existing UI \u2014 frontend-redesign/craft audit"
+    },
+    {
+      "prompt": "write the homepage marketing copy",
+      "note": "copywriting, not UI construction"
+    }
   ]
 }

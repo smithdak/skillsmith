@@ -48,8 +48,8 @@ surface, install, and the pitfalls.
   `getSnapshot()` → write the `.tldr`. Note the DOM requirement means Playwright
   or a real browser tab, not `node script.js`.
 
-State which path you are taking and why, so the user knows whether they need a
-running app or a browser build.
+State the chosen path and the reason for it, so the user knows whether they
+need a running app or a browser build.
 
 ## Convert
 

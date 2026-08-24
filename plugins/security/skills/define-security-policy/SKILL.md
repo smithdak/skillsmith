@@ -56,7 +56,7 @@ reporter nothing about whether their finding matters.
 
 Where multiple SECURITY.md files exist across a monorepo, the nearest one to
 the code governs — a package-level policy refines the repository root rather
-than contradicting it. State the inheritance explicitly if you author a
+than contradicting it. State the inheritance explicitly when authoring a
 nested policy, and remember the file is informational: it describes and
 scopes, it does not enforce, and it cannot loosen a control the code
 actually applies.

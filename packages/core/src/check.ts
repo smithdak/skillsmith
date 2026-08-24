@@ -57,7 +57,7 @@ export async function checkPlan(
   }
 
   // missing / modified — copies
-  for (const [src, dest] of plan.copies) {
+  for (const [dest, src] of plan.copies) {
     const destFile = Bun.file(join(repoRoot, dest));
     if (!(await destFile.exists())) {
       drifts.push({ kind: "missing", path: dest });

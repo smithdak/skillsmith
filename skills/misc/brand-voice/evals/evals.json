@@ -1,15 +1,51 @@
 {
   "should_trigger": [
-    { "prompt": "extract our brand voice from these copy samples so we have something consistent to work from" },
-    { "prompt": "our content sounds different depending on who writes it — document our tone of voice" },
-    { "prompt": "create a voice guide from these three blog posts and this homepage copy" },
-    { "prompt": "what is our writing style? here are some samples: [pastes copy]" },
-    { "prompt": "we're onboarding a new copywriter, I need a voice spec they can follow" }
+    {
+      "prompt": "extract our brand voice from these copy samples so we have something consistent to work from"
+    },
+    {
+      "prompt": "our content sounds different depending on who writes it \u2014 document our tone of voice"
+    },
+    {
+      "prompt": "create a voice guide from these three blog posts and this homepage copy"
+    },
+    {
+      "prompt": "what is our writing style? here are some samples: [pastes copy]"
+    },
+    {
+      "prompt": "we're onboarding a new copywriter, I need a voice spec they can follow"
+    },
+    {
+      "prompt": "here are our last twenty newsletters \u2014 codify the voice so freelancers can match it"
+    },
+    {
+      "prompt": "post-refresh, extract the new voice from these updated samples into a spec"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "rewrite this landing page to match our brand voice", "note": "applying a voice, not extracting one — requires an existing spec" },
-    { "prompt": "score this blog post for quality before we publish", "note": "content scoring — content-scorer territory" },
-    { "prompt": "write a style guide for our codebase naming conventions", "note": "code style guide, not brand voice" },
-    { "prompt": "does this email match our brand guidelines?", "note": "compliance check against existing guidelines, not extraction" }
+    {
+      "prompt": "rewrite this landing page to match our brand voice",
+      "note": "applying a voice, not extracting one \u2014 requires an existing spec"
+    },
+    {
+      "prompt": "score this blog post for quality before we publish",
+      "note": "content scoring \u2014 content-scorer territory"
+    },
+    {
+      "prompt": "write a style guide for our codebase naming conventions",
+      "note": "code style guide, not brand voice"
+    },
+    {
+      "prompt": "does this email match our brand guidelines?",
+      "note": "compliance check against existing guidelines, not extraction"
+    },
+    {
+      "prompt": "apply our voice guide to this landing page draft",
+      "note": "applying an existing spec, not extracting one"
+    },
+    {
+      "prompt": "help us name the product",
+      "note": "naming, not voice specification"
+    }
   ]
 }

@@ -149,7 +149,7 @@ describe("generate + check end-to-end", () => {
     expect(catalog).toContain("1 draft skill(s)");
     expect(catalog).not.toContain("half-baked");
 
-    const dests = [...plan.copies.values()];
+    const dests = [...plan.copies.keys()];
     expect(dests).toContain("plugins/review-tools/skills/code-review/SKILL.md");
     expect(dests).toContain("plugins/review-tools/skills/code-review/scripts/diff-stats.sh");
     expect(dests).toContain("plugins/review-tools/agents/spec-reviewer.md");

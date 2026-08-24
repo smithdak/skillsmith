@@ -28,9 +28,9 @@ user-invocable: true
 
 A claim about UI behavior is only as good as the browser run behind it. Drive
 the app in a real headless browser, look at the rendered state before choosing
-selectors, and keep the evidence — screenshots and console output — so the
-user can see what you saw. Reading the source tells you what the app is
-supposed to do; the browser tells you what it does.
+selectors, and keep the evidence — screenshots and console output — so every
+claim is reviewable after the fact. Reading the source shows what the app is
+supposed to do; the browser shows what it does.
 
 ## Decide the approach
 
@@ -56,7 +56,7 @@ supposed to do; the browser tells you what it does.
 2. Inspect the rendered state: a full-page screenshot, `page.content()`,
    and locator sweeps (`button`, `a[href]`, `input, textarea, select`) to see
    what is actually on the page and what it is called.
-3. Choose selectors from what you found — prefer roles and visible text
+3. Choose selectors from what the recon found — prefer roles and visible text
    (`get_by_role`, `text=`), then stable ids; avoid brittle CSS chains.
 4. Act with those selectors, adding explicit waits (`wait_for_selector`,
    `expect(locator).to_be_visible()`) at each state transition rather than
@@ -103,6 +103,6 @@ repeatable and a tool session is not.
 ## Verify before returning
 
 Every claim about what the page does is backed by a screenshot or a console
-log captured after `networkidle`. Selectors in any script you hand back were
+log captured after `networkidle`. Selectors in any returned script were
 observed in the rendered DOM, not guessed from source. Servers started by the
-helper are gone, and the output paths you cite exist.
+helper are gone, and every cited output path exists.

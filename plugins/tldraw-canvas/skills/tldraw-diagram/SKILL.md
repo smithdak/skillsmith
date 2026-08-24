@@ -70,9 +70,10 @@ differs. Treat that as a fallback, not the default path.
 
 ## Verify before handing off
 
-- The file parses as JSON and keeps the three top-level keys.
-- Every `parentId` and every binding `fromId`/`toId` resolves to a real record
-  id in the file — dangling references are the most common load failure.
+- Run `python3 scripts/validate_tldr.py <file.tldr>` — it checks the three
+  top-level keys, unique ids, every `parentId` and binding `fromId`/`toId`
+  resolution, and prints shape/page/binding counts. It must exit 0; fix
+  what it names rather than re-reasoning the JSON by eye.
 - Confirm it opens: the user drags the `.tldr` into tldraw, or loads it with
   `parseTldrawJsonFile()` / `loadSnapshot()`. If it opens with shapes in the
   right places and arrows attached, it is done. When the `tldraw-offline` agent

@@ -52,11 +52,12 @@ overrides a primary metric win.
 
 **Calculate minimum detectable effect (MDE) and sample size.** Ask
 the user: what is the smallest improvement that would change a
-decision? Use that as MDE. Calculate required sample size per
-variant at 80% power and 95% confidence (two-tailed). State how
-long the test needs to run given current traffic, and flag if the
-required runtime exceeds 4 weeks — long tests accumulate time-
-series confounds.
+decision? Use that as MDE. Run the bundled calculator rather than
+computing by hand — `python3 scripts/experiment_stats.py design
+--baseline <rate> --mde <effect> --daily-traffic <sessions/day>` prints
+required n per variant at 80% power and 95% confidence (two-tailed),
+the estimated runtime in days, and a warning when runtime exceeds four
+weeks (long tests accumulate time-series confounds).
 
 **Flag pre-experiment confounds.** Check for: novelty effect
 (change that wears off), seasonality (test spans a known traffic
@@ -67,7 +68,10 @@ correction).
 ## Analyze mode
 
 Apply the appropriate test:
-- Binomial outcome (clicks, conversions): two-proportion z-test.
+- Binomial outcome (clicks, conversions): two-proportion z-test —
+  `python3 scripts/experiment_stats.py analyze --control-n <n>
+  --control-x <conversions> --variant-n <n> --variant-x <conversions>`
+  computes z, p-value, and the 95% CI on the difference.
 - Continuous outcome (revenue, time on page): Mann-Whitney U (non-
   parametric; does not assume normality for skewed distributions).
 
