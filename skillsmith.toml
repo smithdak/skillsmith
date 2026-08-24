@@ -46,9 +46,9 @@ skills = ["define-security-policy", "hardening-proposal", "security-diff-review"
 
 [[plugin]]
 name = "frontend"
-version = "0.2.1"
+version = "0.3.0"
 description = "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright"
-skills = ["frontend-craft", "frontend-redesign", "webapp-testing"]
+skills = ["frontend-craft", "frontend-critique", "frontend-redesign", "webapp-testing"]
 
 [[plugin]]
 name = "marketing"

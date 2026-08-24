@@ -1,61 +1,85 @@
 # Anti-slop checklist
 
-*Adapted from Leonxlnx/taste-skill (MIT); see repo-root NOTICES.md.*
+*Adapted from Leonxlnx/taste-skill (MIT) with ban-list and calibration
+concepts from pbakaus/impeccable (Apache-2.0); see repo-root NOTICES.md.*
 
-Two lists. The **banned defaults** are patterns to refuse unless the brief
-positively calls for them. The **pre-flight checklist** is the pass to run
-before delivering. Neither is aesthetic dogma — each item is a default that
-reads as generated, paired with the crafted alternative.
+Three lists. **Banned defaults** are patterns to refuse unless the
+brief positively calls for them. **Reflex tells** are subtler habits
+that mark assembled-not-designed work. The **pre-flight checklist** is
+the pass to run before delivering. None of it is aesthetic dogma — a
+brief's own words can earn any pattern back; reaching for one when the
+axis is free means you were not deciding.
 
 ## Banned defaults → crafted alternative
 
 | Default (the tell) | Why it reads as generated | Crafted alternative |
 |---|---|---|
 | Centered hero: headline + subhead + two buttons over a gradient | The single most-produced AI layout | Composition motivated by the brief — asymmetry, a real product visual, an editorial split |
-| Three equal feature cards in a row | Reflexive grid, no hierarchy | Unequal emphasis, alternating rows, or a structure the content actually needs |
-| Purple/blue diagonal gradient background | The default "tech" gradient | A considered palette; if a gradient, one with intent and restraint |
-| System font stack (or Inter everywhere) by default | No typographic decision was made | A typeface chosen for the voice, with a real type scale |
-| Default framework drop shadow on everything | Flat elevation, no system | A deliberate elevation ramp; shadows that encode real depth |
-| Emoji as bullets or section markers | Decorative filler | Typographic hierarchy, or icons from a real set used consistently |
-| Hand-rolled SVG "logos" and icon grids | Meaningless visual noise | A consistent icon set; cut icons that carry no information |
-| Equal whitespace everywhere | No rhythm, no emphasis | A spacing scale that creates hierarchy and grouping |
-| Every section full-width and centered | Monotone rhythm | Vary container width and alignment to pace the page |
-| Lorem-ipsum-shaped real copy ("Empower your workflow") | Says nothing | Specific copy; if voice matters, apply the brand-voice discipline |
+| Three equal feature cards: icon tile + heading + text | The reflexive page scaffold; cards are the lazy container | Unequal emphasis, alternating rows, or the structure the content actually needs |
+| Cards nested inside cards | Always wrong; hierarchy by boxing | Separate the levels — whitespace, rules, or one containing surface |
+| Hero-metric template: big number, small label, supporting stats | Dashboard costume on a marketing page | The metric rendered in the product's own visual language, or cut |
+| Eyebrow/kicker label above every heading | The most-copied template tell; pure ornament | Delete it — let the heading carry its own weight |
+| Section numbers (01 / 02 / 03) as decoration | Template scaffolding | Keep numbering only when the sequence itself informs |
+| Gradient text for emphasis | Reads as generated on sight | Emphasis from weight or size |
+| Glassmorphism/blur as default decoration | Effect without a reason | Blur only when it does something specific (legibility over media, depth cue) |
+| Colored side-stripe borders (>1px) on cards/callouts | The alert-box cliché | Full-surface tint, an icon, or typography carries the signal |
+| Hard offset shadows (`4px 4px 0`) outside real neobrutalism | A costume depth system | An elevation ramp with offset + blur that encodes actual hierarchy |
+| Emoji or unicode glyphs standing in for icons | No icon system was chosen | Icons drawn from one set or authored SVG, consistent stroke and weight |
+| Monospace as a "technical" costume (not code/data/measurement) | Category cosplay | Mono where monospace is functionally true |
+| System display face (Inter, Arial Black, platform sans) as display voice | No typographic decision made | A sourced face whose character fits the world |
+| Geometric masks approximating photo edges (circle/polygon cutouts) | The cheap version of cut-outs | Derive an alpha matte from the image, or ship the rectangle honestly |
+| Modal for tasks needing neither interruption nor protected focus | Reflex chrome | Inline flows; reserve modals for real focus protection |
+
+## Reflex tells
+
+- Same-size card grids as the *page structure* (vs one deliberate row)
+- Sparklines and progress rings standing in for content
+- Light/dark theme picked by category instead of use scene
+- One identical entrance animation on every section
+- `repeating-linear-gradient` stripes or grid overlays with no canvas,
+  map, blueprint, or measuring tool under them
+- Sketch-style SVG illustration scenes and `feTurbulence` grain — SVG
+  doing geometry (diagrams, linework) remains first-class
+- Naming a concept in copy and ironizing it instead of claiming it
+
+## Saturated looks — the calibration test
+
+These complete looks are what models converge on regardless of subject:
+
+1. Warm cream ground, high-contrast serif display, terracotta/red accent
+2. Near-black ground, one neon accent, glowing edges
+3. Broadsheet editorial: hairline rules, italic serif display, tracked mono labels
+
+Legitimate when pinned. When the brief left aesthetics free, landing
+in one fails the self-check — rework the rendition until the aesthetic
+is not guessable from the category alone.
 
 ## Pre-flight checklist
 
-Run before delivering. Group by concern.
-
-**Brief traceability**
-- [ ] Audience, purpose, and emotional target are stated.
-- [ ] The three dials (variance, motion, density) are set and named.
-- [ ] The hero composition cites a brief line, not a default.
+**Direction**
+- [ ] Mode named (Persuade / Operate / Read / Experience).
+- [ ] Direction contract written: THESIS, WORLD, STORY, FIRST VIEWPORT, FINISH.
+- [ ] Color strategy picked (Restrained / Committed / Full / Drenched); dark-or-light justified by scene.
+- [ ] Display typeface chosen with a reason no reflex face satisfies.
+- [ ] Calibration test passed: aesthetic not guessable from category alone.
 
 **Typography**
-- [ ] Typeface chosen with intent; not the framework default by omission.
-- [ ] A type scale is in use (not ad hoc font sizes).
-- [ ] Line length is readable (~45–75 characters for body).
+- [ ] Type scale obvious; body measure 65–75ch; no text overflow at any breakpoint.
 
 **Layout and spacing**
-- [ ] A spacing scale governs rhythm; whitespace creates hierarchy.
-- [ ] Feature/benefit sections have hierarchy, not an equal-card grid.
-- [ ] Container widths and alignment vary to pace the page.
+- [ ] Spacing rhythm: tight groups, generous separation, more space above a heading than below.
+- [ ] No identical-card-grid page structure; no nested cards.
 
-**Color and elevation**
-- [ ] Palette is deliberate; no default tech gradient by reflex.
-- [ ] A single elevation system; shadows encode depth, not decoration.
+**Color, elevation, browser surfaces**
+- [ ] Contrast: ≥4.5:1 body, ≥3:1 large; secondary text on colored surfaces tinted, never gray.
+- [ ] One elevation system; shadows have offset + blur.
+- [ ] Selection, caret, scrollbars, focus rings, tabular numerals themed.
 
-**Motion**
-- [ ] Every animation directs attention or expresses brand.
-- [ ] `prefers-reduced-motion` is respected.
-- [ ] No motion added purely because motion was possible.
-
-**Accessibility (part of done)**
-- [ ] Text/background contrast meets WCAG AA (4.5:1 body, 3:1 large).
-- [ ] Visible focus states on every interactive element.
-- [ ] Semantic structure (headings in order, landmarks, alt text).
-- [ ] Interactive targets are large enough to hit on touch.
+**Motion and states**
+- [ ] One authored motion moment; exponential ease-out; reduced-motion respected.
+- [ ] Hover, focus-visible, disabled, loading, error, empty states present where relevant.
 
 **Content**
-- [ ] Copy is specific, not filler; every element justifies its presence.
-- [ ] Empty, loading, and error states are considered where relevant.
+- [ ] Copy specific and in the product's voice; controls name their action.
+- [ ] Synthetic material labeled; no invented commercial claims.
+- [ ] `slop-detector.mjs` run clean (or every hit consciously resolved).

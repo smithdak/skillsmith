@@ -171,3 +171,11 @@ https://www.apache.org/licenses/LICENSE-2.0 .
 MIT license terms (permission notice) — the software is provided "as is",
 without warranty; the copyright and permission notice are retained here per
 the license.
+
+*Adapted from pbakaus/impeccable (Apache-2.0): design-language concepts
+in frontend-craft and frontend-redesign — visitor modes, direction
+contracts, color-strategy ladder, reflex-face ban list, saturated-look
+calibration, craft-floor bans, bounded verification passes, refinement-
+vs-replacement semantics, and the dual-assessment critique structure in
+frontend-critique. See https://github.com/pbakaus/impeccable.*
+

@@ -3,10 +3,10 @@
 [![CI](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml)
 [![Bun](https://img.shields.io/badge/Bun-%E2%89%A5%201.3.14-000000?logo=bun&logoColor=white)](https://bun.sh)
 <!-- skillsmith:start -->
-[![Skills](https://img.shields.io/badge/skills-50-brightgreen)](catalog/CATALOG.md)
+[![Skills](https://img.shields.io/badge/skills-51-brightgreen)](catalog/CATALOG.md)
 [![Plugins](https://img.shields.io/badge/plugins-10-blue)](catalog/CATALOG.md)
 
-**10 installable plugins, 50 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
+**10 installable plugins, 51 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
 
 | Plugin | Version | Skills | What it's for |
 |---|---|---|---|
@@ -15,7 +15,7 @@
 | **engineering-core** | `0.6.0` | `architecture-spec` · `codebase-survey` · `decision-record` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `postmortem` · `prose-hygiene` · `readme-authoring` · `skill-authoring` · `wizard` | Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose |
 | **code-craft** | `0.2.0` | `deep-modules` · `diagnose-bugs` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions |
 | **security** | `0.1.1` | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring |
-| **frontend** | `0.2.1` | `frontend-craft` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
+| **frontend** | `0.3.0` | `frontend-craft` · `frontend-critique` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
 | **marketing** | `0.2.1` | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design |
 | **tldraw-canvas** | `0.1.1` | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images |
 | **secrets-ops** | `0.1.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account |
