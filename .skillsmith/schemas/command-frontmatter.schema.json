@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "argument-hint": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "agent": {
+      "type": "string"
+    },
+    "allowed-tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "disable-model-invocation": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "description"
+  ],
+  "additionalProperties": {}
+}

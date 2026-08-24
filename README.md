@@ -3,10 +3,10 @@
 [![CI](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml)
 [![Bun](https://img.shields.io/badge/Bun-%E2%89%A5%201.3.14-000000?logo=bun&logoColor=white)](https://bun.sh)
 <!-- skillsmith:start -->
-[![Skills](https://img.shields.io/badge/skills-51-brightgreen)](catalog/CATALOG.md)
-[![Plugins](https://img.shields.io/badge/plugins-10-blue)](catalog/CATALOG.md)
+[![Skills](https://img.shields.io/badge/skills-53-brightgreen)](catalog/CATALOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-11-blue)](catalog/CATALOG.md)
 
-**10 installable plugins, 51 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
+**11 installable plugins, 53 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
 
 | Plugin | Version | Skills | What it's for |
 |---|---|---|---|
@@ -20,6 +20,7 @@
 | **tldraw-canvas** | `0.1.1` | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images |
 | **secrets-ops** | `0.1.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account |
 | **pr-workflow** | `0.1.1` | `stacked-prs` | Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension |
+| **agent-voice** | `0.1.0` | `output-contract` · `voice-setup` | How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks |
 <!-- skillsmith:end -->
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 

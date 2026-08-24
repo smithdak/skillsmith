@@ -5,6 +5,11 @@
   },
   "plugins": [
     {
+      "name": "agent-voice",
+      "source": "./plugins/agent-voice",
+      "description": "How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks"
+    },
+    {
       "name": "code-craft",
       "source": "./plugins/code-craft",
       "description": "Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions"

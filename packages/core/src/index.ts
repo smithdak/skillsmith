@@ -45,6 +45,12 @@ export {
 } from "./schemas/agent-frontmatter.ts";
 
 export {
+  commandFrontmatterSchema,
+  validateCommandFrontmatter,
+  type CommandFrontmatter,
+} from "./schemas/command-frontmatter.ts";
+
+export {
   skillsmithConfigSchema,
   validateSkillsmithConfig,
   type SkillsmithConfig,
@@ -58,6 +64,7 @@ export {
   type DiscoveryResult,
   type DiscoveredSkill,
   type DiscoveredAgent,
+  type DiscoveredCommand,
 } from "./discovery.ts";
 export {
   buildPlan,

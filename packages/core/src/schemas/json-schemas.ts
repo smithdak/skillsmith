@@ -11,10 +11,12 @@ import { marketplaceSchema } from "./marketplace.ts";
 import { skillsmithConfigSchema } from "./skillsmith-config.ts";
 import { evalsFileSchema } from "./evals.ts";
 import { hooksFileSchema } from "./hooks.ts";
+import { commandFrontmatterSchema } from "./command-frontmatter.ts";
 
 export function generateJsonSchemas(): Record<string, unknown> {
   return {
     "skill-frontmatter.schema.json": toJSONSchema(claudeCodeFrontmatterSchema),
+    "command-frontmatter.schema.json": toJSONSchema(commandFrontmatterSchema),
     "plugin.schema.json": toJSONSchema(pluginManifestSchema),
     "marketplace.schema.json": toJSONSchema(marketplaceSchema),
     "skillsmith-config.schema.json": toJSONSchema(skillsmithConfigSchema),

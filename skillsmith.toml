@@ -74,6 +74,13 @@ version = "0.1.1"
 description = "Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension"
 skills = ["stacked-prs"]
 
+[[plugin]]
+name = "agent-voice"
+version = "0.1.0"
+description = "How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks"
+skills = ["output-contract", "voice-setup"]
+commands = ["voice-setup"]
+
 [policy]
 "max-skill-body-tokens" = 5000
 "max-listing-chars" = 1536

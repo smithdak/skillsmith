@@ -1,0 +1,38 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "set up the output contract in this repo so replies stop being so long",
+      "note": "core routing: persist conciseness rules to instruction files"
+    },
+    {
+      "prompt": "/voice-setup",
+      "note": "slash-command invocation"
+    },
+    {
+      "prompt": "make your output terse in all my projects, not just this one",
+      "note": "global-scope setup request"
+    },
+    {
+      "prompt": "persist it — I don't want to retype 'be concise' every session",
+      "note": "explicit persistence ask after style feedback"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "refactor this function, it's way too long",
+      "note": "code conciseness, not reply-shape setup"
+    },
+    {
+      "prompt": "trim our README intro down to two sentences",
+      "note": "one-off content editing, nothing persisted as an instruction file"
+    },
+    {
+      "prompt": "what's the difference between AGENTS.md and CLAUDE.md?",
+      "note": "educational question about harness formats"
+    },
+    {
+      "prompt": "rewrite this error message to be friendlier",
+      "note": "copywriting on repo strings, not agent output rules"
+    }
+  ]
+}

@@ -21,6 +21,10 @@ import {
   validateAgentFrontmatter,
   type AgentFrontmatter,
 } from "./schemas/agent-frontmatter.ts";
+import {
+  validateCommandFrontmatter,
+  type CommandFrontmatter,
+} from "./schemas/command-frontmatter.ts";
 
 export interface FrontmatterDoc<T> {
   frontmatter: T;
@@ -77,6 +81,17 @@ export interface DiscoveredAgent {
   body: string;
 }
 
+export interface DiscoveredCommand {
+  /** Filename stem — becomes the slash-command name. */
+  name: string;
+  /** Repo-relative path. */
+  path: string;
+  /** Absolute path (copy source). */
+  absPath: string;
+  frontmatter: CommandFrontmatter;
+  body: string;
+}
+
 export interface DiscoveredHookSet {
   name: string;
   path: string;
@@ -94,6 +109,7 @@ export interface DiscoveredMcpServer {
 export interface DiscoveryResult {
   skills: DiscoveredSkill[];
   agents: DiscoveredAgent[];
+  commands: DiscoveredCommand[];
   hookSets: DiscoveredHookSet[];
   mcpServers: DiscoveredMcpServer[];
   diagnostics: Diagnostic[];
@@ -109,6 +125,7 @@ export async function discover(repoRoot: string, opts: {
   const diagnostics: Diagnostic[] = [];
   const skills: DiscoveredSkill[] = [];
   const agents: DiscoveredAgent[] = [];
+  const commands: DiscoveredCommand[] = [];
   const hookSets: DiscoveredHookSet[] = [];
   const mcpServers: DiscoveredMcpServer[] = [];
 
@@ -220,6 +237,33 @@ export async function discover(repoRoot: string, opts: {
     }
   }
 
+  // --- commands/**/*.md ---
+  const commandGlob = new Bun.Glob("commands/**/*.md");
+  for await (const rel of commandGlob.scan({ cwd: repoRoot })) {
+    const relPath = posix(rel);
+    const content = await Bun.file(join(repoRoot, rel)).text();
+    const split = splitFrontmatter(content, relPath);
+    if (!split.value) {
+      diagnostics.push(...split.diagnostics);
+      continue;
+    }
+    const name = relPath.split("/").pop()!.replace(/\.md$/, "");
+    const result = validateCommandFrontmatter(split.value.frontmatter, {
+      path: relPath,
+      name,
+    });
+    diagnostics.push(...result.diagnostics);
+    if (result.value) {
+      commands.push({
+        name,
+        path: relPath,
+        absPath: join(repoRoot, rel),
+        frontmatter: result.value,
+        body: split.value.body,
+      });
+    }
+  }
+
   // --- hooks/<set>/hooks.json ---
   const hookGlob = new Bun.Glob("hooks/*/hooks.json");
   for await (const rel of hookGlob.scan({ cwd: repoRoot })) {
@@ -245,10 +289,11 @@ export async function discover(repoRoot: string, opts: {
 
   skills.sort((a, b) => a.name.localeCompare(b.name));
   agents.sort((a, b) => a.name.localeCompare(b.name));
+  commands.sort((a, b) => a.name.localeCompare(b.name));
   hookSets.sort((a, b) => a.name.localeCompare(b.name));
   mcpServers.sort((a, b) => a.name.localeCompare(b.name));
 
-  return { skills, agents, hookSets, mcpServers, diagnostics };
+  return { skills, agents, commands, hookSets, mcpServers, diagnostics };
 }
 
 export { relative as _relative };

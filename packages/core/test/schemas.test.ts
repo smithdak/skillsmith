@@ -305,9 +305,10 @@ describe("skillsmith-config", () => {
 });
 
 describe("json schema export", () => {
-  test("all six schemas convert", () => {
+  test("all seven schemas convert", () => {
     const schemas = generateJsonSchemas();
     expect(Object.keys(schemas).sort()).toEqual([
+      "command-frontmatter.schema.json",
       "evals.schema.json",
       "hooks.schema.json",
       "marketplace.schema.json",
