@@ -67,6 +67,13 @@ function makeFixtureRepo(): string {
     `---\nname: spec-reviewer\ndescription: >-\n  Use proactively for spec review. <example>user: review the spec</example>\nmodel: inherit\ncolor: blue\n---\nReview specs.\n`,
   );
 
+  // command
+  mkdirSync(join(root, "commands"), { recursive: true });
+  writeFileSync(
+    join(root, "commands", "ship-check.md"),
+    `---\ndescription: Run the pre-ship gate.\nargument-hint: "[scope]"\n---\nRun the ship gate for $ARGUMENTS.\n`,
+  );
+
   // hooks
   mkdirSync(join(root, "hooks", "pre-commit-gate"), { recursive: true });
   writeFileSync(
@@ -105,6 +112,7 @@ const CONFIG_RAW = {
       description: "Code review workflow",
       skills: ["code-review", "tdd"],
       agents: ["spec-reviewer"],
+      commands: ["ship-check"],
       hooks: ["pre-commit-gate"],
       mcp: ["issue-store"],
     },
@@ -122,11 +130,12 @@ describe("generate + check end-to-end", () => {
     config = r.value!;
   });
 
-  test("discovery finds skills (incl. draft), agent, hooks, mcp", async () => {
+  test("discovery finds skills (incl. draft), agent, command, hooks, mcp", async () => {
     const d = await discover(root, { allowedCategories: config.categories.allowed });
     expect(d.skills.map((s) => s.name).sort()).toEqual(["code-review", "half-baked", "tdd"]);
     expect(d.skills.find((s) => s.name === "half-baked")?.draft).toBe(true);
     expect(d.agents.map((a) => a.name)).toEqual(["spec-reviewer"]);
+    expect(d.commands.map((c) => c.name)).toEqual(["ship-check"]);
     expect(d.hookSets.map((h) => h.name)).toEqual(["pre-commit-gate"]);
     expect(d.mcpServers.map((m) => m.name)).toEqual(["issue-store"]);
     expect(d.diagnostics.filter((x) => x.severity === "error")).toHaveLength(0);
@@ -153,6 +162,7 @@ describe("generate + check end-to-end", () => {
     expect(dests).toContain("plugins/review-tools/skills/code-review/SKILL.md");
     expect(dests).toContain("plugins/review-tools/skills/code-review/scripts/diff-stats.sh");
     expect(dests).toContain("plugins/review-tools/agents/spec-reviewer.md");
+    expect(dests).toContain("plugins/review-tools/commands/ship-check.md");
     expect(dests.some((p) => p.includes("evals"))).toBe(false);
     expect(dests.some((p) => p.includes("half-baked"))).toBe(false);
 
@@ -160,7 +170,7 @@ describe("generate + check end-to-end", () => {
     expect(mcp.mcpServers["issue-store"].command).toBe("node");
 
     // Editor JSON Schemas are plan-owned (and therefore drift-guarded).
-    for (const name of ["evals", "hooks", "plugin", "marketplace", "skill-frontmatter", "skillsmith-config"]) {
+    for (const name of ["evals", "hooks", "plugin", "marketplace", "skill-frontmatter", "command-frontmatter", "skillsmith-config"]) {
       expect(plan.files.has(`.skillsmith/schemas/${name}.schema.json`)).toBe(true);
     }
   });
@@ -204,7 +214,7 @@ describe("generate + check end-to-end", () => {
     const bad = validateSkillsmithConfig(
       {
         ...CONFIG_RAW,
-        plugin: [{ name: "bad-plugin", skills: ["half-baked", "nonexistent"] }],
+        plugin: [{ name: "bad-plugin", skills: ["half-baked", "nonexistent"], commands: ["ghost"] }],
       },
       { path: "skillsmith.toml" },
     ).value!;
@@ -213,6 +223,19 @@ describe("generate + check end-to-end", () => {
     const errors = plan.diagnostics.filter((x) => x.severity === "error");
     expect(errors.some((x) => x.rule === "V14" && x.message.includes("drafts"))).toBe(true);
     expect(errors.some((x) => x.message.includes('"nonexistent" not found'))).toBe(true);
+    expect(errors.some((x) => x.message.includes('"ghost" not found'))).toBe(true);
+  });
+
+  test("command frontmatter violations surface as discovery diagnostics", async () => {
+    writeFileSync(
+      join(root, "commands", "Bad_Name.md"),
+      `---\ndescription: ${"x".repeat(61)}\n---\nBody.\n`,
+    );
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    expect(d.commands.find((c) => c.name === "Bad_Name")).toBeUndefined();
+    expect(d.diagnostics.some((x) => x.rule === "SCHEMA" && x.path.includes("Bad_Name") && x.message.includes("kebab-case"))).toBe(true);
+    expect(d.diagnostics.some((x) => x.rule === "SCHEMA" && x.path.includes("Bad_Name") && x.path.includes("#/description"))).toBe(true);
+    rmSync(join(root, "commands", "Bad_Name.md"));
   });
 
   test("category folder outside allowlist is a V14 error", async () => {

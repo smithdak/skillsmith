@@ -80,6 +80,7 @@ export function buildPlan(
 
   const skillByName = new Map(discovery.skills.map((s) => [s.name, s]));
   const agentByName = new Map(discovery.agents.map((a) => [a.name, a]));
+  const commandByName = new Map(discovery.commands.map((c) => [c.name, c]));
   const hookSetByName = new Map(discovery.hookSets.map((h) => [h.name, h]));
   const mcpByName = new Map(discovery.mcpServers.map((m) => [m.name, m]));
 
@@ -153,6 +154,23 @@ export function buildPlan(
       }
       resolvedAgents.push(agent.name);
       copies.set(`${pluginRoot}/agents/${agent.name}.md`, agent.absPath);
+    }
+
+    // --- commands (Claude Code auto-discovers <plugin>/commands/; no
+    // manifest registration needed — the pathOverrides default covers it) ---
+    for (const name of [...grouping.commands].sort()) {
+      const command = commandByName.get(name);
+      if (!command) {
+        diagnostics.push(
+          error(
+            "SCHEMA",
+            `skillsmith.toml#/plugin/${grouping.name}/commands`,
+            `command "${name}" not found under commands/ (or failed validation)`,
+          ),
+        );
+        continue;
+      }
+      copies.set(`${pluginRoot}/commands/${command.name}.md`, command.absPath);
     }
     readmeRows.push({
       name: grouping.name,
