@@ -93,13 +93,14 @@ const generateCmd = defineCommand({
     });
     const { inventories, edges } = await validateAll(discovery, config);
     const evalResults = await loadEvalResults(repoRoot);
-    const plan = buildPlan(discovery, config, { inventories, evalResults, edges });
+    const readme = await Bun.file(join(repoRoot, "README.md")).text().catch(() => undefined);
+    const plan = buildPlan(discovery, config, { inventories, evalResults, edges, readme });
     printDiagnostics(plan.diagnostics, profile);
     const code = exitCode(plan.diagnostics, { strict: args.strict, profile });
     if (code !== 0) process.exit(code);
 
     if (args["dry-run"]) {
-      const paths = [...plan.files.keys(), ...plan.copies.values()].sort();
+      const paths = [...plan.files.keys(), ...plan.copies.keys()].sort();
       if (args.json) console.log(JSON.stringify({ plan: paths }, null, 2));
       else for (const p of paths) console.log(p);
       return;
@@ -121,7 +122,8 @@ const checkCmd = defineCommand({
     });
     const { inventories, edges } = await validateAll(discovery, config);
     const evalResults = await loadEvalResults(repoRoot);
-    const plan = buildPlan(discovery, config, { inventories, evalResults, edges });
+    const readme = await Bun.file(join(repoRoot, "README.md")).text().catch(() => undefined);
+    const plan = buildPlan(discovery, config, { inventories, evalResults, edges, readme });
 
     // Source errors make drift meaningless — fail hard first.
     const sourceErrors = plan.diagnostics.filter((d) => d.severity === "error");

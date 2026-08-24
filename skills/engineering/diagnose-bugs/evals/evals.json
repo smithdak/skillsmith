@@ -1,0 +1,55 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "this test passes locally but fails in CI every third run \u2014 figure out why"
+    },
+    {
+      "prompt": "users are hitting intermittent 502s on /api/checkout, maybe 1% of requests \u2014 find the cause"
+    },
+    {
+      "prompt": "the export job went from 2 minutes to 80 after last week's deploy \u2014 track down the regression"
+    },
+    {
+      "prompt": "I keep getting 'cannot read properties of undefined' somewhere inside the cart reducer \u2014 help me find where it actually comes from"
+    },
+    {
+      "prompt": "it works on my machine but the docker build renders fonts wrong \u2014 why?"
+    },
+    {
+      "prompt": "since the 2.4 upgrade the worker silently drops roughly one message per thousand \u2014 find out where they go"
+    },
+    {
+      "prompt": "this endpoint returns the right data but occasionally takes 30s \u2014 hunt down what's different on those requests"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "write a post-mortem for yesterday's outage \u2014 root cause is commit 3f9a2c1",
+      "note": "mechanism already found; documentation job belongs to postmortem"
+    },
+    {
+      "prompt": "build the coupon validation feature test-first",
+      "note": "greenfield red-green development \u2014 tdd, no bug to diagnose"
+    },
+    {
+      "prompt": "security review this PR before we merge it",
+      "note": "diff-scoped security pass \u2014 security-diff-review"
+    },
+    {
+      "prompt": "explain how the auth middleware chains its guards",
+      "note": "comprehension of working code \u2014 nothing is failing"
+    },
+    {
+      "prompt": "add logging to the payment service so we can debug it later next quarter",
+      "note": "planned observability work, not an active diagnosis loop"
+    },
+    {
+      "prompt": "add structured logging so future incidents are easier to investigate",
+      "note": "planned observability work, no active failure"
+    },
+    {
+      "prompt": "why does this algorithm have O(n\u00b2) complexity?",
+      "note": "analysis question, nothing misbehaving"
+    }
+  ]
+}

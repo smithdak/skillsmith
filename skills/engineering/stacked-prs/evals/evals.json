@@ -1,19 +1,66 @@
 {
   "should_trigger": [
-    { "prompt": "land the whole stack, #301 then #302 then #303, in that order" },
-    { "prompt": "the reviewer caught a bug in PR #231 but two other PRs are based on it — fix it there and rebase the ones on top" },
-    { "prompt": "main moved and all three of my stacked branches are behind — bring them up to date and re-check CI" },
-    { "prompt": "merge my PR stack with gh stack and clean up the branches afterwards" },
-    { "prompt": "which PRs are actually part of this stack? #88 says it depends on #87 but I don't think it's linked" },
-    { "prompt": "PR 2 of 4 got review comments — apply the fix there and propagate it to 3 and 4 without losing the approvals" }
+    {
+      "prompt": "land the whole stack, #301 then #302 then #303, in that order"
+    },
+    {
+      "prompt": "the reviewer caught a bug in PR #231 but two other PRs are based on it \u2014 fix it there and rebase the ones on top"
+    },
+    {
+      "prompt": "main moved and all three of my stacked branches are behind \u2014 bring them up to date and re-check CI"
+    },
+    {
+      "prompt": "merge my PR stack with gh stack and clean up the branches afterwards"
+    },
+    {
+      "prompt": "which PRs are actually part of this stack? #88 says it depends on #87 but I don't think it's linked"
+    },
+    {
+      "prompt": "PR 2 of 4 got review comments \u2014 apply the fix there and propagate it to 3 and 4 without losing the approvals"
+    },
+    {
+      "prompt": "#10 heads a four-deep stack and #11 caught review nits \u2014 fix at the introducing layer and push up"
+    },
+    {
+      "prompt": "trunk moved; rebase my stack, re-check approvals, and confirm checks per layer"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "open a PR for this branch", "note": "single PR creation — no skill" },
-    { "prompt": "merge #512 once CI is green", "note": "single-PR merge, no stack" },
-    { "prompt": "review PR #77 for bugs", "note": "built-in /code-review" },
-    { "prompt": "security review this PR before we merge", "note": "security-diff-review" },
-    { "prompt": "triage the backlog and tell me what needs attention", "note": "issue-triage" },
-    { "prompt": "write handoff notes before I log off", "note": "handoff" },
-    { "prompt": "rebase my feature branch onto main and resolve the conflicts", "note": "single-branch git operation, no PR stack" }
+    {
+      "prompt": "open a PR for this branch",
+      "note": "single PR creation \u2014 no skill"
+    },
+    {
+      "prompt": "merge #512 once CI is green",
+      "note": "single-PR merge, no stack"
+    },
+    {
+      "prompt": "review PR #77 for bugs",
+      "note": "built-in /code-review"
+    },
+    {
+      "prompt": "security review this PR before we merge",
+      "note": "security-diff-review"
+    },
+    {
+      "prompt": "triage the backlog and tell me what needs attention",
+      "note": "issue-triage"
+    },
+    {
+      "prompt": "write handoff notes before I log off",
+      "note": "handoff"
+    },
+    {
+      "prompt": "rebase my feature branch onto main and resolve the conflicts",
+      "note": "single-branch git operation, no PR stack"
+    },
+    {
+      "prompt": "open a draft PR for this branch",
+      "note": "single-PR creation, no stack"
+    },
+    {
+      "prompt": "resolve these merge conflicts on main",
+      "note": "conflict resolution, no dependent PRs"
+    }
   ]
 }

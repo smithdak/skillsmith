@@ -17,6 +17,12 @@ import type { Marketplace } from "./schemas/marketplace.ts";
 import { validatePluginManifest } from "./schemas/plugin-manifest.ts";
 import { validateMarketplace } from "./schemas/marketplace.ts";
 import { renderCatalog } from "./catalog.ts";
+import {
+  renderReadmeBlock,
+  spliceReadmeBlock,
+  type ReadmePluginRow,
+} from "./readme-blocks.ts";
+import { extraTargets } from "./targets.ts";
 import { generateJsonSchemas } from "./schemas/json-schemas.ts";
 import type { ScriptInventoryEntry } from "./validate.ts";
 import type { EvalResultsFile } from "./eval.ts";
@@ -26,7 +32,8 @@ import { type Diagnostic, error, warning } from "./diagnostics.ts";
 export interface GeneratePlan {
   /** repo-relative posix path → content. Text-only in v0.1 (see copies). */
   files: Map<string, string>;
-  /** Source→dest byte copies (skill assets may be binary). */
+  /** dest→src byte copies (skill assets may be binary). Keyed by destination:
+   * one source may ship to many targets (plugins/ + dist/generic/...). */
   copies: Map<string, string>;
   diagnostics: Diagnostic[];
 }
@@ -59,7 +66,13 @@ function resolveVersion(
 export function buildPlan(
   discovery: DiscoveryResult,
   config: SkillsmithConfig,
-  opts?: { inventories?: Map<string, ScriptInventoryEntry[]>; evalResults?: EvalResultsFile; edges?: CompositionEdge[] },
+  opts?: {
+    inventories?: Map<string, ScriptInventoryEntry[]>;
+    evalResults?: EvalResultsFile;
+    edges?: CompositionEdge[];
+    /** Current README.md content; enables the managed plugin-table block. */
+    readme?: string;
+  },
 ): GeneratePlan {
   const files = new Map<string, string>();
   const copies = new Map<string, string>();
@@ -71,6 +84,7 @@ export function buildPlan(
   const mcpByName = new Map(discovery.mcpServers.map((m) => [m.name, m]));
 
   const shippedSkills: { skill: DiscoveredSkill; plugin: string }[] = [];
+  const readmeRows: ReadmePluginRow[] = [];
 
   for (const grouping of config.plugin) {
     const pluginRoot = `plugins/${grouping.name}`;
@@ -114,19 +128,17 @@ export function buildPlan(
       }
       resolvedSkills.push(skill);
       shippedSkills.push({ skill, plugin: grouping.name });
-
-      // Copy the skill directory into the plugin (O1: copy — the repo is the
-      // artifact). evals/ are dev artifacts and do not ship.
       for (const f of skill.files) {
         if (f.startsWith("evals/")) continue;
         copies.set(
-          join(skill.dir, f),
           `${pluginRoot}/skills/${skill.name}/${f}`,
+          join(skill.dir, f),
         );
       }
     }
 
     // --- agents ---
+    const resolvedAgents: string[] = [];
     for (const name of [...grouping.agents].sort()) {
       const agent = agentByName.get(name);
       if (!agent) {
@@ -139,8 +151,16 @@ export function buildPlan(
         );
         continue;
       }
-      copies.set(agent.absPath, `${pluginRoot}/agents/${agent.name}.md`);
+      resolvedAgents.push(agent.name);
+      copies.set(`${pluginRoot}/agents/${agent.name}.md`, agent.absPath);
     }
+    readmeRows.push({
+      name: grouping.name,
+      version,
+      ...(grouping.description ? { description: grouping.description } : {}),
+      skills: resolvedSkills.map((s) => s.name),
+      agents: resolvedAgents,
+    });
 
     // --- hooks (v0.1 constraint: at most one hook set per plugin) ---
     if (grouping.hooks.length > 1) {
@@ -162,7 +182,7 @@ export function buildPlan(
           ),
         );
       } else {
-        copies.set(set.absPath, `${pluginRoot}/hooks/hooks.json`);
+        copies.set(`${pluginRoot}/hooks/hooks.json`, set.absPath);
       }
     }
 
@@ -262,6 +282,30 @@ export function buildPlan(
     renderCatalog(shippedSkills, discovery, config, opts?.inventories, opts?.evalResults, opts?.edges),
   );
 
+  // --- managed README block (opt-in via markers; drift-guarded like the rest) ---
+  if (opts?.readme !== undefined) {
+    const spliced = spliceReadmeBlock(
+      opts.readme,
+      renderReadmeBlock({
+        plugins: readmeRows,
+        skillCount: shippedSkills.length,
+        agentCount: readmeRows.reduce((n, r) => n + r.agents.length, 0),
+        catalogPath: "catalog/CATALOG.md",
+      }),
+    );
+    if (spliced.found) files.set("README.md", spliced.content);
+  }
+
+  // --- additional harness targets (generic Agent Skills tree, ...) ---
+  const targetCtx = {
+    discovery,
+    config,
+    shippedSkills: shippedSkills.map(({ skill }) => skill),
+  };
+  for (const adapter of extraTargets(config)) {
+    adapter.emit(targetCtx, { files, copies, diagnostics });
+  }
+
   // --- editor JSON Schemas (from the zod layer; drift-guarded like any artifact) ---
   for (const [name, schema] of Object.entries(generateJsonSchemas())) {
     files.set(`.skillsmith/schemas/${name}`, canonicalJson(schema));
@@ -272,7 +316,7 @@ export function buildPlan(
 
 /** Every path the plan owns — used by check to detect stale strays. */
 export function plannedPaths(plan: GeneratePlan): string[] {
-  return [...plan.files.keys(), ...plan.copies.values()].sort();
+  return [...plan.files.keys(), ...plan.copies.keys()].sort();
 }
 
 export async function writePlan(
@@ -282,7 +326,7 @@ export async function writePlan(
   for (const [path, content] of plan.files) {
     await Bun.write(join(repoRoot, path), content);
   }
-  for (const [src, dest] of plan.copies) {
+  for (const [dest, src] of plan.copies) {
     await Bun.write(join(repoRoot, dest), Bun.file(src));
   }
 }

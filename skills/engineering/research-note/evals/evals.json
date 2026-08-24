@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "research how Stripe webhooks handle retries and write it up in the repo" },
-    { "prompt": "look into Bun's sqlite driver and leave notes in docs/ for the team" },
-    { "prompt": "investigate our options for row-level security in Postgres and document what you find" },
-    { "prompt": "do a deep-dive on the OAuth device flow and save it as a reference doc" }
+    {
+      "prompt": "research how Stripe webhooks handle retries and write it up in the repo"
+    },
+    {
+      "prompt": "look into Bun's sqlite driver and leave notes in docs/ for the team"
+    },
+    {
+      "prompt": "investigate our options for row-level security in Postgres and document what you find"
+    },
+    {
+      "prompt": "do a deep-dive on the OAuth device flow and save it as a reference doc"
+    },
+    {
+      "prompt": "compare SQLite WAL vs rollback journal modes and drop the findings in docs/ for the team"
+    },
+    {
+      "prompt": "does Bun's fetch follow redirects by default? investigate properly and save notes in the repo"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "what's the latest version of Next.js?", "note": "single volatile fact — inline verification, no durable note" },
-    { "prompt": "is this claim about V8 garbage collection still true?", "note": "verifying one claim before acting, not producing a reference" },
-    { "prompt": "summarize this blog post for me", "note": "summarizing supplied material, no investigation" },
-    { "prompt": "add API docs for our public endpoints", "note": "documenting own code, not researching a question" }
+    {
+      "prompt": "what's the latest version of Next.js?",
+      "note": "single volatile fact \u2014 inline verification, no durable note"
+    },
+    {
+      "prompt": "is this claim about V8 garbage collection still true?",
+      "note": "verifying one claim before acting, not producing a reference"
+    },
+    {
+      "prompt": "summarize this blog post for me",
+      "note": "summarizing supplied material, no investigation"
+    },
+    {
+      "prompt": "add API docs for our public endpoints",
+      "note": "documenting own code, not researching a question"
+    },
+    {
+      "prompt": "what's the capital of Australia",
+      "note": "trivial lookup, nothing to investigate or persist"
+    },
+    {
+      "prompt": "research competitor pricing and summarize in chat",
+      "note": "answer lives in chat, not a durable repo note"
+    }
   ]
 }

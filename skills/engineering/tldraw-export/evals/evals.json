@@ -1,15 +1,51 @@
 {
   "should_trigger": [
-    { "prompt": "export my tldraw file to a PNG" },
-    { "prompt": "render this .tldr as an SVG for the docs" },
-    { "prompt": "turn my tldraw canvas into an image I can drop in a slide" },
-    { "prompt": "script a headless export of these tldraw shapes to webp" },
-    { "prompt": "I need a high-res raster of my tldraw diagram, scale 2x" }
+    {
+      "prompt": "export my tldraw file to a PNG"
+    },
+    {
+      "prompt": "render this .tldr as an SVG for the docs"
+    },
+    {
+      "prompt": "turn my tldraw canvas into an image I can drop in a slide"
+    },
+    {
+      "prompt": "script a headless export of these tldraw shapes to webp"
+    },
+    {
+      "prompt": "I need a high-res raster of my tldraw diagram, scale 2x"
+    },
+    {
+      "prompt": "ship a crisp 2x PNG of the architecture board for the keynote"
+    },
+    {
+      "prompt": "batch-export every .tldr in assets/ to SVG"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "generate a .tldr file from this architecture description", "note": "authoring a canvas, belongs to tldraw-diagram" },
-    { "prompt": "convert this mermaid into tldraw shapes", "note": "mermaid conversion, belongs to mermaid-to-tldraw" },
-    { "prompt": "export my figma frame as a png", "note": "different tool, not tldraw" },
-    { "prompt": "how do I use the export menu in the tldraw desktop app?", "note": "manual app usage, not a scripted export" }
+    {
+      "prompt": "generate a .tldr file from this architecture description",
+      "note": "authoring a canvas, belongs to tldraw-diagram"
+    },
+    {
+      "prompt": "convert this mermaid into tldraw shapes",
+      "note": "mermaid conversion, belongs to mermaid-to-tldraw"
+    },
+    {
+      "prompt": "export my figma frame as a png",
+      "note": "different tool, not tldraw"
+    },
+    {
+      "prompt": "how do I use the export menu in the tldraw desktop app?",
+      "note": "manual app usage, not a scripted export"
+    },
+    {
+      "prompt": "make this canvas editable again",
+      "note": "authoring side \u2014 tldraw-diagram"
+    },
+    {
+      "prompt": "take a screenshot of my screen",
+      "note": "not a tldraw canvas export"
+    }
   ]
 }

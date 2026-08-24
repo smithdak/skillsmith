@@ -1,14 +1,46 @@
 {
   "should_trigger": [
-    { "prompt": "write an architecture spec for our new ingestion service" },
-    { "prompt": "help me spec out the architecture for a skills monorepo" },
-    { "prompt": "draft a design doc for the payment pipeline" },
-    { "prompt": "turn our discussion into an architecture specification" }
+    {
+      "prompt": "write an architecture spec for our new ingestion service"
+    },
+    {
+      "prompt": "help me spec out the architecture for a skills monorepo"
+    },
+    {
+      "prompt": "draft a design doc for the payment pipeline"
+    },
+    {
+      "prompt": "turn our discussion into an architecture specification"
+    },
+    {
+      "prompt": "we're redesigning the ingestion path \u2014 produce a versioned spec with invariants and an open-decisions register before anyone codes"
+    },
+    {
+      "prompt": "document the event pipeline architecture as a design doc the team can review section by section"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "explain microservices architecture", "note": "educational — no document being authored" },
-    { "prompt": "review this architecture spec I wrote", "note": "review is falsification-review territory, not authoring" },
-    { "prompt": "draw an architecture diagram of our system" },
-    { "prompt": "what architecture does Netflix use for streaming" }
+    {
+      "prompt": "explain microservices architecture",
+      "note": "educational \u2014 no document being authored"
+    },
+    {
+      "prompt": "review this architecture spec I wrote",
+      "note": "review is falsification-review territory, not authoring"
+    },
+    {
+      "prompt": "draw an architecture diagram of our system"
+    },
+    {
+      "prompt": "what architecture does Netflix use for streaming"
+    },
+    {
+      "prompt": "what does eventual consistency mean?",
+      "note": "concept explanation \u2014 nothing being specified"
+    },
+    {
+      "prompt": "refactor this module to remove duplication",
+      "note": "code change, not a specification"
+    }
   ]
 }

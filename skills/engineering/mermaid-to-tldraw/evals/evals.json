@@ -1,15 +1,51 @@
 {
   "should_trigger": [
-    { "prompt": "convert this mermaid flowchart into editable tldraw shapes" },
-    { "prompt": "I have mermaid source, import it into tldraw as real nodes" },
-    { "prompt": "turn my mermaid graph into a tldraw canvas I can rearrange" },
-    { "prompt": "take this ```mermaid``` block and make it a .tldr with movable boxes" },
-    { "prompt": "paste-mermaid-into-tldraw but as a script — mermaid to tldraw shapes" }
+    {
+      "prompt": "convert this mermaid flowchart into editable tldraw shapes"
+    },
+    {
+      "prompt": "I have mermaid source, import it into tldraw as real nodes"
+    },
+    {
+      "prompt": "turn my mermaid graph into a tldraw canvas I can rearrange"
+    },
+    {
+      "prompt": "take this ```mermaid``` block and make it a .tldr with movable boxes"
+    },
+    {
+      "prompt": "paste-mermaid-into-tldraw but as a script \u2014 mermaid to tldraw shapes"
+    },
+    {
+      "prompt": "paste this mermaid graph into tldraw as editable shapes for tomorrow's workshop"
+    },
+    {
+      "prompt": "convert our architecture flowchart (mermaid below) into something the team can rearrange live"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write a mermaid diagram of the auth sequence", "note": "authoring mermaid text, not converting it" },
-    { "prompt": "make a tldraw diagram of our architecture from this description", "note": "prose to tldraw, belongs to tldraw-diagram" },
-    { "prompt": "render this mermaid to a PNG for my slides", "note": "mermaid to image, not to tldraw shapes" },
-    { "prompt": "my mermaid diagram won't render on GitHub, fix the syntax", "note": "mermaid syntax debugging, not conversion" }
+    {
+      "prompt": "write a mermaid diagram of the auth sequence",
+      "note": "authoring mermaid text, not converting it"
+    },
+    {
+      "prompt": "make a tldraw diagram of our architecture from this description",
+      "note": "prose to tldraw, belongs to tldraw-diagram"
+    },
+    {
+      "prompt": "render this mermaid to a PNG for my slides",
+      "note": "mermaid to image, not to tldraw shapes"
+    },
+    {
+      "prompt": "my mermaid diagram won't render on GitHub, fix the syntax",
+      "note": "mermaid syntax debugging, not conversion"
+    },
+    {
+      "prompt": "draw a mermaid ER diagram for these entities",
+      "note": "authoring mermaid text, not converting it"
+    },
+    {
+      "prompt": "animate the boxes on my tldraw canvas",
+      "note": "motion \u2014 tldraw-animation"
+    }
   ]
 }

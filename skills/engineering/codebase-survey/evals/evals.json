@@ -1,14 +1,47 @@
 {
   "should_trigger": [
-    { "prompt": "survey this codebase for me" },
-    { "prompt": "I just inherited this repo — help me get oriented" },
-    { "prompt": "map out this project, I've never seen it before" },
-    { "prompt": "onboard me to this codebase" }
+    {
+      "prompt": "survey this codebase for me"
+    },
+    {
+      "prompt": "I just inherited this repo \u2014 help me get oriented"
+    },
+    {
+      "prompt": "map out this project, I've never seen it before"
+    },
+    {
+      "prompt": "onboard me to this codebase"
+    },
+    {
+      "prompt": "first day at the new job \u2014 walk me through what this codebase actually does"
+    },
+    {
+      "prompt": "give me the lay of the land: entry points, test posture, conventions"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "explain what this function does", "note": "single-artifact question, not orientation" },
-    { "prompt": "find the bug in auth.ts" },
-    { "prompt": "review my PR", "note": "change review, not repo orientation" },
-    { "prompt": "how are teams structuring monorepos these days", "note": "industry question — no repo present" }
+    {
+      "prompt": "explain what this function does",
+      "note": "single-artifact question, not orientation"
+    },
+    {
+      "prompt": "find the bug in auth.ts"
+    },
+    {
+      "prompt": "review my PR",
+      "note": "change review, not repo orientation"
+    },
+    {
+      "prompt": "how are teams structuring monorepos these days",
+      "note": "industry question \u2014 no repo present"
+    },
+    {
+      "prompt": "set up my dev environment for this repo",
+      "note": "environment setup, not orientation"
+    },
+    {
+      "prompt": "where is the billing logic implemented?",
+      "note": "targeted lookup, not a repo-wide survey"
+    }
   ]
 }

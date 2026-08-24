@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "we have a dozen findings from the audit — how should we fix them?" },
-    { "prompt": "propose a hardening plan for this class of injection bugs" },
-    { "prompt": "what are our options to close this whole category of vulnerabilities?" },
-    { "prompt": "turn these security findings into an architectural response with tradeoffs" }
+    {
+      "prompt": "we have a dozen findings from the audit \u2014 how should we fix them?"
+    },
+    {
+      "prompt": "propose a hardening plan for this class of injection bugs"
+    },
+    {
+      "prompt": "what are our options to close this whole category of vulnerabilities?"
+    },
+    {
+      "prompt": "turn these security findings into an architectural response with tradeoffs"
+    },
+    {
+      "prompt": "pentest report landed with 14 findings \u2014 propose a structural response, not 14 patches"
+    },
+    {
+      "prompt": "what are our options for killing the XSS class across the frontend?"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write the patch to fix this one SQL injection", "note": "single fix, not an options proposal" },
-    { "prompt": "which of these findings are real?", "note": "triage, not remediation planning" },
-    { "prompt": "draft a SECURITY.md for the project", "note": "policy authoring" },
-    { "prompt": "explain the difference between DAST and SAST", "note": "concept question" }
+    {
+      "prompt": "write the patch to fix this one SQL injection",
+      "note": "single fix, not an options proposal"
+    },
+    {
+      "prompt": "which of these findings are real?",
+      "note": "triage, not remediation planning"
+    },
+    {
+      "prompt": "draft a SECURITY.md for the project",
+      "note": "policy authoring"
+    },
+    {
+      "prompt": "explain the difference between DAST and SAST",
+      "note": "concept question"
+    },
+    {
+      "prompt": "patch this reflected injection now",
+      "note": "single immediate fix"
+    },
+    {
+      "prompt": "add rate limiting to the login route",
+      "note": "one implementation task"
+    }
   ]
 }

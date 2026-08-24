@@ -58,7 +58,7 @@ that a decision is recorded, not that work is delivered. Ticket types:
 
 ## Fog and scope
 
-Chart only what you can see. The **fog** section holds suspected
+Chart only what is visible from here. The **fog** section holds suspected
 questions you cannot yet phrase sharply — the test is whether the
 question can be stated precisely now, not whether it can be answered.
 Resolving tickets clears fog ahead; graduated patches become tickets and

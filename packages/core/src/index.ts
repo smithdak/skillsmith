@@ -69,6 +69,23 @@ export {
 export { checkPlan, type CheckResult, type Drift } from "./check.ts";
 export { versionGuard, pluginSnapshot, type PluginSnapshot } from "./version-guard.ts";
 export { renderCatalog } from "./catalog.ts";
+export {
+  renderReadmeBlock,
+  spliceReadmeBlock,
+  BLOCK_START,
+  BLOCK_END,
+  type ReadmeBlockData,
+  type ReadmePluginRow,
+} from "./readme-blocks.ts";
+export {
+  genericAdapter,
+  codexAdapter,
+  opencodeAdapter,
+  extraTargets,
+  type TargetAdapter,
+  type TargetContext,
+  type TargetId,
+} from "./targets.ts";
 
 export {
   validateAll,

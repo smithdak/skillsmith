@@ -53,12 +53,12 @@ risk) plus **two or three genuinely distinct options** — distinct in
 mechanism, not three flavors of the same idea. Typical axes of real
 difference: fix-at-the-sink vs fix-at-the-boundary vs remove-the-capability;
 runtime enforcement vs build-time enforcement; library adoption vs in-house
-control. If two options collapse to the same tradeoffs, you have one option,
-not two.
+control. If two options collapse to the same tradeoffs, they are one
+option, not two.
 
-Pressure-test the option you are about to recommend with the
+Pressure-test the leading option with the
 falsification-review discipline: state the strongest case against it and the
-evidence that would flip the choice, before you present it as the
+evidence that would flip the choice, before presenting it as the
 recommendation.
 
 ## Build the tradeoff matrix

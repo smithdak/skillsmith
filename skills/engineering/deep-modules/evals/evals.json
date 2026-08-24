@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "this service class has 40 public methods — help me shrink the interface" },
-    { "prompt": "where should the seam go between the sync engine and the storage layer?" },
-    { "prompt": "design the interface for the new billing module, I want it easy to test without mocking half the app" },
-    { "prompt": "is this UserRepository abstraction pulling its weight or should I just inline it?" }
+    {
+      "prompt": "this service class has 40 public methods \u2014 help me shrink the interface"
+    },
+    {
+      "prompt": "where should the seam go between the sync engine and the storage layer?"
+    },
+    {
+      "prompt": "design the interface for the new billing module, I want it easy to test without mocking half the app"
+    },
+    {
+      "prompt": "is this UserRepository abstraction pulling its weight or should I just inline it?"
+    },
+    {
+      "prompt": "this config object gets threaded through six layers \u2014 is the seam in the wrong place?"
+    },
+    {
+      "prompt": "should the notification module expose one send() or twelve typed methods?"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write an architecture spec for the whole event pipeline", "note": "system-level document, not one module's interface" },
-    { "prompt": "make this settings page layout less cluttered", "note": "visual design, not module design" },
-    { "prompt": "rename these variables to match the style guide", "note": "mechanical cleanup, no interface changes" },
-    { "prompt": "explain what dependency injection means", "note": "concept explanation, not a design task" }
+    {
+      "prompt": "write an architecture spec for the whole event pipeline",
+      "note": "system-level document, not one module's interface"
+    },
+    {
+      "prompt": "make this settings page layout less cluttered",
+      "note": "visual design, not module design"
+    },
+    {
+      "prompt": "rename these variables to match the style guide",
+      "note": "mechanical cleanup, no interface changes"
+    },
+    {
+      "prompt": "explain what dependency injection means",
+      "note": "concept explanation, not a design task"
+    },
+    {
+      "prompt": "our folder structure is a mess",
+      "note": "information architecture, not module interfaces"
+    },
+    {
+      "prompt": "design the orders database schema",
+      "note": "data modeling, not interface depth"
+    }
   ]
 }

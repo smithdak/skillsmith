@@ -1,15 +1,51 @@
 {
   "should_trigger": [
-    { "prompt": "turn this podcast transcript into a blog post and LinkedIn content" },
-    { "prompt": "repurpose this episode — I need a newsletter section and some tweets" },
-    { "prompt": "podcast to blog: here's the transcript from episode 47" },
-    { "prompt": "extract pull quotes and a LinkedIn post from this interview transcript" },
-    { "prompt": "I recorded a 45-minute episode, help me get maximum content distribution from it" }
+    {
+      "prompt": "turn this podcast transcript into a blog post and LinkedIn content"
+    },
+    {
+      "prompt": "repurpose this episode \u2014 I need a newsletter section and some tweets"
+    },
+    {
+      "prompt": "podcast to blog: here's the transcript from episode 47"
+    },
+    {
+      "prompt": "extract pull quotes and a LinkedIn post from this interview transcript"
+    },
+    {
+      "prompt": "I recorded a 45-minute episode, help me get maximum content distribution from it"
+    },
+    {
+      "prompt": "episode 112's transcript is attached \u2014 blog post plus LinkedIn plus newsletter kit please"
+    },
+    {
+      "prompt": "mine this interview transcript for pull quotes and a tweet thread"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write a script for my next podcast episode about AI in marketing", "note": "writing from scratch, not repurposing existing content" },
-    { "prompt": "transcribe this audio file for me", "note": "transcription task, no content transformation" },
-    { "prompt": "score the quality of this podcast transcript before I publish the blog version", "note": "quality scoring of existing content — content-scorer territory" },
-    { "prompt": "edit this video clip for social media", "note": "video editing guidance, not content repurposing from text" }
+    {
+      "prompt": "write a script for my next podcast episode about AI in marketing",
+      "note": "writing from scratch, not repurposing existing content"
+    },
+    {
+      "prompt": "transcribe this audio file for me",
+      "note": "transcription task, no content transformation"
+    },
+    {
+      "prompt": "score the quality of this podcast transcript before I publish the blog version",
+      "note": "quality scoring of existing content \u2014 content-scorer territory"
+    },
+    {
+      "prompt": "edit this video clip for social media",
+      "note": "video editing guidance, not content repurposing from text"
+    },
+    {
+      "prompt": "book guests for next season",
+      "note": "booking logistics"
+    },
+    {
+      "prompt": "clean up the audio levels",
+      "note": "audio production"
+    }
   ]
 }

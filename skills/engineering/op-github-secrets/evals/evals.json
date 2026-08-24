@@ -1,15 +1,51 @@
 {
   "should_trigger": [
-    { "prompt": "load secrets from 1Password in my GitHub Actions workflow" },
-    { "prompt": "stop pasting API keys into GitHub repo secrets, pull them from 1Password in CI" },
-    { "prompt": "use a 1Password service account token in our deploy workflow" },
-    { "prompt": "wire op:// references into GitHub Actions so CI resolves them at run time" },
-    { "prompt": "set up 1password/load-secrets-action for this repo's pipeline" }
+    {
+      "prompt": "load secrets from 1Password in my GitHub Actions workflow"
+    },
+    {
+      "prompt": "stop pasting API keys into GitHub repo secrets, pull them from 1Password in CI"
+    },
+    {
+      "prompt": "use a 1Password service account token in our deploy workflow"
+    },
+    {
+      "prompt": "wire op:// references into GitHub Actions so CI resolves them at run time"
+    },
+    {
+      "prompt": "set up 1password/load-secrets-action for this repo's pipeline"
+    },
+    {
+      "prompt": "CI keeps needing new keys \u2014 wire GitHub Actions to 1Password so secrets resolve at run time"
+    },
+    {
+      "prompt": "migrate the deploy workflow off stored secrets onto op:// references with a service account"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "replace my local .env with op:// references and op run", "note": "local runtime injection, belongs to op-secrets" },
-    { "prompt": "add a GitHub Actions secret with the value I'll paste", "note": "storing a plaintext secret, the opposite of this skill" },
-    { "prompt": "write a wizard to walk me through creating a GitHub personal access token", "note": "interactive human setup, belongs to wizard" },
-    { "prompt": "why is my GitHub Actions workflow failing on the test step?", "note": "CI debugging, unrelated to secret loading" }
+    {
+      "prompt": "replace my local .env with op:// references and op run",
+      "note": "local runtime injection, belongs to op-secrets"
+    },
+    {
+      "prompt": "add a GitHub Actions secret with the value I'll paste",
+      "note": "storing a plaintext secret, the opposite of this skill"
+    },
+    {
+      "prompt": "write a wizard to walk me through creating a GitHub personal access token",
+      "note": "interactive human setup, belongs to wizard"
+    },
+    {
+      "prompt": "why is my GitHub Actions workflow failing on the test step?",
+      "note": "CI debugging, unrelated to secret loading"
+    },
+    {
+      "prompt": "rotate the OP_SERVICE_ACCOUNT_TOKEN now that someone left",
+      "note": "rotation ops, not wiring CI to 1Password"
+    },
+    {
+      "prompt": "set up op run for local development",
+      "note": "local runtime injection \u2014 op-secrets"
+    }
   ]
 }

@@ -66,7 +66,7 @@ Rules for revision:
 After the final round, return:
 - The revised content
 - The round-by-round score summary (aggregate + top critiques per round)
-- A honest statement if the aggregate is still below 90: what is
+- An honest statement if the aggregate is still below 90: what is
   holding it back and what a future revision should address
 
 Do not inflate scores to end early and do not hide a below-90 result

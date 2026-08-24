@@ -1,15 +1,51 @@
 {
   "should_trigger": [
-    { "prompt": "write an SEO brief for the keyword 'headless CMS for developers'" },
-    { "prompt": "create a content brief for 'B2B email marketing best practices' — I want to know what to cover to rank" },
-    { "prompt": "brief out this topic for SEO: API rate limiting" },
-    { "prompt": "what should I cover to rank for 'SaaS churn reduction'? Give me a structured brief" },
-    { "prompt": "I want to write a piece targeting 'product-led growth examples' — give me the outline and intent breakdown" }
+    {
+      "prompt": "write an SEO brief for the keyword 'headless CMS for developers'"
+    },
+    {
+      "prompt": "create a content brief for 'B2B email marketing best practices' \u2014 I want to know what to cover to rank"
+    },
+    {
+      "prompt": "brief out this topic for SEO: API rate limiting"
+    },
+    {
+      "prompt": "what should I cover to rank for 'SaaS churn reduction'? Give me a structured brief"
+    },
+    {
+      "prompt": "I want to write a piece targeting 'product-led growth examples' \u2014 give me the outline and intent breakdown"
+    },
+    {
+      "prompt": "brief 'kubernetes cost optimization' for me: intent, outline, gaps the current results leave open"
+    },
+    {
+      "prompt": "what must a piece cover to contend for 'zero trust implementation'? give me the structured brief"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write a 2000-word article about headless CMS for developers", "note": "writing the full piece, not producing a brief" },
-    { "prompt": "audit my existing blog post about email marketing and tell me why it's not ranking", "note": "ranking audit of existing content, not a brief for new content" },
-    { "prompt": "find me 50 keywords in the developer tools space with low difficulty", "note": "keyword research from scratch without a target keyword — no brief to produce" },
-    { "prompt": "what are some good content ideas for our SaaS blog?", "note": "open ideation — content-angles territory, no target keyword to brief around" }
+    {
+      "prompt": "write a 2000-word article about headless CMS for developers",
+      "note": "writing the full piece, not producing a brief"
+    },
+    {
+      "prompt": "audit my existing blog post about email marketing and tell me why it's not ranking",
+      "note": "ranking audit of existing content, not a brief for new content"
+    },
+    {
+      "prompt": "find me 50 keywords in the developer tools space with low difficulty",
+      "note": "keyword research from scratch without a target keyword \u2014 no brief to produce"
+    },
+    {
+      "prompt": "what are some good content ideas for our SaaS blog?",
+      "note": "open ideation \u2014 content-angles territory, no target keyword to brief around"
+    },
+    {
+      "prompt": "track our keyword rankings weekly",
+      "note": "ongoing rank tracking"
+    },
+    {
+      "prompt": "write the article from the brief we made",
+      "note": "writing the piece, not briefing it"
+    }
   ]
 }

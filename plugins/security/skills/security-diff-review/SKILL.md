@@ -73,7 +73,7 @@ For each finding: the file and line, the source-to-sink path in one or two
 sentences, the missing control, the severity with its driver, and — when the
 sibling sweep found them — the other call sites carrying the same pattern. A
 clean review is a valid result; say the change is safe to merge and name
-what you checked, rather than manufacturing a finding to look thorough.
+what was checked, rather than manufacturing a finding to look thorough.
 
 ## Verify before returning
 

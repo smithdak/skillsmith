@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "write a README for this project" },
-    { "prompt": "our README is way out of date — it describes half the features we actually have" },
-    { "prompt": "the front page of the repo doesn't explain what this thing does, can you fix it?" },
-    { "prompt": "improve the readme, it's not doing us any favors on GitHub" }
+    {
+      "prompt": "write a README for this project"
+    },
+    {
+      "prompt": "our README is way out of date \u2014 it describes half the features we actually have"
+    },
+    {
+      "prompt": "the front page of the repo doesn't explain what this thing does, can you fix it?"
+    },
+    {
+      "prompt": "improve the readme, it's not doing us any favors on GitHub"
+    },
+    {
+      "prompt": "our README still says Python 2 \u2014 rewrite it from what the repo actually is"
+    },
+    {
+      "prompt": "the README advertises features we never shipped; rebuild it honest from the code"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "the directory tree in this doc is hard to read", "note": "visual layer of a document — belongs to doc-visuals" },
-    { "prompt": "our docs folder is a flat pile, where should these files live?", "note": "multi-file organization — information-architecture" },
-    { "prompt": "document every option this CLI accepts", "note": "API/option reference, not a README" },
-    { "prompt": "write the CONTRIBUTING guide for the repo", "note": "a dedicated file the README only links to" }
+    {
+      "prompt": "the directory tree in this doc is hard to read",
+      "note": "visual layer of a document \u2014 belongs to doc-visuals"
+    },
+    {
+      "prompt": "our docs folder is a flat pile, where should these files live?",
+      "note": "multi-file organization \u2014 information-architecture"
+    },
+    {
+      "prompt": "document every option this CLI accepts",
+      "note": "API/option reference, not a README"
+    },
+    {
+      "prompt": "write the CONTRIBUTING guide for the repo",
+      "note": "a dedicated file the README only links to"
+    },
+    {
+      "prompt": "write release notes for v3.1",
+      "note": "changelog content, not the front page"
+    },
+    {
+      "prompt": "add badges to the README header",
+      "note": "cosmetic edit only"
+    }
   ]
 }

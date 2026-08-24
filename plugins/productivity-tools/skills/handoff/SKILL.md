@@ -5,7 +5,8 @@ description: >-
   to the conversation. Use this skill when the user says "handoff", "hand
   this off", asks for "handoff notes" or "transition notes", or wants to
   document where things stand before stopping, switching contexts, or
-  transferring work to someone else.
+  transferring work to someone else. Not for incident retrospectives
+  (postmortem) or tickets for work not yet done (define-work-items).
 license: MIT
 metadata:
   skillsmith-composes: "cold-read"

@@ -39,6 +39,31 @@ folder outside this list fails V14. **`"drafts"` must not be listed** — it is
 implicit, always lenient, and always excluded from generation (declaring it is
 a V14 error).
 
+## `targets` — harness outputs
+
+```toml
+# Root-level key: must appear before the first [table] header.
+targets = ["claude-code", "generic", "codex", "opencode"]
+```
+
+Harness targets `generate` emits alongside the Claude Code plugins. Defaults
+to `["claude-code"]`. The Claude Code target (plugins/, marketplace.json) is
+always emitted; additional adapters append their own artifacts to the same
+plan and inherit the drift gate:
+
+- **`generic`** — a dependency-free [Agent Skills](https://agentskills.io)
+  tree at `dist/generic/skills/<category>/<name>/` plus an `INDEX.md`.
+  Byte-identical sources, no frontmatter rewriting.
+- **`codex`** — `.codex/skills/<name>/`, the Codex CLI project skill
+  directory. SKILL.md frontmatter is rewritten to standard-only fields;
+  references/ and scripts/ ship byte-identical.
+- **`opencode`** — `.opencode/skills/<name>/`. Same normalization, plus the
+  documented 1024-character description cap is enforced at generate time
+  (an over-cap description errors naming the limit rather than truncating).
+
+New targets land as adapters on the seam in `packages/core/src/targets.ts`;
+each one's output is drift-checked like every other generated artifact.
+
 ## `[[plugin]]` — one table per plugin
 
 ```toml

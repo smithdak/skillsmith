@@ -1,16 +1,55 @@
 {
   "should_trigger": [
-    { "prompt": "our docs folder is a graveyard of 30 markdown files with no order — can you give it a structure that makes sense" },
-    { "prompt": "this SKILL.md has ballooned to 800 lines, help me break it into a landing file plus references" },
-    { "prompt": "where should the deployment runbook live — in docs/ or the ops folder?" },
-    { "prompt": "reorganize this repo's top level, right now everything is just dumped in root" },
-    { "prompt": "the README is one giant scroll, split it up into something navigable" }
+    {
+      "prompt": "our docs folder is a graveyard of 30 markdown files with no order \u2014 can you give it a structure that makes sense"
+    },
+    {
+      "prompt": "this SKILL.md has ballooned to 800 lines, help me break it into a landing file plus references"
+    },
+    {
+      "prompt": "where should the deployment runbook live \u2014 in docs/ or the ops folder?"
+    },
+    {
+      "prompt": "reorganize this repo's top level, right now everything is just dumped in root"
+    },
+    {
+      "prompt": "the README is one giant scroll, split it up into something navigable"
+    },
+    {
+      "prompt": "our wiki is 200 pages nobody can navigate \u2014 restructure it so things are findable"
+    },
+    {
+      "prompt": "this handbook became a monster; give it a landing surface plus on-demand detail"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "add a directory tree diagram to the README", "note": "producing a visual element — doc-visuals, not structure" },
-    { "prompt": "survey this codebase and tell me how it's laid out", "note": "orientation in existing code, not restructuring — codebase-survey" },
-    { "prompt": "fix the grammar and tighten the wording in this guide", "note": "prose editing, out of scope" },
-    { "prompt": "write the API reference content for the auth module", "note": "authoring content, not organizing it" },
-    { "prompt": "rename this variable everywhere it's used", "note": "code refactor, not information architecture" }
+    {
+      "prompt": "add a directory tree diagram to the README",
+      "note": "producing a visual element \u2014 doc-visuals, not structure"
+    },
+    {
+      "prompt": "survey this codebase and tell me how it's laid out",
+      "note": "orientation in existing code, not restructuring \u2014 codebase-survey"
+    },
+    {
+      "prompt": "fix the grammar and tighten the wording in this guide",
+      "note": "prose editing, out of scope"
+    },
+    {
+      "prompt": "write the API reference content for the auth module",
+      "note": "authoring content, not organizing it"
+    },
+    {
+      "prompt": "rename this variable everywhere it's used",
+      "note": "code refactor, not information architecture"
+    },
+    {
+      "prompt": "make the tables in this doc readable",
+      "note": "visual layer \u2014 doc-visuals"
+    },
+    {
+      "prompt": "archive the old release folders",
+      "note": "housekeeping, not structure design"
+    }
   ]
 }

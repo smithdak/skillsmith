@@ -67,7 +67,9 @@ Before synthesis, run a completeness pass over the coverage
 contract: which angle never ran, which claim is still unverified,
 which cited source was never actually read. What it finds becomes
 the next round of fan-out; the loop ends when a round comes back
-dry, not when a round count runs out.
+dry or two consecutive rounds add no newly confirmed claim — not
+when an arbitrary round count runs out, and never left running
+unbounded.
 
 ## Synthesize one report
 

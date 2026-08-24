@@ -48,7 +48,7 @@ its items with sizes and counts; for an over-long file, its latent
 sections. Run `scripts/inventory.sh <path>` — it prints a directory's
 entries with line counts, or a markdown file's heading outline with the
 line span of each section, so the seams and the bloat show as fact rather
-than recollection. You cannot cluster what you have not enumerated.
+than recollection — no clustering without an enumeration.
 
 ## Cluster, layer, name, place
 

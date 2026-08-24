@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "audit this UI and tell me how to make it look more polished" },
-    { "prompt": "our existing site works but looks dated — improve how it looks without a rewrite" },
-    { "prompt": "clean up this page's design, it feels unfinished" },
-    { "prompt": "do a design pass on our dashboard and upgrade the craft" }
+    {
+      "prompt": "audit this UI and tell me how to make it look more polished"
+    },
+    {
+      "prompt": "our existing site works but looks dated \u2014 improve how it looks without a rewrite"
+    },
+    {
+      "prompt": "clean up this page's design, it feels unfinished"
+    },
+    {
+      "prompt": "do a design pass on our dashboard and upgrade the craft"
+    },
+    {
+      "prompt": "our checkout looks like 2018 \u2014 modernize the visuals without changing the flow"
+    },
+    {
+      "prompt": "audit the admin dashboard's craft and fix the top three problems in place"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "build a brand new landing page for the launch", "note": "greenfield — belongs to frontend-craft" },
-    { "prompt": "review this PR for security vulnerabilities", "note": "security review, not design" },
-    { "prompt": "is this component's state logic correct?", "note": "code correctness, not craft" },
-    { "prompt": "organize these markdown files into a sensible structure", "note": "information architecture, not UI" }
+    {
+      "prompt": "build a brand new landing page for the launch",
+      "note": "greenfield \u2014 belongs to frontend-craft"
+    },
+    {
+      "prompt": "review this PR for security vulnerabilities",
+      "note": "security review, not design"
+    },
+    {
+      "prompt": "is this component's state logic correct?",
+      "note": "code correctness, not craft"
+    },
+    {
+      "prompt": "organize these markdown files into a sensible structure",
+      "note": "information architecture, not UI"
+    },
+    {
+      "prompt": "redesign the ingestion pipeline for streaming",
+      "note": "backend architecture, not UI"
+    },
+    {
+      "prompt": "build our company site from scratch",
+      "note": "greenfield \u2014 frontend-craft"
+    }
   ]
 }

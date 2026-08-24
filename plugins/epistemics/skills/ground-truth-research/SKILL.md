@@ -45,7 +45,7 @@ Sort each load-bearing claim by volatility:
 - Empirical beats documented when they disagree: what the tool does
   outranks what its docs claim. Where feasible, test the claim directly
   and report the observed behavior with the version observed.
-- Form an independent estimate before adopting any number the user
+- Form an independent prior before adopting any number the user
   supplied; when the two diverge, present both and the reason for the gap.
 
 ## Corroborate, then close the gaps
@@ -62,8 +62,8 @@ those. Repeat until a pass surfaces nothing new. The gap round is where
 single-source claims and quiet contradictions get caught.
 
 Keep the three kinds of statement separate rather than blending them into a
-false consensus: what the sources **confirm**, what you **infer** from them,
-and what remains **unresolved**. When sources genuinely disagree, present the
+false consensus: what the sources **confirm**, what is **inferred** from
+them, and what remains **unresolved**. When sources genuinely disagree, present the
 disagreement and the stronger-sourced side — do not average them into a
 claim no source makes.
 

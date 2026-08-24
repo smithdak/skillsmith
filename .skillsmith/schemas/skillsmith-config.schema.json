@@ -127,6 +127,21 @@
         "additionalProperties": false
       }
     },
+    "targets": {
+      "default": [
+        "claude-code"
+      ],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "claude-code",
+          "generic",
+          "codex",
+          "opencode"
+        ]
+      }
+    },
     "policy": {
       "type": "object",
       "properties": {
@@ -186,6 +201,7 @@
     "marketplace",
     "categories",
     "plugin",
+    "targets",
     "policy"
   ],
   "additionalProperties": false

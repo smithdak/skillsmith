@@ -92,6 +92,22 @@ human reruns `eval`. Its `runDate` has day precision so same-day reruns stay
 byte-stable ([`eval.ts`](../packages/core/src/eval.ts) defines the contract;
 the CLI stamps the date).
 
+## Managed blocks and multi-target output
+
+Two extensions ride the same plan → check pipeline rather than bypassing it:
+
+- **Managed README blocks** ([`readme-blocks.ts`](../packages/core/src/readme-blocks.ts)):
+  when `README.md` contains the `<!-- skillsmith:start -->` / `end` marker
+  pair, `generate` owns everything between them — badges, counts, and the
+  plugin table rendered from `skillsmith.toml`. Opt-in: no markers, no
+  ownership. With markers, hand-edits inside the block are drift.
+- **Harness targets** ([`targets.ts`](../packages/core/src/targets.ts)):
+  adapters that append per-harness artifacts to the same plan (the `generic`
+  Agent Skills tree ships every skill to `dist/generic/`). The plan's copies
+  map is **destination-keyed** precisely because one source must ship to many
+  targets — source-keying silently collapsed plugin copies when the second
+  target landed.
+
 ## The diagnostics model
 
 Every finding carries four things ([`diagnostics.ts`](../packages/core/src/diagnostics.ts)):

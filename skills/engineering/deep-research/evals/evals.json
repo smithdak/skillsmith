@@ -1,14 +1,48 @@
 {
   "should_trigger": [
-    { "prompt": "do a deep research pass on the state of local-first sync engines — multiple sources, and verify the claims" },
-    { "prompt": "I need a comprehensive fact-checked report on how the major cloud providers price GPU instances" },
-    { "prompt": "fan out and research what actually happened in the WordPress vs WP Engine dispute — don't trust any single account" },
-    { "prompt": "research the agent-skills ecosystem thoroughly: standards, tooling, adoption — cross-check everything you find" }
+    {
+      "prompt": "do a deep research pass on the state of local-first sync engines \u2014 multiple sources, and verify the claims"
+    },
+    {
+      "prompt": "I need a comprehensive fact-checked report on how the major cloud providers price GPU instances"
+    },
+    {
+      "prompt": "fan out and research what actually happened in the WordPress vs WP Engine dispute \u2014 don't trust any single account"
+    },
+    {
+      "prompt": "research the agent-skills ecosystem thoroughly: standards, tooling, adoption \u2014 cross-check everything you find"
+    },
+    {
+      "prompt": "before we commit to a vector DB, investigate across vendors properly \u2014 benchmarks, pricing, lock-in \u2014 verified primary sources only"
+    },
+    {
+      "prompt": "I need the full contested picture on return-to-office productivity data with citations"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "what's the latest version of Bun?", "note": "single volatile fact — inline ground-truth verification" },
-    { "prompt": "research how Stripe webhooks handle retries and write it up in the repo", "note": "bounded question one investigator covers — research-note territory" },
-    { "prompt": "summarize this whitepaper for me", "note": "supplied material, no investigation" },
-    { "prompt": "why is this test flaky?", "note": "local debugging, not source research" }
+    {
+      "prompt": "what's the latest version of Bun?",
+      "note": "single volatile fact \u2014 inline ground-truth verification"
+    },
+    {
+      "prompt": "research how Stripe webhooks handle retries and write it up in the repo",
+      "note": "bounded question one investigator covers \u2014 research-note territory"
+    },
+    {
+      "prompt": "summarize this whitepaper for me",
+      "note": "supplied material, no investigation"
+    },
+    {
+      "prompt": "why is this test flaky?",
+      "note": "local debugging, not source research"
+    },
+    {
+      "prompt": "quick check: does bun support --experimental-ffi yet?",
+      "note": "single volatile fact \u2014 inline ground-truth check"
+    },
+    {
+      "prompt": "read this RFC and tell me your thoughts",
+      "note": "supplied material, no fan-out investigation"
+    }
   ]
 }
