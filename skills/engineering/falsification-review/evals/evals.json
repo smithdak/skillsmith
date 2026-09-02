@@ -4,7 +4,7 @@
       "prompt": "should we migrate our monolith to microservices?"
     },
     {
-      "prompt": "I think we should rewrite this service in Rust \u2014 thoughts?"
+      "prompt": "I think we should rewrite this service in Rust — thoughts?"
     },
     {
       "prompt": "sanity check this decision: we're dropping IE11 support next sprint"
@@ -13,10 +13,14 @@
       "prompt": "is 6 weeks a realistic estimate for the auth migration?"
     },
     {
-      "prompt": "before I present the budget plan tomorrow, attack it \u2014 where's the weakest assumption?"
+      "prompt": "before I present the budget plan tomorrow, attack it — where's the weakest assumption?"
     },
     {
       "prompt": "we're betting the quarter on self-hosting. what evidence would prove that wrong? check whether we looked"
+    },
+    {
+      "prompt": "I'm about to tell the team we should consolidate onto one queue — talk me out of it first",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [
@@ -26,7 +30,7 @@
     },
     {
       "prompt": "list the pros and cons of PostgreSQL vs MySQL",
-      "note": "neutral survey \u2014 no conclusion is being endorsed"
+      "note": "neutral survey — no conclusion is being endorsed"
     },
     {
       "prompt": "how do I set up a GitHub Actions workflow",
@@ -41,7 +45,7 @@
     },
     {
       "prompt": "run a premortem on the migration plan",
-      "note": "forward execution risks \u2014 premortem, not conclusion-testing"
+      "note": "forward execution risks — premortem, not conclusion-testing"
     }
   ]
 }

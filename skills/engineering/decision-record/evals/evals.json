@@ -17,6 +17,10 @@
     },
     {
       "prompt": "document the build-over-buy call on search so new hires stop re-asking"
+    },
+    {
+      "prompt": "the team keeps reopening the same database argument every sprint; can we settle it and put the reasoning somewhere permanent",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

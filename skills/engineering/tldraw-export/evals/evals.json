@@ -20,6 +20,10 @@
     },
     {
       "prompt": "batch-export every .tldr in assets/ to SVG"
+    },
+    {
+      "prompt": "I need to drop this board into a slide deck, and slides don't do interactive",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

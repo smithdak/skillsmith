@@ -1,10 +1,10 @@
 {
   "should_trigger": [
     {
-      "prompt": "design an A/B test for our onboarding flow \u2014 current activation rate is 34%"
+      "prompt": "design an A/B test for our onboarding flow — current activation rate is 34%"
     },
     {
-      "prompt": "we ran a test for 2 weeks, variant got 8.4% vs control's 7.1% on 5000 users each \u2014 is this significant?"
+      "prompt": "we ran a test for 2 weeks, variant got 8.4% vs control's 7.1% on 5000 users each — is this significant?"
     },
     {
       "prompt": "how long do I need to run this experiment to get a reliable result?"
@@ -16,10 +16,14 @@
       "prompt": "analyze my A/B test: control 320 conversions from 4200 visits, variant 381 from 4150"
     },
     {
-      "prompt": "results are in: A 11.2%, B 12.9%, ~9k users each \u2014 is it real or noise?"
+      "prompt": "results are in: A 11.2%, B 12.9%, ~9k users each — is it real or noise?"
     },
     {
       "prompt": "size the test: baseline 22% signup rate and we only care about a 3-point lift"
+    },
+    {
+      "prompt": "we ran the new checkout for a week and it's up 4% — is that real or is it noise?",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

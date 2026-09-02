@@ -17,6 +17,10 @@
     },
     {
       "prompt": "pick up the next open ticket on the migration map"
+    },
+    {
+      "prompt": "we know we have to get off the legacy provider but there are too many unknowns to plan it in one sitting",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

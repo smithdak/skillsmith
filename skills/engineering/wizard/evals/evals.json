@@ -1,7 +1,7 @@
 {
   "should_trigger": [
     {
-      "prompt": "make me a setup wizard for Supabase \u2014 env keys, auth redirect URLs, the works"
+      "prompt": "make me a setup wizard for Supabase — env keys, auth redirect URLs, the works"
     },
     {
       "prompt": "write a script that walks me through setting up Stripe for this repo"
@@ -10,19 +10,23 @@
       "prompt": "turn this onboarding runbook into an interactive script the next dev can run"
     },
     {
-      "prompt": "I keep re-explaining the Vercel + Neon setup \u2014 build me a guided script that asks for each value and writes the .env"
+      "prompt": "I keep re-explaining the Vercel + Neon setup — build me a guided script that asks for each value and writes the .env"
     },
     {
       "prompt": "build an Okta setup wizard that captures the client IDs and writes them to .env"
     },
     {
       "prompt": "script that walks a new dev through provisioning the staging cluster step by step"
+    },
+    {
+      "prompt": "getting Supabase configured takes about twenty clicks across four browser tabs and I always miss one. can you make me something that holds my hand?",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [
     {
       "prompt": "add STRIPE_SECRET_KEY to my .env",
-      "note": "direct edit \u2014 no human journey to guide"
+      "note": "direct edit — no human journey to guide"
     },
     {
       "prompt": "write a bash script to back up the database every night",
@@ -30,7 +34,7 @@
     },
     {
       "prompt": "how do I set up Stripe webhooks?",
-      "note": "a question \u2014 answer in chat, don't generate a script"
+      "note": "a question — answer in chat, don't generate a script"
     },
     {
       "prompt": "walk me through how authentication works in this codebase",

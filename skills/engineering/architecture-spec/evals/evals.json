@@ -17,6 +17,10 @@
     },
     {
       "prompt": "document the event pipeline architecture as a design doc the team can review section by section"
+    },
+    {
+      "prompt": "three of us have completely different mental models of how the new pipeline fits together and I need one document everyone can build against",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

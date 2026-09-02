@@ -17,6 +17,10 @@
     },
     {
       "prompt": "we've settled the notifications design — write the spec from everything discussed above"
+    },
+    {
+      "prompt": "we just spent an hour hashing out the referral flow; capture that so someone else can build it",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

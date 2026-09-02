@@ -17,6 +17,10 @@
     },
     {
       "prompt": "what should our vulnerability disclosure policy promise reporters?"
+    },
+    {
+      "prompt": "a researcher emailed us about a bug last night and we had nothing to tell them about what's in scope or how we'd respond",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

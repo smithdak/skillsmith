@@ -17,12 +17,16 @@
     },
     {
       "prompt": "is langchain still the right recommendation, or has the ecosystem moved on?"
+    },
+    {
+      "prompt": "before I write this integration — is the endpoint we're calling still shaped the way I remember?",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [
     {
       "prompt": "explain how the TCP three-way handshake works",
-      "note": "protocol fundamentals \u2014 stable"
+      "note": "protocol fundamentals — stable"
     },
     {
       "prompt": "what's the Pythagorean theorem"
@@ -37,7 +41,7 @@
     },
     {
       "prompt": "derive the closed form for compound interest",
-      "note": "timeless math \u2014 stable knowledge"
+      "note": "timeless math — stable knowledge"
     },
     {
       "prompt": "explain REST vs GraphQL tradeoffs",

@@ -20,6 +20,10 @@
     },
     {
       "prompt": "migrate the deploy workflow off stored secrets onto op:// references with a service account"
+    },
+    {
+      "prompt": "every one of our deploy credentials is duplicated into the Actions UI and rotating them is a nightmare",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

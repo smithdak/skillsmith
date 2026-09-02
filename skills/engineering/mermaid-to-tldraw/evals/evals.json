@@ -20,6 +20,10 @@
     },
     {
       "prompt": "convert our architecture flowchart (mermaid below) into something the team can rearrange live"
+    },
+    {
+      "prompt": "our runbook has a mermaid block in it and the team wants to rearrange the nodes themselves",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

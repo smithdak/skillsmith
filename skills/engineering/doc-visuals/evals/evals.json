@@ -1,7 +1,7 @@
 {
   "should_trigger": [
     {
-      "prompt": "the repository map in our README is really hard to read \u2014 fix it"
+      "prompt": "the repository map in our README is really hard to read — fix it"
     },
     {
       "prompt": "add a mermaid diagram of the request flow to the architecture doc"
@@ -13,10 +13,14 @@
       "prompt": "clean up the code examples in this guide, the commands and output are all jumbled together"
     },
     {
-      "prompt": "the mermaid sequence diagram in our docs renders broken on GitHub \u2014 fix it"
+      "prompt": "the mermaid sequence diagram in our docs renders broken on GitHub — fix it"
     },
     {
       "prompt": "reformat this runbook's command examples so they're copy-paste safe"
+    },
+    {
+      "prompt": "the folder tree on our onboarding page renders as a wall of characters on GitHub and nobody can parse it",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [
@@ -46,7 +50,7 @@
     },
     {
       "prompt": "split our FAQ into separate pages",
-      "note": "structure/splitting \u2014 information-architecture"
+      "note": "structure/splitting — information-architecture"
     }
   ]
 }

@@ -17,6 +17,10 @@ set -u
 
 BLOCK_START='<!-- agent-voice:output-contract v1 (managed; regenerate via voice-setup) -->'
 BLOCK_END='<!-- /agent-voice:output-contract -->'
+# Splicing matches this prefix, not the full start line: the version rides in
+# the marker, so an exact match would fail against a block written by a
+# different version and append a second block below the stale one.
+BLOCK_PREFIX='<!-- agent-voice:output-contract'
 
 files=""
 reading_order=1
@@ -91,7 +95,7 @@ for f in $files; do
     before=$(mktemp)
     after=$(mktemp)
     # Everything above the managed block...
-    awk -v s="$BLOCK_START" 'index($0, s) == 1 { exit } { print }' "$f" >"$before"
+    awk -v s="$BLOCK_PREFIX" 'index($0, s) == 1 { exit } { print }' "$f" >"$before"
     # ...and everything below it.
     awk -v e="$BLOCK_END" 'seen { print } index($0, e) == 1 { seen = 1 }' "$f" >"$after"
     cat "$before" "$blk" "$after" >"$f"

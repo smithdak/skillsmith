@@ -10,13 +10,17 @@
       "prompt": "review this skill and tell me if the description is any good"
     },
     {
-      "prompt": "audit our skills \u2014 some of them never fire when they should"
+      "prompt": "audit our skills — some of them never fire when they should"
     },
     {
-      "prompt": "my skill fires on everything \u2014 tighten its trigger surface"
+      "prompt": "my skill fires on everything — tighten its trigger surface"
     },
     {
       "prompt": "shrink this SKILL.md; it's bloated past its token budget and the body rambles"
+    },
+    {
+      "prompt": "I wrote one of these and it never fires when I expect it to",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [
@@ -41,7 +45,7 @@
       "note": "product docs, not an agent skill"
     },
     {
-      "prompt": "the plugin won't install in Claude Code \u2014 debug it",
+      "prompt": "the plugin won't install in Claude Code — debug it",
       "note": "installation troubleshooting"
     }
   ]

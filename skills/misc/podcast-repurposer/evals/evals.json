@@ -20,6 +20,10 @@
     },
     {
       "prompt": "mine this interview transcript for pull quotes and a tweet thread"
+    },
+    {
+      "prompt": "we recorded ninety minutes last week and it's just sitting there — squeeze everything out of it",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [

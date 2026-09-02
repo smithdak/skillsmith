@@ -23,6 +23,10 @@
     },
     {
       "prompt": "trunk moved; rebase my stack, re-check approvals, and confirm checks per layer"
+    },
+    {
+      "prompt": "#412, #413 and #414 all depend on each other and main moved under all of them",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
     }
   ],
   "should_not_trigger": [
