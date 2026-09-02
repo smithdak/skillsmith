@@ -1,18 +1,56 @@
 {
   "should_trigger": [
-    { "prompt": "critique our landing page design before we show investors" },
-    { "prompt": "what do you think of this dashboard UI? give me a real design review with scores" },
-    { "prompt": "review the new settings screen and tell me what's weak about it — don't change anything yet" },
-    { "prompt": "score this page against UX heuristics and tell me the top problems" },
-    { "prompt": "is our checkout design good? give me a structured critique with severity levels" },
-    { "prompt": "design-review the marketing site refresh and tell us where it feels generic" }
+    {
+      "prompt": "critique our landing page design before we show investors"
+    },
+    {
+      "prompt": "what do you think of this dashboard UI? give me a real design review with scores"
+    },
+    {
+      "prompt": "review the new settings screen and tell me what's weak about it — don't change anything yet"
+    },
+    {
+      "prompt": "score this page against UX heuristics and tell me the top problems"
+    },
+    {
+      "prompt": "is our checkout design good? give me a structured critique with severity levels"
+    },
+    {
+      "prompt": "design-review the marketing site refresh and tell us where it feels generic"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "fix the spacing issues on the pricing page", "note": "applying fixes — frontend-redesign, not assessment" },
-    { "prompt": "build a hero section for the launch", "note": "new construction — frontend-craft" },
-    { "prompt": "verify the signup flow works in a browser", "note": "behavior verification — webapp-testing; usable here as evidence only" },
-    { "prompt": "check this diff for XSS before merge", "note": "security review — security-diff-review" },
-    { "prompt": "make the docs feel more polished", "note": "craft upgrade of existing UI — frontend-redesign" },
-    { "prompt": "explain Nielsen's ten heuristics", "note": "concept explanation, no interface under review" }
+    {
+      "prompt": "fix the spacing issues on the pricing page",
+      "note": "applying fixes — frontend-redesign, not assessment"
+    },
+    {
+      "prompt": "build a hero section for the launch",
+      "note": "new construction — frontend-craft"
+    },
+    {
+      "prompt": "verify the signup flow works in a browser",
+      "note": "behavior verification — webapp-testing; usable here as evidence only"
+    },
+    {
+      "prompt": "check this diff for XSS before merge",
+      "note": "security review — security-diff-review"
+    },
+    {
+      "prompt": "make the docs feel more polished",
+      "note": "craft upgrade of existing UI — frontend-redesign"
+    },
+    {
+      "prompt": "explain Nielsen's ten heuristics",
+      "note": "concept explanation, no interface under review"
+    },
+    {
+      "prompt": "build a landing page for our developer tool",
+      "note": "near-boundary: frontend-craft's own trigger phrasing — frontend-critique declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "audit this UI and tell me how to make it look more polished",
+      "note": "near-boundary: frontend-redesign's own trigger phrasing — frontend-critique declares this out of scope, so it must not claim it"
+    }
   ]
 }

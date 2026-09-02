@@ -16,7 +16,7 @@
       "prompt": "file the bug: search filters reset whenever you paginate"
     },
     {
-      "prompt": "here's the epic \u2014 cut it into stories ready enough for anyone to pick up"
+      "prompt": "here's the epic — cut it into stories ready enough for anyone to pick up"
     }
   ],
   "should_not_trigger": [
@@ -42,7 +42,11 @@
     },
     {
       "prompt": "close out the stale tickets",
-      "note": "backlog maintenance \u2014 issue-triage adjacent"
+      "note": "backlog maintenance — issue-triage adjacent"
+    },
+    {
+      "prompt": "will the team understand this handoff doc without me there to explain it?",
+      "note": "near-boundary: cold-read's own trigger phrasing — define-work-items declares this out of scope, so it must not claim it"
     }
   ]
 }

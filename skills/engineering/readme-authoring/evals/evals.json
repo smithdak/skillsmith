@@ -4,7 +4,7 @@
       "prompt": "write a README for this project"
     },
     {
-      "prompt": "our README is way out of date \u2014 it describes half the features we actually have"
+      "prompt": "our README is way out of date — it describes half the features we actually have"
     },
     {
       "prompt": "the front page of the repo doesn't explain what this thing does, can you fix it?"
@@ -13,7 +13,7 @@
       "prompt": "improve the readme, it's not doing us any favors on GitHub"
     },
     {
-      "prompt": "our README still says Python 2 \u2014 rewrite it from what the repo actually is"
+      "prompt": "our README still says Python 2 — rewrite it from what the repo actually is"
     },
     {
       "prompt": "the README advertises features we never shipped; rebuild it honest from the code"
@@ -22,11 +22,11 @@
   "should_not_trigger": [
     {
       "prompt": "the directory tree in this doc is hard to read",
-      "note": "visual layer of a document \u2014 belongs to doc-visuals"
+      "note": "visual layer of a document — belongs to doc-visuals"
     },
     {
       "prompt": "our docs folder is a flat pile, where should these files live?",
-      "note": "multi-file organization \u2014 information-architecture"
+      "note": "multi-file organization — information-architecture"
     },
     {
       "prompt": "document every option this CLI accepts",
@@ -43,6 +43,14 @@
     {
       "prompt": "add badges to the README header",
       "note": "cosmetic edit only"
+    },
+    {
+      "prompt": "the repository map in our README is really hard to read — fix it",
+      "note": "near-boundary: doc-visuals's own trigger phrasing — readme-authoring declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "our docs folder is a graveyard of 30 markdown files with no order — can you give it a structure that makes sense",
+      "note": "near-boundary: information-architecture's own trigger phrasing — readme-authoring declares this out of scope, so it must not claim it"
     }
   ]
 }

@@ -50,6 +50,22 @@ humans evaluating the project, and aspirations nobody enforces. An
 instruction file stuffed with derivable facts buries the two lines
 that matter.
 
+## Write for the model you have, not the one you had
+
+Instruction files accumulate rules aimed at an older generation's habits, and
+those rules do not age into harmlessness — they invert. Telling a model that
+under-narrates to "work silently", or one that under-formats to "never use
+bullets", subtracts exactly what the reader wanted. The same goes for
+enumerated steps around judgment work and emphasis added because an
+instruction was once ignored: prescription that outlived its model reduces
+output quality rather than protecting it.
+
+So when an instruction file is not working, cut before adding. State when
+updates and formatting *are* wanted rather than banning them, keep ordered
+steps only where order genuinely matters, and re-read the file's oldest rules
+whenever the model behind it changes — a rule nobody can trace to a failure
+that still reproduces is a candidate for deletion, not a fixture.
+
 ## Structure for lookup, not narrative
 
 Agents scan for the section answering their current failure. Head

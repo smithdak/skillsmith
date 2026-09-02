@@ -33,6 +33,10 @@
     {
       "prompt": "rewrite this error message to be friendlier",
       "note": "copywriting on repo strings, not agent output rules"
+    },
+    {
+      "prompt": "you've been way too verbose lately. shorter replies from now on.",
+      "note": "near-boundary: output-contract's own trigger phrasing — voice-setup declares this out of scope, so it must not claim it"
     }
   ]
 }

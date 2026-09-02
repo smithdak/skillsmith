@@ -42,7 +42,15 @@
     },
     {
       "prompt": "threat model the whole platform",
-      "note": "repo-scoped model \u2014 threat-model"
+      "note": "repo-scoped model — threat-model"
+    },
+    {
+      "prompt": "should we migrate our monolith to microservices?",
+      "note": "near-boundary: falsification-review's own trigger phrasing — security-diff-review declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "threat model this payments service before we start the audit",
+      "note": "near-boundary: threat-model's own trigger phrasing — security-diff-review declares this out of scope, so it must not claim it"
     }
   ]
 }

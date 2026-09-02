@@ -13,7 +13,7 @@
       "prompt": "turn our discussion into an architecture specification"
     },
     {
-      "prompt": "we're redesigning the ingestion path \u2014 produce a versioned spec with invariants and an open-decisions register before anyone codes"
+      "prompt": "we're redesigning the ingestion path — produce a versioned spec with invariants and an open-decisions register before anyone codes"
     },
     {
       "prompt": "document the event pipeline architecture as a design doc the team can review section by section"
@@ -22,7 +22,7 @@
   "should_not_trigger": [
     {
       "prompt": "explain microservices architecture",
-      "note": "educational \u2014 no document being authored"
+      "note": "educational — no document being authored"
     },
     {
       "prompt": "review this architecture spec I wrote",
@@ -36,11 +36,19 @@
     },
     {
       "prompt": "what does eventual consistency mean?",
-      "note": "concept explanation \u2014 nothing being specified"
+      "note": "concept explanation — nothing being specified"
     },
     {
       "prompt": "refactor this module to remove duplication",
       "note": "code change, not a specification"
+    },
+    {
+      "prompt": "the repository map in our README is really hard to read — fix it",
+      "note": "near-boundary: doc-visuals's own trigger phrasing — architecture-spec declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "should we migrate our monolith to microservices?",
+      "note": "near-boundary: falsification-review's own trigger phrasing — architecture-spec declares this out of scope, so it must not claim it"
     }
   ]
 }

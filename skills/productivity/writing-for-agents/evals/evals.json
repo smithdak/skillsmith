@@ -1,18 +1,56 @@
 {
   "should_trigger": [
-    { "prompt": "create an AGENTS.md so codex stops putting tests in the wrong folder" },
-    { "prompt": "our CLAUDE.md is three years stale — rewrite it from how the repo actually works now" },
-    { "prompt": "agents keep editing generated files; encode that boundary somewhere they'll actually read it" },
-    { "prompt": "set up instruction files that work for both claude code and codex without maintaining two copies" },
-    { "prompt": "write the onboarding note for coding agents joining this monorepo" },
-    { "prompt": "make our build and test commands discoverable to any agent that lands in this repo" }
+    {
+      "prompt": "create an AGENTS.md so codex stops putting tests in the wrong folder"
+    },
+    {
+      "prompt": "our CLAUDE.md is three years stale — rewrite it from how the repo actually works now"
+    },
+    {
+      "prompt": "agents keep editing generated files; encode that boundary somewhere they'll actually read it"
+    },
+    {
+      "prompt": "set up instruction files that work for both claude code and codex without maintaining two copies"
+    },
+    {
+      "prompt": "write the onboarding note for coding agents joining this monorepo"
+    },
+    {
+      "prompt": "make our build and test commands discoverable to any agent that lands in this repo"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "write a new SKILL.md for our code-review workflow", "note": "packaged skill authoring — skill-authoring" },
-    { "prompt": "rewrite the README — it undersells the project", "note": "human-facing front page — readme-authoring" },
-    { "prompt": "check this handoff doc makes sense without me", "note": "self-sufficiency pass — cold-read" },
-    { "prompt": "strip the PR-transcript narration from these JSDoc comments", "note": "comment leakage cleanup — prose-hygiene" },
-    { "prompt": "what's the difference between AGENTS.md and CLAUDE.md?", "note": "concept explanation, nothing to write" },
-    { "prompt": "fix the typos in CONTRIBUTING.md", "note": "copyediting, not agent-instruction authoring" }
+    {
+      "prompt": "write a new SKILL.md for our code-review workflow",
+      "note": "packaged skill authoring — skill-authoring"
+    },
+    {
+      "prompt": "rewrite the README — it undersells the project",
+      "note": "human-facing front page — readme-authoring"
+    },
+    {
+      "prompt": "check this handoff doc makes sense without me",
+      "note": "self-sufficiency pass — cold-read"
+    },
+    {
+      "prompt": "strip the PR-transcript narration from these JSDoc comments",
+      "note": "comment leakage cleanup — prose-hygiene"
+    },
+    {
+      "prompt": "what's the difference between AGENTS.md and CLAUDE.md?",
+      "note": "concept explanation, nothing to write"
+    },
+    {
+      "prompt": "fix the typos in CONTRIBUTING.md",
+      "note": "copyediting, not agent-instruction authoring"
+    },
+    {
+      "prompt": "will the team understand this handoff doc without me there to explain it?",
+      "note": "near-boundary: cold-read's own trigger phrasing — writing-for-agents declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "go through the comments in src/ and strip anything that talks about the PR or what the code used to do",
+      "note": "near-boundary: prose-hygiene's own trigger phrasing — writing-for-agents declares this out of scope, so it must not claim it"
+    }
   ]
 }

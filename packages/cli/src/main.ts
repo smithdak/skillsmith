@@ -163,7 +163,8 @@ const validateCmd = defineCommand({
       allowedCategories: config.categories.allowed,
       listingCharCap: config.policy["max-listing-chars"],
     });
-    const { diagnostics } = await validateAll(discovery, config);
+    const evalResults = await loadEvalResults(repoRoot);
+    const { diagnostics } = await validateAll(discovery, config, { evalResults });
 
     const tierOf = (rule: string) =>
       rule.startsWith("S") ? "security" : rule === "SCHEMA" ? "schema" : "quality";

@@ -7,7 +7,7 @@
       "prompt": "design a portfolio homepage that doesn't look AI-generated"
     },
     {
-      "prompt": "create a pricing page for the new product \u2014 three tiers, and please don't make it look like every other SaaS page"
+      "prompt": "create a pricing page for the new product — three tiers, and please don't make it look like every other SaaS page"
     },
     {
       "prompt": "I need a hero section for a launch site, something with real visual character rather than the usual gradient-and-cards template"
@@ -16,17 +16,17 @@
       "prompt": "build a docs landing page that feels editorial and premium, nothing template-shaped"
     },
     {
-      "prompt": "create the hero for our AI product page \u2014 high variance allowed, zero default-SaaS look"
+      "prompt": "create the hero for our AI product page — high variance allowed, zero default-SaaS look"
     }
   ],
   "should_not_trigger": [
     {
       "prompt": "the existing dashboard needs a full design audit and upgrade",
-      "note": "auditing existing UI \u2014 belongs to frontend-redesign"
+      "note": "auditing existing UI — belongs to frontend-redesign"
     },
     {
       "prompt": "the marketing site works but the UI is bland, can you make it look premium?",
-      "note": "polishing a live interface \u2014 frontend-redesign"
+      "note": "polishing a live interface — frontend-redesign"
     },
     {
       "prompt": "add a mermaid diagram to this README",
@@ -42,11 +42,19 @@
     },
     {
       "prompt": "make the settings modal keyboard accessible",
-      "note": "targeted fix on existing UI \u2014 frontend-redesign/craft audit"
+      "note": "targeted fix on existing UI — frontend-redesign/craft audit"
     },
     {
       "prompt": "write the homepage marketing copy",
       "note": "copywriting, not UI construction"
+    },
+    {
+      "prompt": "extract our brand voice from these copy samples so we have something consistent to work from",
+      "note": "near-boundary: brand-voice's own trigger phrasing — frontend-craft declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "the repository map in our README is really hard to read — fix it",
+      "note": "near-boundary: doc-visuals's own trigger phrasing — frontend-craft declares this out of scope, so it must not claim it"
     }
   ]
 }

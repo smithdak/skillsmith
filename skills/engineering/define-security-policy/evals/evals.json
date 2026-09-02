@@ -13,7 +13,7 @@
       "prompt": "document which parts of the system are in bounds for security researchers"
     },
     {
-      "prompt": "we need a SECURITY.md before launch \u2014 scope it to the API only, marketing site excluded"
+      "prompt": "we need a SECURITY.md before launch — scope it to the API only, marketing site excluded"
     },
     {
       "prompt": "what should our vulnerability disclosure policy promise reporters?"
@@ -43,6 +43,10 @@
     {
       "prompt": "harden the auth middleware",
       "note": "implementing fixes, not authoring policy"
+    },
+    {
+      "prompt": "threat model this payments service before we start the audit",
+      "note": "near-boundary: threat-model's own trigger phrasing — define-security-policy declares this out of scope, so it must not claim it"
     }
   ]
 }

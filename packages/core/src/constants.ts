@@ -10,6 +10,16 @@ export const SCHEMA_TARGET = "claude-code@2.1.x" as const;
 /** Agent Skills open-standard spec version the standard schema tracks. */
 export const STANDARD_TARGET = "agent-skills@2025-12" as const;
 
+/**
+ * The model generation the prompting rules (V13, V15) are calibrated against.
+ * VOLATILE, and volatile in an unusual direction: what counts as a dated
+ * pattern is a property of the model, not of good writing. A suppressor that
+ * protected one generation costs output quality on the next, so every rule
+ * that encodes model behavior is re-audited when this moves — not just the
+ * rules that stop matching.
+ */
+export const MODEL_BEHAVIOR_TARGET = "claude-fable-5.1" as const;
+
 export const LIMITS = {
   /** Skill name max length (standard). */
   skillNameMax: 64,

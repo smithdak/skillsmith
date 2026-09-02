@@ -10,10 +10,10 @@
       "prompt": "I need to hand this project off to Sarah"
     },
     {
-      "prompt": "I'm going on vacation next week \u2014 document where things stand so someone can pick this up"
+      "prompt": "I'm going on vacation next week — document where things stand so someone can pick this up"
     },
     {
-      "prompt": "contract ends Friday \u2014 leave notes so the FTE taking over isn't lost"
+      "prompt": "contract ends Friday — leave notes so the FTE taking over isn't lost"
     },
     {
       "prompt": "session's ending; capture where things stand so tomorrow picks up clean"
@@ -41,6 +41,10 @@
     {
       "prompt": "email Sarah a status update",
       "note": "communication, not handoff document"
+    },
+    {
+      "prompt": "will the team understand this handoff doc without me there to explain it?",
+      "note": "near-boundary: cold-read's own trigger phrasing — handoff declares this out of scope, so it must not claim it"
     }
   ]
 }

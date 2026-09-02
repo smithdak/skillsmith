@@ -13,7 +13,7 @@
       "prompt": "before we hunt for bugs, I want a proper threat model of the whole system"
     },
     {
-      "prompt": "we're about to take card payments \u2014 map the attack surface and trust boundaries before any review"
+      "prompt": "we're about to take card payments — map the attack surface and trust boundaries before any review"
     },
     {
       "prompt": "produce the threat model doc the security team asked for before the pentest"
@@ -30,7 +30,7 @@
     },
     {
       "prompt": "review the security of this one changed file",
-      "note": "diff-scoped review \u2014 belongs to security-diff-review"
+      "note": "diff-scoped review — belongs to security-diff-review"
     },
     {
       "prompt": "write a SECURITY.md for our repo",
@@ -38,11 +38,15 @@
     },
     {
       "prompt": "is JWT validation correct in this changed file?",
-      "note": "change-scoped review \u2014 security-diff-review"
+      "note": "change-scoped review — security-diff-review"
     },
     {
       "prompt": "run a vulnerability scan against staging",
       "note": "scanning execution, not modeling"
+    },
+    {
+      "prompt": "survey this codebase for me",
+      "note": "near-boundary: codebase-survey's own trigger phrasing — threat-model declares this out of scope, so it must not claim it"
     }
   ]
 }

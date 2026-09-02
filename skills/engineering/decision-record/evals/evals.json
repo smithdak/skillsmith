@@ -1,18 +1,56 @@
 {
   "should_trigger": [
-    { "prompt": "we're torn between Postgres and DynamoDB for the events store — help us decide properly and write it up as an ADR" },
-    { "prompt": "record why we went monolith-first so nobody relitigates this next quarter" },
-    { "prompt": "write up the decision to drop IE11 support with the reasoning" },
-    { "prompt": "should we build notifications in-house or buy? walk us through it and leave a decision record" },
-    { "prompt": "ADR for switching the license from MIT to AGPL, please" },
-    { "prompt": "document the build-over-buy call on search so new hires stop re-asking" }
+    {
+      "prompt": "we're torn between Postgres and DynamoDB for the events store — help us decide properly and write it up as an ADR"
+    },
+    {
+      "prompt": "record why we went monolith-first so nobody relitigates this next quarter"
+    },
+    {
+      "prompt": "write up the decision to drop IE11 support with the reasoning"
+    },
+    {
+      "prompt": "should we build notifications in-house or buy? walk us through it and leave a decision record"
+    },
+    {
+      "prompt": "ADR for switching the license from MIT to AGPL, please"
+    },
+    {
+      "prompt": "document the build-over-buy call on search so new hires stop re-asking"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "spec out the architecture for the whole platform", "note": "system-wide document — architecture-spec" },
-    { "prompt": "write the PRD for payments", "note": "product feature spec — feature-spec" },
-    { "prompt": "Postgres vs MongoDB — just give me a neutral comparison", "note": "survey without a decision or record sought" },
-    { "prompt": "what did ADR-004 decide about caching?", "note": "recall of an existing record, not authoring one" },
-    { "prompt": "premortem the rollout plan we just chose", "note": "execution-risk rehearsal — premortem; link it from consequences instead" },
-    { "prompt": "sanity check: is migrating off Kafka even the right call?", "note": "conclusion under attack before commitment — falsification-review" }
+    {
+      "prompt": "spec out the architecture for the whole platform",
+      "note": "system-wide document — architecture-spec"
+    },
+    {
+      "prompt": "write the PRD for payments",
+      "note": "product feature spec — feature-spec"
+    },
+    {
+      "prompt": "Postgres vs MongoDB — just give me a neutral comparison",
+      "note": "survey without a decision or record sought"
+    },
+    {
+      "prompt": "what did ADR-004 decide about caching?",
+      "note": "recall of an existing record, not authoring one"
+    },
+    {
+      "prompt": "premortem the rollout plan we just chose",
+      "note": "execution-risk rehearsal — premortem; link it from consequences instead"
+    },
+    {
+      "prompt": "sanity check: is migrating off Kafka even the right call?",
+      "note": "conclusion under attack before commitment — falsification-review"
+    },
+    {
+      "prompt": "write an architecture spec for our new ingestion service",
+      "note": "near-boundary: architecture-spec's own trigger phrasing — decision-record declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "should we migrate our monolith to microservices?",
+      "note": "near-boundary: falsification-review's own trigger phrasing — decision-record declares this out of scope, so it must not claim it"
+    }
   ]
 }

@@ -35,7 +35,7 @@ Every finding (`src/diagnostics.ts`) carries a rule id, a path-anchored location
 
 One line per rule; the fix-oriented deep reference is [docs/validation-rules.md](../../docs/validation-rules.md).
 
-### Quality tier (V1–V14)
+### Quality tier (V1–V15)
 
 | Rule | Enforces |
 |---|---|
@@ -51,8 +51,9 @@ One line per rule; the fix-oriented deep reference is [docs/validation-rules.md]
 | V10 | Many mutually-exclusive conditional sections → extract to `references/` (token economy) |
 | V11 | No `CLAUDE.md` inside a skill directory — it is never loaded there |
 | V12 | Composition edges must exist, not self-compose, not be user→user, and cross-plugin edges need the allowlist |
-| V13 | Body must not instruct the model to show/explain its reasoning (refusal hazard on Fable 5) |
+| V13 | Body must not instruct the model to show/explain its reasoning (reasoning-extraction refusal hazard) |
 | V14 | Category folder is allowlisted and matches any declared category; drafts cannot be shipped in a plugin |
+| V15 | No update suppressors ("work silently") or blanket anti-formatting rules ("never use bullets") — patterns that invert on current models; quoted citations are exempt |
 
 ### Security tier (S1–S7)
 

@@ -13,7 +13,7 @@
       "prompt": "anything in the backlog still waiting on my input?"
     },
     {
-      "prompt": "thirty new issues since the HN post \u2014 triage them"
+      "prompt": "thirty new issues since the HN post — triage them"
     },
     {
       "prompt": "what's blocking #77 from being agent-ready?"
@@ -43,6 +43,10 @@
     {
       "prompt": "draft the changelog for Friday",
       "note": "release communications"
+    },
+    {
+      "prompt": "write a ticket for the login timeout bug",
+      "note": "near-boundary: define-work-items's own trigger phrasing — issue-triage declares this out of scope, so it must not claim it"
     }
   ]
 }

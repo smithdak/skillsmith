@@ -16,7 +16,7 @@
       "prompt": "inject secrets from our 1Password vault at runtime instead of hardcoding them"
     },
     {
-      "prompt": "audit found plaintext keys in .env.example \u2014 move us to 1Password references"
+      "prompt": "audit found plaintext keys in .env.example — move us to 1Password references"
     },
     {
       "prompt": "make onboarding not require copying secrets around; set up op run for this project"
@@ -46,6 +46,14 @@
     {
       "prompt": "encrypt the .env file at rest",
       "note": "different mitigation entirely"
+    },
+    {
+      "prompt": "load secrets from 1Password in my GitHub Actions workflow",
+      "note": "near-boundary: op-github-secrets's own trigger phrasing — op-secrets declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "make me a setup wizard for Supabase — env keys, auth redirect URLs, the works",
+      "note": "near-boundary: wizard's own trigger phrasing — op-secrets declares this out of scope, so it must not claim it"
     }
   ]
 }

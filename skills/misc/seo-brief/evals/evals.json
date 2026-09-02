@@ -4,7 +4,7 @@
       "prompt": "write an SEO brief for the keyword 'headless CMS for developers'"
     },
     {
-      "prompt": "create a content brief for 'B2B email marketing best practices' \u2014 I want to know what to cover to rank"
+      "prompt": "create a content brief for 'B2B email marketing best practices' — I want to know what to cover to rank"
     },
     {
       "prompt": "brief out this topic for SEO: API rate limiting"
@@ -13,7 +13,7 @@
       "prompt": "what should I cover to rank for 'SaaS churn reduction'? Give me a structured brief"
     },
     {
-      "prompt": "I want to write a piece targeting 'product-led growth examples' \u2014 give me the outline and intent breakdown"
+      "prompt": "I want to write a piece targeting 'product-led growth examples' — give me the outline and intent breakdown"
     },
     {
       "prompt": "brief 'kubernetes cost optimization' for me: intent, outline, gaps the current results leave open"
@@ -33,11 +33,11 @@
     },
     {
       "prompt": "find me 50 keywords in the developer tools space with low difficulty",
-      "note": "keyword research from scratch without a target keyword \u2014 no brief to produce"
+      "note": "keyword research from scratch without a target keyword — no brief to produce"
     },
     {
       "prompt": "what are some good content ideas for our SaaS blog?",
-      "note": "open ideation \u2014 content-angles territory, no target keyword to brief around"
+      "note": "open ideation — content-angles territory, no target keyword to brief around"
     },
     {
       "prompt": "track our keyword rankings weekly",
@@ -46,6 +46,14 @@
     {
       "prompt": "write the article from the brief we made",
       "note": "writing the piece, not briefing it"
+    },
+    {
+      "prompt": "what should I write about on the topic of AI in customer support?",
+      "note": "near-boundary: content-angles's own trigger phrasing — seo-brief declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "expert panel this blog post before I publish it",
+      "note": "near-boundary: content-scorer's own trigger phrasing — seo-brief declares this out of scope, so it must not claim it"
     }
   ]
 }

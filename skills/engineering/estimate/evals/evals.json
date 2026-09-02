@@ -7,7 +7,7 @@
       "prompt": "roughly what would it cost to run this workload on GCP for a year?"
     },
     {
-      "prompt": "size the COBOL-to-Java rewrite before we commit to it \u2014 range, not a promise"
+      "prompt": "size the COBOL-to-Java rewrite before we commit to it — range, not a promise"
     },
     {
       "prompt": "is the data backfill feasible before Q4 closes? put numbers on it and tell me how sure you are"
@@ -16,25 +16,25 @@
       "prompt": "how many support engineers do we need at 2x growth? work it out properly"
     },
     {
-      "prompt": "give me a defensible timeline for the SOC2 push \u2014 with your confidence stated"
+      "prompt": "give me a defensible timeline for the SOC2 push — with your confidence stated"
     }
   ],
   "should_not_trigger": [
     {
-      "prompt": "A/B came back 11.2% vs 12.9% on 9k each \u2014 significant?",
-      "note": "hypothesis test on results \u2014 growth-experiments analyze mode"
+      "prompt": "A/B came back 11.2% vs 12.9% on 9k each — significant?",
+      "note": "hypothesis test on results — growth-experiments analyze mode"
     },
     {
       "prompt": "turn the backfill scope into tickets",
-      "note": "work-item definition \u2014 define-work-items"
+      "note": "work-item definition — define-work-items"
     },
     {
       "prompt": "what's the current price of a T4 GPU hour on AWS?",
-      "note": "single volatile fact \u2014 ground-truth-research lookup feeding an estimate"
+      "note": "single volatile fact — ground-truth-research lookup feeding an estimate"
     },
     {
       "prompt": "how long did our last migration take?",
-      "note": "recall of history \u2014 useful as a base rate but not itself an estimate request"
+      "note": "recall of history — useful as a base rate but not itself an estimate request"
     },
     {
       "prompt": "which of these three initiatives should we fund first?",
@@ -42,7 +42,15 @@
     },
     {
       "prompt": "walk through how compound interest formulas work",
-      "note": "concept explanation \u2014 no uncertain quantity being forecast for a decision"
+      "note": "concept explanation — no uncertain quantity being forecast for a decision"
+    },
+    {
+      "prompt": "write a ticket for the login timeout bug",
+      "note": "near-boundary: define-work-items's own trigger phrasing — estimate declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "chart a discovery map for migrating our billing system off the legacy provider",
+      "note": "near-boundary: discovery-map's own trigger phrasing — estimate declares this out of scope, so it must not claim it"
     }
   ]
 }

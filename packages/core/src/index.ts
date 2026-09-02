@@ -2,7 +2,7 @@
  * @skillsmith/core — public API (the anti-`internal/` decision: everything
  * konstraint hides, we export).
  */
-export { SCHEMA_TARGET, STANDARD_TARGET, LIMITS } from "./constants.ts";
+export { SCHEMA_TARGET, STANDARD_TARGET, MODEL_BEHAVIOR_TARGET, LIMITS } from "./constants.ts";
 export * from "./diagnostics.ts";
 
 export {

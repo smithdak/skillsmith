@@ -21,7 +21,7 @@ Scaffold a `skill | agent | hook | mcp | plugin`. Skills start in `skills/drafts
 Flags: `--category`, `--description`.
 
 ### `skillsmith validate`
-Run schema + quality (V1–V14) + security (S1–S7) tiers over the skill, agent, and hook sources plus the config. (MCP file contents are checked at generate-time merge only.) See the [rule reference](../core/README.md#rule-reference).
+Run schema + quality (V1–V15) + security (S1–S7) tiers over the skill, agent, and hook sources plus the config. (MCP file contents are checked at generate-time merge only.) See the [rule reference](../core/README.md#rule-reference).
 Flags: `--tier all|schema|quality|security`.
 
 ```

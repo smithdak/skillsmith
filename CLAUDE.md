@@ -46,7 +46,7 @@ Pre-PR gate (from CONTRIBUTING.md): `validate --strict && generate && check` mus
 - `packages/cli` — thin citty wrapper, deliberately zero logic: load config, call core, render diagnostics, exit codes.
 - `packages/core` — everything, structured as a pipeline:
   1. `discovery.ts` — the only module that scans the filesystem; returns parsed source objects (frontmatter validated at parse time).
-  2. `validate.ts` + `composition.ts` — quality (V1–V14) and security (S1–S7) rules over discovered sources; builds script inventories (sha256, network-touching detection) and composition edges.
+  2. `validate.ts` + `composition.ts` — quality (V1–V15) and security (S1–S7) rules over discovered sources; builds script inventories (sha256, network-touching detection) and composition edges.
   3. `generate.ts` — pure function `(discovery, config) → GeneratePlan` (map of repo-relative path → content). Deterministic output: schema-defined JSON key order, sorted lists, LF, trailing newline.
   4. `check.ts` — compares committed files against the *same* plan bytes `generate` would write, which is what makes the drift gate trustworthy.
   5. `eval.ts` — LLM-judge trigger evals against each skill's `evals/evals.json`; full runs write `.skillsmith/eval-results.json` (committed; feeds catalog badges).
@@ -63,3 +63,6 @@ Schemas are zod v4 (`packages/core/src/schemas/`); JSON Schemas in `.skillsmith/
 - Body ≤500 lines / 5000 tokens; deterministic work goes in `scripts/`, on-demand docs in `references/` (one level deep).
 - `evals/evals.json` needs ≥3 should-trigger and ≥3 should-not-trigger cases with real phrasings, not paraphrases of the description.
 - Never instruct the model to show/explain its reasoning (rule V13 rejects it).
+- No update suppressors ("work silently", "don't narrate") or blanket
+  anti-formatting rules ("never use bullets") — both invert on current models
+  and V15 flags them. Cite them in quotes if a skill needs to teach them.

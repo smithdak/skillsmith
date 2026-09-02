@@ -4,7 +4,7 @@
       "prompt": "expert panel this blog post before I publish it"
     },
     {
-      "prompt": "score my landing page copy \u2014 I want a real panel of critics, not just suggestions"
+      "prompt": "score my landing page copy — I want a real panel of critics, not just suggestions"
     },
     {
       "prompt": "rate these two email subject line variants and tell me which wins"
@@ -19,7 +19,7 @@
       "prompt": "panel-review this cold email before it goes to 500 prospects"
     },
     {
-      "prompt": "two landing page variants attached \u2014 panel both and tell me which ships"
+      "prompt": "two landing page variants attached — panel both and tell me which ships"
     }
   ],
   "should_not_trigger": [
@@ -45,7 +45,11 @@
     },
     {
       "prompt": "make this punchier",
-      "note": "vague editing request \u2014 no panel discipline asked for"
+      "note": "vague editing request — no panel discipline asked for"
+    },
+    {
+      "prompt": "what should I write about on the topic of AI in customer support?",
+      "note": "near-boundary: content-angles's own trigger phrasing — content-scorer declares this out of scope, so it must not claim it"
     }
   ]
 }

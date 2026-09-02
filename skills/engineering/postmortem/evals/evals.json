@@ -1,7 +1,7 @@
 {
   "should_trigger": [
     {
-      "prompt": "we just spent three days tracking down the double-billing bug \u2014 write a postmortem"
+      "prompt": "we just spent three days tracking down the double-billing bug — write a postmortem"
     },
     {
       "prompt": "write up an RCA for yesterday's outage, the logs are in incident-2026-08-14.log and the fix is commit 3f9a2c1"
@@ -13,10 +13,10 @@
       "prompt": "incident report for the data-loss bug: timeline with the commits and the sequence numbers from the replication log"
     },
     {
-      "prompt": "we finally found the root cause of the flaky deploys \u2014 turn what we learned into a post-mortem for the team"
+      "prompt": "we finally found the root cause of the flaky deploys — turn what we learned into a post-mortem for the team"
     },
     {
-      "prompt": "the outage is over and root cause is confirmed \u2014 document it so we never relearn this lesson the hard way"
+      "prompt": "the outage is over and root cause is confirmed — document it so we never relearn this lesson the hard way"
     },
     {
       "prompt": "write up how the migration corrupted those rows: timeline from the binlogs, why every check missed it"
@@ -25,11 +25,11 @@
   "should_not_trigger": [
     {
       "prompt": "draft a design doc for the new event pipeline",
-      "note": "forward-looking \u2014 architecture-spec"
+      "note": "forward-looking — architecture-spec"
     },
     {
       "prompt": "write a handoff so whoever picks this up tomorrow knows where I stopped",
-      "note": "session state \u2014 handoff"
+      "note": "session state — handoff"
     },
     {
       "prompt": "triage the open issues and tell me what's urgent",
@@ -37,15 +37,15 @@
     },
     {
       "prompt": "write a ticket for the bug we just found",
-      "note": "work item \u2014 define-work-items"
+      "note": "work item — define-work-items"
     },
     {
       "prompt": "find the bug in the checkout flow",
-      "note": "debugging, not documenting \u2014 no skill"
+      "note": "debugging, not documenting — no skill"
     },
     {
       "prompt": "research how Postgres advisory locks behave under failover and leave notes in the repo",
-      "note": "open question \u2014 research-note"
+      "note": "open question — research-note"
     },
     {
       "prompt": "was moving to Kafka the right call? sanity check it",
@@ -53,11 +53,19 @@
     },
     {
       "prompt": "figure out why replication lagged last night",
-      "note": "active debugging \u2014 diagnose-bugs"
+      "note": "active debugging — diagnose-bugs"
     },
     {
       "prompt": "list action items from today's retro",
       "note": "meeting output, not a mechanism post-mortem"
+    },
+    {
+      "prompt": "write an architecture spec for our new ingestion service",
+      "note": "near-boundary: architecture-spec's own trigger phrasing — postmortem declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "write a ticket for the login timeout bug",
+      "note": "near-boundary: define-work-items's own trigger phrasing — postmortem declares this out of scope, so it must not claim it"
     }
   ]
 }

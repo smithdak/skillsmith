@@ -4,7 +4,7 @@
       "prompt": "survey this codebase for me"
     },
     {
-      "prompt": "I just inherited this repo \u2014 help me get oriented"
+      "prompt": "I just inherited this repo — help me get oriented"
     },
     {
       "prompt": "map out this project, I've never seen it before"
@@ -13,7 +13,7 @@
       "prompt": "onboard me to this codebase"
     },
     {
-      "prompt": "first day at the new job \u2014 walk me through what this codebase actually does"
+      "prompt": "first day at the new job — walk me through what this codebase actually does"
     },
     {
       "prompt": "give me the lay of the land: entry points, test posture, conventions"
@@ -33,7 +33,7 @@
     },
     {
       "prompt": "how are teams structuring monorepos these days",
-      "note": "industry question \u2014 no repo present"
+      "note": "industry question — no repo present"
     },
     {
       "prompt": "set up my dev environment for this repo",
@@ -42,6 +42,10 @@
     {
       "prompt": "where is the billing logic implemented?",
       "note": "targeted lookup, not a repo-wide survey"
+    },
+    {
+      "prompt": "the repository map in our README is really hard to read — fix it",
+      "note": "near-boundary: doc-visuals's own trigger phrasing — codebase-survey declares this out of scope, so it must not claim it"
     }
   ]
 }

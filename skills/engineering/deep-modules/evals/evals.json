@@ -1,7 +1,7 @@
 {
   "should_trigger": [
     {
-      "prompt": "this service class has 40 public methods \u2014 help me shrink the interface"
+      "prompt": "this service class has 40 public methods — help me shrink the interface"
     },
     {
       "prompt": "where should the seam go between the sync engine and the storage layer?"
@@ -13,7 +13,7 @@
       "prompt": "is this UserRepository abstraction pulling its weight or should I just inline it?"
     },
     {
-      "prompt": "this config object gets threaded through six layers \u2014 is the seam in the wrong place?"
+      "prompt": "this config object gets threaded through six layers — is the seam in the wrong place?"
     },
     {
       "prompt": "should the notification module expose one send() or twelve typed methods?"
@@ -43,6 +43,10 @@
     {
       "prompt": "design the orders database schema",
       "note": "data modeling, not interface depth"
+    },
+    {
+      "prompt": "write an architecture spec for our new ingestion service",
+      "note": "near-boundary: architecture-spec's own trigger phrasing — deep-modules declares this out of scope, so it must not claim it"
     }
   ]
 }

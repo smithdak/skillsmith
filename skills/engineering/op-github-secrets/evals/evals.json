@@ -16,7 +16,7 @@
       "prompt": "set up 1password/load-secrets-action for this repo's pipeline"
     },
     {
-      "prompt": "CI keeps needing new keys \u2014 wire GitHub Actions to 1Password so secrets resolve at run time"
+      "prompt": "CI keeps needing new keys — wire GitHub Actions to 1Password so secrets resolve at run time"
     },
     {
       "prompt": "migrate the deploy workflow off stored secrets onto op:// references with a service account"
@@ -45,7 +45,15 @@
     },
     {
       "prompt": "set up op run for local development",
-      "note": "local runtime injection \u2014 op-secrets"
+      "note": "local runtime injection — op-secrets"
+    },
+    {
+      "prompt": "replace my .env secrets with 1Password op:// references",
+      "note": "near-boundary: op-secrets's own trigger phrasing — op-github-secrets declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "make me a setup wizard for Supabase — env keys, auth redirect URLs, the works",
+      "note": "near-boundary: wizard's own trigger phrasing — op-github-secrets declares this out of scope, so it must not claim it"
     }
   ]
 }

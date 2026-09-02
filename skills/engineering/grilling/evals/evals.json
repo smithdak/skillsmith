@@ -4,10 +4,10 @@
       "prompt": "grill me on this browser-extension idea before I write any code"
     },
     {
-      "prompt": "we're thinking of adding multi-tenant support \u2014 interrogate me until the scope is actually clear"
+      "prompt": "we're thinking of adding multi-tenant support — interrogate me until the scope is actually clear"
     },
     {
-      "prompt": "poke holes in my onboarding flow concept \u2014 where is it still fuzzy?"
+      "prompt": "poke holes in my onboarding flow concept — where is it still fuzzy?"
     },
     {
       "prompt": "help me think through the pricing model for the API. ask me the hard questions"
@@ -19,33 +19,41 @@
       "prompt": "interrogate this idea before we staff it: an internal marketplace for reusable components"
     },
     {
-      "prompt": "help me think through the freemium boundary \u2014 ask me everything I haven't decided"
+      "prompt": "help me think through the freemium boundary — ask me everything I haven't decided"
     }
   ],
   "should_not_trigger": [
     {
       "prompt": "should we migrate off Postgres? sanity check that call before I commit",
-      "note": "a conclusion to attack \u2014 falsification-review, not elicitation"
+      "note": "a conclusion to attack — falsification-review, not elicitation"
     },
     {
       "prompt": "review this spec I wrote and check it stands alone",
-      "note": "existing document review \u2014 cold-read territory"
+      "note": "existing document review — cold-read territory"
     },
     {
       "prompt": "write a ticket for the SSO login bug",
-      "note": "known work item \u2014 define-work-items, nothing to interrogate"
+      "note": "known work item — define-work-items, nothing to interrogate"
     },
     {
       "prompt": "turn what we just decided into a PRD",
-      "note": "decisions already made \u2014 feature-spec synthesizes, it does not interview"
+      "note": "decisions already made — feature-spec synthesizes, it does not interview"
     },
     {
       "prompt": "what's the current rate limit on the Anthropic API?",
-      "note": "single volatile fact \u2014 ground-truth-research inline check"
+      "note": "single volatile fact — ground-truth-research inline check"
     },
     {
       "prompt": "critique my finished design doc",
-      "note": "completed artifact under review \u2014 falsification/cold-read axis, not elicitation"
+      "note": "completed artifact under review — falsification/cold-read axis, not elicitation"
+    },
+    {
+      "prompt": "write a ticket for the login timeout bug",
+      "note": "near-boundary: define-work-items's own trigger phrasing — grilling declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "chart a discovery map for migrating our billing system off the legacy provider",
+      "note": "near-boundary: discovery-map's own trigger phrasing — grilling declares this out of scope, so it must not claim it"
     }
   ]
 }

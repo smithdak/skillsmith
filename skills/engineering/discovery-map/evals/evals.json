@@ -4,16 +4,16 @@
       "prompt": "chart a discovery map for migrating our billing system off the legacy provider"
     },
     {
-      "prompt": "this rewrite is way too big to plan in one session \u2014 break the unknowns into investigation tickets"
+      "prompt": "this rewrite is way too big to plan in one session — break the unknowns into investigation tickets"
     },
     {
       "prompt": "work through the next ticket on the discovery map"
     },
     {
-      "prompt": "we have a vague idea for a partner API \u2014 set up a map of what we need to figure out"
+      "prompt": "we have a vague idea for a partner API — set up a map of what we need to figure out"
     },
     {
-      "prompt": "we want to eventually retire the homegrown CMS \u2014 chart the unknowns as tickets we clear one session at a time"
+      "prompt": "we want to eventually retire the homegrown CMS — chart the unknowns as tickets we clear one session at a time"
     },
     {
       "prompt": "pick up the next open ticket on the migration map"
@@ -22,11 +22,11 @@
   "should_not_trigger": [
     {
       "prompt": "survey this codebase for me",
-      "note": "orientation in existing code \u2014 codebase-survey's job"
+      "note": "orientation in existing code — codebase-survey's job"
     },
     {
       "prompt": "write a ticket for the login timeout bug",
-      "note": "single known item \u2014 define-work-items"
+      "note": "single known item — define-work-items"
     },
     {
       "prompt": "create a project plan with a timeline for the Q3 launch",
@@ -42,7 +42,15 @@
     },
     {
       "prompt": "investigate why checkout latency spiked yesterday",
-      "note": "incident diagnosis \u2014 diagnose-bugs"
+      "note": "incident diagnosis — diagnose-bugs"
+    },
+    {
+      "prompt": "will the team understand this handoff doc without me there to explain it?",
+      "note": "near-boundary: cold-read's own trigger phrasing — discovery-map declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "turn this discussion into user stories",
+      "note": "near-boundary: define-work-items's own trigger phrasing — discovery-map declares this out of scope, so it must not claim it"
     }
   ]
 }

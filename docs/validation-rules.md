@@ -42,7 +42,7 @@ Profile split encoded at this tier: `argument-hint` in SKILL.md frontmatter is
 valid for Claude Code but **fails the Cowork importer** (error under `--profile cowork`) —
 describe arguments in the body instead.
 
-## Quality tier (V1–V14)
+## Quality tier (V1–V15)
 
 ### V1 — name equals directory, no forbidden substrings
 **Error · all profiles · [`agent-skills-standard.ts`](../packages/core/src/schemas/agent-skills-standard.ts)**
@@ -107,6 +107,13 @@ Two manifestations:
 
 ### V8 — evals present, sufficient, and passing
 **Error · all profiles · [`validate.ts`](../packages/core/src/validate.ts), [`schemas/evals.ts`](../packages/core/src/schemas/evals.ts), [`eval.ts`](../packages/core/src/eval.ts)**
+
+`validate` additionally re-gates on the committed
+`.skillsmith/eval-results.json` when one is present: a skill measured below
+`[policy]."min-trigger-hit-rate"` is an **error**, and a non-draft skill with
+no entry is a **warning** (its triggering is unmeasured). Measurement happens
+in `eval`, which needs an API key; gating happens here, so a below-floor skill
+cannot reach a PR just because nobody re-ran the measurement.
 
 Non-draft skills need `evals/evals.json` with ≥3 `should_trigger` and ≥3
 `should_not_trigger` cases; prompts containing `TODO` are rejected as
@@ -173,6 +180,30 @@ Four manifestations: the category folder must be in `[categories].allowed`;
 a declared `metadata."skillsmith-category"` must equal the folder (or be
 omitted); `"drafts"` must not appear in the allowlist (it is implicit); and a
 draft skill assigned to a plugin fails generation — promote it first.
+
+### V15 — dated prompting patterns
+**Warning · all profiles · [`validate.ts`](../packages/core/src/validate.ts)**
+
+Instructions calibrated against a chattier, more verbose model generation
+that now invert. Checked across the description, the body, and every
+`references/*.md`:
+
+- **Update suppressors** — "work silently", "no interim updates", "hold all
+  findings", "do not narrate your progress". Current models under-narrate;
+  the instruction removes updates the reader wanted. State when user-facing
+  text *is* wanted instead.
+- **Blanket anti-formatting rules** — "never use bullets", "avoid headers".
+  Current models under-format; the ban strips structure the reader wanted.
+  Say when formatting is appropriate instead.
+
+Precision comes from two constraints. The patterns require the agent's own
+working output as the object, so "do not narrate entries the configuration
+already shows" is not a match. And quoted spans are stripped before matching,
+so a skill that *teaches* these anti-patterns (which cites them in quotes)
+does not trip a rule that a skill *committing* one (which states it plainly)
+does. The calibration target is
+[`MODEL_BEHAVIOR_TARGET`](../packages/core/src/constants.ts) — when it moves,
+these patterns are re-audited, not merely re-run.
 
 ## Security tier (S1–S7)
 

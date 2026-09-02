@@ -1,19 +1,61 @@
 {
   "should_trigger": [
-    { "prompt": "go through the comments in src/ and strip anything that talks about the PR or what the code used to do" },
-    { "prompt": "these JSDoc blocks read like a code review transcript — 'safe because reviewer asked', 'see decision 7' — fix them" },
-    { "prompt": "docs/architecture.md still says 'we no longer use Redis' and 'this changed in v2' — rewrite it so it just states what's true now, no history" },
-    { "prompt": "audit the comments for references to design decisions that don't exist anymore" },
-    { "prompt": "before I merge, check the new docstrings don't narrate the implementation line by line and that every exported function's JSDoc says what it guarantees", "note": "trim plus required-coverage check" },
-    { "prompt": "sweep the docs folder for hedges like 'should be fine for now' and 'probably' and replace them with what we actually know" }
+    {
+      "prompt": "go through the comments in src/ and strip anything that talks about the PR or what the code used to do"
+    },
+    {
+      "prompt": "these JSDoc blocks read like a code review transcript — 'safe because reviewer asked', 'see decision 7' — fix them"
+    },
+    {
+      "prompt": "docs/architecture.md still says 'we no longer use Redis' and 'this changed in v2' — rewrite it so it just states what's true now, no history"
+    },
+    {
+      "prompt": "audit the comments for references to design decisions that don't exist anymore"
+    },
+    {
+      "prompt": "before I merge, check the new docstrings don't narrate the implementation line by line and that every exported function's JSDoc says what it guarantees",
+      "note": "trim plus required-coverage check"
+    },
+    {
+      "prompt": "sweep the docs folder for hedges like 'should be fine for now' and 'probably' and replace them with what we actually know"
+    }
   ],
   "should_not_trigger": [
-    { "prompt": "add a mermaid diagram of the request flow to the architecture doc", "note": "visual layer — doc-visuals" },
-    { "prompt": "this README is one giant dump, split it into separate docs", "note": "structure and splitting — information-architecture" },
-    { "prompt": "write a README for this project", "note": "authoring the landing doc — readme-authoring" },
-    { "prompt": "will this runbook make sense to someone who wasn't in this conversation?", "note": "self-sufficiency — cold-read" },
-    { "prompt": "fix the typos and grammar in CONTRIBUTING.md", "note": "copyediting — out of scope, no skill" },
-    { "prompt": "extract our brand voice from these blog posts", "note": "marketing voice spec — brand-voice" },
-    { "prompt": "score this landing page copy with the expert panel", "note": "content-scorer" }
+    {
+      "prompt": "add a mermaid diagram of the request flow to the architecture doc",
+      "note": "visual layer — doc-visuals"
+    },
+    {
+      "prompt": "this README is one giant dump, split it into separate docs",
+      "note": "structure and splitting — information-architecture"
+    },
+    {
+      "prompt": "write a README for this project",
+      "note": "authoring the landing doc — readme-authoring"
+    },
+    {
+      "prompt": "will this runbook make sense to someone who wasn't in this conversation?",
+      "note": "self-sufficiency — cold-read"
+    },
+    {
+      "prompt": "fix the typos and grammar in CONTRIBUTING.md",
+      "note": "copyediting — out of scope, no skill"
+    },
+    {
+      "prompt": "extract our brand voice from these blog posts",
+      "note": "marketing voice spec — brand-voice"
+    },
+    {
+      "prompt": "score this landing page copy with the expert panel",
+      "note": "content-scorer"
+    },
+    {
+      "prompt": "will the team understand this handoff doc without me there to explain it?",
+      "note": "near-boundary: cold-read's own trigger phrasing — prose-hygiene declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "the repository map in our README is really hard to read — fix it",
+      "note": "near-boundary: doc-visuals's own trigger phrasing — prose-hygiene declares this out of scope, so it must not claim it"
+    }
   ]
 }

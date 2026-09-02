@@ -22,7 +22,7 @@
   "should_not_trigger": [
     {
       "prompt": "what's the latest version of Next.js?",
-      "note": "single volatile fact \u2014 inline verification, no durable note"
+      "note": "single volatile fact — inline verification, no durable note"
     },
     {
       "prompt": "is this claim about V8 garbage collection still true?",
@@ -43,6 +43,10 @@
     {
       "prompt": "research competitor pricing and summarize in chat",
       "note": "answer lives in chat, not a durable repo note"
+    },
+    {
+      "prompt": "what's the latest version of Bun and does it compile to Windows targets",
+      "note": "near-boundary: ground-truth-research's own trigger phrasing — research-note declares this out of scope, so it must not claim it"
     }
   ]
 }

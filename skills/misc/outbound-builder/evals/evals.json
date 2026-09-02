@@ -4,7 +4,7 @@
       "prompt": "build me a cold email sequence targeting VP of Engineering at Series B startups"
     },
     {
-      "prompt": "write cold outreach for our new devtools product \u2014 need a 4-touch cadence"
+      "prompt": "write cold outreach for our new devtools product — need a 4-touch cadence"
     },
     {
       "prompt": "my cold email reply rate is 0.8%, help me optimize the sequence"
@@ -13,10 +13,10 @@
       "prompt": "create an outbound cadence for prospecting mid-market SaaS companies"
     },
     {
-      "prompt": "I need a prospecting sequence for HR directors at companies with 200\u2013500 employees"
+      "prompt": "I need a prospecting sequence for HR directors at companies with 200–500 employees"
     },
     {
-      "prompt": "sequence for selling DevOps tooling to platform leads at fintechs \u2014 four touches"
+      "prompt": "sequence for selling DevOps tooling to platform leads at fintechs — four touches"
     },
     {
       "prompt": "my open rate collapsed after touch two; rebuild the cadence"
@@ -46,6 +46,10 @@
     {
       "prompt": "build the investor pitch deck",
       "note": "deck construction"
+    },
+    {
+      "prompt": "expert panel this blog post before I publish it",
+      "note": "near-boundary: content-scorer's own trigger phrasing — outbound-builder declares this out of scope, so it must not claim it"
     }
   ]
 }

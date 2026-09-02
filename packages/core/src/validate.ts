@@ -7,13 +7,14 @@
  * Reads files under each skill dir; everything else is pure over inputs.
  */
 import { join } from "node:path";
+import type { EvalResultsFile } from "./eval.ts";
 import { statSync } from "node:fs";
 import type { DiscoveredSkill, DiscoveryResult } from "./discovery.ts";
 import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
 import { validateEvalsFile } from "./schemas/evals.ts";
 import { validateHooksFile } from "./schemas/hooks.ts";
 import { validateComposition, type CompositionEdge } from "./composition.ts";
-import { LIMITS } from "./constants.ts";
+import { LIMITS, MODEL_BEHAVIOR_TARGET } from "./constants.ts";
 import { type Diagnostic, error, warning } from "./diagnostics.ts";
 
 /**
@@ -52,6 +53,40 @@ const SECRET_PATTERNS: [RegExp, string][] = [
 
 const REASONING_EXTRACTION_PATTERNS =
   /\b(show|explain|share|reveal|display)\s+(your|the model's|its)\s+(reasoning|chain[- ]of[- ]thought|thought process)\b/i;
+
+/**
+ * V15 — instructions tuned against an older model generation that now invert.
+ * Current models under-narrate and under-format; text written to suppress a
+ * chatty model removes behavior the reader wanted.
+ *
+ * Two things keep this precise. The patterns require the *agent's own working
+ * output* as the object, so "do not narrate entries the config already shows"
+ * is not a match. And quoted spans are stripped before matching: a skill that
+ * teaches these anti-patterns cites them in quotes, while a skill that commits
+ * one states it plainly. That distinction is the whole difference between
+ * documenting a rule and imposing it.
+ */
+const DATED_PROMPT_PATTERNS: [RegExp, string][] = [
+  [
+    /\bwork(ing)? silently\b|\bno interim (updates?|reports?)\b|\bhold (all )?(findings|results)\b|\b(do not|don't)\s+narrate\s+(your|the)?\s*(work|progress|steps?|tool|each|what you)/i,
+    "update suppressor — current models under-narrate; say when user-facing text is wanted instead",
+  ],
+  [
+    /\b(never|do not|don't|avoid)\s+(use\s+|using\s+)?(bullets?|headers?|headings?|bold|markdown|lists?)\b/i,
+    "anti-formatting rule — current models under-format; say when formatting is appropriate instead",
+  ],
+];
+
+/**
+ * Blank out double-quoted, curly-quoted, and backticked spans so V15 sees only
+ * prose the skill asserts in its own voice. Single quotes are left alone —
+ * apostrophes would swallow half of every sentence. Spans may cross newlines
+ * because wrapped markdown breaks quotations mid-phrase, but are length-capped
+ * so an unbalanced quote blanks a clause rather than the rest of the file.
+ */
+function stripQuotedSpans(text: string): string {
+  return text.replace(/"[^"]{0,200}"|\u201c[^\u201d]{0,200}\u201d|`[^`]{0,200}`/g, '""');
+}
 
 function interpreterOf(path: string, firstLine: string): string {
   const shebang = /^#!\s*(\S+)(?:\s+(\S+))?/.exec(firstLine);
@@ -220,9 +255,23 @@ export async function validateSkill(
       warning(
         "V13",
         at,
-        "body instructs the model to show/explain its reasoning — reasoning_extraction refusal hazard on Fable 5; use structured outputs instead",
+        `body instructs the model to show/explain its reasoning — reasoning_extraction refusal hazard on ${MODEL_BEHAVIOR_TARGET}; use structured outputs instead`,
       ),
     );
+  }
+
+  // ---- V15: dated prompting patterns across the skill's prompt surface ----
+  const promptSurfaces: [string, string][] = [[at, skill.frontmatter.description + "\n" + skill.body]];
+  for (const rel of skill.files) {
+    if (!rel.startsWith("references/") || !rel.endsWith(".md")) continue;
+    promptSurfaces.push([`${at} → ${rel}`, await Bun.file(join(skill.dir, rel)).text()]);
+  }
+  for (const [where, text] of promptSurfaces) {
+    const prose = stripQuotedSpans(text);
+    for (const [pattern, why] of DATED_PROMPT_PATTERNS) {
+      const m = pattern.exec(prose);
+      if (m) diagnostics.push(warning("V15", where, `"${m[0].trim()}" — ${why}`));
+    }
   }
 
   // ---- V8: evals present and sufficient (drafts exempt) ----
@@ -256,6 +305,15 @@ export interface ValidateResult {
 export async function validateAll(
   discovery: DiscoveryResult,
   config: SkillsmithConfig,
+  opts: {
+    /**
+     * Committed trigger-eval results. When present, validate re-gates on them
+     * so a skill below the policy floor cannot pass the pre-PR gate just
+     * because nobody re-ran `eval` — the measurement and the gate that
+     * consumes it are separate commands, and only this closes the gap.
+     */
+    evalResults?: EvalResultsFile;
+  } = {},
 ): Promise<ValidateResult> {
   const diagnostics: Diagnostic[] = [...discovery.diagnostics];
   const inventories = new Map<string, ScriptInventoryEntry[]>();
@@ -265,6 +323,34 @@ export async function validateAll(
     diagnostics.push(...result.diagnostics);
     inventories.set(skill.name, result.inventory);
   }
+  // ---- V8: re-gate on committed eval results (measurement lives in `eval`) ----
+  if (opts.evalResults) {
+    const threshold = config.policy["min-trigger-hit-rate"];
+    for (const skill of discovery.skills) {
+      if (skill.draft) continue;
+      const measured = opts.evalResults.skills[skill.name];
+      if (!measured) {
+        diagnostics.push(
+          warning(
+            "V8",
+            skill.skillMdPath,
+            `no entry in .skillsmith/eval-results.json — triggering is unmeasured; run \`skillsmith eval\``,
+          ),
+        );
+        continue;
+      }
+      if (measured.hitRate < threshold) {
+        diagnostics.push(
+          error(
+            "V8",
+            skill.skillMdPath,
+            `committed trigger hit-rate ${measured.hitRate.toFixed(2)} below policy minimum ${threshold} (${measured.failing} failing case(s), judge ${opts.evalResults.judgeModel}, ${opts.evalResults.runDate})`,
+          ),
+        );
+      }
+    }
+  }
+
   // Hook sets: schema + S3 over the file contents (discovery reads them raw).
   for (const hookSet of discovery.hookSets) {
     try {

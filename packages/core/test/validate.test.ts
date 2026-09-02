@@ -250,3 +250,104 @@ describe("validate security tier", () => {
     expect(diagnostics.filter((x) => x.path.includes("rough"))).toHaveLength(0);
   });
 });
+
+describe("V15 — dated prompting patterns", () => {
+  const rules = (r: Awaited<ReturnType<typeof rulesFor>>) =>
+    r.diagnostics.filter((d) => d.rule === "V15");
+
+  test("flags an update suppressor stated as an instruction", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "suppressor", {
+      body: "State the plan once, then work silently until there is something to report.\n",
+    });
+    const found = rules(await rulesFor(root, config, "suppressor"));
+    expect(found).toHaveLength(1);
+    expect(found[0]!.message).toContain("under-narrate");
+  });
+
+  test("flags a blanket anti-formatting rule", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "no-bullets", { body: "Never use bullets in a reply.\n" });
+    const found = rules(await rulesFor(root, config, "no-bullets"));
+    expect(found).toHaveLength(1);
+    expect(found[0]!.message).toContain("under-format");
+  });
+
+  test("exempts the same phrases when quoted as citations", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "teacher", {
+      // A skill teaching the anti-pattern cites it; one committing it asserts it.
+      body: 'Avoid update suppressors such as "work silently", and blanket bans\nlike "never use bullets" — both invert on current models.\n',
+    });
+    expect(rules(await rulesFor(root, config, "teacher"))).toHaveLength(0);
+  });
+
+  test("quotations may wrap across lines, as markdown prose does", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "wrapped", {
+      body: 'Telling a model to "never use\nbullets" removes what the reader wanted.\n',
+    });
+    expect(rules(await rulesFor(root, config, "wrapped"))).toHaveLength(0);
+  });
+
+  test("does not fire on narration with a non-work object", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "docs-rule", {
+      body: "Do not narrate entries the configuration already shows.\n",
+    });
+    expect(rules(await rulesFor(root, config, "docs-rule"))).toHaveLength(0);
+  });
+
+  test("checks reference files, not just the body", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "ref-carrier", {
+      references: { "block.md": "Render this rule: no interim updates.\n" },
+    });
+    const found = rules(await rulesFor(root, config, "ref-carrier"));
+    expect(found).toHaveLength(1);
+    expect(found[0]!.path).toContain("references/block.md");
+  });
+});
+
+describe("V8 — re-gating on committed eval results", () => {
+  const results = (skills: Record<string, { hitRate: number; cases: number; failing: number }>) => ({
+    judgeModel: "mock",
+    runDate: "2026-09-02",
+    skills,
+  });
+  const v8 = async (root: string, config: SkillsmithConfig, evalResults?: object) => {
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const r = await validateAll(d, config, { evalResults: evalResults as never });
+    return r.diagnostics.filter((x) => x.rule === "V8");
+  };
+
+  test("a skill below the policy floor is an error", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "weak");
+    const found = await v8(root, config, results({ weak: { hitRate: 0.67, cases: 9, failing: 3 } }));
+    expect(found).toHaveLength(1);
+    expect(found[0]!.severity).toBe("error");
+    expect(found[0]!.message).toContain("0.67");
+  });
+
+  test("a skill at or above the floor passes", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "fine");
+    expect(await v8(root, config, results({ fine: { hitRate: 0.9, cases: 10, failing: 1 } }))).toHaveLength(0);
+  });
+
+  test("an unmeasured skill warns rather than errors", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "unmeasured");
+    const found = await v8(root, config, results({}));
+    expect(found).toHaveLength(1);
+    expect(found[0]!.severity).toBe("warning");
+    expect(found[0]!.message).toContain("unmeasured");
+  });
+
+  test("with no results file the gate stays silent — eval needs an API key", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "anything");
+    expect(await v8(root, config, undefined)).toHaveLength(0);
+  });
+});

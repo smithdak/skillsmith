@@ -4,7 +4,7 @@
       "prompt": "turn this podcast transcript into a blog post and LinkedIn content"
     },
     {
-      "prompt": "repurpose this episode \u2014 I need a newsletter section and some tweets"
+      "prompt": "repurpose this episode — I need a newsletter section and some tweets"
     },
     {
       "prompt": "podcast to blog: here's the transcript from episode 47"
@@ -16,7 +16,7 @@
       "prompt": "I recorded a 45-minute episode, help me get maximum content distribution from it"
     },
     {
-      "prompt": "episode 112's transcript is attached \u2014 blog post plus LinkedIn plus newsletter kit please"
+      "prompt": "episode 112's transcript is attached — blog post plus LinkedIn plus newsletter kit please"
     },
     {
       "prompt": "mine this interview transcript for pull quotes and a tweet thread"
@@ -33,7 +33,7 @@
     },
     {
       "prompt": "score the quality of this podcast transcript before I publish the blog version",
-      "note": "quality scoring of existing content \u2014 content-scorer territory"
+      "note": "quality scoring of existing content — content-scorer territory"
     },
     {
       "prompt": "edit this video clip for social media",
@@ -46,6 +46,14 @@
     {
       "prompt": "clean up the audio levels",
       "note": "audio production"
+    },
+    {
+      "prompt": "what should I write about on the topic of AI in customer support?",
+      "note": "near-boundary: content-angles's own trigger phrasing — podcast-repurposer declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "expert panel this blog post before I publish it",
+      "note": "near-boundary: content-scorer's own trigger phrasing — podcast-repurposer declares this out of scope, so it must not claim it"
     }
   ]
 }

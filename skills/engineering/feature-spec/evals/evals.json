@@ -1,7 +1,7 @@
 {
   "should_trigger": [
     {
-      "prompt": "ok we've talked this through \u2014 turn the conversation into a spec"
+      "prompt": "ok we've talked this through — turn the conversation into a spec"
     },
     {
       "prompt": "write up what we just discussed as a PRD"
@@ -16,7 +16,7 @@
       "prompt": "capture this brainstorm as a PRD so engineering can start Monday"
     },
     {
-      "prompt": "we've settled the notifications design \u2014 write the spec from everything discussed above"
+      "prompt": "we've settled the notifications design — write the spec from everything discussed above"
     }
   ],
   "should_not_trigger": [
@@ -30,7 +30,7 @@
     },
     {
       "prompt": "what should we build next quarter?",
-      "note": "open discussion \u2014 nothing decided yet to synthesize"
+      "note": "open discussion — nothing decided yet to synthesize"
     },
     {
       "prompt": "review this PRD I wrote and tell me what's missing",
@@ -38,11 +38,19 @@
     },
     {
       "prompt": "interview me until we figure out what to build",
-      "note": "nothing decided yet to synthesize \u2014 grilling"
+      "note": "nothing decided yet to synthesize — grilling"
     },
     {
       "prompt": "break this spec into implementable tickets",
-      "note": "decomposition \u2014 define-work-items"
+      "note": "decomposition — define-work-items"
+    },
+    {
+      "prompt": "write an architecture spec for our new ingestion service",
+      "note": "near-boundary: architecture-spec's own trigger phrasing — feature-spec declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "will the team understand this handoff doc without me there to explain it?",
+      "note": "near-boundary: cold-read's own trigger phrasing — feature-spec declares this out of scope, so it must not claim it"
     }
   ]
 }

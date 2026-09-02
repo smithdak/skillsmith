@@ -7,10 +7,10 @@
       "prompt": "find me 5 angles for a blog post on developer productivity"
     },
     {
-      "prompt": "I want to write about remote work burnout \u2014 what's the most differentiated take?"
+      "prompt": "I want to write about remote work burnout — what's the most differentiated take?"
     },
     {
-      "prompt": "help me ideate content around B2B SaaS pricing \u2014 everything feels overdone"
+      "prompt": "help me ideate content around B2B SaaS pricing — everything feels overdone"
     },
     {
       "prompt": "generate topic variants for a piece on technical debt, I don't want to repeat what's already out there"
@@ -19,7 +19,7 @@
       "prompt": "topic: AI agents in healthcare. what takes already exist and which gap should I own?"
     },
     {
-      "prompt": "everyone covers the same React tips \u2014 find me a genuinely differentiated angle"
+      "prompt": "everyone covers the same React tips — find me a genuinely differentiated angle"
     }
   ],
   "should_not_trigger": [
@@ -29,10 +29,10 @@
     },
     {
       "prompt": "score my existing article about developer productivity",
-      "note": "quality scoring, not angle research \u2014 content-scorer territory"
+      "note": "quality scoring, not angle research — content-scorer territory"
     },
     {
-      "prompt": "research whether remote work actually reduces productivity \u2014 cite sources and verify claims",
+      "prompt": "research whether remote work actually reduces productivity — cite sources and verify claims",
       "note": "fact-checked deep research, not content angle ideation"
     },
     {
@@ -41,11 +41,19 @@
     },
     {
       "prompt": "outline the article I've already decided to write",
-      "note": "structure for a chosen take \u2014 seo-brief territory"
+      "note": "structure for a chosen take — seo-brief territory"
     },
     {
       "prompt": "fact-check the claims in my draft",
       "note": "verification, not angle research"
+    },
+    {
+      "prompt": "expert panel this blog post before I publish it",
+      "note": "near-boundary: content-scorer's own trigger phrasing — content-angles declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "turn this podcast transcript into a blog post and LinkedIn content",
+      "note": "near-boundary: podcast-repurposer's own trigger phrasing — content-angles declares this out of scope, so it must not claim it"
     }
   ]
 }

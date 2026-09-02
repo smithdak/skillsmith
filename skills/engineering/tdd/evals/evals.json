@@ -4,7 +4,7 @@
       "prompt": "let's build the coupon validation feature test-first"
     },
     {
-      "prompt": "TDD this bugfix \u2014 failing test first, then the fix"
+      "prompt": "TDD this bugfix — failing test first, then the fix"
     },
     {
       "prompt": "red-green-refactor the new rate limiter with me"
@@ -42,7 +42,11 @@
     },
     {
       "prompt": "e2e test the signup flow in a real browser",
-      "note": "browser verification \u2014 webapp-testing"
+      "note": "browser verification — webapp-testing"
+    },
+    {
+      "prompt": "this service class has 40 public methods — help me shrink the interface",
+      "note": "near-boundary: deep-modules's own trigger phrasing — tdd declares this out of scope, so it must not claim it"
     }
   ]
 }

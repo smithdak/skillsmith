@@ -36,7 +36,20 @@ repo-root NOTICES.md.*
   release gate written as loose principles is unreliable.
 - **Evals that echo the description** — cases lifted from the description
   prove nothing. Use independent real phrasings, and include should-not
-  cases that are genuinely near the boundary.
+  cases that are genuinely near the boundary. The sharpest negative is a
+  neighbouring skill's own trigger phrasing: if the differentiator works,
+  the neighbour claims it and this skill does not.
+- **Update suppressors** — "work silently", "don't narrate your progress",
+  "hold all findings for the end". Written against models that over-narrated;
+  current ones under-narrate, so the instruction removes updates the reader
+  wanted. State when user-facing text *is* wanted instead (V15).
+- **Blanket anti-formatting rules** — "never use bullets", "no headers".
+  Current models under-format, so the ban strips structure the reader wanted.
+  Say when formatting is appropriate instead (V15).
+- **Scaffolding for a weaker model** — enumerated steps for judgment work,
+  emphasis added because an instruction was once underweighted, prohibitions
+  against habits the model no longer has. Prescription that outlived its
+  model reduces output quality; cut it before adding to it.
 
 ## Ship checklist
 
@@ -51,6 +64,7 @@ Before a skill is considered done:
 - [ ] Sometimes-needed detail is in references, one level deep, no chains.
 - [ ] Deterministic work is in scripts, not prose.
 - [ ] No instruction to reveal internal reasoning.
+- [ ] No update suppressors and no blanket anti-formatting rules.
 - [ ] Evals: at least three should-trigger and three should-not-trigger,
       real phrasings, near-boundary negatives, no placeholder text.
 - [ ] A verification section states the observable bar for "done".

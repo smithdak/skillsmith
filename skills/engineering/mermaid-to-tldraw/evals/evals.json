@@ -13,7 +13,7 @@
       "prompt": "take this ```mermaid``` block and make it a .tldr with movable boxes"
     },
     {
-      "prompt": "paste-mermaid-into-tldraw but as a script \u2014 mermaid to tldraw shapes"
+      "prompt": "paste-mermaid-into-tldraw but as a script — mermaid to tldraw shapes"
     },
     {
       "prompt": "paste this mermaid graph into tldraw as editable shapes for tomorrow's workshop"
@@ -45,7 +45,15 @@
     },
     {
       "prompt": "animate the boxes on my tldraw canvas",
-      "note": "motion \u2014 tldraw-animation"
+      "note": "motion — tldraw-animation"
+    },
+    {
+      "prompt": "the repository map in our README is really hard to read — fix it",
+      "note": "near-boundary: doc-visuals's own trigger phrasing — mermaid-to-tldraw declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "make me a tldraw diagram of our checkout flow with boxes and arrows",
+      "note": "near-boundary: tldraw-diagram's own trigger phrasing — mermaid-to-tldraw declares this out of scope, so it must not claim it"
     }
   ]
 }

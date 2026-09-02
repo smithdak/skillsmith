@@ -60,6 +60,13 @@ design) states principles and a verification bar and leaves the path open.
 Over-constraining a judgment task makes it brittle; under-constraining a
 mechanical one makes it unreliable.
 
+The line moves with the model. Scaffolding a weaker generation needed —
+enumerated steps for work the model can plan itself, emphasis added because
+an instruction was underweighted, bans on habits it no longer has — now
+costs output quality rather than protecting it. When a skill written for an
+older generation underperforms, cut the scaffolding before adding to it, and
+keep ordered steps only where the order genuinely matters.
+
 ## Common failures
 
 The full anti-pattern list and a ship checklist are in
