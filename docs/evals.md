@@ -69,10 +69,10 @@ bun packages/cli/src/main.ts eval tdd           # one skill; does NOT write resu
 bun packages/cli/src/main.ts eval --model claude-sonnet-4-6 --concurrency 4
 ```
 
-- Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Locally: put it in a
-  gitignored `.env` at the repo root — Bun loads `.env` automatically. A
-  Claude subscription does not cover API calls; this needs an API key with
-  billing.
+- Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Locally: `cp .env.example
+  .env` and fill it in — `.env` is gitignored, and Bun loads it automatically
+  from the repo root. A Claude subscription does not cover API calls; this
+  needs an API key with billing.
 - Cost intuition: 53 skills × ~12 cases ≈ 640 judge calls, each embedding the
   whole listing (~9k input tokens) and returning ~20 output tokens against the
   default `claude-sonnet-4-6` judge. Input dominates, but the listing is a
