@@ -120,15 +120,16 @@ export function validateAgentFrontmatter(
     );
   }
 
-  // Description craft: block-scalar-with-examples is the reliable delegation
-  // pattern; bare <example> under description: is the classic YAML trap. If we
-  // parsed at all the YAML was valid — but flag missing examples as a warning.
-  if (!/<example>/i.test(fm.description)) {
+  // Description craft: an agent description routes, so it states what the
+  // agent does and when to reach for it. Scripted user/assistant turns inside
+  // it cost tokens on every request and pin the delegation decision to one
+  // rehearsed shape; keep the trigger conditions as prose instead.
+  if (/<example>|^\s*(user|assistant):/im.test(fm.description)) {
     diagnostics.push(
       warning(
         "V7",
         `${ctx.path}#/description`,
-        "agent description has no <example> block — auto-delegation reliability suffers",
+        "agent description embeds a worked example or scripted turn — state the trigger conditions as prose",
       ),
     );
   }

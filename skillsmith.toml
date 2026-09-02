@@ -14,14 +14,14 @@ allowed = ["engineering", "productivity", "misc"]
 # A skill belongs to exactly one plugin.
 [[plugin]]
 name = "productivity-tools"
-version = "0.2.0"
+version = "0.3.0"
 description = "Work discipline: handoffs, transitions, work-item definition, issue triage"
 skills = ["cold-read", "define-work-items", "handoff", "issue-triage", "writing-for-agents"]
 agents = ["cold-reader"]
 
 [[plugin]]
 name = "epistemics"
-version = "0.7.0"
+version = "0.8.0"
 description = "Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research"
 skills = ["deep-research", "discernment-nudge", "estimate", "falsification-review", "grilling", "ground-truth-research", "premortem", "research-note", "second-order-effects"]
 agents = ["falsification-reviewer"]
@@ -76,7 +76,7 @@ skills = ["stacked-prs"]
 
 [[plugin]]
 name = "agent-voice"
-version = "0.1.0"
+version = "0.2.0"
 description = "How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks"
 skills = ["output-contract", "voice-setup"]
 commands = ["voice-setup"]

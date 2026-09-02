@@ -4,11 +4,8 @@ description: >-
   Cold audience for documents others will act on: reads a deliverable with
   zero conversation context and reports every point where its intended
   audience must ask, guess, or search. Use proactively before a handoff,
-  runbook, README, or work item leaves the session.
-  <example>Context: A handoff document is drafted and about to be delivered.
-  user: "Send the handoff"
-  assistant: "Before it goes out, I'll have the cold-reader agent read it as its recipient — with none of our conversation."
-  <commentary>Document about to be acted on by someone without the conversation — a structurally cold read beats a simulated one.</commentary></example>
+  runbook, README, or work item leaves the session. A structurally cold read
+  beats a simulated one: spawn it rather than re-reading in-session.
 model: inherit
 color: cyan
 tools: ["Read", "Grep", "Glob"]

@@ -217,11 +217,8 @@ export function buildAgentScaffold(name: string): FileSet {
       `---
 name: ${name}
 description: >-
-  TODO trigger conditions for auto-delegation. Use proactively when TODO.
-  <example>Context: TODO situation.
-  user: "TODO request"
-  assistant: "I'll use the ${name} agent."
-  <commentary>TODO why this matches.</commentary></example>
+  TODO what this agent does. Use proactively when TODO trigger conditions.
+  TODO why a subagent beats doing it in-session.
 model: inherit
 color: blue
 ---

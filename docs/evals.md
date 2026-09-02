@@ -73,10 +73,16 @@ bun packages/cli/src/main.ts eval --model claude-sonnet-4-6 --concurrency 4
   gitignored `.env` at the repo root — Bun loads `.env` automatically. A
   Claude subscription does not cover API calls; this needs an API key with
   billing.
-- Cost intuition: 14 skills × 8 cases = 112 judge calls, each ~2k input
-  tokens (every call embeds all 14 descriptions) and ~20 output tokens
-  against the default `claude-sonnet-4-6` judge — small change, but not
-  free, which is why CI runs evals only on manual dispatch ([`.github/workflows/eval.yml`](../.github/workflows/eval.yml):
+- Cost intuition: 53 skills × ~12 cases ≈ 640 judge calls, each embedding the
+  whole listing (~9k input tokens) and returning ~20 output tokens against the
+  default `claude-sonnet-4-6` judge. Input dominates, but the listing is a
+  byte-identical prefix on every call and carries a `cache_control` breakpoint,
+  so only the first few calls pay for it — a couple of dollars per run rather
+  than the ~$18 the uncached shape cost. `--concurrency N` means the first N
+  calls race and all miss; that is the whole warm-up penalty. Every run prints
+  its own token totals, and zero cache reads means the prefix broke and the run
+  is roughly 10x overpriced. Not free either way, which is why CI runs evals
+  only on manual dispatch ([`.github/workflows/eval.yml`](../.github/workflows/eval.yml):
   `gh workflow run eval.yml`).
 - Failing cases print with the judge's actual pick, which tells you *which*
   sibling skill is absorbing your traffic:

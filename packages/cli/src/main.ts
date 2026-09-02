@@ -290,8 +290,17 @@ const evalCmd = defineCommand({
       allowedCategories: config.categories.allowed,
       listingCharCap: config.policy["max-listing-chars"],
     });
+    const tokens = { uncached: 0, cacheWrite: 0, cacheRead: 0 };
     const report = await runTriggerEvals(discovery, config, {
-      judge: anthropicJudge({ apiKey, model: args.model }),
+      judge: anthropicJudge({
+        apiKey,
+        model: args.model,
+        onUsage: (u) => {
+          tokens.uncached += u.inputTokens;
+          tokens.cacheWrite += u.cacheCreationInputTokens;
+          tokens.cacheRead += u.cacheReadInputTokens;
+        },
+      }),
       judgeModel: args.model,
       skill: args.skill as string | undefined,
       concurrency: Number(args.concurrency),
@@ -303,6 +312,15 @@ const evalCmd = defineCommand({
       for (const c of failing) {
         console.error(`  FAIL [expected ${c.expectation}] "${c.prompt}" → judged: ${c.judged ?? "none"}`);
       }
+    }
+    // The skill listing is an identical prefix on every call, so cache reads
+    // should dominate after the first few. Zero reads means the prefix is not
+    // being reused and the run costs ~10x what it should.
+    console.error(
+      `\njudge input tokens: ${tokens.uncached} uncached · ${tokens.cacheWrite} cache write · ${tokens.cacheRead} cache read`,
+    );
+    if (tokens.cacheRead === 0) {
+      console.error("  warning: no cache hits — the listing prefix is not being reused");
     }
     printDiagnostics(report.diagnostics, profile);
 

@@ -13,8 +13,9 @@
  * Determinism boundary: eval is the one intentionally non-deterministic
  * command. Its output (.skillsmith/eval-results.json) is SOURCE, not a
  * derived artifact — committed, consumed by generate for catalog badges,
- * and only changed by re-running eval. temperature 0 reduces variance but
- * does not eliminate it; results carry the judge model for that reason.
+ * and only changed by re-running eval. A schema-constrained single choice
+ * bounds but does not eliminate variance; results carry the judge model for
+ * that reason.
  *
  * The judge is injectable: tests use a deterministic fake; the default
  * implementation calls the Anthropic Messages API (ANTHROPIC_API_KEY).
@@ -202,26 +203,63 @@ export function toResultsFile(report: EvalReport, runDate: string): string {
 const JUDGE_SYSTEM = `You simulate skill selection for an AI coding assistant.
 You are given a list of available skills (name and description) and a user message.
 Decide which single skill, if any, the assistant should invoke for that message.
-Respond with ONLY a JSON object, no other text: {"skill": "<name>"} or {"skill": null}.
-Pick a skill only when the message clearly matches its stated purpose and triggers; when in doubt, respond {"skill": null}.`;
+Return the skill's name, or null when no skill's stated purpose and triggers match the message.`;
+
+/** Per-call token accounting, surfaced so cache reuse is observable. */
+export interface JudgeUsage {
+  inputTokens: number;
+  cacheCreationInputTokens: number;
+  cacheReadInputTokens: number;
+}
 
 export function anthropicJudge(opts: {
   apiKey: string;
   model: string;
   maxRetries?: number;
+  /** Called once per completed call; the CLI totals these into a cache report. */
+  onUsage?: (usage: JudgeUsage) => void;
 }): Judge {
   return async (listing, userPrompt) => {
     const body = JSON.stringify({
       model: opts.model,
-      max_tokens: 64,
-      temperature: 0,
+      // Room for a thinking preamble on models where thinking is on by
+      // default; a truncated response is an error, not a "no skill" answer.
+      max_tokens: 1024,
       system: JUDGE_SYSTEM,
+      // Schema-enforced: the response text is guaranteed-valid JSON matching
+      // this shape, so no prose instruction, stop sequence, or regex is needed.
+      output_config: {
+        format: {
+          type: "json_schema",
+          schema: {
+            type: "object",
+            properties: { skill: { type: ["string", "null"] } },
+            required: ["skill"],
+            additionalProperties: false,
+          },
+        },
+      },
       messages: [
         {
           role: "user",
-          content: `Available skills:\n${listing
-            .map((s) => `- ${s.name}: ${s.description}`)
-            .join("\n")}\n\nUser message: ${JSON.stringify(userPrompt)}`,
+          content: [
+            {
+              // Byte-identical on every case in a run, and the whole prefix
+              // ahead of it (system + this block) is cached with it. The
+              // per-case prompt lives in its own block below so it cannot
+              // invalidate the prefix. Rendering is deterministic, which is
+              // what keeps the bytes stable across calls.
+              type: "text",
+              text: `Available skills:\n${listing
+                .map((s) => `- ${s.name}: ${s.description}`)
+                .join("\n")}`,
+              cache_control: { type: "ephemeral" },
+            },
+            {
+              type: "text",
+              text: `User message: ${JSON.stringify(userPrompt)}`,
+            },
+          ],
         },
       ],
     });
@@ -248,19 +286,32 @@ export function anthropicJudge(opts: {
           `judge API ${res.status} (request-id: ${res.headers.get("request-id") ?? "none"}): ${body || "<empty body>"}`,
         );
       }
-      const data = (await res.json()) as { content?: { type: string; text?: string }[] };
+      const data = (await res.json()) as {
+        content?: { type: string; text?: string }[];
+        stop_reason?: string;
+        usage?: {
+          input_tokens?: number;
+          cache_creation_input_tokens?: number;
+          cache_read_input_tokens?: number;
+        };
+      };
+      opts.onUsage?.({
+        inputTokens: data.usage?.input_tokens ?? 0,
+        cacheCreationInputTokens: data.usage?.cache_creation_input_tokens ?? 0,
+        cacheReadInputTokens: data.usage?.cache_read_input_tokens ?? 0,
+      });
+      if (data.stop_reason === "refusal") {
+        throw new Error("judge declined the request; this case cannot be scored");
+      }
       const text = (data.content ?? [])
         .filter((b) => b.type === "text")
         .map((b) => b.text ?? "")
         .join("");
-      const match = /\{[^}]*"skill"[^}]*\}/.exec(text);
-      if (!match) return null;
-      try {
-        const parsed = JSON.parse(match[0]) as { skill?: string | null };
-        return typeof parsed.skill === "string" ? parsed.skill : null;
-      } catch {
-        return null;
-      }
+      // Never fall through to null on a malformed response: null scores as a
+      // PASS on every no-trigger case, so a transport fault would read as a
+      // clean suite. Schema violations here are bugs, and must surface.
+      const parsed = JSON.parse(text) as { skill: string | null };
+      return parsed.skill;
     }
   };
 }

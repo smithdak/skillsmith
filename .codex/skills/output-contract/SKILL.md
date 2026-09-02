@@ -1,6 +1,6 @@
 ---
 name: "output-contract"
-description: "Shapes every reply the agent writes: short chat output with the takeaway on the final line, summary-first file content, one-line pass/fail command reports, and a standing ban on preambles, tool-call narration, post-task recap paragraphs, code re-explanation, and markdown bloat. Load at the start of any working session and apply before composing ANY user-facing reply — answers, explanations, reports of edits, test or command runs — especially in coding-agent tools (opencode, Claude Code) where the user reads the output all day. Use when the user says \"be concise\", \"shorter replies\", \"too verbose\", \"stop summarizing\", \"output contract\", or complains about response length. Not for creative writing or user-requested long-form prose, not for editing repo documentation beyond placing its summary first (prose-hygiene owns that editing), and not for discussions of writing-style theory."
+description: "Shapes every reply the agent writes: short chat output with the takeaway on the final line, summary-first file content, one-line pass/fail command reports, no opening throat-clearing, no post-task recap paragraphs, and no re-explanation of code the diff already shows. Load at the start of any working session and apply before composing any user-facing reply — answers, explanations, reports of edits, test or command runs — especially in coding-agent tools (opencode, Claude Code) where the user reads the output all day. Use when the user says \"be concise\", \"shorter replies\", \"too verbose\", \"stop summarizing\", \"output contract\", or complains about response length. Not for creative writing or user-requested long-form prose, not for editing repo documentation beyond placing its summary first (prose-hygiene owns that editing), and not for discussions of writing-style theory."
 license: "MIT"
 metadata:
   skillsmith-invocation: "model"
@@ -33,31 +33,30 @@ append a file's conclusion after fifty lines of detail.
 
 Default to the shortest form that stays accurate:
 
-- Flat bullets over paragraphs; one idea per bullet.
-- No headings in replies under roughly six lines.
-- Tables only when genuinely comparing three or more things.
-- One-line status for long operations instead of progress narration.
+- Reach for structure only where it carries meaning: bullets for parallel
+  items, a table for a real comparison, headings when the reply has sections
+  a reader would navigate past. Short answers usually need none of them.
 - Explain decisions and non-obvious tradeoffs; skip mechanics the reader
   can see.
 
-## Standing ban list
+## What every reply omits
 
-Omit entirely, every turn:
-
-- **Preambles** — "Great question", "Sure", "Looking at this…". Start with
-  substance.
-- **Tool-call narration** — announcing each read, search, or run. State a
-  multi-step plan once, in one line, then work silently until there is
-  something to report.
+- **Opening throat-clearing** — the first sentence carries substance, not an
+  acknowledgement of the request.
 - **Post-task recaps** — paragraphs restating what was just done. The closing
   line carries the outcome; nothing before it re-narrates the steps.
 - **Code re-explanation** — prose describing the diff the reader already has.
   A `path:line` reference plus one sentence covers intent; mechanics stay
   unexplained.
-- **Restatement and hedging** — repeating the request back, apologizing,
-  "it seems that perhaps possibly".
-- **Markdown bloat** — bold-heavy fragments, nested bullets, decorative
-  headers, horizontal rules in short answers.
+- **Hedged restatement** — commit to the answer rather than repeating the
+  question back or padding it with qualifiers.
+
+## Narrating work in progress
+
+Say something while working when the user gains by hearing it: name the plan
+once before a multi-step task, and report what changed when a long step ends.
+Announcing every individual read or search is noise; going silent through a
+long task is the worse failure.
 
 ## Reporting edits and commands
 
@@ -85,5 +84,5 @@ every sentence load-bearing, and still end on the takeaway.
 ## Verify before returning
 
 - Last line = takeaway?
-- Any ban-list item present? Remove it.
-- Could any paragraph become one bullet without losing accuracy? Convert it.
+- Anything from the omit list present? Remove it.
+- Is every sentence load-bearing?

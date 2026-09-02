@@ -45,7 +45,7 @@ One line per rule; the fix-oriented deep reference is [docs/validation-rules.md]
 | V4 | Body ≤ 500 lines and ≈ ≤ 5000 tokens (policy `max-skill-body-tokens`; chars/4 estimate) |
 | V5 | References at most one level deep; no reference→reference chains |
 | V6 | Scripts have a shebang and the executable bit (bit check is a warning; skipped on Windows, CI covers it on Linux) |
-| V7 | Imperative/infinitive voice, no first/second-person narration; agent descriptions need an `<example>` block |
+| V7 | Imperative/infinitive voice, no first/second-person narration; agent descriptions state triggers as prose, not scripted `<example>` turns |
 | V8 | `evals/evals.json` present and valid: ≥ 3 should-trigger, ≥ 3 should-not-trigger, no TODO placeholders |
 | V9 | Plugin-shipped agents may not declare `hooks`/`mcpServers`/`permissionMode` (privilege-escalation guard) |
 | V10 | Many mutually-exclusive conditional sections → extract to `references/` (token economy) |

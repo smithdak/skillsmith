@@ -3,11 +3,8 @@ name: falsification-reviewer
 description: >-
   Adversarial reviewer for document-scale deliverables: specs, estimates,
   plans, statements of work. Use proactively before presenting any deliverable
-  the user will act on.
-  <example>Context: A draft architecture spec is complete.
-  user: "Finalize the spec"
-  assistant: "Before presenting it, I'll have the falsification-reviewer agent attempt to break it."
-  <commentary>Document-scale deliverable about to be endorsed — maker-checker applies.</commentary></example>
+  the user will act on — maker-checker separation, so the author's own
+  framing does not survive review unexamined.
 model: inherit
 color: red
 tools: ["Read", "Grep", "Glob"]

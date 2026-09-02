@@ -120,6 +120,7 @@ export {
   toResultsFile,
   anthropicJudge,
   type Judge,
+  type JudgeUsage,
   type EvalReport,
   type SkillEvalResult,
   type EvalResultsFile,

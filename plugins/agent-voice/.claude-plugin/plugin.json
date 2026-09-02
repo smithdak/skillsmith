@@ -1,6 +1,6 @@
 {
   "name": "agent-voice",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks",
   "author": {
     "name": "Dakota"

@@ -180,7 +180,8 @@ Skills are the mature path; the other source types assemble the same way
 (scaffold → source dir → grouping in `skillsmith.toml` → generate):
 
 - **Agents** (`agents/<name>.md`) — subagent definitions. The description
-  needs an `<example>` block (V7) — see
+  states what the agent does and when to reach for it in prose, not as a
+  scripted `<example>` exchange (V7) — see
   [`agents/falsification-reviewer.md`](../agents/falsification-reviewer.md)
   for the house pattern. Plugin-shipped agents may not declare `hooks`,
   `mcpServers`, or `permissionMode` (V9, privilege-escalation guard), and

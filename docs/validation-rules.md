@@ -100,8 +100,10 @@ covers it on Linux. **Fix:** add `#!/usr/bin/env bash` (or equivalent);
 Two manifestations:
 - A skill body opening lines with "I will / I'll / We will / You should now" —
   prefer imperative/infinitive voice ("Run the script", not "I will run the script").
-- An **agent** description without an `<example>` block — auto-delegation
-  reliability suffers without one.
+- An **agent** description embedding a worked example or scripted
+  `user:`/`assistant:` turn — a description routes, so it states what the
+  agent does and when to reach for it, in prose. Scripted turns ride in every
+  request and pin the delegation decision to one rehearsed shape.
 
 ### V8 — evals present, sufficient, and passing
 **Error · all profiles · [`validate.ts`](../packages/core/src/validate.ts), [`schemas/evals.ts`](../packages/core/src/schemas/evals.ts), [`eval.ts`](../packages/core/src/eval.ts)**

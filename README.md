@@ -34,8 +34,8 @@ Install individually — each skill belongs to exactly one plugin.
 
 | Plugin | Version | Skills | What it's for |
 |---|---|---|---|
-| **productivity-tools** + `cold-reader` agent | `0.2.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` · `writing-for-agents` | Work discipline: handoffs, transitions, work-item definition, issue triage |
-| **epistemics** + `falsification-reviewer` agent | `0.7.0` | `deep-research` · `discernment-nudge` · `estimate` · `falsification-review` · `grilling` · `ground-truth-research` · `premortem` · `research-note` · `second-order-effects` | Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research |
+| **productivity-tools** + `cold-reader` agent | `0.3.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` · `writing-for-agents` | Work discipline: handoffs, transitions, work-item definition, issue triage |
+| **epistemics** + `falsification-reviewer` agent | `0.8.0` | `deep-research` · `discernment-nudge` · `estimate` · `falsification-review` · `grilling` · `ground-truth-research` · `premortem` · `research-note` · `second-order-effects` | Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research |
 | **engineering-core** | `0.6.0` | `architecture-spec` · `codebase-survey` · `decision-record` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `postmortem` · `prose-hygiene` · `readme-authoring` · `skill-authoring` · `wizard` | Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose |
 | **code-craft** | `0.2.0` | `deep-modules` · `diagnose-bugs` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions |
 | **security** | `0.1.1` | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring |
@@ -44,7 +44,7 @@ Install individually — each skill belongs to exactly one plugin.
 | **tldraw-canvas** | `0.1.1` | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images |
 | **secrets-ops** | `0.1.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account |
 | **pr-workflow** | `0.1.1` | `stacked-prs` | Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension |
-| **agent-voice** | `0.1.0` | `output-contract` · `voice-setup` | How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks |
+| **agent-voice** | `0.2.0` | `output-contract` · `voice-setup` | How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks |
 <!-- skillsmith:end -->
 
 Skills also work together — for example, the architecture-spec skill runs a built-in adversarial review before it finishes. Every such pairing is listed in the catalog.
