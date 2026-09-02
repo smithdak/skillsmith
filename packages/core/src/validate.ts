@@ -7,7 +7,7 @@
  * Reads files under each skill dir; everything else is pure over inputs.
  */
 import { join } from "node:path";
-import type { EvalResultsFile } from "./eval.ts";
+import { descriptionSha, type EvalResultsFile } from "./eval.ts";
 import { statSync } from "node:fs";
 import type { DiscoveredSkill, DiscoveryResult } from "./discovery.ts";
 import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
@@ -313,6 +313,12 @@ export async function validateAll(
      * consumes it are separate commands, and only this closes the gap.
      */
     evalResults?: EvalResultsFile;
+    /**
+     * CHANGELOG.md contents. Undefined means "not supplied" and skips V16;
+     * the CLI always supplies it (empty string when the file is absent) so a
+     * deleted changelog fails loudly rather than disabling the rule.
+     */
+    changelog?: string;
   } = {},
 ): Promise<ValidateResult> {
   const diagnostics: Diagnostic[] = [...discovery.diagnostics];
@@ -339,12 +345,45 @@ export async function validateAll(
         );
         continue;
       }
+      // A description edited since the run leaves a number attached to text
+      // that no longer exists. Descriptions change far more often than evals
+      // are re-run, so without this the badge and the gate below both read as
+      // measurement while measuring nothing.
+      const currentSha = await descriptionSha(skill.frontmatter.description);
+      if (measured.descriptionSha && measured.descriptionSha !== currentSha) {
+        diagnostics.push(
+          warning(
+            "V8",
+            skill.skillMdPath,
+            `description changed since the ${opts.evalResults.runDate} eval run — the committed hit-rate measures text that no longer exists; re-run \`skillsmith eval\``,
+          ),
+        );
+      }
       if (measured.hitRate < threshold) {
         diagnostics.push(
           error(
             "V8",
             skill.skillMdPath,
             `committed trigger hit-rate ${measured.hitRate.toFixed(2)} below policy minimum ${threshold} (${measured.failing} failing case(s), judge ${opts.evalResults.judgeModel}, ${opts.evalResults.runDate})`,
+          ),
+        );
+      }
+    }
+  }
+
+  // ---- V16: every shipped plugin version is described in the changelog ----
+  // version-guard forces a bump when content changes; this is the other half.
+  // A consumer updating a plugin sees a new version number and nothing else,
+  // so a bump with no entry ships a change nobody can read.
+  if (opts.changelog !== undefined) {
+    for (const grouping of config.plugin) {
+      const heading = `## ${grouping.name} ${grouping.version}`;
+      if (!opts.changelog.includes(heading)) {
+        diagnostics.push(
+          warning(
+            "V16",
+            "CHANGELOG.md",
+            `no entry for the shipped version — add a "${heading}" section describing what changed`,
           ),
         );
       }

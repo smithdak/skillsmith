@@ -67,7 +67,28 @@ separates "drive development with tests" from "run/fix existing tests".
 bun packages/cli/src/main.ts eval               # all skills; writes results file
 bun packages/cli/src/main.ts eval tdd           # one skill; does NOT write results
 bun packages/cli/src/main.ts eval --model claude-sonnet-4-6 --concurrency 4
+bun packages/cli/src/main.ts eval tdd --repeat 9   # nine judgements, majority wins
 ```
+
+### Judge variance: read `--repeat`, not a single run
+
+The judge is stochastic near a decision boundary, and at `--repeat 1` a case's
+result carries that variance whole. Measured on one real case
+(`issue-triage`, "anything in the backlog still waiting on my input?"): 17 of
+28 judgements passed — about 60% — and two separate 5-vote samples landed
+*unanimous in opposite directions*. A single failing case is therefore not
+evidence of a regression, and neither is a single passing one.
+
+`--repeat N` judges each case N times and takes a strict majority; a tie
+fails, rather than rounding a coin flip up into a pass. Each case records the
+share of repeats that passed, and the results file lists `flakyPrompts`
+(split votes) separately from `failingPrompts`. That split is the point: a
+prompt that loses 0-of-9 is a routing gap worth fixing, and one that lands 6-of-9
+is a boundary case worth keeping — at `--repeat 1` the two are indistinguishable.
+
+Five votes is the practical minimum and still cannot resolve a ~60% case; use 9
+when you are about to act on the answer. Cost scales linearly with N, so the
+default stays 1.
 
 - Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Locally: `cp .env.example
   .env` and fill it in — `.env` is gitignored, and Bun loads it automatically
@@ -84,6 +105,12 @@ bun packages/cli/src/main.ts eval --model claude-sonnet-4-6 --concurrency 4
   is roughly 10x overpriced. Not free either way, which is why CI runs evals
   only on manual dispatch ([`.github/workflows/eval.yml`](../.github/workflows/eval.yml):
   `gh workflow run eval.yml`).
+- The results file records, per skill, the sha256 of the description that was
+  measured and the exact prompts that failed. The hash lets `validate` warn
+  when a description has been edited since the run, so a badge can never quote
+  a number for text that no longer exists; the prompt list lets two runs be
+  diffed, which is the only way to tell a regression from a boundary case that
+  flips between runs.
 - Failing cases print with the judge's actual pick, which tells you *which*
   sibling skill is absorbing your traffic:
 

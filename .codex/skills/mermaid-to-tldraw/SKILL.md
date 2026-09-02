@@ -1,6 +1,6 @@
 ---
 name: "mermaid-to-tldraw"
-description: "Converts Mermaid diagram source into editable tldraw shapes using tldraw's official @tldraw/mermaid package, so a flowchart or graph written as Mermaid text becomes real, movable nodes and arrows on a tldraw canvas rather than a static image. Use this skill when the user says \"convert this mermaid to tldraw\", \"turn my mermaid flowchart into editable tldraw shapes\", \"import mermaid into tldraw\", or has Mermaid source they want as a hand-editable canvas. Not for authoring Mermaid text itself, rendering Mermaid to an image, or building a tldraw file from a prose description (see tldraw-diagram)."
+description: "Converts Mermaid diagram source into editable tldraw shapes using tldraw's official @tldraw/mermaid package, so a flowchart or graph written as Mermaid text becomes real, movable nodes and arrows on a live tldraw canvas or in a `.tldr` file, rather than a static image. Use this skill when the user says \"convert this mermaid to tldraw\", \"turn my mermaid flowchart into editable tldraw shapes\", \"import mermaid into tldraw\", \"make this mermaid block a .tldr\", or has Mermaid source they want as a hand-editable canvas. The input decides: Mermaid source belongs here, a prose description belongs to tldraw-diagram. Not for authoring Mermaid text itself or rendering Mermaid to an image."
 license: "MIT"
 metadata:
   skillsmith-invocation: "user"

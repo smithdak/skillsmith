@@ -20,7 +20,7 @@
     },
     {
       "prompt": "our dashboard works fine but it looks like it was built in 2014 — what would you change?",
-      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
+      "note": "situation phrasing, and a measured boundary case: 7/9 at --repeat 9. \"what would you change?\" reads as assessment, which is frontend-critique's job, so it flips between runs. Kept — the boundary is where the differentiator is actually tested. Read it with --repeat, never from one run."
     }
   ],
   "should_not_trigger": [

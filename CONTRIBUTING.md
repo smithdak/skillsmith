@@ -18,8 +18,28 @@ failure with its fix), [evals](docs/evals.md), and
 5. `skillsmith validate --strict && skillsmith generate && skillsmith check`
    must pass before a PR.
 
+## Changing a shipped skill
+A skill already assigned to a plugin ships to installs. Two obligations come
+with that, both enforced:
+- Bump the plugin's `version` in skillsmith.toml — Claude Code refreshes by
+  version, never by content, so without a bump nobody receives the change
+  (`version-guard`, run in CI against `origin/main`). Locally, compare against
+  the branch point: `--base $(git merge-base main HEAD)`. `--base HEAD` always
+  reports clean and tells you nothing.
+- Add a `## <plugin> <version>` entry to CHANGELOG.md saying what changed
+  (V16). A bump without an entry ships a number nobody can read.
+- Editing a description invalidates its measured hit rate. `validate` warns
+  that the committed result measured text that no longer exists; re-run
+  `skillsmith eval` (needs an API key — see .env.example).
+- Judging one case once tells you almost nothing: measured variance on a real
+  boundary case was 17/28. Before treating a hit-rate change as real, re-measure
+  that skill with `skillsmith eval <skill> --repeat 9`.
+
 ## Rules that will bite you
 - The description is the trigger surface: what it does AND when, with quoted
   user phrasings ("use when the user says ...").
 - Never instruct the model to show/explain its reasoning (V13).
+- No update suppressors ("work silently") or blanket anti-formatting rules
+  ("never use bullets") — both invert on current models (V15). Quote them if a
+  skill needs to teach them.
 - Generated files (plugins/, catalog/, .claude-plugin/) are never hand-edited.

@@ -56,16 +56,38 @@ export interface CaseResult {
   expectation: "trigger" | "no-trigger";
   judged: string | null;
   pass: boolean;
+  /**
+   * Fraction of repeats that passed. 1 or 0 means every repeat agreed; anything
+   * between is a boundary case whose contribution to the hit rate is a coin
+   * flip. With repeat 1 this is always 1 or 0 and tells you nothing — which is
+   * exactly why single-run failures cannot be read as regressions.
+   */
+  agreement: number;
 }
 
 export interface SkillEvalResult {
   skill: string;
   cases: CaseResult[];
   hitRate: number; // passes / total
+  /** sha256 of the description text this run actually measured. */
+  descriptionSha: string;
+}
+
+/**
+ * Hash of the exact description a run measured. Committed with the results so
+ * a later validate can tell a stale number from a current one: descriptions
+ * are edited far more often than evals are re-run, and a hit rate attached to
+ * text that no longer exists reads as measurement while being none.
+ */
+export async function descriptionSha(description: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(description));
+  return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 export interface EvalReport {
   judgeModel: string;
+  /** Judgements per case this run used. */
+  repeat: number;
   results: SkillEvalResult[];
   diagnostics: Diagnostic[];
 }
@@ -118,6 +140,13 @@ export async function runTriggerEvals(
     /** Restrict to one skill; default all non-draft skills with evals. */
     skill?: string;
     concurrency?: number;
+    /**
+     * Judge each case this many times and take the strict majority. Judges are
+     * stochastic near a decision boundary, so at repeat 1 a skill's measured
+     * failures are dominated by variance rather than by description quality.
+     * Costs one API call per case per repeat.
+     */
+    repeat?: number;
   },
 ): Promise<EvalReport> {
   const diagnostics: Diagnostic[] = [];
@@ -127,7 +156,7 @@ export async function runTriggerEvals(
   );
   if (opts.skill !== undefined && skills.length === 0) {
     diagnostics.push(error("SCHEMA", "eval", `skill "${opts.skill}" not found (or is a draft)`));
-    return { judgeModel: opts.judgeModel, results: [], diagnostics };
+    return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), results: [], diagnostics };
   }
 
   const results: SkillEvalResult[] = [];
@@ -141,17 +170,37 @@ export async function runTriggerEvals(
       ...evals.should_not_trigger.map((c) => ({ prompt: c.prompt, expectation: "no-trigger" as const })),
     ];
 
-    const judged = await mapConcurrent(cases, opts.concurrency ?? 4, async (c) => {
+    // Expand to one task per (case × repeat) so concurrency stays saturated,
+    // then fold the votes back per case.
+    const repeat = Math.max(1, opts.repeat ?? 1);
+    const tasks = cases.flatMap((c) => Array.from({ length: repeat }, () => c));
+    const votes = await mapConcurrent(tasks, opts.concurrency ?? 4, async (c) => {
       const picked = await opts.judge(listing, c.prompt);
-      const pass =
-        c.expectation === "trigger" ? picked === skill.name : picked !== skill.name;
-      return { prompt: c.prompt, expectation: c.expectation, judged: picked, pass };
+      return {
+        prompt: c.prompt,
+        picked,
+        pass: c.expectation === "trigger" ? picked === skill.name : picked !== skill.name,
+      };
+    });
+    const judged: CaseResult[] = cases.map((c) => {
+      const mine = votes.filter((v) => v.prompt === c.prompt);
+      const passes = mine.filter((v) => v.pass).length;
+      return {
+        prompt: c.prompt,
+        expectation: c.expectation,
+        // Strict majority: a tie counts as a failure rather than rounding a
+        // coin flip up into a pass.
+        pass: passes * 2 > mine.length,
+        judged: mine.find((v) => !v.pass)?.picked ?? mine[0]!.picked,
+        agreement: passes / mine.length,
+      };
     });
 
     results.push({
       skill: skill.name,
       cases: judged,
       hitRate: judged.length === 0 ? 0 : judged.filter((c) => c.pass).length / judged.length,
+      descriptionSha: await descriptionSha(skill.frontmatter.description),
     });
   }
 
@@ -170,26 +219,61 @@ export async function runTriggerEvals(
   }
 
   results.sort((a, b) => a.skill.localeCompare(b.skill));
-  return { judgeModel: opts.judgeModel, results, diagnostics };
+  return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), results, diagnostics };
 }
 
 /** Serialized results file: SOURCE (committed), consumed by generate/doc. */
 export interface EvalResultsFile {
   judgeModel: string;
   runDate: string; // ISO date (day precision — keeps reruns on the same day byte-stable)
-  skills: Record<string, { hitRate: number; cases: number; failing: number }>;
+  /** Judgements per case. 1 means every number here carries full judge variance. */
+  repeat: number;
+  skills: Record<
+    string,
+    {
+      hitRate: number;
+      cases: number;
+      failing: number;
+      /** Description measured, as a sha256 — see descriptionSha. */
+      descriptionSha: string;
+      /**
+       * The prompts that failed, so two runs can be diffed. Boundary cases
+       * flip between runs; an unchanged set across runs is a stable finding,
+       * a changed set is a regression. A bare count cannot tell them apart.
+       */
+      failingPrompts: string[];
+      /**
+       * Prompts where the repeats disagreed. These sit on a decision boundary,
+       * so their pass/fail is unstable regardless of which way the majority
+       * fell — read them before treating any hit-rate movement as a change.
+       */
+      flakyPrompts: string[];
+    }
+  >;
 }
 
 export function toResultsFile(report: EvalReport, runDate: string): string {
   const skills: EvalResultsFile["skills"] = {};
   for (const r of report.results) {
+    const failed = r.cases.filter((c) => !c.pass);
     skills[r.skill] = {
       hitRate: Number(r.hitRate.toFixed(3)),
       cases: r.cases.length,
-      failing: r.cases.filter((c) => !c.pass).length,
+      failing: failed.length,
+      descriptionSha: r.descriptionSha,
+      failingPrompts: failed.map((c) => c.prompt).sort(),
+      flakyPrompts: r.cases
+        .filter((c) => c.agreement > 0 && c.agreement < 1)
+        .map((c) => c.prompt)
+        .sort(),
     };
   }
-  const file: EvalResultsFile = { judgeModel: report.judgeModel, runDate, skills };
+  const file: EvalResultsFile = {
+    judgeModel: report.judgeModel,
+    runDate,
+    repeat: report.repeat,
+    skills,
+  };
   return canonicalJson(file);
 }
 

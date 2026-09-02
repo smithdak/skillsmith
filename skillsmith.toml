@@ -28,7 +28,7 @@ agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "engineering-core"
-version = "0.6.0"
+version = "0.7.0"
 description = "Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose"
 skills = ["architecture-spec", "codebase-survey", "decision-record", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "postmortem", "prose-hygiene", "readme-authoring", "skill-authoring", "wizard"]
 
@@ -58,7 +58,7 @@ skills = ["brand-voice", "content-angles", "content-scorer", "growth-experiments
 
 [[plugin]]
 name = "tldraw-canvas"
-version = "0.1.1"
+version = "0.2.0"
 description = "tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images"
 skills = ["mermaid-to-tldraw", "tldraw-animation", "tldraw-diagram", "tldraw-export"]
 

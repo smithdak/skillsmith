@@ -8,7 +8,8 @@ description: >-
   items are blocked on a person and which are ready to hand to an agent. Use this
   skill when the
   user says "triage the backlog", "what issues need my attention",
-  "let's look at #42", or "move #42 to ready-for-agent". Not for
+  "let's look at #42", or "move #42 to ready-for-agent", or asks which items are
+  blocked, stale, or waiting on a person rather than on work. Not for
   implementing fixes, reviewing code, or roadmap prioritization.
 license: MIT
 metadata:

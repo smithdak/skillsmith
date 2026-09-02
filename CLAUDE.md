@@ -46,7 +46,7 @@ Pre-PR gate (from CONTRIBUTING.md): `validate --strict && generate && check` mus
 - `packages/cli` — thin citty wrapper, deliberately zero logic: load config, call core, render diagnostics, exit codes.
 - `packages/core` — everything, structured as a pipeline:
   1. `discovery.ts` — the only module that scans the filesystem; returns parsed source objects (frontmatter validated at parse time).
-  2. `validate.ts` + `composition.ts` — quality (V1–V15) and security (S1–S7) rules over discovered sources; builds script inventories (sha256, network-touching detection) and composition edges.
+  2. `validate.ts` + `composition.ts` — quality (V1–V16) and security (S1–S7) rules over discovered sources; builds script inventories (sha256, network-touching detection) and composition edges.
   3. `generate.ts` — pure function `(discovery, config) → GeneratePlan` (map of repo-relative path → content). Deterministic output: schema-defined JSON key order, sorted lists, LF, trailing newline.
   4. `check.ts` — compares committed files against the *same* plan bytes `generate` would write, which is what makes the drift gate trustworthy.
   5. `eval.ts` — LLM-judge trigger evals against each skill's `evals/evals.json`; full runs write `.skillsmith/eval-results.json` (committed; feeds catalog badges).

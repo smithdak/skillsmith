@@ -1,6 +1,6 @@
 {
   "name": "tldraw-canvas",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images",
   "author": {
     "name": "Dakota"

@@ -135,7 +135,10 @@ describe("eval harness (mock judge)", () => {
     const report = await runTriggerEvals(d, config, { judge: keywordJudge, judgeModel: "mock" });
     const fileText = toResultsFile(report, "2026-07-11");
     const parsed = JSON.parse(fileText) as EvalResultsFile;
-    expect(parsed.skills["code-review"]).toEqual({ hitRate: 1, cases: 6, failing: 0 });
+    expect(parsed.skills["code-review"]).toMatchObject({ hitRate: 1, cases: 6, failing: 0 });
+    // Results carry what they measured, so a later validate can spot staleness.
+    expect(parsed.skills["code-review"]!.descriptionSha).toMatch(/^[0-9a-f]{64}$/);
+    expect(parsed.skills["code-review"]!.failingPrompts).toEqual([]);
 
     const withBadges = buildPlan(d, config, { evalResults: parsed });
     const catalog = withBadges.files.get("catalog/CATALOG.md")!;
@@ -252,4 +255,41 @@ describe("anthropicJudge request shape", () => {
       await expect(judge(listing, "review my code")).rejects.toThrow(/declined/);
     });
   });
+});
+
+describe("--repeat majority voting", () => {
+
+  const root = mkdtempSync(join(tmpdir(), "fold-"));
+  const dir = join(root, "skills", "engineering", "s");
+  mkdirSync(join(dir, "evals"), { recursive: true });
+  writeFileSync(join(dir, "SKILL.md"), `---\nname: s\ndescription: 'Use when the user says "s".'\n---\nBody\n`);
+  writeFileSync(join(dir, "evals", "evals.json"), JSON.stringify({
+    should_trigger: [{ prompt: "always" }, { prompt: "coin" }, { prompt: "never" }],
+    should_not_trigger: [{ prompt: "n1" }, { prompt: "n2" }, { prompt: "n3" }],
+  }));
+  const config = validateSkillsmithConfig({ marketplace: { name: "m", owner: { name: "D" } },
+    categories: { allowed: ["engineering"] }, plugin: [{ name: "p", skills: [] }] }, { path: "x" }).value!;
+
+  let coinCalls = 0;
+  test("majority vote folds per case; ties fail; agreement is recorded", async () => {
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const report = await runTriggerEvals(d, config, {
+      judgeModel: "fake", repeat: 5, concurrency: 1,
+      judge: async (_l, prompt) => {
+        if (prompt === "always") return "s";
+        if (prompt === "never") return null;
+        if (prompt === "coin") return coinCalls++ < 2 ? "s" : null;  // 2 of 5 pass
+        return null; // negatives all pass
+      },
+    });
+    const cases = Object.fromEntries(report.results[0]!.cases.map((c) => [c.prompt, c]));
+    expect(cases["always"]!.agreement).toBe(1);
+    expect(cases["always"]!.pass).toBe(true);
+    expect(cases["never"]!.agreement).toBe(0);
+    expect(cases["never"]!.pass).toBe(false);
+    expect(cases["coin"]!.agreement).toBe(0.4);   // 2/5 — minority
+    expect(cases["coin"]!.pass).toBe(false);      // strict majority, so it fails
+    expect(report.repeat).toBe(5);
+  });
+
 });

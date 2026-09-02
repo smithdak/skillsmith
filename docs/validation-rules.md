@@ -42,7 +42,7 @@ Profile split encoded at this tier: `argument-hint` in SKILL.md frontmatter is
 valid for Claude Code but **fails the Cowork importer** (error under `--profile cowork`) —
 describe arguments in the body instead.
 
-## Quality tier (V1–V15)
+## Quality tier (V1–V16)
 
 ### V1 — name equals directory, no forbidden substrings
 **Error · all profiles · [`agent-skills-standard.ts`](../packages/core/src/schemas/agent-skills-standard.ts)**
@@ -204,6 +204,19 @@ does not trip a rule that a skill *committing* one (which states it plainly)
 does. The calibration target is
 [`MODEL_BEHAVIOR_TARGET`](../packages/core/src/constants.ts) — when it moves,
 these patterns are re-audited, not merely re-run.
+
+### V16 — changelog covers every shipped plugin version
+**Warning · all profiles · [`validate.ts`](../packages/core/src/validate.ts)**
+
+Every `[[plugin]]` in `skillsmith.toml` needs a `## <name> <version>` heading in
+[`CHANGELOG.md`](../CHANGELOG.md). This is the other half of
+[`VERSION`](#plugin-versioning-version): version-guard forces a bump when
+shipped content changes, and V16 forces the bump to be readable. Without it a
+consumer updating a plugin sees a new number and nothing else.
+
+The CLI passes the file's contents, or an empty string when it is absent — so
+deleting `CHANGELOG.md` warns once per plugin rather than silently switching
+the rule off.
 
 ## Security tier (S1–S7)
 

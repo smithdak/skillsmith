@@ -164,7 +164,9 @@ const validateCmd = defineCommand({
       listingCharCap: config.policy["max-listing-chars"],
     });
     const evalResults = await loadEvalResults(repoRoot);
-    const { diagnostics } = await validateAll(discovery, config, { evalResults });
+    const changelogFile = Bun.file(join(repoRoot, "CHANGELOG.md"));
+    const changelog = (await changelogFile.exists()) ? await changelogFile.text() : "";
+    const { diagnostics } = await validateAll(discovery, config, { evalResults, changelog });
 
     const tierOf = (rule: string) =>
       rule.startsWith("S") ? "security" : rule === "SCHEMA" ? "schema" : "quality";
@@ -277,6 +279,11 @@ const evalCmd = defineCommand({
     skill: { type: "positional" as const, description: "restrict to one skill", required: false },
     model: { type: "string" as const, description: "judge model", default: "claude-sonnet-4-6" },
     concurrency: { type: "string" as const, description: "parallel judge calls", default: "4" },
+    repeat: {
+      type: "string" as const,
+      description: "judgements per case; the majority wins (costs N x per run)",
+      default: "1",
+    },
   },
   async run({ args }) {
     const repoRoot = resolve(process.cwd(), args.cwd);
@@ -305,14 +312,28 @@ const evalCmd = defineCommand({
       judgeModel: args.model,
       skill: args.skill as string | undefined,
       concurrency: Number(args.concurrency),
+      repeat: Number(args.repeat),
     });
 
+    let flaky = 0;
     for (const r of report.results) {
       const failing = r.cases.filter((c) => !c.pass);
+      const unstable = r.cases.filter((c) => c.agreement > 0 && c.agreement < 1);
+      flaky += unstable.length;
       console.error(`${r.skill}: ${(r.hitRate * 100).toFixed(0)}% (${r.cases.length - failing.length}/${r.cases.length})`);
       for (const c of failing) {
         console.error(`  FAIL [expected ${c.expectation}] "${c.prompt}" → judged: ${c.judged ?? "none"}`);
       }
+      for (const c of unstable) {
+        console.error(`  FLAKY [${Math.round(c.agreement * 100)}% of ${report.repeat}] "${c.prompt}"`);
+      }
+    }
+    if (report.repeat === 1) {
+      console.error(
+        "\nrepeat=1: a single judgement per case, so individual failures carry full judge variance — use --repeat 3 before reading movement as a change",
+      );
+    } else if (flaky > 0) {
+      console.error(`\n${flaky} case(s) split their vote — those sit on a decision boundary`);
     }
     // The skill listing is an identical prefix on every call, so cache reads
     // should dominate after the first few. Zero reads means the prefix is not

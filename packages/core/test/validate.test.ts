@@ -7,6 +7,7 @@ import {
   validateAll,
   validateSkill,
   validateSkillsmithConfig,
+  descriptionSha,
   type SkillsmithConfig,
 } from "../src/index.ts";
 
@@ -349,5 +350,93 @@ describe("V8 — re-gating on committed eval results", () => {
     const { root, config } = makeRepo();
     addSkill(root, "anything");
     expect(await v8(root, config, undefined)).toHaveLength(0);
+  });
+});
+
+describe("V16 — changelog covers every shipped plugin version", () => {
+  const cfgWith = (plugins: { name: string; version?: string; skills: string[] }[]) =>
+    validateSkillsmithConfig(
+      {
+        marketplace: { name: "m", owner: { name: "D" } },
+        categories: { allowed: ["engineering"] },
+        plugin: plugins,
+      },
+      { path: "skillsmith.toml" },
+    ).value!;
+
+  const v16 = async (root: string, config: SkillsmithConfig, changelog?: string) => {
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const r = await validateAll(d, config, { changelog });
+    return r.diagnostics.filter((x) => x.rule === "V16");
+  };
+
+  test("a version with no entry warns, naming the heading to add", async () => {
+    const { root } = makeRepo();
+    const config = cfgWith([{ name: "p", version: "1.2.0", skills: [] }]);
+    const found = await v16(root, config, "# Changelog\n\n## p 1.1.0\n- old\n");
+    expect(found).toHaveLength(1);
+    expect(found[0]!.message).toContain('"## p 1.2.0"');
+    expect(found[0]!.path).toBe("CHANGELOG.md");
+  });
+
+  test("a documented version passes", async () => {
+    const { root } = makeRepo();
+    const config = cfgWith([{ name: "p", version: "1.2.0", skills: [] }]);
+    expect(await v16(root, config, "## p 1.2.0\n- did a thing\n")).toHaveLength(0);
+  });
+
+  test("a deleted changelog fails loudly rather than disabling the rule", async () => {
+    const { root } = makeRepo();
+    const config = cfgWith([
+      { name: "a", version: "1.0.0", skills: [] },
+      { name: "b", version: "2.0.0", skills: [] },
+    ]);
+    // The CLI passes "" when the file is absent — every plugin is then unentered.
+    expect(await v16(root, config, "")).toHaveLength(2);
+  });
+
+  test("omitting the changelog entirely skips the rule", async () => {
+    const { root } = makeRepo();
+    const config = cfgWith([{ name: "p", version: "1.2.0", skills: [] }]);
+    expect(await v16(root, config, undefined)).toHaveLength(0);
+  });
+});
+
+describe("V8 — stale results detection", () => {
+  test("a description edited since the run warns that the number is stale", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "drifted");
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const skill = d.skills.find((s) => s.name === "drifted")!;
+    const stale = {
+      judgeModel: "mock",
+      runDate: "2026-01-01",
+      skills: {
+        drifted: {
+          hitRate: 1,
+          cases: 6,
+          failing: 0,
+          descriptionSha: "0".repeat(64), // measured some other text
+          failingPrompts: [],
+        },
+      },
+    };
+    const r = await validateAll(d, config, { evalResults: stale as never });
+    const found = r.diagnostics.filter((x) => x.rule === "V8");
+    expect(found).toHaveLength(1);
+    expect(found[0]!.message).toContain("description changed");
+
+    // Same description measured — no warning.
+    const current = {
+      ...stale,
+      skills: {
+        drifted: {
+          ...stale.skills.drifted,
+          descriptionSha: await descriptionSha(skill.frontmatter.description),
+        },
+      },
+    };
+    const clean = await validateAll(d, config, { evalResults: current as never });
+    expect(clean.diagnostics.filter((x) => x.rule === "V8")).toHaveLength(0);
   });
 });

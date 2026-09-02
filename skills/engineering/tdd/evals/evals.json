@@ -30,7 +30,7 @@
     },
     {
       "prompt": "add unit tests for the existing auth module",
-      "note": "retrofitting tests onto shipped code, not test-first"
+      "note": "retrofitting tests onto existing code, which tdd's description excludes. Measured boundary case: 3/5 at --repeat 5, and it flipped between single-vote runs. Kept because a suite with no cases near the boundary measures nothing; read it with --repeat, never from one run."
     },
     {
       "prompt": "why does this vitest mock keep returning undefined?",

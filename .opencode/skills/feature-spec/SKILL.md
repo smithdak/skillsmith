@@ -1,6 +1,6 @@
 ---
 name: "feature-spec"
-description: "Synthesizes the current conversation into a build-ready feature spec (a PRD): problem, solution, user stories, implementation and testing decisions, out-of-scope — captured from what was already discussed, never by re-interviewing. Use this skill when the user says \"turn this into a spec\", \"write up what we discussed as a PRD\", \"capture this thread as a spec\", or wants a feature discussion made buildable. Not for system-wide architecture documents and not for eliciting requirements that were never discussed."
+description: "Synthesizes the current conversation into a build-ready feature spec (a PRD): problem, solution, user stories, implementation and testing decisions, out-of-scope — captured from what was already discussed, never by re-interviewing. Use this skill when the user says \"turn this into a spec\", \"write up what we discussed as a PRD\", \"capture this thread as a spec\", or wants a feature discussion made buildable. Not for system-wide architecture documents, not for breaking a discussion into individual tickets with acceptance criteria (define-work-items), and not for eliciting requirements that were never discussed."
 license: "MIT"
 metadata:
   skillsmith-composes: "cold-read, deep-modules"

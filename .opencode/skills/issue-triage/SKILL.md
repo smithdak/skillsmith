@@ -1,6 +1,6 @@
 ---
 name: "issue-triage"
-description: "Moves issue-tracker items through an explicit triage state machine — categorize as bug or enhancement, verify the claim against the codebase, then route to needs-info, ready-for-agent, ready-for-human, or wontfix with an evidence-backed write-up; the resulting board answers which items are blocked on a person and which are ready to hand to an agent. Use this skill when the user says \"triage the backlog\", \"what issues need my attention\", \"let's look at #42\", or \"move #42 to ready-for-agent\". Not for implementing fixes, reviewing code, or roadmap prioritization."
+description: "Moves issue-tracker items through an explicit triage state machine — categorize as bug or enhancement, verify the claim against the codebase, then route to needs-info, ready-for-agent, ready-for-human, or wontfix with an evidence-backed write-up; the resulting board answers which items are blocked on a person and which are ready to hand to an agent. Use this skill when the user says \"triage the backlog\", \"what issues need my attention\", \"let's look at #42\", or \"move #42 to ready-for-agent\", or asks which items are blocked, stale, or waiting on a person rather than on work. Not for implementing fixes, reviewing code, or roadmap prioritization."
 license: "MIT"
 metadata:
   skillsmith-composes: "define-work-items"

@@ -11,7 +11,7 @@
     },
     {
       "prompt": "anything in the backlog still waiting on my input?",
-      "note": "KNOWN FAILURE, kept deliberately: judged 'none' on every run since 2026-09-02, before and after a description change stating that the triaged board answers what is blocked on a person. The open question is whether a bare status query warrants the triage discipline at all. Left failing rather than reworded, because a suite tuned to 100% would lose the only stable disagreement it has. 93% clears the 0.85 floor."
+      "note": "boundary case, measured: 17/28 pass across single-vote runs and 5-vote samples (two of which landed unanimous in opposite directions — 5 votes cannot resolve a ~60% case). At 9 votes it read 67% flaky; adding the 'blocked, stale, or waiting on a person' trigger category took it to 9/9. Re-measure with --repeat 9, not a single run."
     },
     {
       "prompt": "thirty new issues since the HN post — triage them"

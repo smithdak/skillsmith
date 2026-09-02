@@ -1,271 +1,435 @@
 {
   "judgeModel": "claude-sonnet-4-6",
   "runDate": "2026-09-02",
+  "repeat": 1,
   "skills": {
     "architecture-spec": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "e8c66982e1181a8afaf1f29ed1974931ab3efccfde862584651b643ef47a839f",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "brand-voice": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "d0e6a00749183a41d58dd34675ef15edb0e358e50357c9374fdf33dc9b515d5c",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "codebase-survey": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "0b8210d7a091c307927838d241f9aec6d50e8b35ec2504c28f919a31e755b61f",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "cold-read": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "f21313b9a5e44029042e70ac4c5160626efe061e0ca074191d559bfc90ac9b2b",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "content-angles": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "11dbd33b8efd4dda38f6658cd197908fbb0e7bff969ae119ec3108a07ac8c456",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "content-scorer": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "25714ffa2e3a18ddfb878ce7281c1e7bef648ed1f3621c0d86217610f3ab11f6",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "decision-record": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "46e80b96659a47e97a03db75d9b1eb8c6f39eb4b7b4d4488f45a4435d6790f17",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "deep-modules": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "57558ab81da56735e9e6ae99e8f744509c1758474e9dc7cbd786b4251730fdf1",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "deep-research": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "b52f22a9104fad63ba1dc6678bb826f3f130a6f8bcec881def9afec21542de4b",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "define-security-policy": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "7d64649d6ebefdd03899a4dd2c498ff66961dbf68663d6587ef61270774dc745",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "define-work-items": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "d3fe0af821ff540bca2746d9a44ceca69fc223a6bf588f2b89e941a19f21e19d",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "diagnose-bugs": {
       "hitRate": 1,
       "cases": 17,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "6f7e708418bdd82baa80b13c821b380c69cc754cc2043fcbdb252e72fa79692d",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "discernment-nudge": {
       "hitRate": 1,
       "cases": 17,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "f7ec8e376e43fbaf1a726f3cd15468d8a24f43b0e964aef9c658a5fac4171a00",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "discovery-map": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "d8b473e9bcd65821e3478177eea6783b5af1322ac5e68bcc2191ebbb4c62506e",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "doc-visuals": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "42f5068309d67cb8b71ec2d17900f7239273a0db300d398057c9595545c3beb4",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "estimate": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "39fbe43363e522dba2385668476eff6bb0a8a54c3b535ac6b865894d070aa46a",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "falsification-review": {
       "hitRate": 1,
       "cases": 13,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "ec00bb923d3557e152fc10f4c5d2190869e0e92598f0213b1a5c0483638eca05",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "feature-spec": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "b64eb5ac160d58a37b12e02b101dd1c54ac42e4f880486294b508d2ff6b5dff8",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "frontend-craft": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "e5b266493fdc877cf69e51b15e705ab7b7fdaecc4a1f9dc7cff00e2bcf2c200a",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "frontend-critique": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "983822c8469dc7e008ec9013ad3fee2fa76b5f9722937ed1a717a591baff4bd7",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "frontend-redesign": {
-      "hitRate": 1,
+      "hitRate": 0.933,
       "cases": 15,
-      "failing": 0
+      "failing": 1,
+      "descriptionSha": "0a17cc1dbf86601eb3d4aa913f71163ea4c5a1ef02d0b95612a8aefafa70c804",
+      "failingPrompts": [
+        "our dashboard works fine but it looks like it was built in 2014 — what would you change?"
+      ],
+      "flakyPrompts": []
     },
     "grilling": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "47241d6c5d399f90bd3a146264a0773e2c3163076015a94fa125e997b5481160",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "ground-truth-research": {
       "hitRate": 1,
       "cases": 13,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "b325b1dcc638edf5ad1ee4c9c8a5976ee53a250c1487e28fe9e93a6a15543d6e",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "growth-experiments": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "f1ac4a7e1aa613c284dfa877ef9d35d03edef1e8c7ba3f3021bf2442db7987a7",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "handoff": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "fc4561c9057a3c3b45937b90e3a2f452e9aca3fc035fe208b7ec68da5d4b28a3",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "hardening-proposal": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "5f46a5fdbaaf2c54b92a31e59c5aada9938c9f43826760297cc969fa715de668",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "information-architecture": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "0e2c9ddb993ddd137e6068acc69208038d19a5ead8afa4044ec260bc16e26464",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "issue-triage": {
-      "hitRate": 0.929,
+      "hitRate": 1,
       "cases": 14,
-      "failing": 1
+      "failing": 0,
+      "descriptionSha": "75b2bc6b9bea435ad6793f70f19ab3b88ac547d716be925904de0decd2a31b1b",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "mermaid-to-tldraw": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "506b2efd08089ff291cec378b0ca5170991cbc03cc52ed1f7b1dd3700321522d",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "op-github-secrets": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "51bb637e1d115a00718085db45fc7bbc2fb7f68318c33e18b97488e9d412fc8e",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "op-secrets": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "379ca55909941e20b1adf4a3ccbfcc8146166a9a365a367a5604ed311553ef82",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "outbound-builder": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "de6481b26c689066c943263c01ed2e2f3a3b4eeb33a25f355ceddf72d1d03d4b",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "output-contract": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "4a1e0c59512c828792f0bc87f1427da5aec708e36a070db111424749df912fed",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "podcast-repurposer": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "2dbaec8077cccfa62cd17f168a584b2cec869ed99f7da03393b892e3304ddf7f",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "postmortem": {
       "hitRate": 1,
       "cases": 19,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "1fdc7001e027303ea1a72fec3606ab7baca444413221eadbfcf3ece1841d9486",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "premortem": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "89ebdf407e5a2439e7a0165dda97bc30b407e7fc7674766b09063e150332cd97",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "prose-hygiene": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "0c7b331aefc2bfbd7b03db272d4b36c822a4aa74a5b12e94107a89d20a5445f0",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "readme-authoring": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "ee0ec2d400f813ccffe071a8c2da373c44d5d87dca2f572ac2c1814a132ab987",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "research-note": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "d8cb324dc8bba5cd22d9b85e72b1b5253ca0d6771610617e0e9300ba283102d4",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "second-order-effects": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "08d4beddbce139dc7934250b3d10194aae64765bf331b49e58da6b6cc35164c8",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "security-diff-review": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "3f19c9f0393a7c75c6ce85b88b7d9e6f1f91a24baa4baeb52b81d4829ef7e034",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "seo-brief": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "ff40ac6c7d0726068ba3586d1d830691258ee478ce1ceac06d025053d62ad8a6",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "skill-authoring": {
       "hitRate": 1,
       "cases": 13,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "8f21a7ffc862c944699098307c7eeceb976d41bce8b9207ca260f47fed58731d",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "stacked-prs": {
       "hitRate": 1,
       "cases": 19,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "0cd579af87e015f9dead97df754d48488cd43f57aabf28cbb29c7575a3f41eee",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "tdd": {
       "hitRate": 0.929,
       "cases": 14,
-      "failing": 1
+      "failing": 1,
+      "descriptionSha": "e8d7d44b66b290224ef49a148fe259cc6a5460571b1a154bb872b7948314ff03",
+      "failingPrompts": [
+        "add unit tests for the existing auth module"
+      ],
+      "flakyPrompts": []
     },
     "threat-model": {
       "hitRate": 1,
       "cases": 14,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "8dd30564424e6e30f2f91303aafe8113314dbb1df1ebd345d36f8992ce2a13d6",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "tldraw-animation": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "f3a29886e65ad7731d1a9d04dca668a66ce9e0b57509b135aa5315f631598c9b",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "tldraw-diagram": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "18701b35ac23259c50cc179d117b1db0b19ee8d1a4d90af754f6adbe43df0353",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "tldraw-export": {
       "hitRate": 1,
       "cases": 16,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "1ad7507856d75b3ef0c96e2c26f6bd30257f6ecf5db03f763988a64592cb6dda",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "voice-setup": {
       "hitRate": 1,
       "cases": 10,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "28ccf4ca8fd7b7b0c3888816315cfd921667dfffc625cb51cef55219def73d71",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "webapp-testing": {
       "hitRate": 1,
       "cases": 18,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "f1a6dbb76eaadb6e180972a71e278fe8d1a93c50f68005ec0503f38d475a7cb5",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "wizard": {
       "hitRate": 1,
       "cases": 13,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "7b98562818fcb08d55780d235ad3fd5ce37efd1adb38d8deac4558c6275c0409",
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "writing-for-agents": {
       "hitRate": 1,
       "cases": 15,
-      "failing": 0
+      "failing": 0,
+      "descriptionSha": "33d89e52590d64c8e846e15f2c1921535a897252aabb7ee6812ebfb9a0762926",
+      "failingPrompts": [],
+      "flakyPrompts": []
     }
   }
 }

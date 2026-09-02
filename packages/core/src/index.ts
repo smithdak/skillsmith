@@ -119,6 +119,7 @@ export {
   runTriggerEvals,
   toResultsFile,
   anthropicJudge,
+  descriptionSha,
   type Judge,
   type JudgeUsage,
   type EvalReport,
