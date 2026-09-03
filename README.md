@@ -1,30 +1,38 @@
 # skillsmith
 
 [![CI](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml/badge.svg)](https://github.com/smithdak/skillsmith/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/tag/smithdak/skillsmith?label=release&sort=semver)](CHANGELOG.md)
 [![Bun](https://img.shields.io/badge/Bun-%E2%89%A51.3.14-000000?logo=bun&logoColor=white)](https://bun.sh)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**A library of ready-made skills for Claude Code — plus the tool that quality-checks and packages them.**
+**An engineering pipeline for agent skills — validated, measured, versioned, and built for more than one harness — plus the 50-skill catalog it maintains.**
 
-A *skill* is a small instruction pack that teaches Claude to do one job well — reviewing a pull request for security bugs, running test-driven development, writing a handoff document, modeling threats before an audit. This repo holds **53 skills**, bundled into **11 installable plugins**.
+A *skill* is a small instruction pack that teaches a coding agent to do one job well: review a diff for security bugs, run test-driven development, write a handoff, model threats before an audit. Most skill repositories are a folder of markdown that nobody measures. This one treats skills as software: every skill has a schema, a security inventory, a version, a changelog entry, and a **measured trigger rate** — and one command compiles the sources into installable plugins for Claude Code and plain Agent-Skills trees for Codex and OpenCode.
 
-[Install](#install) · [Browse the skills](#plugins) · [How it works](#how-it-works) · [Write your own](#write-your-own) · [Documentation](#documentation)
+[Quick start](#quick-start) · [What it does](#what-it-does) · [The catalog](#the-catalog) · [How it works](#how-it-works) · [Use it on your own skills](#use-it-on-your-own-skills) · [Documentation](#documentation)
 
-## Install
+## What it does
 
-In Claude Code, run:
+- **Validates** every skill against 16 quality rules and 7 security rules — trigger-description craft, size ceilings, dated prompting patterns that regress on current models, hashed script inventories, network-touching detection — with findings scoped to the harness that enforces them ([rule reference](docs/validation-rules.md)).
+- **Generates** four targets from one source tree: Claude Code plugins and a marketplace listing, and dependency-free Agent-Skills trees for Codex, OpenCode, and any other SKILL.md-standard harness. Generated output is never hand-edited; CI fails on drift.
+- **Measures** whether each skill actually fires when a real user asks. A judge model routes every eval case against the *whole* catalog, so a skill is scored on how well it separates from its neighbours. Runs take a majority of three votes, escalate split cases to nine, and record the description, eval-case, and catalog hashes each number was measured against — so a badge can never quote a figure for text that no longer exists ([how evals work](docs/evals.md)).
+- **Versions** every plugin and refuses a content change without a bump — installed plugins refresh by version, never by content — and refuses a bump without a changelog entry a consumer can read.
+
+## Quick start
+
+**Install skills into Claude Code:**
 
 ```
 /plugin marketplace add smithdak/skillsmith
 /plugin install engineering-core@skillsmith-marketplace
 ```
 
+**Use them from Codex or OpenCode:** copy the tree under [`dist/generic/`](dist/generic/) (or the harness-specific ones under `.codex/skills/` and `.opencode/skills/`) into your harness's skills directory. Same sources, no Claude Code dependency.
+
 > [!TIP]
-> Browse everything first in **[catalog/CATALOG.md](catalog/CATALOG.md)** — every skill, what it's for, and a security inventory of anything it can execute. The security model is in [SECURITY.md](SECURITY.md).
+> Browse before installing: [catalog/CATALOG.md](catalog/CATALOG.md) lists every skill, its measured trigger rate, and a security inventory of anything it can execute. The security model is in [SECURITY.md](SECURITY.md).
 
-## Plugins
-
-Install individually — each skill belongs to exactly one plugin.
+## The catalog
 
 <!-- skillsmith:start -->
 [![Skills](https://img.shields.io/badge/skills-50-brightgreen)](catalog/CATALOG.md)
@@ -46,39 +54,50 @@ Install individually — each skill belongs to exactly one plugin.
 | **agent-voice** | `0.3.0` | `output-contract` · `voice-setup` | How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks |
 <!-- skillsmith:end -->
 
-Skills also work together — for example, the architecture-spec skill runs a built-in adversarial review before it finishes. Every such pairing is listed in the catalog.
+Skills compose — `architecture-spec` runs a falsification pass before it finishes; `feature-spec` hands the reader off to `cold-read`. Every declared pairing is in the catalog. Adapted skills carry their attribution in [NOTICES.md](NOTICES.md).
 
 ## How it works
 
-Think of it like a small compiler:
+A small compiler with a drift gate:
 
-1. **Write** — each skill lives in `skills/` as plain markdown plus optional scripts. Humans edit these.
-2. **Generate** — one command (`generate`) bundles them into the installable `plugins/`, the marketplace listing, and the catalog. Those files are never edited by hand.
-3. **Check** — CI re-runs `generate` and fails if anything committed doesn't match exactly what it would produce, so the published artifacts always match the sources.
-
-Along the way every skill passes validation rules: structure checks, quality rules (clear trigger descriptions, size limits), and security rules (every script is inventoried and hashed). Skills are also tested with evals that measure whether they fire when a real user asks — see [docs/evals.md](docs/evals.md).
+1. **Write** — a skill is a directory under `skills/<category>/`: `SKILL.md` (frontmatter + body), optional `references/` loaded on demand, optional `scripts/` for deterministic work, and `evals/evals.json` with real user phrasings that should and should not trigger it. Agents and commands live alongside. Humans edit only these.
+2. **Validate** — `validate --strict` runs the schema, quality, and security tiers and re-gates on the committed eval results: a skill below the policy floor, or one whose description or cases changed since it was measured, fails the build.
+3. **Generate** — `generate` emits `plugins/`, the marketplace manifest, the catalog, and the generic and harness-specific trees, deterministically: sorted keys, LF, trailing newline.
+4. **Check** — `check` recomputes the same plan and fails if anything committed differs by a byte. `version-guard` compares each plugin's shipped bytes to the base branch and fails a change without a bump.
 
 > [!IMPORTANT]
-> Never hand-edit `plugins/`, `.claude-plugin/marketplace.json`, or `catalog/`. If something looks wrong there, fix the source and rerun `generate`.
+> `plugins/`, `.claude-plugin/`, `catalog/`, `dist/`, `.codex/`, and `.opencode/` are generated. Fix the source and rerun `generate`; CI rejects hand edits as drift.
 
 > [!WARNING]
-> Changing what a plugin ships requires bumping its `version` in `skillsmith.toml` — installed plugins refresh by version number, so an unbumped change silently never reaches users. CI enforces this.
+> A description edit changes what *every* skill is judged against, not just one. Re-measure both sides of any boundary you touch before trusting the number, and edit one boundary at a time — rewriting many at once shifts routing on skills whose text never changed. The measured version of that rule is in [skill-authoring](skills/engineering/skill-authoring/SKILL.md).
 
 The pipeline, module boundaries, and design decisions: [docs/architecture.md](docs/architecture.md).
 
-## Write your own
+## Use it on your own skills
+
+The tool is not tied to this catalog. Point it at any repository laid out the same way — `skills/`, optional `agents/`, and a `skillsmith.toml` naming plugins and policy — from a checkout of this repo:
+
+```sh
+bun packages/cli/src/main.ts validate --strict --cwd ../your-skills-repo
+bun packages/cli/src/main.ts generate --cwd ../your-skills-repo
+bun packages/cli/src/main.ts eval --cwd ../your-skills-repo --repeat 3 --escalate 9   # needs ANTHROPIC_API_KEY
+```
+
+`skillsmith.toml` sets the harness targets, the plugin groupings, and the policy knobs — body token caps, minimum trigger rate, the allowlist for skill-to-skill composition ([configuration reference](docs/configuration.md)). It is not yet published to a package registry; running from a checkout with `--cwd` is the supported path today.
+
+To write a skill here:
 
 ```sh
 bun packages/cli/src/main.ts scaffold skill my-skill   # starts a draft in skills/drafts/
 ```
 
-Then follow the short guide in [CONTRIBUTING.md](CONTRIBUTING.md); the full walkthrough is [docs/skill-authoring.md](docs/skill-authoring.md). Before opening a PR: `validate --strict && generate && check` must all pass.
+then follow [CONTRIBUTING.md](CONTRIBUTING.md) and the full [authoring guide](docs/skill-authoring.md). The pre-PR gate is `validate --strict && generate && check`.
 
-To hack on the tool itself ([Bun](https://bun.sh) ≥ 1.3.14, no build step):
+To hack on the tool ([Bun](https://bun.sh) ≥ 1.3.14, no build step):
 
 ```sh
 bun install
-bun test                                # all tests live in packages/core/test/
+bun test                                # packages/core/test/
 cd packages/core && bunx tsc --noEmit   # typecheck
 ```
 
@@ -87,9 +106,10 @@ cd packages/core && bunx tsc --noEmit   # typecheck
 | Document | Contents |
 |---|---|
 | [docs/architecture.md](docs/architecture.md) | Pipeline design, module boundaries, why diagnostics are profile-scoped |
-| [docs/skill-authoring.md](docs/skill-authoring.md) | Full authoring guide — anatomy, descriptions, references, scripts |
+| [docs/skill-authoring.md](docs/skill-authoring.md) | Full authoring guide — anatomy, descriptions, references, scripts, evals |
 | [docs/validation-rules.md](docs/validation-rules.md) | Every V and S rule with the fix for each |
-| [docs/evals.md](docs/evals.md) | How trigger-hit-rate measurement works and how to read results |
-| [docs/configuration.md](docs/configuration.md) | `skillsmith.toml` reference — groupings and policy knobs |
+| [docs/evals.md](docs/evals.md) | Trigger measurement: votes, escalation, provenance, cost, how to read a result |
+| [docs/configuration.md](docs/configuration.md) | `skillsmith.toml` reference — targets, groupings, policy knobs |
+| [CHANGELOG.md](CHANGELOG.md) | What changed in each shipped plugin version |
 | [packages/core](packages/core/README.md) · [packages/cli](packages/cli/README.md) | Package-level docs (all logic lives in core) |
 | [SECURITY.md](SECURITY.md) · [NOTICES.md](NOTICES.md) | Security model; third-party attribution for adapted skills |
