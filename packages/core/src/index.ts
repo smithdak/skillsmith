@@ -120,6 +120,7 @@ export {
   toResultsFile,
   anthropicJudge,
   descriptionSha,
+  renderListing,
   type Judge,
   type JudgeUsage,
   type EvalReport,

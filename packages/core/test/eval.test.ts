@@ -139,6 +139,7 @@ describe("eval harness (mock judge)", () => {
     // Results carry what they measured, so a later validate can spot staleness.
     expect(parsed.skills["code-review"]!.descriptionSha).toMatch(/^[0-9a-f]{64}$/);
     expect(parsed.skills["code-review"]!.failingPrompts).toEqual([]);
+    expect(parsed.listingSha).toMatch(/^[0-9a-f]{64}$/);
 
     const withBadges = buildPlan(d, config, { evalResults: parsed });
     const catalog = withBadges.files.get("catalog/CATALOG.md")!;

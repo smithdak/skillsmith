@@ -8,6 +8,8 @@ import {
   validateSkill,
   validateSkillsmithConfig,
   descriptionSha,
+  renderListing,
+  buildListing,
   type SkillsmithConfig,
 } from "../src/index.ts";
 
@@ -438,5 +440,44 @@ describe("V8 — stale results detection", () => {
     };
     const clean = await validateAll(d, config, { evalResults: current as never });
     expect(clean.diagnostics.filter((x) => x.rule === "V8")).toHaveLength(0);
+  });
+});
+
+describe("V8 — listing hash: the whole catalog is the measurement's denominator", () => {
+  const results = (listingSha: string) => ({
+    judgeModel: "mock",
+    runDate: "2026-09-03",
+    repeat: 3,
+    escalate: 9,
+    listingSha,
+    skills: {},
+  });
+
+  test("adding a skill after the run warns even though no description changed", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "a");
+    const before = await discover(root, { allowedCategories: config.categories.allowed });
+    const sha = await descriptionSha(renderListing(buildListing(before)));
+
+    // Same catalog: no listing warning (the only V8 lines are per-skill "unmeasured").
+    const same = await validateAll(before, config, { evalResults: results(sha) as never });
+    expect(same.diagnostics.filter((d) => d.rule === "V8" && d.path.endsWith("eval-results.json"))).toHaveLength(0);
+
+    // A neighbour appears: every existing number was measured against a different catalog.
+    addSkill(root, "b");
+    const after = await discover(root, { allowedCategories: config.categories.allowed });
+    const changed = await validateAll(after, config, { evalResults: results(sha) as never });
+    const listingWarn = changed.diagnostics.filter((d) => d.rule === "V8" && d.path.endsWith("eval-results.json"));
+    expect(listingWarn).toHaveLength(1);
+    expect(listingWarn[0]!.message).toContain("listing has changed");
+  });
+
+  test("results written before the field existed are not warned about", async () => {
+    const { root, config } = makeRepo();
+    addSkill(root, "a");
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const legacy = { judgeModel: "mock", runDate: "2026-01-01", skills: {} };
+    const r = await validateAll(d, config, { evalResults: legacy as never });
+    expect(r.diagnostics.filter((x) => x.path.endsWith("eval-results.json"))).toHaveLength(0);
   });
 });

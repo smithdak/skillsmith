@@ -110,8 +110,12 @@ Two manifestations:
 
 `validate` additionally re-gates on the committed
 `.skillsmith/eval-results.json` when one is present: a skill measured below
-`[policy]."min-trigger-hit-rate"` is an **error**, and a non-draft skill with
-no entry is a **warning** (its triggering is unmeasured). Measurement happens
+`[policy]."min-trigger-hit-rate"` is an **error**; a non-draft skill with no
+entry is a **warning** (its triggering is unmeasured); a skill whose
+description hash no longer matches is a **warning** (its number measures text
+that no longer exists); and a listing hash that no longer matches is one
+**warning** for the file (a skill was added or removed, or some description
+changed, so every number was measured against a different catalog). Measurement happens
 in `eval`, which needs an API key; gating happens here, so a below-floor skill
 cannot reach a PR just because nobody re-ran the measurement.
 

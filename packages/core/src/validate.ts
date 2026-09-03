@@ -7,7 +7,7 @@
  * Reads files under each skill dir; everything else is pure over inputs.
  */
 import { join } from "node:path";
-import { descriptionSha, type EvalResultsFile } from "./eval.ts";
+import { buildListing, descriptionSha, renderListing, type EvalResultsFile } from "./eval.ts";
 import { statSync } from "node:fs";
 import type { DiscoveredSkill, DiscoveryResult } from "./discovery.ts";
 import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
@@ -332,6 +332,21 @@ export async function validateAll(
   // ---- V8: re-gate on committed eval results (measurement lives in `eval`) ----
   if (opts.evalResults) {
     const threshold = config.policy["min-trigger-hit-rate"];
+    // The whole catalog is the measurement's denominator: adding or removing a
+    // skill, or editing any description, changes what every other skill was
+    // judged against. The per-skill hash below cannot see that; this can.
+    if (opts.evalResults.listingSha) {
+      const currentListingSha = await descriptionSha(renderListing(buildListing(discovery)));
+      if (currentListingSha !== opts.evalResults.listingSha) {
+        diagnostics.push(
+          warning(
+            "V8",
+            ".skillsmith/eval-results.json",
+            `the skill listing has changed since the ${opts.evalResults.runDate} run (a skill added or removed, or a description edited) — every committed hit-rate was measured against a different catalog; re-run \`skillsmith eval\``,
+          ),
+        );
+      }
+    }
     for (const skill of discovery.skills) {
       if (skill.draft) continue;
       const measured = opts.evalResults.skills[skill.name];

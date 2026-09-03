@@ -27,17 +27,17 @@ In Claude Code, run:
 Install individually — each skill belongs to exactly one plugin.
 
 <!-- skillsmith:start -->
-[![Skills](https://img.shields.io/badge/skills-53-brightgreen)](catalog/CATALOG.md)
+[![Skills](https://img.shields.io/badge/skills-54-brightgreen)](catalog/CATALOG.md)
 [![Plugins](https://img.shields.io/badge/plugins-11-blue)](catalog/CATALOG.md)
 
-**11 installable plugins, 53 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
+**11 installable plugins, 54 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
 
 | Plugin | Version | Skills | What it's for |
 |---|---|---|---|
 | **productivity-tools** + `cold-reader` agent | `0.3.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` · `writing-for-agents` | Work discipline: handoffs, transitions, work-item definition, issue triage |
 | **epistemics** + `falsification-reviewer` agent | `0.8.0` | `deep-research` · `discernment-nudge` · `estimate` · `falsification-review` · `grilling` · `ground-truth-research` · `premortem` · `research-note` · `second-order-effects` | Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research |
 | **engineering-core** | `0.7.0` | `architecture-spec` · `codebase-survey` · `decision-record` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `postmortem` · `prose-hygiene` · `readme-authoring` · `skill-authoring` · `wizard` | Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose |
-| **code-craft** | `0.2.0` | `deep-modules` · `diagnose-bugs` · `tdd` | Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions |
+| **code-craft** | `0.3.0` | `deep-modules` · `diagnose-bugs` · `retrofit-tests` · `tdd` | Implementation discipline: test-driven red-green loops, characterization tests for code that has none, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions |
 | **security** | `0.1.1` | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring |
 | **frontend** | `0.3.0` | `frontend-craft` · `frontend-critique` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
 | **marketing** | `0.2.1` | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design |

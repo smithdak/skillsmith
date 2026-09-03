@@ -96,7 +96,10 @@ votes split, until each has M votes. On the current catalog a
 `--repeat 3 --escalate 9` run costs about three single runs plus a few dozen
 extra calls — the price of resolving boundary cases is paid only on boundary
 cases. That is the recommended full run and what CI's `eval.yml` uses; the
-badge then reads `≥3 votes`. The default stays `--repeat 1`, and a repeat-1 run
+badge then reads `≥3 votes`. Its blind spot is a case that is *unanimously*
+wrong across the first three votes — nothing splits, so nothing escalates, and
+a ~25% case will land 0/3 about 40% of the time. A skill's `failingPrompts`
+therefore still deserve a `--repeat 9` look before being read as a defect. The default stays `--repeat 1`, and a repeat-1 run
 says in its own output that its failures carry full judge variance.
 
 - Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Locally: `cp .env.example
@@ -115,11 +118,15 @@ says in its own output that its failures carry full judge variance.
   only on manual dispatch ([`.github/workflows/eval.yml`](../.github/workflows/eval.yml):
   `gh workflow run eval.yml`).
 - The results file records, per skill, the sha256 of the description that was
-  measured and the exact prompts that failed. The hash lets `validate` warn
-  when a description has been edited since the run, so a badge can never quote
-  a number for text that no longer exists; the prompt list lets two runs be
-  diffed, which is the only way to tell a regression from a boundary case that
-  flips between runs.
+  measured and the exact prompts that failed — and, for the run as a whole, the
+  sha256 of the full listing the judge saw. The per-skill hash lets `validate`
+  warn when that description has been edited since the run; the listing hash
+  catches what it cannot: a skill added or removed, or a *neighbour's*
+  description edited. Every hit rate is a measurement against the whole
+  catalog, so any of those invalidates every number, not just one. Either way
+  a badge can never quote a figure for a catalog that no longer exists. The
+  failing-prompt list lets two runs be diffed, which is the only way to tell a
+  regression from a boundary case that flips between runs.
 - Failing cases print with the judge's actual pick, which tells you *which*
   sibling skill is absorbing your traffic:
 

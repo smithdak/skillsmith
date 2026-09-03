@@ -2,6 +2,8 @@
   "judgeModel": "claude-sonnet-4-6",
   "runDate": "2026-09-03",
   "repeat": 3,
+  "escalate": 9,
+  "listingSha": "3db23a582acec49e266ec05d4a28699ea1df2a18e4ba105cb85b20d20bb53e5e",
   "skills": {
     "architecture-spec": {
       "hitRate": 1,
@@ -49,7 +51,9 @@
       "failing": 0,
       "descriptionSha": "25714ffa2e3a18ddfb878ce7281c1e7bef648ed1f3621c0d86217610f3ab11f6",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "does this headline include the right keywords for SEO?"
+      ]
     },
     "decision-record": {
       "hitRate": 1,
@@ -84,14 +88,14 @@
       "flakyPrompts": []
     },
     "define-work-items": {
-      "hitRate": 1,
+      "hitRate": 0.929,
       "cases": 14,
-      "failing": 0,
+      "failing": 1,
       "descriptionSha": "d3fe0af821ff540bca2746d9a44ceca69fc223a6bf588f2b89e941a19f21e19d",
-      "failingPrompts": [],
-      "flakyPrompts": [
+      "failingPrompts": [
         "turn this discussion into user stories"
-      ]
+      ],
+      "flakyPrompts": []
     },
     "diagnose-bugs": {
       "hitRate": 1,
@@ -118,16 +122,12 @@
       "flakyPrompts": []
     },
     "doc-visuals": {
-      "hitRate": 0.929,
+      "hitRate": 1,
       "cases": 14,
-      "failing": 1,
+      "failing": 0,
       "descriptionSha": "42f5068309d67cb8b71ec2d17900f7239273a0db300d398057c9595545c3beb4",
-      "failingPrompts": [
-        "the mermaid sequence diagram in our docs renders broken on GitHub — fix it"
-      ],
-      "flakyPrompts": [
-        "the mermaid sequence diagram in our docs renders broken on GitHub — fix it"
-      ]
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "estimate": {
       "hitRate": 1,
@@ -143,9 +143,7 @@
       "failing": 0,
       "descriptionSha": "ec00bb923d3557e152fc10f4c5d2190869e0e92598f0213b1a5c0483638eca05",
       "failingPrompts": [],
-      "flakyPrompts": [
-        "I think we should rewrite this service in Rust — thoughts?"
-      ]
+      "flakyPrompts": []
     },
     "feature-spec": {
       "hitRate": 1,
@@ -193,9 +191,7 @@
       "failing": 0,
       "descriptionSha": "b325b1dcc638edf5ad1ee4c9c8a5976ee53a250c1487e28fe9e93a6a15543d6e",
       "failingPrompts": [],
-      "flakyPrompts": [
-        "what's the best vector database right now"
-      ]
+      "flakyPrompts": []
     },
     "growth-experiments": {
       "hitRate": 1,
@@ -315,13 +311,23 @@
       "failing": 0,
       "descriptionSha": "ee0ec2d400f813ccffe071a8c2da373c44d5d87dca2f572ac2c1814a132ab987",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "write the CONTRIBUTING guide for the repo"
+      ]
     },
     "research-note": {
       "hitRate": 1,
       "cases": 14,
       "failing": 0,
       "descriptionSha": "d8cb324dc8bba5cd22d9b85e72b1b5253ca0d6771610617e0e9300ba283102d4",
+      "failingPrompts": [],
+      "flakyPrompts": []
+    },
+    "retrofit-tests": {
+      "hitRate": 1,
+      "cases": 12,
+      "failing": 0,
+      "descriptionSha": "ef56dd5d092d887f94bed6ec841b9b29f1e9e1f21f85aca9f813b1ffe0bf0f20",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -366,13 +372,11 @@
       "flakyPrompts": []
     },
     "tdd": {
-      "hitRate": 0.929,
+      "hitRate": 1,
       "cases": 14,
-      "failing": 1,
-      "descriptionSha": "e8d7d44b66b290224ef49a148fe259cc6a5460571b1a154bb872b7948314ff03",
-      "failingPrompts": [
-        "add unit tests for the existing auth module"
-      ],
+      "failing": 0,
+      "descriptionSha": "b39d113a52882b4f5ce9e92942ada4433cc6070a228ae3a993214aeee25c644e",
+      "failingPrompts": [],
       "flakyPrompts": []
     },
     "threat-model": {

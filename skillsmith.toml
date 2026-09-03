@@ -34,9 +34,9 @@ skills = ["architecture-spec", "codebase-survey", "decision-record", "discovery-
 
 [[plugin]]
 name = "code-craft"
-version = "0.2.0"
-description = "Implementation discipline: test-driven red-green loops, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions"
-skills = ["deep-modules", "diagnose-bugs", "tdd"]
+version = "0.3.0"
+description = "Implementation discipline: test-driven red-green loops, characterization tests for code that has none, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions"
+skills = ["deep-modules", "diagnose-bugs", "retrofit-tests", "tdd"]
 
 [[plugin]]
 name = "security"

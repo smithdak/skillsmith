@@ -63,6 +63,15 @@ history; this file starts where the changelog rule (V16) began.
 - `falsification-reviewer` agent description states its trigger conditions as
   prose instead of a scripted `<example>` exchange.
 
+## code-craft 0.3.0
+
+- New skill `retrofit-tests`: characterization tests for code that already
+  works and has none — pin behavior at its seams before changing it, prioritise
+  by risk over coverage numbers, and prove every test by breaking the code and
+  watching it fail. Exists because "add unit tests for the existing auth
+  module" sat on `tdd`'s boundary for eight measured runs (3/8) with no skill to
+  route to; `tdd`'s boundary clause now names it.
+
 ## code-craft 0.2.0
 
 - Initial published version: `tdd`, `deep-modules`, `diagnose-bugs`.

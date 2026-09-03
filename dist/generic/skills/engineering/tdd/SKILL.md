@@ -6,11 +6,13 @@ description: >-
   repeat in vertical slices. Use this skill when the user says
   "test-drive this", "let's do TDD", "write the test first",
   "red-green-refactor", or wants a feature or bugfix built test-first.
-  Not for retrofitting tests onto existing untested code, running an
-  existing suite, or debugging a broken test.
+  Not for retrofitting tests onto existing untested code
+  (retrofit-tests), running an existing suite, or debugging a broken
+  test.
 license: MIT
 metadata:
   skillsmith-composes: "deep-modules"
+  skillsmith-see-also: "retrofit-tests"
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
 user-invocable: true

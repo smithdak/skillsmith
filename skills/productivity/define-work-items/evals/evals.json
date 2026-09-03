@@ -4,7 +4,8 @@
       "prompt": "write a ticket for the login timeout bug"
     },
     {
-      "prompt": "turn this discussion into user stories"
+      "prompt": "turn this discussion into user stories",
+      "note": "boundary case with feature-spec, measured across runs: 1/9 before feature-spec's boundary clause named define-work-items, then 9/9, 2/3, 0/3 (11/15 since the fix). \"this discussion\" pulls toward feature-spec's synthesise-the-conversation framing. Kept as the sharpest test of that boundary; a unanimous-wrong round of three does not escalate, so read it at --repeat 9."
     },
     {
       "prompt": "create a work item for adding SSO support"

@@ -1,0 +1,54 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "add unit tests for the existing auth module",
+      "note": "the phrasing that sat on tdd's boundary for eight runs; retrofitting existing code is this skill's whole scope"
+    },
+    {
+      "prompt": "raise coverage on utils.ts to 80%",
+      "note": "a coverage target is how users are often handed this work; the skill owns it and redirects to risk"
+    },
+    {
+      "prompt": "we're about to rewrite the billing calculator and it has zero tests — lock down what it does first",
+      "note": "characterization before change, stated as the situation"
+    },
+    {
+      "prompt": "write characterization tests for the export pipeline",
+      "note": "names the technique"
+    },
+    {
+      "prompt": "nobody dares change this file because nothing would tell us if we broke it",
+      "note": "situation phrasing: no test vocabulary at all — the fear is the trigger"
+    },
+    {
+      "prompt": "get the legacy parser under test so we can finally touch it",
+      "note": "legacy code the user needs to change safely"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "let's build the coupon validation feature test-first",
+      "note": "near-boundary: tdd's own trigger phrasing — new behavior, test before code"
+    },
+    {
+      "prompt": "write the check that proves it's broken before you write the fix",
+      "note": "near-boundary: a failing test written before a bug fix is tdd, not a retrofit"
+    },
+    {
+      "prompt": "run the test suite and tell me what's failing",
+      "note": "running an existing suite"
+    },
+    {
+      "prompt": "why does this vitest mock keep returning undefined?",
+      "note": "near-boundary: an existing test misbehaving is diagnose-bugs"
+    },
+    {
+      "prompt": "e2e test the signup flow in a real browser",
+      "note": "near-boundary: browser-level verification is webapp-testing"
+    },
+    {
+      "prompt": "this service class has 40 public methods — help me shrink the interface",
+      "note": "near-boundary: deep-modules' own trigger phrasing — reshaping an interface, not pinning behavior"
+    }
+  ]
+}

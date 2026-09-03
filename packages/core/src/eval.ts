@@ -80,12 +80,30 @@ export interface SkillEvalResult {
  * text that no longer exists reads as measurement while being none.
  */
 export async function descriptionSha(description: string): Promise<string> {
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(description));
+  return sha256Text(description);
+}
+
+async function sha256Text(text: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * The listing exactly as the judge sees it. Exported so validate can hash the
+ * current catalog the same way and compare it with what a run measured
+ * against: a per-skill description hash catches a skill's own edit, but not a
+ * skill being added or removed, or a neighbour's description changing — and
+ * every hit rate is a measurement against the whole catalog, not the skill
+ * alone.
+ */
+export function renderListing(listing: ListingEntry[]): string {
+  return `Available skills:\n${listing.map((s) => `- ${s.name}: ${s.description}`).join("\n")}`;
 }
 
 export interface EvalReport {
   judgeModel: string;
+  /** sha256 of the rendered listing every case in this run was judged against. */
+  listingSha: string;
   /** Judgements per case this run used. */
   repeat: number;
   /** Total votes a split case was taken to; equals `repeat` when no escalation. */
@@ -166,7 +184,7 @@ export async function runTriggerEvals(
   );
   if (opts.skill !== undefined && skills.length === 0) {
     diagnostics.push(error("SCHEMA", "eval", `skill "${opts.skill}" not found (or is a draft)`));
-    return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), escalate: Math.max(Math.max(1, opts.repeat ?? 1), opts.escalate ?? 1), results: [], diagnostics };
+    return { judgeModel: opts.judgeModel, listingSha: await sha256Text(renderListing(listing)), repeat: Math.max(1, opts.repeat ?? 1), escalate: Math.max(Math.max(1, opts.repeat ?? 1), opts.escalate ?? 1), results: [], diagnostics };
   }
 
   const results: SkillEvalResult[] = [];
@@ -247,7 +265,7 @@ export async function runTriggerEvals(
   }
 
   results.sort((a, b) => a.skill.localeCompare(b.skill));
-  return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), escalate: Math.max(Math.max(1, opts.repeat ?? 1), opts.escalate ?? 1), results, diagnostics };
+  return { judgeModel: opts.judgeModel, listingSha: await sha256Text(renderListing(listing)), repeat: Math.max(1, opts.repeat ?? 1), escalate: Math.max(Math.max(1, opts.repeat ?? 1), opts.escalate ?? 1), results, diagnostics };
 }
 
 /** Serialized results file: SOURCE (committed), consumed by generate/doc. */
@@ -258,6 +276,8 @@ export interface EvalResultsFile {
   repeat: number;
   /** Votes a split case was escalated to; equals `repeat` when no escalation ran. */
   escalate: number;
+  /** sha256 of the listing this run measured against — see renderListing. */
+  listingSha: string;
   skills: Record<
     string,
     {
@@ -303,6 +323,7 @@ export function toResultsFile(report: EvalReport, runDate: string): string {
     runDate,
     repeat: report.repeat,
     escalate: report.escalate,
+    listingSha: report.listingSha,
     skills,
   };
   return canonicalJson(file);
@@ -365,9 +386,7 @@ export function anthropicJudge(opts: {
               // invalidate the prefix. Rendering is deterministic, which is
               // what keeps the bytes stable across calls.
               type: "text",
-              text: `Available skills:\n${listing
-                .map((s) => `- ${s.name}: ${s.description}`)
-                .join("\n")}`,
+              text: renderListing(listing),
               cache_control: { type: "ephemeral" },
             },
             {
