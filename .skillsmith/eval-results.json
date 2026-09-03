@@ -3,7 +3,7 @@
   "runDate": "2026-09-03",
   "repeat": 3,
   "escalate": 9,
-  "listingSha": "8ec744b20322828cd427016273916fedb9f183f51312b178ee70490ab78a466b",
+  "listingSha": "5ef9a435604df42a80375037c058a8b549f607cf9619665557564be9e52f8719",
   "skills": {
     "architecture-spec": {
       "hitRate": 1,
@@ -78,12 +78,14 @@
       "flakyPrompts": []
     },
     "deep-research": {
-      "hitRate": 1,
+      "hitRate": 0.933,
       "cases": 15,
-      "failing": 0,
+      "failing": 1,
       "descriptionSha": "b52f22a9104fad63ba1dc6678bb826f3f130a6f8bcec881def9afec21542de4b",
       "evalsSha": "a3683dfe6afb51eb1a6e81cf1f9ea73fdbf8cea3b367f62454214074d4a5e43c",
-      "failingPrompts": [],
+      "failingPrompts": [
+        "every article I find on GPU instance pricing contradicts the last one — I need something I can actually put in front of finance"
+      ],
       "flakyPrompts": []
     },
     "define-security-policy": {
@@ -96,17 +98,13 @@
       "flakyPrompts": []
     },
     "define-work-items": {
-      "hitRate": 0.933,
+      "hitRate": 1,
       "cases": 15,
-      "failing": 1,
+      "failing": 0,
       "descriptionSha": "d3fe0af821ff540bca2746d9a44ceca69fc223a6bf588f2b89e941a19f21e19d",
       "evalsSha": "f1d9eea6a3fa421fe1ef858fe30059357a3a7d3304348e5b8f4aaa81efb07016",
-      "failingPrompts": [
-        "turn this discussion into user stories"
-      ],
-      "flakyPrompts": [
-        "turn this discussion into user stories"
-      ]
+      "failingPrompts": [],
+      "flakyPrompts": []
     },
     "diagnose-bugs": {
       "hitRate": 1,
@@ -137,10 +135,10 @@
     },
     "doc-visuals": {
       "hitRate": 1,
-      "cases": 16,
+      "cases": 15,
       "failing": 0,
       "descriptionSha": "42f5068309d67cb8b71ec2d17900f7239273a0db300d398057c9595545c3beb4",
-      "evalsSha": "4d7bbc889cb87ff868df5706f462a70f964139e9db980edc92f72b36de806205",
+      "evalsSha": "1abd234cabb154a661dab4aa981051966cd446edfd9198abbb2cd83b2af99075",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -187,7 +185,9 @@
       "descriptionSha": "983822c8469dc7e008ec9013ad3fee2fa76b5f9722937ed1a717a591baff4bd7",
       "evalsSha": "303306841e4f7b8d73aa37753b0e2d1dec322b04e56d925db3601e4362d545a8",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "audit this UI and tell me how to make it look more polished"
+      ]
     },
     "frontend-redesign": {
       "hitRate": 1,
@@ -196,7 +196,9 @@
       "descriptionSha": "0a17cc1dbf86601eb3d4aa913f71163ea4c5a1ef02d0b95612a8aefafa70c804",
       "evalsSha": "b9983a92a58aaeffa05d6910f89748250b51fd80862331a210e6abcc1cbf1560",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "our dashboard works fine but it looks like it was built in 2014 — what would you change?"
+      ]
     },
     "grilling": {
       "hitRate": 1,
@@ -208,13 +210,17 @@
       "flakyPrompts": []
     },
     "ground-truth-research": {
-      "hitRate": 1,
+      "hitRate": 0.923,
       "cases": 13,
-      "failing": 0,
+      "failing": 1,
       "descriptionSha": "b325b1dcc638edf5ad1ee4c9c8a5976ee53a250c1487e28fe9e93a6a15543d6e",
       "evalsSha": "c53d958d21727fc8cb195a23e543ae66bd88cbfc0d6202cdea59661ed92f4a83",
-      "failingPrompts": [],
-      "flakyPrompts": []
+      "failingPrompts": [
+        "what's the best vector database right now"
+      ],
+      "flakyPrompts": [
+        "what's the best vector database right now"
+      ]
     },
     "growth-experiments": {
       "hitRate": 1,
@@ -270,7 +276,9 @@
       "descriptionSha": "51bb637e1d115a00718085db45fc7bbc2fb7f68318c33e18b97488e9d412fc8e",
       "evalsSha": "26aa99f78d25b9fbef9eea80284a077f032dcd0be8386695d75a2af823bb8b30",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "rotate the OP_SERVICE_ACCOUNT_TOKEN now that someone left"
+      ]
     },
     "op-secrets": {
       "hitRate": 1,
@@ -300,13 +308,17 @@
       "flakyPrompts": []
     },
     "podcast-repurposer": {
-      "hitRate": 1,
+      "hitRate": 0.938,
       "cases": 16,
-      "failing": 0,
+      "failing": 1,
       "descriptionSha": "2dbaec8077cccfa62cd17f168a584b2cec869ed99f7da03393b892e3304ddf7f",
       "evalsSha": "4293f19922fae93fc8a081bb62ec0a16e40e04165bc86a5d14fbe5c03ea8ddb7",
-      "failingPrompts": [],
-      "flakyPrompts": []
+      "failingPrompts": [
+        "extract pull quotes and a LinkedIn post from this interview transcript"
+      ],
+      "flakyPrompts": [
+        "extract pull quotes and a LinkedIn post from this interview transcript"
+      ]
     },
     "postmortem": {
       "hitRate": 1,
@@ -336,14 +348,12 @@
       "flakyPrompts": []
     },
     "readme-authoring": {
-      "hitRate": 0.938,
+      "hitRate": 1,
       "cases": 16,
-      "failing": 1,
+      "failing": 0,
       "descriptionSha": "ee0ec2d400f813ccffe071a8c2da373c44d5d87dca2f572ac2c1814a132ab987",
       "evalsSha": "b8102271a8c75ad024d6fea5df556932f88c6126d5941f694fe637ea5ef20e20",
-      "failingPrompts": [
-        "write the CONTRIBUTING guide for the repo"
-      ],
+      "failingPrompts": [],
       "flakyPrompts": []
     },
     "research-note": {
@@ -389,9 +399,7 @@
       "descriptionSha": "ff40ac6c7d0726068ba3586d1d830691258ee478ce1ceac06d025053d62ad8a6",
       "evalsSha": "693ac882e12561ad1a6c413edf73122a79d94cce30eff5cd07ec6c8af1454353",
       "failingPrompts": [],
-      "flakyPrompts": [
-        "find me 50 keywords in the developer tools space with low difficulty"
-      ]
+      "flakyPrompts": []
     },
     "skill-authoring": {
       "hitRate": 1,
@@ -440,10 +448,10 @@
     },
     "webapp-testing": {
       "hitRate": 1,
-      "cases": 19,
+      "cases": 18,
       "failing": 0,
-      "descriptionSha": "f1a6dbb76eaadb6e180972a71e278fe8d1a93c50f68005ec0503f38d475a7cb5",
-      "evalsSha": "07eb61eb347061cb1087810a7591f131b9f00206402f28ede23193aeee123759",
+      "descriptionSha": "1f2b6a0af5e4ba784b9657d56472df3d3feb4064b36ac2a74c7b37233026067e",
+      "evalsSha": "40eb1d14b6cb35d7a73ba8cc41347eee0bd3ba79ba6852e227a739a11b875958",
       "failingPrompts": [],
       "flakyPrompts": []
     },
