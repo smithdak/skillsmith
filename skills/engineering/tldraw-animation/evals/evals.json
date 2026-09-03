@@ -24,14 +24,6 @@
     {
       "prompt": "when someone opens the board I want the shapes to travel along the arrows on their own",
       "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
-    },
-    {
-      "prompt": "render my tldraw animation as an mp4 video",
-      "note": "tldraw has no motion export; the skill must trigger to explain the screen-record / frame-by-frame route rather than leave the request unrouted"
-    },
-    {
-      "prompt": "export the animation as a GIF",
-      "note": "same: routes here so the constraint and the frame-export path are stated"
     }
   ],
   "should_not_trigger": [
@@ -58,6 +50,14 @@
     {
       "prompt": "export my tldraw file to a PNG",
       "note": "near-boundary: tldraw-export's own trigger phrasing — tldraw-animation declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "render my tldraw animation as an mp4 video",
+      "note": "near-boundary: a video FILE is what the description excludes ('video-file animation outside tldraw'); the skill animates inside the canvas, it does not encode video. A reviewer once moved this to should_trigger against the description; the judge followed the description (0/3), so it is back."
+    },
+    {
+      "prompt": "export the animation as a GIF",
+      "note": "near-boundary: exporting to an image format is tldraw-export's job by both descriptions; judged tldraw-export when this sat on the trigger side."
     }
   ]
 }

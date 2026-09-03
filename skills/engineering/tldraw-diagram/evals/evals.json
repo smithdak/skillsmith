@@ -58,6 +58,10 @@
     {
       "prompt": "convert this mermaid flowchart into editable tldraw shapes",
       "note": "near-boundary: mermaid-to-tldraw's own trigger phrasing — tldraw-diagram declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "animate this tldraw diagram so the boxes slide into place",
+      "note": "adding motion to a canvas, belongs to tldraw-animation"
     }
   ]
 }

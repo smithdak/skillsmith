@@ -10,6 +10,7 @@ import {
   descriptionSha,
   renderListing,
   buildListing,
+  evalsFileSha,
   type SkillsmithConfig,
 } from "../src/index.ts";
 
@@ -479,5 +480,34 @@ describe("V8 — listing hash: the whole catalog is the measurement's denominato
     const legacy = { judgeModel: "mock", runDate: "2026-01-01", skills: {} };
     const r = await validateAll(d, config, { evalResults: legacy as never });
     expect(r.diagnostics.filter((x) => x.path.endsWith("eval-results.json"))).toHaveLength(0);
+  });
+});
+
+describe("V8 — evals hash: a changed case set is a different measurement", () => {
+  test("editing evals.json after the run warns; an untouched file does not", async () => {
+    const { root, config } = makeRepo();
+    const dir = addSkill(root, "cases");
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const skill = d.skills.find((s) => s.name === "cases")!;
+    const dSha = await descriptionSha(skill.frontmatter.description);
+    const measuredEvalsSha = await evalsFileSha(skill);
+    const results = {
+      judgeModel: "mock", runDate: "2026-09-03", repeat: 3, escalate: 9, listingSha: "",
+      skills: { cases: { hitRate: 1, cases: 6, failing: 0, descriptionSha: dSha, evalsSha: measuredEvalsSha, failingPrompts: [], flakyPrompts: [] } },
+    };
+    const evalsWarn = (diags: { rule: string; message: string }[]) =>
+      diags.filter((x) => x.rule === "V8" && x.message.includes("evals.json changed"));
+
+    const same = await validateAll(d, config, { evalResults: results as never });
+    expect(evalsWarn(same.diagnostics)).toHaveLength(0);
+
+    // A case is added after the run: same description, same listing, different suite.
+    writeFileSync(join(dir, "evals", "evals.json"), JSON.stringify({
+      should_trigger: [{ prompt: "review my code" }, { prompt: "can you do a code review" }, { prompt: "check this before I merge" }, { prompt: "new case" }],
+      should_not_trigger: [{ prompt: "what's the weather" }, { prompt: "write a poem" }, { prompt: "explain monads" }],
+    }));
+    const d2 = await discover(root, { allowedCategories: config.categories.allowed });
+    const changed = await validateAll(d2, config, { evalResults: results as never });
+    expect(evalsWarn(changed.diagnostics)).toHaveLength(1);
   });
 });

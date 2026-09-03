@@ -8,6 +8,7 @@ import {
   buildListing,
   anthropicJudge,
   toResultsFile,
+  mergeSkillResult,
   buildPlan,
   validateSkillsmithConfig,
   type Judge,
@@ -140,6 +141,7 @@ describe("eval harness (mock judge)", () => {
     expect(parsed.skills["code-review"]!.descriptionSha).toMatch(/^[0-9a-f]{64}$/);
     expect(parsed.skills["code-review"]!.failingPrompts).toEqual([]);
     expect(parsed.listingSha).toMatch(/^[0-9a-f]{64}$/);
+    expect(parsed.skills["code-review"]!.evalsSha).toMatch(/^[0-9a-f]{64}$/);
 
     const withBadges = buildPlan(d, config, { evalResults: parsed });
     const catalog = withBadges.files.get("catalog/CATALOG.md")!;
@@ -337,5 +339,33 @@ describe("--escalate: split cases get more votes, unanimous ones do not", () => 
     // No escalation requested: field equals repeat.
     const plain = await runTriggerEvals(d, config, { judgeModel: "fake", repeat: 3, judge: async () => "e" });
     expect(plain.escalate).toBe(3);
+  });
+});
+
+describe("mergeSkillResult: a single-skill run refreshes one entry without lying about the rest", () => {
+  const base = async () => {
+    const { root, config } = makeRepo();
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const full = await runTriggerEvals(d, config, { judge: keywordJudge, judgeModel: "mock", repeat: 3, escalate: 9 });
+    const file = JSON.parse(toResultsFile(full, "2026-09-01")) as EvalResultsFile;
+    return { d, config, file };
+  };
+
+  test("same listing and votes: only that skill's entry changes, stamped with its own date", async () => {
+    const { d, config, file } = await base();
+    const one = await runTriggerEvals(d, config, { judge: keywordJudge, judgeModel: "mock", repeat: 3, escalate: 9, skill: "code-review" });
+    const merged = JSON.parse(mergeSkillResult(file, one, "code-review", "2026-09-03")!) as EvalResultsFile;
+    expect(merged.runDate).toBe("2026-09-01");                       // the file's run is unchanged
+    expect(merged.skills["code-review"]!.runDate).toBe("2026-09-03"); // this entry is newer
+    expect(merged.skills["repo-survey"]).toEqual(file.skills["repo-survey"]); // untouched
+    expect(Object.keys(merged.skills)).toEqual(["code-review", "repo-survey"]); // still sorted
+  });
+
+  test("a different listing or vote config refuses to merge", async () => {
+    const { d, config, file } = await base();
+    const one = await runTriggerEvals(d, config, { judge: keywordJudge, judgeModel: "mock", repeat: 3, escalate: 9, skill: "code-review" });
+    expect(mergeSkillResult({ ...file, listingSha: "0".repeat(64) }, one, "code-review", "2026-09-03")).toBeNull();
+    const fewerVotes = await runTriggerEvals(d, config, { judge: keywordJudge, judgeModel: "mock", repeat: 1, skill: "code-review" });
+    expect(mergeSkillResult(file, fewerVotes, "code-review", "2026-09-03")).toBeNull();
   });
 });

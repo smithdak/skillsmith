@@ -69,7 +69,7 @@ export function renderCatalog(
         const votes = evalResults!.repeat ?? 1;
         const escalate = evalResults!.escalate ?? votes;
         const label = escalate > votes ? `≥${votes} votes` : `${votes} vote${votes === 1 ? "" : "s"}`;
-        return `${Math.round(r.hitRate * 100)}% (${r.cases - r.failing}/${r.cases}, ${label}, ${evalResults!.judgeModel}, ${evalResults!.runDate})`;
+        return `${Math.round(r.hitRate * 100)}% (${r.cases - r.failing}/${r.cases}, ${label}, ${evalResults!.judgeModel}, ${r.runDate ?? evalResults!.runDate})`;
       })();
       lines.push(
         badges

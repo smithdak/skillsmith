@@ -55,6 +55,10 @@
     {
       "prompt": "our docs folder is a graveyard of 30 markdown files with no order — can you give it a structure that makes sense",
       "note": "near-boundary: information-architecture's own trigger phrasing — readme-authoring declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "strip the history talk from the README — the 'we used to' and 'this PR adds' lines",
+      "note": "near-boundary: prose-hygiene's own trigger phrasing — a narration trim inside a README, not a rewrite of the front page"
     }
   ]
 }

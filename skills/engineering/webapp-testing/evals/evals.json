@@ -67,6 +67,10 @@
     {
       "prompt": "audit this UI and tell me how to make it look more polished",
       "note": "near-boundary: frontend-redesign's own trigger phrasing — webapp-testing declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "give me a scored design review of the homepage — where does it look generic and what's the P0?",
+      "note": "near-boundary: a scored design verdict is frontend-critique's job even though a screenshot is involved; webapp-testing verifies behavior, not aesthetics"
     }
   ]
 }

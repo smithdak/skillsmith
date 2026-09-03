@@ -105,9 +105,9 @@ happen, and what changes so it cannot happen silently again.
 - Where things stand for the next session is `handoff`; an open research
   question is `research-note`; follow-up work becomes tickets via
   `define-work-items`.
-- Do not debug inside the post-mortem. If the root cause is not yet known,
-  say so and stop at the evidence; a post-mortem with a guessed mechanism
-  is worse than none.
+- Do not debug inside the post-mortem — that is `diagnose-bugs`' loop. If
+  the root cause is not yet known, say so and stop at the evidence; a
+  post-mortem with a guessed mechanism is worse than none.
 
 ## Verify before returning
 

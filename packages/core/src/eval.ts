@@ -71,6 +71,8 @@ export interface SkillEvalResult {
   hitRate: number; // passes / total
   /** sha256 of the description text this run actually measured. */
   descriptionSha: string;
+  /** sha256 of the evals/evals.json content this run judged. */
+  evalsSha: string;
 }
 
 /**
@@ -81,6 +83,13 @@ export interface SkillEvalResult {
  */
 export async function descriptionSha(description: string): Promise<string> {
   return sha256Text(description);
+}
+
+/** Hash of a skill's evals/evals.json bytes, or "" when the file is absent. */
+export async function evalsFileSha(skill: DiscoveredSkill): Promise<string> {
+  const rel = skill.files.find((f) => f === "evals/evals.json");
+  if (!rel) return "";
+  return sha256Text(await Bun.file(join(skill.dir, rel)).text());
 }
 
 async function sha256Text(text: string): Promise<string> {
@@ -192,6 +201,7 @@ export async function runTriggerEvals(
     const { evals, diagnostics: evalDiags } = await loadEvals(skill);
     diagnostics.push(...evalDiags);
     if (!evals) continue;
+    const evalsSha = await evalsFileSha(skill);
 
     const cases: { prompt: string; expectation: "trigger" | "no-trigger" }[] = [
       ...evals.should_trigger.map((c) => ({ prompt: c.prompt, expectation: "trigger" as const })),
@@ -247,6 +257,7 @@ export async function runTriggerEvals(
       cases: judged,
       hitRate: judged.length === 0 ? 0 : judged.filter((c) => c.pass).length / judged.length,
       descriptionSha: await descriptionSha(skill.frontmatter.description),
+      evalsSha,
     });
   }
 
@@ -286,6 +297,14 @@ export interface EvalResultsFile {
       failing: number;
       /** Description measured, as a sha256 — see descriptionSha. */
       descriptionSha: string;
+      /** Set when this entry was re-measured by a single-skill run after the file's runDate. */
+      runDate?: string;
+      /**
+       * The evals.json judged, as a sha256. Cases get added, reworded, and
+       * reclassified; a hit rate over a different case set is a different
+       * measurement, and neither the description nor listing hash sees it.
+       */
+      evalsSha: string;
       /**
        * The prompts that failed, so two runs can be diffed. Boundary cases
        * flip between runs; an unchanged set across runs is a stable finding,
@@ -302,6 +321,32 @@ export interface EvalResultsFile {
   >;
 }
 
+/**
+ * Merge one skill's fresh measurement into an existing results file. Sound
+ * only when the run judged against the same listing the file records — a
+ * different listing is a different measurement for every skill, not just
+ * this one — and with the same vote configuration, so badges stay
+ * comparable. Returns null when the merge would be unsound.
+ */
+export function mergeSkillResult(
+  existing: EvalResultsFile,
+  report: EvalReport,
+  skillName: string,
+  runDate: string,
+): string | null {
+  if (existing.listingSha !== report.listingSha) return null;
+  if ((existing.repeat ?? 1) !== report.repeat || (existing.escalate ?? existing.repeat ?? 1) !== report.escalate) return null;
+  const r = report.results.find((x) => x.skill === skillName);
+  if (!r) return null;
+  const fresh = JSON.parse(toResultsFile(report, runDate)) as EvalResultsFile;
+  const entry = fresh.skills[skillName];
+  if (!entry) return null;
+  const merged: EvalResultsFile = { ...existing, skills: { ...existing.skills, [skillName]: { ...entry, runDate } } };
+  // keep the map sorted so the file stays byte-stable across merges
+  merged.skills = Object.fromEntries(Object.entries(merged.skills).sort(([a], [b]) => a.localeCompare(b)));
+  return canonicalJson(merged);
+}
+
 export function toResultsFile(report: EvalReport, runDate: string): string {
   const skills: EvalResultsFile["skills"] = {};
   for (const r of report.results) {
@@ -311,6 +356,7 @@ export function toResultsFile(report: EvalReport, runDate: string): string {
       cases: r.cases.length,
       failing: failed.length,
       descriptionSha: r.descriptionSha,
+      evalsSha: r.evalsSha,
       failingPrompts: failed.map((c) => c.prompt).sort(),
       flakyPrompts: r.cases
         .filter((c) => c.agreement > 0 && c.agreement < 1)

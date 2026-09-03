@@ -55,6 +55,10 @@
     {
       "prompt": "will the team understand this handoff doc without me there to explain it?",
       "note": "near-boundary: cold-read's own trigger phrasing — feature-spec declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "write up the decision to drop IE11 support with the reasoning",
+      "note": "near-boundary: decision-record's own trigger phrasing — one decision with rationale, not a feature spec"
     }
   ]
 }

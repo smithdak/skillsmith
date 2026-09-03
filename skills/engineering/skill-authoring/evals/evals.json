@@ -47,6 +47,10 @@
     {
       "prompt": "the plugin won't install in Claude Code — debug it",
       "note": "installation troubleshooting"
+    },
+    {
+      "prompt": "our CLAUDE.md is stale — agents keep ignoring the test command, encode a rule",
+      "note": "near-boundary: writing-for-agents's own trigger phrasing — skill-authoring declares this out of scope, so it must not claim it"
     }
   ]
 }

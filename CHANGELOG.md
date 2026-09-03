@@ -31,6 +31,7 @@ history; this file starts where the changelog rule (V16) began.
 
 ## engineering-core 0.8.0
 
+- `skill-authoring` records a measured routing rule: a boundary clause names the sibling and never restates its case — the restatement recruits the request toward the skill carrying the clause (0/9 on a previously-passing case; deleting the clause fixed it) — and description edits are re-measured on both sides of the boundary, because a rewrite shifts what every neighbour is judged against.
 - `decision-record`'s body now delivers what its description promises: a reversibility class (two-way/one-way door) and a scored tradeoff matrix with unknown cells marked. `codebase-survey` describes `deps.sh` as it actually behaves (`maxdepth 3`, counts for four manifest kinds). `architecture-spec` names the plugin its reviewer agent ships in and gives an inline fallback. `skill-authoring` states the body ceiling concretely. Evals: near-boundary negatives for `doc-visuals`, `wizard`, `postmortem`.
 
 ## engineering-core 0.7.0
@@ -72,6 +73,7 @@ history; this file starts where the changelog rule (V16) began.
 
 ## epistemics 0.9.0
 
+- `falsification-review` names its security-finding mode in one phrase ("is this finding real or a false positive"). A larger rewrite that also named sibling skills in its boundary clause was measured and reverted: it pulled `grilling`'s, `content-scorer`'s, and `ground-truth-research`'s own cases toward `falsification-review` (0/9 each), and removing the clause restored `grilling` to 17/17.
 - `falsification-review` states plainly that the pass's product is response content — a one-line "survived" note is fine, play-by-play is not. Evals across `grilling`, `estimate`, `deep-research`, `premortem`, `discernment-nudge`: description-echoing trigger cases replaced with situation phrasings; `research-note` and `falsification-review` gain near-boundary negatives from siblings' own phrasings.
 
 ## epistemics 0.8.0
@@ -107,6 +109,7 @@ history; this file starts where the changelog rule (V16) began.
 
 ## frontend 0.4.0
 
+- `frontend-craft` excludes writing the marketing copy itself (measured: a no-trigger case that had drifted to 0/9 returned to 17/17).
 - `frontend-craft` referenced a detector script that did not exist (`slop-detector.mjs`); it now names the real `python scripts/slop-detector.py`, its exit code, and the inline `slop-ignore` waiver — the checklist reference too. `webapp-testing`'s bounded-rounds rule rewritten for clarity. `frontend-redesign` says what "the detector ran clean" requires. Evals: `frontend-critique` phrasings as negatives for its two siblings.
 
 ## frontend 0.3.0

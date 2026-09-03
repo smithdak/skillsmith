@@ -7,7 +7,7 @@
  * Reads files under each skill dir; everything else is pure over inputs.
  */
 import { join } from "node:path";
-import { buildListing, descriptionSha, renderListing, type EvalResultsFile } from "./eval.ts";
+import { buildListing, descriptionSha, evalsFileSha, renderListing, type EvalResultsFile } from "./eval.ts";
 import { statSync } from "node:fs";
 import type { DiscoveredSkill, DiscoveryResult } from "./discovery.ts";
 import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
@@ -371,6 +371,18 @@ export async function validateAll(
             "V8",
             skill.skillMdPath,
             `description changed since the ${opts.evalResults.runDate} eval run — the committed hit-rate measures text that no longer exists; re-run \`skillsmith eval\``,
+          ),
+        );
+      }
+      // Cases added, reworded, or reclassified since the run make the number
+      // a measurement of a different suite. Results written before this field
+      // existed carry no hash and are not warned about.
+      if (measured.evalsSha && measured.evalsSha !== (await evalsFileSha(skill))) {
+        diagnostics.push(
+          warning(
+            "V8",
+            skill.skillMdPath,
+            `evals/evals.json changed since the ${opts.evalResults.runDate} eval run — the committed hit-rate measures a different case set; re-run \`skillsmith eval\``,
           ),
         );
       }

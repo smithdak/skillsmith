@@ -19,7 +19,8 @@
       "prompt": "interrogate this idea before we staff it: an internal marketplace for reusable components"
     },
     {
-      "prompt": "we've got a one-pager for the multi-tenant thing but every time someone reads it they ask a question nobody can answer"
+      "prompt": "we've got a rough multi-tenant idea and I want you to keep asking me questions until there's nothing left I haven't decided",
+      "note": "situation phrasing: a half-formed idea to interrogate until every branch resolves — not a written document to check for self-sufficiency (cold-read)"
     },
     {
       "prompt": "I've got a rough concept for usage-based pricing — push back on it hard before I waste a month",
@@ -58,6 +59,10 @@
     {
       "prompt": "chart a discovery map for migrating our billing system off the legacy provider",
       "note": "near-boundary: discovery-map's own trigger phrasing — grilling declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "we're migrating the monolith to two services next quarter — run a premortem before we commit",
+      "note": "near-boundary: premortem's own trigger phrasing — agreed plan, nothing left to elicit"
     }
   ]
 }

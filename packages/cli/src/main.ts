@@ -24,6 +24,7 @@ import {
   applyScaffold,
   runTriggerEvals,
   toResultsFile,
+  mergeSkillResult,
   anthropicJudge,
   type EvalResultsFile,
   forProfile,
@@ -355,12 +356,25 @@ const evalCmd = defineCommand({
     }
     printDiagnostics(report.diagnostics, profile);
 
-    // Full runs update the committed results file; single-skill runs don't
-    // (a partial file would misrepresent the catalog badges).
+    const runDate = new Date().toISOString().slice(0, 10);
+    const resultsPath = join(repoRoot, ".skillsmith/eval-results.json");
     if (args.skill === undefined && report.results.length > 0) {
-      const runDate = new Date().toISOString().slice(0, 10);
-      await Bun.write(join(repoRoot, ".skillsmith/eval-results.json"), toResultsFile(report, runDate));
+      // Full runs replace the committed results file.
+      await Bun.write(resultsPath, toResultsFile(report, runDate));
       console.error(`\nwrote .skillsmith/eval-results.json — run skillsmith generate to refresh catalog badges`);
+    } else if (args.skill !== undefined && report.results.length > 0) {
+      // A single-skill run merges its entry — but only when it judged against
+      // the same listing with the same votes, so the other badges stay valid.
+      const existing = await loadEvalResults(repoRoot);
+      const merged = existing ? mergeSkillResult(existing, report, args.skill as string, runDate) : null;
+      if (merged) {
+        await Bun.write(resultsPath, merged);
+        console.error(`\nmerged ${args.skill} into .skillsmith/eval-results.json — run skillsmith generate to refresh its badge`);
+      } else {
+        console.error(
+          `\nnot merged: the committed results were measured against a different listing or vote config — a full \`skillsmith eval\` is needed`,
+        );
+      }
     }
     process.exit(exitCode(report.diagnostics, { strict: args.strict, profile }));
   },

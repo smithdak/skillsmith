@@ -43,6 +43,16 @@ contains the steps, the model believes it has what it needs and skips
 loading the body — the routing text and the instruction text have different
 jobs. Keep the steps in the body; keep the triggers in the description.
 
+A boundary clause names the sibling; it never restates the sibling's job. A
+mention recruits: "Not for restructuring a SKILL.md into body and references
+(skill-authoring)" routed that exact request *to* the skill carrying the
+clause, nine votes in nine, and deleting the clause fixed it. The same shape
+across three other pairs pulled siblings' own trigger phrasings toward the
+skill that named them. Write "(skill-authoring)" and stop. And treat every
+description edit as a change to the whole catalog's routing, not one
+skill's — it is measured against every neighbour, so re-measure both sides
+of any boundary you touch before trusting the number.
+
 ## Progressive disclosure
 
 Three levels, each with a tighter budget than the last:

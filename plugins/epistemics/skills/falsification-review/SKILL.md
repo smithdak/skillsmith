@@ -3,11 +3,12 @@ name: falsification-review
 description: >-
   Runs a falsification pass before a consequential conclusion is presented:
   strongest counterargument first, crux identification, and a check on what
-  evidence would overturn the position. Use this skill when about to endorse
-  a recommendation, architecture decision, estimate, or plan — when the user
+  evidence would overturn the position. Use this skill when about to endorse a
+  recommendation, architecture decision, estimate, or plan — when the user
   asks "should we", "is this the right call", "sanity check this decision",
-  or presents a position for assessment. Not for factual lookups, how-to
-  questions, or neutral surveys of options.
+  "is this finding real or a false positive", or presents a position for
+  assessment. Not for factual lookups, how-to questions, or neutral surveys of
+  options.
 license: MIT
 metadata:
   skillsmith-invocation: "both"

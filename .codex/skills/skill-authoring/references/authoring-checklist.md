@@ -47,6 +47,13 @@ repo-root NOTICES.md.*
 - **Blanket anti-formatting rules** — "never use bullets", "no headers".
   Current models under-format, so the ban strips structure the reader wanted.
   Say when formatting is appropriate instead.
+- **A boundary clause that describes the sibling's case** — "Not for
+  restructuring X into Y (sibling)". The description of the case recruits
+  the request toward the skill that carries the clause; measured at 0/9 on
+  a case that passed before the clause existed. Name the sibling only.
+- **Batch description edits** — rewriting many descriptions at once shifts
+  what every skill is judged against; regressions land on skills whose text
+  never changed. Edit one boundary at a time and re-measure both sides.
 - **Scaffolding for a weaker model** — enumerated steps for judgment work,
   emphasis added because an instruction was once underweighted, prohibitions
   against habits the model no longer has. Prescription that outlived its
@@ -66,6 +73,7 @@ Before a skill is considered done:
 - [ ] Deterministic work is in scripts, not prose.
 - [ ] No instruction to reveal internal reasoning.
 - [ ] No update suppressors and no blanket anti-formatting rules.
+- [ ] Boundary clauses name siblings without describing their cases.
 - [ ] Evals: at least three should-trigger and three should-not-trigger,
       real phrasings, near-boundary negatives, no placeholder text.
 - [ ] A verification section states the observable bar for "done".

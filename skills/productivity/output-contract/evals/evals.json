@@ -52,7 +52,7 @@
     },
     {
       "prompt": "shorten the intro of our README",
-      "note": "repo-documentation editing belongs to prose-hygiene; only the summary-first file rule carries over"
+      "note": "repo-documentation editing belongs to readme-authoring / prose-hygiene; only the summary-first file rule carries over"
     },
     {
       "prompt": "refactor this 200-line function to be more concise",

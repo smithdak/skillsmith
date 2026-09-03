@@ -60,6 +60,10 @@
     {
       "prompt": "the repository map in our README is really hard to read — fix it",
       "note": "near-boundary: doc-visuals's own trigger phrasing — prose-hygiene declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "our README is way out of date — it describes half the features we actually have",
+      "note": "near-boundary: readme-authoring's own trigger phrasing — whole-page rewrite from the repo, not a narration trim"
     }
   ]
 }

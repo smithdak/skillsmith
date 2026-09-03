@@ -60,7 +60,8 @@ not forever.
 Sections, in order:
 
 1. **Status, date, and reversibility class** — proposed / accepted /
-   superseded-by-N, and whether this is a two-way or one-way door.
+   superseded-by-N, and whether this is a two-way or one-way door, with
+   the one sentence that justifies the class.
 2. **Context** — the forces and the goal, with dated volatile facts.
 3. **Options considered** — the tradeoff matrix: each live option
    scored on the dimensions that decide this class of choice, unknown
@@ -85,8 +86,9 @@ Place it where the repo keeps such records (`docs/decisions/` or
 A reader at HEAD can reconstruct why the choice was made without this
 conversation. Every rejected option carries its reason. The driver is
 stated in one sentence. Consequences include at least one honest
-negative. The revisit trigger is observable and dated conditions are
-attached where they matter.
+negative. The reversibility class is stated in the record itself, not
+only in the conversation. The revisit trigger is observable and dated
+conditions are attached where they matter.
 
 ## Boundaries
 

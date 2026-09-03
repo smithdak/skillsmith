@@ -58,6 +58,10 @@
     {
       "prompt": "write a ticket for the login timeout bug",
       "note": "near-boundary: define-work-items's own trigger phrasing — a see-also neighbour whose request this skill routes to, so it must not claim it"
+    },
+    {
+      "prompt": "policy proposal: no meetings before noon. trace the ripple effects through the org",
+      "note": "near-boundary: second-order-effects' own trigger phrasing — behavioral response to a rule, not execution risk of an agreed plan"
     }
   ]
 }

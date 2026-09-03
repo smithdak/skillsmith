@@ -55,6 +55,10 @@
     {
       "prompt": "go through the comments in src/ and strip anything that talks about the PR or what the code used to do",
       "note": "near-boundary: prose-hygiene's own trigger phrasing — writing-for-agents declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "session's ending; capture where things stand so tomorrow picks up clean",
+      "note": "near-boundary: handoff's own trigger phrasing — the reader is a future agent session, but it is a state document, not a repo-instruction file"
     }
   ]
 }
