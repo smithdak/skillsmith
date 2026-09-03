@@ -191,7 +191,13 @@ export async function runTriggerEvals(
         // Strict majority: a tie counts as a failure rather than rounding a
         // coin flip up into a pass.
         pass: passes * 2 > mine.length,
-        judged: mine.find((v) => !v.pass)?.picked ?? mine[0]!.picked,
+        // Report a failing vote's pick when there is one. A failing vote can
+        // legitimately have picked null ("none"), so this cannot use `??` —
+        // that would fall through to a passing vote and misreport the failure.
+        judged: (() => {
+          const firstFail = mine.find((v) => !v.pass);
+          return firstFail !== undefined ? firstFail.picked : mine[0]!.picked;
+        })(),
         agreement: passes / mine.length,
       };
     });

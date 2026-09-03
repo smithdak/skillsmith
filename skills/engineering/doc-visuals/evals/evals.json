@@ -13,7 +13,8 @@
       "prompt": "clean up the code examples in this guide, the commands and output are all jumbled together"
     },
     {
-      "prompt": "the mermaid sequence diagram in our docs renders broken on GitHub — fix it"
+      "prompt": "the mermaid sequence diagram in our docs renders broken on GitHub — fix it",
+      "note": "measured boundary case: 1/3 in a full --repeat 3 run, then 14/14 at --repeat 9 (10/12 overall). \"renders broken — fix it\" reads as a bug report, so a minority of judgements answer 'none'. Kept; read it with --repeat, never from one run."
     },
     {
       "prompt": "reformat this runbook's command examples so they're copy-paste safe"

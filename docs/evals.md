@@ -128,7 +128,7 @@ deliberately do not write it — a partial file would misrepresent the catalog.
 
 `skillsmith generate` reads the file and renders a **Triggering** badge column
 in [`catalog/CATALOG.md`](../catalog/CATALOG.md)
-(`100% (8/8, claude-sonnet-4-6, 2026-07-15)`), so consumers see measured
+(`100% (8/8, 3 votes, claude-sonnet-4-6, 2026-07-15)`), so consumers see measured
 triggering, not claimed triggering. After a full eval run, rerun `generate`
 and commit both files together, or `check` will report catalog drift.
 

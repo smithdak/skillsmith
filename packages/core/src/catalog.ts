@@ -65,7 +65,8 @@ export function renderCatalog(
       const evalCell = (() => {
         const r = evalResults?.skills[skill.name];
         if (!r) return "—";
-        return `${Math.round(r.hitRate * 100)}% (${r.cases - r.failing}/${r.cases}, ${evalResults!.judgeModel}, ${evalResults!.runDate})`;
+        const votes = evalResults!.repeat ?? 1; // results written before `repeat` existed were single-vote
+        return `${Math.round(r.hitRate * 100)}% (${r.cases - r.failing}/${r.cases}, ${votes} vote${votes === 1 ? "" : "s"}, ${evalResults!.judgeModel}, ${evalResults!.runDate})`;
       })();
       lines.push(
         badges

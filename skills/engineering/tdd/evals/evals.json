@@ -30,7 +30,7 @@
     },
     {
       "prompt": "add unit tests for the existing auth module",
-      "note": "retrofitting tests onto existing code, which tdd's description excludes. Measured boundary case: 3/5 at --repeat 5, and it flipped between single-vote runs. Kept because a suite with no cases near the boundary measures nothing; read it with --repeat, never from one run."
+      "note": "retrofitting tests onto existing code, which tdd's description excludes explicitly. Measured boundary case leaning the wrong way: 3/5 then 0/3 (3/8 overall) — the judge picks tdd on 'add unit tests' despite the exclusion. Kept as the sharpest test of that boundary; a fix would need a skill that owns retrofitting, not a stronger exclusion."
     },
     {
       "prompt": "why does this vitest mock keep returning undefined?",

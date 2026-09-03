@@ -143,7 +143,7 @@ describe("eval harness (mock judge)", () => {
     const withBadges = buildPlan(d, config, { evalResults: parsed });
     const catalog = withBadges.files.get("catalog/CATALOG.md")!;
     expect(catalog).toContain("Triggering");
-    expect(catalog).toContain("100% (6/6, mock, 2026-07-11)");
+    expect(catalog).toContain("100% (6/6, 1 vote, mock, 2026-07-11)");
     // without results: no badge column (back-compat)
     const without = buildPlan(d, config);
     expect(without.files.get("catalog/CATALOG.md")!).not.toContain("Triggering");
@@ -289,6 +289,10 @@ describe("--repeat majority voting", () => {
     expect(cases["never"]!.pass).toBe(false);
     expect(cases["coin"]!.agreement).toBe(0.4);   // 2/5 — minority
     expect(cases["coin"]!.pass).toBe(false);      // strict majority, so it fails
+    // The reported pick must come from a FAILING vote. "coin" passed its first
+    // two votes (picked "s") then failed three (picked null): the failure is
+    // "none", and a `??` fallthrough would have misreported it as "s".
+    expect(cases["coin"]!.judged).toBeNull();
     expect(report.repeat).toBe(5);
   });
 

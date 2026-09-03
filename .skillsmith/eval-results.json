@@ -1,7 +1,7 @@
 {
   "judgeModel": "claude-sonnet-4-6",
-  "runDate": "2026-09-02",
-  "repeat": 1,
+  "runDate": "2026-09-03",
+  "repeat": 3,
   "skills": {
     "architecture-spec": {
       "hitRate": 1,
@@ -89,7 +89,9 @@
       "failing": 0,
       "descriptionSha": "d3fe0af821ff540bca2746d9a44ceca69fc223a6bf588f2b89e941a19f21e19d",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "turn this discussion into user stories"
+      ]
     },
     "diagnose-bugs": {
       "hitRate": 1,
@@ -116,12 +118,16 @@
       "flakyPrompts": []
     },
     "doc-visuals": {
-      "hitRate": 1,
+      "hitRate": 0.929,
       "cases": 14,
-      "failing": 0,
+      "failing": 1,
       "descriptionSha": "42f5068309d67cb8b71ec2d17900f7239273a0db300d398057c9595545c3beb4",
-      "failingPrompts": [],
-      "flakyPrompts": []
+      "failingPrompts": [
+        "the mermaid sequence diagram in our docs renders broken on GitHub — fix it"
+      ],
+      "flakyPrompts": [
+        "the mermaid sequence diagram in our docs renders broken on GitHub — fix it"
+      ]
     },
     "estimate": {
       "hitRate": 1,
@@ -137,7 +143,9 @@
       "failing": 0,
       "descriptionSha": "ec00bb923d3557e152fc10f4c5d2190869e0e92598f0213b1a5c0483638eca05",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "I think we should rewrite this service in Rust — thoughts?"
+      ]
     },
     "feature-spec": {
       "hitRate": 1,
@@ -164,13 +172,11 @@
       "flakyPrompts": []
     },
     "frontend-redesign": {
-      "hitRate": 0.933,
+      "hitRate": 1,
       "cases": 15,
-      "failing": 1,
+      "failing": 0,
       "descriptionSha": "0a17cc1dbf86601eb3d4aa913f71163ea4c5a1ef02d0b95612a8aefafa70c804",
-      "failingPrompts": [
-        "our dashboard works fine but it looks like it was built in 2014 — what would you change?"
-      ],
+      "failingPrompts": [],
       "flakyPrompts": []
     },
     "grilling": {
@@ -187,7 +193,9 @@
       "failing": 0,
       "descriptionSha": "b325b1dcc638edf5ad1ee4c9c8a5976ee53a250c1487e28fe9e93a6a15543d6e",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "what's the best vector database right now"
+      ]
     },
     "growth-experiments": {
       "hitRate": 1,
