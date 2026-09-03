@@ -53,11 +53,6 @@
       "name": "security",
       "source": "./plugins/security",
       "description": "Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring"
-    },
-    {
-      "name": "tldraw-canvas",
-      "source": "./plugins/tldraw-canvas",
-      "description": "tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images"
     }
   ]
 }

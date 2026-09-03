@@ -41,10 +41,6 @@
       "note": "craft upgrade of existing UI — frontend-redesign"
     },
     {
-      "prompt": "export my tldraw canvas to a PNG",
-      "note": "headless-browser render of a tldraw file — tldraw-export"
-    },
-    {
       "prompt": "is this PR safe to merge? check the diff for vulnerabilities",
       "note": "security-diff-review"
     },

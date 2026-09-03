@@ -15,7 +15,7 @@ description: >-
   debugging the bug itself.
 license: MIT
 metadata:
-  skillsmith-see-also: "architecture-spec, handoff, research-note, define-work-items"
+  skillsmith-see-also: "architecture-spec, define-work-items, diagnose-bugs, handoff, research-note"
   skillsmith-composes: "doc-visuals"
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"

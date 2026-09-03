@@ -1,11 +1,11 @@
 ---
 name: "webapp-testing"
-description: "Tests and debugs a locally running web app in a real browser via Playwright: starts the dev server with a bundled with_server helper, then does reconnaissance before action — navigate, wait for network idle, screenshot and inspect the DOM, discover selectors, then click, type, and assert — capturing console logs to verify UI behavior; static HTML is loaded over file://. Use this skill when the user says \"open the app and click through the signup flow\", \"the page renders blank — check the browser console\", \"screenshot each step of checkout on localhost:3000\", \"write a Playwright script that fills the form and checks the toast\", or wants UI behavior verified in a browser rather than in unit tests. Not for unit-level red-green development (tdd), building or restyling UI (frontend-craft, frontend-redesign), rendering tldraw canvases to images (tldraw-export), or security review of a diff."
+description: "Tests and debugs a locally running web app in a real browser via Playwright: starts the dev server with a bundled with_server helper, then does reconnaissance before action — navigate, wait for network idle, screenshot and inspect the DOM, discover selectors, then click, type, and assert — capturing console logs to verify UI behavior; static HTML is loaded over file://. Use this skill when the user says \"open the app and click through the signup flow\", \"the page renders blank — check the browser console\", \"screenshot each step of checkout on localhost:3000\", \"write a Playwright script that fills the form and checks the toast\", or wants UI behavior verified in a browser rather than in unit tests. Not for unit-level red-green development (tdd), building or restyling UI (frontend-craft, frontend-redesign), or security review of a diff."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
-  skillsmith-see-also: "tdd, frontend-craft, frontend-redesign, tldraw-export"
+  skillsmith-see-also: "tdd, frontend-craft, frontend-redesign"
 ---
 
 # webapp-testing

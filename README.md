@@ -27,10 +27,10 @@ In Claude Code, run:
 Install individually — each skill belongs to exactly one plugin.
 
 <!-- skillsmith:start -->
-[![Skills](https://img.shields.io/badge/skills-54-brightgreen)](catalog/CATALOG.md)
-[![Plugins](https://img.shields.io/badge/plugins-11-blue)](catalog/CATALOG.md)
+[![Skills](https://img.shields.io/badge/skills-50-brightgreen)](catalog/CATALOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-10-blue)](catalog/CATALOG.md)
 
-**11 installable plugins, 54 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
+**10 installable plugins, 50 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
 
 | Plugin | Version | Skills | What it's for |
 |---|---|---|---|
@@ -41,7 +41,6 @@ Install individually — each skill belongs to exactly one plugin.
 | **security** | `0.2.0` | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring |
 | **frontend** | `0.4.0` | `frontend-craft` · `frontend-critique` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
 | **marketing** | `0.3.0` | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design |
-| **tldraw-canvas** | `0.3.0` | `mermaid-to-tldraw` · `tldraw-animation` · `tldraw-diagram` · `tldraw-export` | tldraw canvas tooling: author editable .tldr files from a description, convert Mermaid into tldraw shapes, and export canvases to images |
 | **secrets-ops** | `0.2.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account |
 | **pr-workflow** | `0.2.0` | `stacked-prs` | Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension |
 | **agent-voice** | `0.3.0` | `output-contract` · `voice-setup` | How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks |

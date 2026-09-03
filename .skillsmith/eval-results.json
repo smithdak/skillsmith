@@ -263,15 +263,6 @@
       "failingPrompts": [],
       "flakyPrompts": []
     },
-    "mermaid-to-tldraw": {
-      "hitRate": 1,
-      "cases": 16,
-      "failing": 0,
-      "descriptionSha": "506b2efd08089ff291cec378b0ca5170991cbc03cc52ed1f7b1dd3700321522d",
-      "evalsSha": "1a1eb599e4f1f1d427f2105daf24cd3eb3af8014facae7f6d1606fba299db275",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
     "op-github-secrets": {
       "hitRate": 1,
       "cases": 17,
@@ -435,36 +426,6 @@
       "failing": 0,
       "descriptionSha": "8dd30564424e6e30f2f91303aafe8113314dbb1df1ebd345d36f8992ce2a13d6",
       "evalsSha": "bb035ce9cb3a382b116f35ca04e95ed2817e05b768ee7bf6c533615b6170d1cf",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "tldraw-animation": {
-      "hitRate": 0.875,
-      "cases": 16,
-      "failing": 2,
-      "descriptionSha": "f3a29886e65ad7731d1a9d04dca668a66ce9e0b57509b135aa5315f631598c9b",
-      "evalsSha": "f200ac7ece3c14cc389907dda51459a9fb033cd9d35a6bafffd0fd2bb39a0dda",
-      "failingPrompts": [
-        "export the animation as a GIF",
-        "render my tldraw animation as an mp4 video"
-      ],
-      "flakyPrompts": []
-    },
-    "tldraw-diagram": {
-      "hitRate": 1,
-      "cases": 17,
-      "failing": 0,
-      "descriptionSha": "18701b35ac23259c50cc179d117b1db0b19ee8d1a4d90af754f6adbe43df0353",
-      "evalsSha": "4485446901d04729078f767908548e6a785c8c2c080b66df5708a68682bb4508",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "tldraw-export": {
-      "hitRate": 1,
-      "cases": 16,
-      "failing": 0,
-      "descriptionSha": "1ad7507856d75b3ef0c96e2c26f6bd30257f6ecf5db03f763988a64592cb6dda",
-      "evalsSha": "938e3fc54a5583aab837ad546c53c282a5ce89e449f2eac7680ac1e50f78b810",
       "failingPrompts": [],
       "flakyPrompts": []
     },

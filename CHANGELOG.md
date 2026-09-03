@@ -125,6 +125,14 @@ history; this file starts where the changelog rule (V16) began.
 
 - Seven skills ported from `ericosiu/ai-marketing-skills` (see NOTICES.md).
 
+## tldraw-canvas — removed
+
+- The plugin and its four skills (`tldraw-diagram`, `tldraw-animation`,
+  `tldraw-export`, `mermaid-to-tldraw`) are no longer published. Installed copies
+  keep working but receive no further updates. It carried the catalog's highest
+  volatile-specifics risk — SDK record formats, headless-browser export, a
+  validator already lagging real exports — and sat outside the catalog's focus.
+
 ## tldraw-canvas 0.3.0
 
 - `tldraw-diagram`'s validator accepts the record prefixes real exports contain (`document:`, `instance_page_state:`, `camera:`, `pointer:`), and its format reference notes `props.text` vs `props.richText` drift across SDK versions. `tldraw-animation` defines tldraw-offline and moves the video/GIF-export cases to the side of the boundary they belong on.

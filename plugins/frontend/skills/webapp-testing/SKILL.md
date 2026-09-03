@@ -12,11 +12,10 @@ description: >-
   "write a Playwright script that fills the form and checks the toast", or
   wants UI behavior verified in a browser rather than in unit tests. Not
   for unit-level red-green development (tdd), building or restyling UI
-  (frontend-craft, frontend-redesign), rendering tldraw canvases to images
-  (tldraw-export), or security review of a diff.
+  (frontend-craft, frontend-redesign), or security review of a diff.
 license: MIT
 metadata:
-  skillsmith-see-also: "tdd, frontend-craft, frontend-redesign, tldraw-export"
+  skillsmith-see-also: "tdd, frontend-craft, frontend-redesign"
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
 user-invocable: true
