@@ -4,6 +4,12 @@ name: Trigger evals
 # the judge is intentionally non-deterministic), and fork PRs never receive
 # secrets on a public repo anyway. Run it after changing descriptions or
 # eval cases: gh workflow run eval.yml
+#
+# Three votes per case, escalating split cases to nine: at one vote a case
+# near a decision boundary fails about as often as it passes, which would
+# make this gate flap. Unanimous cases stop at three, so the escalation is
+# paid only on boundary cases. Roughly $7 a run at the catalog's current
+# size — see docs/evals.md.
 on:
   workflow_dispatch:
 
@@ -19,4 +25,4 @@ jobs:
       - name: Trigger hit-rate evals (fails below policy minimum)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: bun packages/cli/src/main.ts eval
+        run: bun packages/cli/src/main.ts eval --repeat 3 --escalate 9

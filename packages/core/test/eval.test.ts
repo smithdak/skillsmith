@@ -297,3 +297,44 @@ describe("--repeat majority voting", () => {
   });
 
 });
+
+describe("--escalate: split cases get more votes, unanimous ones do not", () => {
+  const root = mkdtempSync(join(tmpdir(), "esc-"));
+  const dir = join(root, "skills", "engineering", "e");
+  mkdirSync(join(dir, "evals"), { recursive: true });
+  writeFileSync(join(dir, "SKILL.md"), `---\nname: e\ndescription: 'Use when the user says "e".'\n---\nBody\n`);
+  writeFileSync(join(dir, "evals", "evals.json"), JSON.stringify({
+    should_trigger: [{ prompt: "solid" }, { prompt: "edge" }, { prompt: "t3" }],
+    should_not_trigger: [{ prompt: "n1" }, { prompt: "n2" }, { prompt: "n3" }],
+  }));
+  const config = validateSkillsmithConfig({ marketplace: { name: "m", owner: { name: "D" } },
+    categories: { allowed: ["engineering"] }, plugin: [{ name: "p", skills: [] }] }, { path: "x" }).value!;
+
+  test("only the split case is escalated, and its majority is taken over all its votes", async () => {
+    const calls: Record<string, number> = {};
+    let edgeCalls = 0;
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const report = await runTriggerEvals(d, config, {
+      judgeModel: "fake", repeat: 3, escalate: 9, concurrency: 1,
+      judge: async (_l, prompt) => {
+        calls[prompt] = (calls[prompt] ?? 0) + 1;
+        if (prompt === "edge") {
+          // Votes 1-3: pass, fail, pass (split → escalate). Votes 4-9: all fail.
+          const n = edgeCalls++;
+          return n === 1 || n >= 3 ? null : "e";
+        }
+        return prompt === "solid" || prompt === "t3" ? "e" : null;
+      },
+    });
+    expect(calls["solid"]).toBe(3);   // unanimous: stopped at repeat
+    expect(calls["n1"]).toBe(3);
+    expect(calls["edge"]).toBe(9);    // split: escalated to the cap
+    const edge = report.results[0]!.cases.find((c) => c.prompt === "edge")!;
+    expect(edge.agreement).toBeCloseTo(2 / 9);  // 2 passes of 9 — the round-one lead did not survive
+    expect(edge.pass).toBe(false);
+    expect(report.escalate).toBe(9);
+    // No escalation requested: field equals repeat.
+    const plain = await runTriggerEvals(d, config, { judgeModel: "fake", repeat: 3, judge: async () => "e" });
+    expect(plain.escalate).toBe(3);
+  });
+});

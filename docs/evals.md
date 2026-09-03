@@ -68,6 +68,7 @@ bun packages/cli/src/main.ts eval               # all skills; writes results fil
 bun packages/cli/src/main.ts eval tdd           # one skill; does NOT write results
 bun packages/cli/src/main.ts eval --model claude-sonnet-4-6 --concurrency 4
 bun packages/cli/src/main.ts eval tdd --repeat 9   # nine judgements, majority wins
+bun packages/cli/src/main.ts eval --repeat 3 --escalate 9   # the recommended full run
 ```
 
 ### Judge variance: read `--repeat`, not a single run
@@ -87,8 +88,16 @@ prompt that loses 0-of-9 is a routing gap worth fixing, and one that lands 6-of-
 is a boundary case worth keeping — at `--repeat 1` the two are indistinguishable.
 
 Five votes is the practical minimum and still cannot resolve a ~60% case; use 9
-when you are about to act on the answer. Cost scales linearly with N, so the
-default stays 1.
+when you are about to act on the answer.
+
+Repeating every case nine times is wasteful, because almost every case is
+unanimous. `--escalate M` keeps judging only the cases whose first `--repeat N`
+votes split, until each has M votes. On the current catalog a
+`--repeat 3 --escalate 9` run costs about three single runs plus a few dozen
+extra calls — the price of resolving boundary cases is paid only on boundary
+cases. That is the recommended full run and what CI's `eval.yml` uses; the
+badge then reads `≥3 votes`. The default stays `--repeat 1`, and a repeat-1 run
+says in its own output that its failures carry full judge variance.
 
 - Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Locally: `cp .env.example
   .env` and fill it in — `.env` is gitignored, and Bun loads it automatically
@@ -99,7 +108,7 @@ default stays 1.
   default `claude-sonnet-4-6` judge. Input dominates, but the listing is a
   byte-identical prefix on every call and carries a `cache_control` breakpoint,
   so only the first few calls pay for it — a couple of dollars per run rather
-  than the ~$18 the uncached shape cost. `--concurrency N` means the first N
+  than the ~$16 the uncached shape cost. `--concurrency N` means the first N
   calls race and all miss; that is the whole warm-up penalty. Every run prints
   its own token totals, and zero cache reads means the prefix broke and the run
   is roughly 10x overpriced. Not free either way, which is why CI runs evals

@@ -42,10 +42,14 @@ tracker during triage opens with:
 
 ## Surfacing what needs attention
 
-Present three buckets, oldest first, with counts and a one-line
-summary per item: never-triaged items, items sitting in
-`needs-triage`, and `needs-info` items with reporter activity since
-the last triage note. Let the maintainer pick.
+Present four buckets, oldest first, with counts and a one-line
+summary per item: never-triaged items; items sitting in
+`needs-triage`; `needs-info` items with reporter activity since the
+last triage note; and `ready-for-human` items — the ones waiting on
+the maintainer's own judgment, access, or decision, which is what
+"what's blocked on me?" is asking. Flag anything that has sat in one
+state past the tracker's usual cadence as stale. Let the maintainer
+pick.
 
 ## Triaging an item
 

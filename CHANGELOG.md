@@ -45,7 +45,9 @@ history; this file starts where the changelog rule (V16) began.
 ## productivity-tools 0.3.0
 
 - `issue-triage` triggers on asking which items are blocked, stale, or waiting
-  on a person, not only on the word "triage". Measured: the phrasing
+  on a person, not only on the word "triage" — and its surfacing step now
+  includes `ready-for-human` items (the ones waiting on the maintainer) and
+  flags stale ones, so the body delivers what the description promises. Measured: the phrasing
   "anything in the backlog still waiting on my input?" passed 17 of 28
   judgements before the change and 9 of 9 after.
 

@@ -88,6 +88,8 @@ export interface EvalReport {
   judgeModel: string;
   /** Judgements per case this run used. */
   repeat: number;
+  /** Total votes a split case was taken to; equals `repeat` when no escalation. */
+  escalate: number;
   results: SkillEvalResult[];
   diagnostics: Diagnostic[];
 }
@@ -147,6 +149,14 @@ export async function runTriggerEvals(
      * Costs one API call per case per repeat.
      */
     repeat?: number;
+    /**
+     * When the initial `repeat` votes on a case are not unanimous, keep
+     * judging that case until it has this many votes. Unanimous cases stop at
+     * `repeat`, so the cost of resolving boundary cases is paid only on
+     * boundary cases — a fraction of the suite — instead of on every case.
+     * Defaults to `repeat` (no escalation).
+     */
+    escalate?: number;
   },
 ): Promise<EvalReport> {
   const diagnostics: Diagnostic[] = [];
@@ -156,7 +166,7 @@ export async function runTriggerEvals(
   );
   if (opts.skill !== undefined && skills.length === 0) {
     diagnostics.push(error("SCHEMA", "eval", `skill "${opts.skill}" not found (or is a draft)`));
-    return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), results: [], diagnostics };
+    return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), escalate: Math.max(Math.max(1, opts.repeat ?? 1), opts.escalate ?? 1), results: [], diagnostics };
   }
 
   const results: SkillEvalResult[] = [];
@@ -170,18 +180,30 @@ export async function runTriggerEvals(
       ...evals.should_not_trigger.map((c) => ({ prompt: c.prompt, expectation: "no-trigger" as const })),
     ];
 
-    // Expand to one task per (case × repeat) so concurrency stays saturated,
-    // then fold the votes back per case.
+    // Round one: `repeat` votes on every case, expanded to one task per vote
+    // so concurrency stays saturated. Round two: only cases whose votes split
+    // are judged up to `escalate` total. Both rounds fold per case below.
     const repeat = Math.max(1, opts.repeat ?? 1);
-    const tasks = cases.flatMap((c) => Array.from({ length: repeat }, () => c));
-    const votes = await mapConcurrent(tasks, opts.concurrency ?? 4, async (c) => {
+    const escalate = Math.max(repeat, opts.escalate ?? repeat);
+    type Case = (typeof cases)[number];
+    const vote = async (c: Case) => {
       const picked = await opts.judge(listing, c.prompt);
       return {
         prompt: c.prompt,
         picked,
         pass: c.expectation === "trigger" ? picked === skill.name : picked !== skill.name,
       };
+    };
+    const expand = (cs: Case[], n: number) => cs.flatMap((c) => Array.from({ length: n }, () => c));
+    const votes = await mapConcurrent(expand(cases, repeat), opts.concurrency ?? 4, vote);
+    const split = cases.filter((c) => {
+      const mine = votes.filter((v) => v.prompt === c.prompt);
+      const passes = mine.filter((v) => v.pass).length;
+      return passes > 0 && passes < mine.length;
     });
+    if (escalate > repeat && split.length > 0) {
+      votes.push(...(await mapConcurrent(expand(split, escalate - repeat), opts.concurrency ?? 4, vote)));
+    }
     const judged: CaseResult[] = cases.map((c) => {
       const mine = votes.filter((v) => v.prompt === c.prompt);
       const passes = mine.filter((v) => v.pass).length;
@@ -225,7 +247,7 @@ export async function runTriggerEvals(
   }
 
   results.sort((a, b) => a.skill.localeCompare(b.skill));
-  return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), results, diagnostics };
+  return { judgeModel: opts.judgeModel, repeat: Math.max(1, opts.repeat ?? 1), escalate: Math.max(Math.max(1, opts.repeat ?? 1), opts.escalate ?? 1), results, diagnostics };
 }
 
 /** Serialized results file: SOURCE (committed), consumed by generate/doc. */
@@ -234,6 +256,8 @@ export interface EvalResultsFile {
   runDate: string; // ISO date (day precision — keeps reruns on the same day byte-stable)
   /** Judgements per case. 1 means every number here carries full judge variance. */
   repeat: number;
+  /** Votes a split case was escalated to; equals `repeat` when no escalation ran. */
+  escalate: number;
   skills: Record<
     string,
     {
@@ -278,16 +302,17 @@ export function toResultsFile(report: EvalReport, runDate: string): string {
     judgeModel: report.judgeModel,
     runDate,
     repeat: report.repeat,
+    escalate: report.escalate,
     skills,
   };
   return canonicalJson(file);
 }
 
 // ---------------------------------------------------------------------------
-// Default judge: Anthropic Messages API.
-// UNVERIFIED against the live API in this build environment (no key present);
-// the request shape follows the current Messages API and the response parse
-// is defensive, but treat the first keyed run as the integration test.
+// Default judge: Anthropic Messages API. Structured output makes the reply
+// schema-valid by construction; the listing block carries a cache breakpoint
+// so a full run reads the ~8k-token prefix from cache on every call but the
+// first few.
 // ---------------------------------------------------------------------------
 
 const JUDGE_SYSTEM = `You simulate skill selection for an AI coding assistant.

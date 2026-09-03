@@ -33,7 +33,8 @@ with that, both enforced:
   `skillsmith eval` (needs an API key — see .env.example).
 - Judging one case once tells you almost nothing: measured variance on a real
   boundary case was 17/28. Before treating a hit-rate change as real, re-measure
-  that skill with `skillsmith eval <skill> --repeat 9`.
+  that skill with `skillsmith eval <skill> --repeat 9`. For a full run use
+  `--repeat 3 --escalate 9`: unanimous cases stop at three, split ones get nine.
 
 ## Rules that will bite you
 - The description is the trigger surface: what it does AND when, with quoted

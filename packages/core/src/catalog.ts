@@ -65,8 +65,11 @@ export function renderCatalog(
       const evalCell = (() => {
         const r = evalResults?.skills[skill.name];
         if (!r) return "—";
-        const votes = evalResults!.repeat ?? 1; // results written before `repeat` existed were single-vote
-        return `${Math.round(r.hitRate * 100)}% (${r.cases - r.failing}/${r.cases}, ${votes} vote${votes === 1 ? "" : "s"}, ${evalResults!.judgeModel}, ${evalResults!.runDate})`;
+        // Results written before these fields existed were single-vote, unescalated.
+        const votes = evalResults!.repeat ?? 1;
+        const escalate = evalResults!.escalate ?? votes;
+        const label = escalate > votes ? `≥${votes} votes` : `${votes} vote${votes === 1 ? "" : "s"}`;
+        return `${Math.round(r.hitRate * 100)}% (${r.cases - r.failing}/${r.cases}, ${label}, ${evalResults!.judgeModel}, ${evalResults!.runDate})`;
       })();
       lines.push(
         badges

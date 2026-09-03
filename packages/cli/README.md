@@ -42,7 +42,7 @@ skillsmith check: clean
 
 ### `skillsmith eval [skill]`
 Measure trigger hit-rate per skill: an LLM judge decides, for each eval case, which catalog entry it would trigger — confusion with *other* skills in the catalog counts against you. Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Full runs (no skill argument) write `.skillsmith/eval-results.json`, which feeds catalog badges; hit rates below `[policy]."min-trigger-hit-rate"` (0.85 here) become diagnostics.
-The skill filter is a positional argument (`skillsmith eval tdd`), not a flag. Flags: `--model` (judge model, default `claude-sonnet-4-6`), `--concurrency` (default 4), `--repeat` (judgements per case, majority wins, default 1 — costs N x per run). At `--repeat 1` a single failing case carries full judge variance and is not evidence of a regression; see [docs/evals.md](../../docs/evals.md).
+The skill filter is a positional argument (`skillsmith eval tdd`), not a flag. Flags: `--model` (judge model, default `claude-sonnet-4-6`), `--concurrency` (default 4), `--repeat` (judgements per case, majority wins, default 1 — costs N x per run), `--escalate` (keep judging a split case until it has this many votes; unanimous cases stop at `--repeat`, so boundary cases are resolved without paying for every case — `--repeat 3 --escalate 9` is the recommended full run). At `--repeat 1` a single failing case carries full judge variance and is not evidence of a regression; see [docs/evals.md](../../docs/evals.md).
 
 ## Shared flags
 

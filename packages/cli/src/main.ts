@@ -284,6 +284,11 @@ const evalCmd = defineCommand({
       description: "judgements per case; the majority wins (costs N x per run)",
       default: "1",
     },
+    escalate: {
+      type: "string" as const,
+      description: "keep judging a split case until it has this many votes; unanimous cases stop at --repeat",
+      default: "",
+    },
   },
   async run({ args }) {
     const repoRoot = resolve(process.cwd(), args.cwd);
@@ -313,6 +318,7 @@ const evalCmd = defineCommand({
       skill: args.skill as string | undefined,
       concurrency: Number(args.concurrency),
       repeat: Number(args.repeat),
+      escalate: args.escalate ? Number(args.escalate) : undefined,
     });
 
     let flaky = 0;
@@ -325,7 +331,7 @@ const evalCmd = defineCommand({
         console.error(`  FAIL [expected ${c.expectation}] "${c.prompt}" → judged: ${c.judged ?? "none"}`);
       }
       for (const c of unstable) {
-        console.error(`  FLAKY [${Math.round(c.agreement * 100)}% of ${report.repeat}] "${c.prompt}"`);
+        console.error(`  FLAKY [${Math.round(c.agreement * 100)}% of ${report.escalate}] "${c.prompt}"`);
       }
     }
     if (report.repeat === 1) {
@@ -333,7 +339,10 @@ const evalCmd = defineCommand({
         "\nrepeat=1: a single judgement per case, so individual failures carry full judge variance — use --repeat 3 before reading movement as a change",
       );
     } else if (flaky > 0) {
-      console.error(`\n${flaky} case(s) split their vote — those sit on a decision boundary`);
+      console.error(
+        `\n${flaky} case(s) split their vote — those sit on a decision boundary` +
+          (report.escalate > report.repeat ? ` (each escalated to ${report.escalate} votes)` : ""),
+      );
     }
     // The skill listing is an identical prefix on every call, so cache reads
     // should dominate after the first few. Zero reads means the prefix is not
