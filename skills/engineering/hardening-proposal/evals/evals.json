@@ -50,11 +50,15 @@
     },
     {
       "prompt": "write an architecture spec for our new ingestion service",
-      "note": "near-boundary: architecture-spec's own trigger phrasing — hardening-proposal declares this out of scope, so it must not claim it"
+      "note": "near-boundary: architecture-spec's own trigger phrasing — the body borrows its design-invariant discipline, so a spec request with no findings must still route to it"
     },
     {
       "prompt": "the repository map in our README is really hard to read — fix it",
-      "note": "near-boundary: doc-visuals's own trigger phrasing — hardening-proposal declares this out of scope, so it must not claim it"
+      "note": "near-boundary: doc-visuals's own trigger phrasing — the body borrows its diagram rules, so a pure formatting request must still route to it"
+    },
+    {
+      "prompt": "check this diff for vulnerabilities before it ships",
+      "note": "near-boundary: security-diff-review's own trigger phrasing — finding the defects is the sibling's job; this skill starts once a finding list exists"
     }
   ]
 }

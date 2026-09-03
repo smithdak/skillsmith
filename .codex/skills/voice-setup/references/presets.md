@@ -25,6 +25,8 @@ Precedence hazard: opencode loads only the first matching global rules file
 — creating `~/.config/opencode/AGENTS.md` shadows an existing
 `~/.claude/CLAUDE.md`. When both matter, keep one canonical file and point
 the other at it (symlink), or mirror the block in both.
+(opencode global-rules lookup order as of opencode 1.18.25, September 2026;
+re-verify against opencode's rules docs when this hazard fires unexpectedly.)
 
 ## Rendered default block
 

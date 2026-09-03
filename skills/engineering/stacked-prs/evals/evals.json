@@ -10,10 +10,12 @@
       "prompt": "main moved and all three of my stacked branches are behind — bring them up to date and re-check CI"
     },
     {
-      "prompt": "merge my PR stack with gh stack and clean up the branches afterwards"
+      "prompt": "I've got three branches each built on top of the last, all with approved PRs open — get them all into main and get rid of the branches once they're in",
+      "note": "situation phrasing: never names stack, gh, or land — tests routing on the circumstance alone"
     },
     {
-      "prompt": "which PRs are actually part of this stack? #88 says it depends on #87 but I don't think it's linked"
+      "prompt": "#88 is based on #87's branch but GitHub isn't showing them as connected — is that set up right?",
+      "note": "situation phrasing: membership question without the word stack — tests routing on the circumstance alone"
     },
     {
       "prompt": "PR 2 of 4 got review comments — apply the fix there and propagate it to 3 and 4 without losing the approvals"
@@ -43,8 +45,8 @@
       "note": "built-in /code-review"
     },
     {
-      "prompt": "security review this PR before we merge",
-      "note": "security-diff-review"
+      "prompt": "land my chain of dependent merge requests on GitLab, bottom one first",
+      "note": "near-boundary: same stacked-landing intent on a non-GitHub host — the skill is gh-only and would hard-stop, so it must not claim it"
     },
     {
       "prompt": "triage the backlog and tell me what needs attention",

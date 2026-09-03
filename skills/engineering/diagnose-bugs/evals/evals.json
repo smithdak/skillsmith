@@ -62,6 +62,10 @@
     {
       "prompt": "is this change safe to merge? check the diff for vulnerabilities",
       "note": "near-boundary: security-diff-review's own trigger phrasing — diagnose-bugs declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "TDD this bugfix — failing test first, then the fix",
+      "note": "near-boundary: tdd's own bugfix phrasing — cause already understood, user wants the fix driven red-green; diagnose-bugs must not claim it"
     }
   ]
 }

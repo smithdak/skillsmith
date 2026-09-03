@@ -4,10 +4,10 @@
       "prompt": "do a deep research pass on the state of local-first sync engines — multiple sources, and verify the claims"
     },
     {
-      "prompt": "I need a comprehensive fact-checked report on how the major cloud providers price GPU instances"
+      "prompt": "every article I find on GPU instance pricing contradicts the last one — I need something I can actually put in front of finance"
     },
     {
-      "prompt": "fan out and research what actually happened in the WordPress vs WP Engine dispute — don't trust any single account"
+      "prompt": "nobody agrees on what actually happened in the WordPress vs WP Engine fight and I need the real timeline, not one side's blog post"
     },
     {
       "prompt": "research the agent-skills ecosystem thoroughly: standards, tooling, adoption — cross-check everything you find"

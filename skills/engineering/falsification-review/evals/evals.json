@@ -37,7 +37,8 @@
       "note": "how-to"
     },
     {
-      "prompt": "fix the failing test in auth.test.ts"
+      "prompt": "fix the failing test in auth.test.ts",
+      "note": "implementation task, no position under test"
     },
     {
       "prompt": "find bugs in this diff",
@@ -46,6 +47,18 @@
     {
       "prompt": "run a premortem on the migration plan",
       "note": "forward execution risks — premortem, not conclusion-testing"
+    },
+    {
+      "prompt": "Should I open a Roth or a traditional IRA? I'm 34, make 95k, and my employer doesn't match.",
+      "note": "near-boundary: discernment-nudge's own trigger phrasing — a personal advice request, no position of the user's under test"
+    },
+    {
+      "prompt": "grill me on this browser-extension idea before I write any code",
+      "note": "near-boundary: grilling's own trigger phrasing — no conclusion exists yet"
+    },
+    {
+      "prompt": "who games this new referral reward system, and how?",
+      "note": "near-boundary: second-order-effects' own trigger phrasing — consequence tracing, not premise testing"
     }
   ]
 }

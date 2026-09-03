@@ -51,6 +51,14 @@
     {
       "prompt": "write an architecture spec for our new ingestion service",
       "note": "near-boundary: architecture-spec's own trigger phrasing — deep-modules declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "get the legacy parser under test so we can finally touch it",
+      "note": "near-boundary: retrofit-tests' own trigger phrasing — wants tests written, not an interface redesigned"
+    },
+    {
+      "prompt": "let's build the coupon validation feature test-first",
+      "note": "near-boundary: tdd's own trigger phrasing — red-green development, not seam critique"
     }
   ]
 }

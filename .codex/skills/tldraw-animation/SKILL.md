@@ -47,9 +47,12 @@ mechanical motion).
 
 ## Durable loops (tldraw-offline embedded script)
 
-tldraw-offline can run raw JavaScript against the canvas with access to the
-`editor` and `window` objects, and store that script in the document so it runs
-on open. For continuous animation:
+tldraw-offline is a desktop tldraw app (separate from tldraw.com and the
+`tldraw` SDK) that runs raw JavaScript against the open canvas with `editor` and
+`window` in scope and can store that script in the document so it runs on open.
+A plain `.tldr` carries no scripts, so in tldraw.com or a stock SDK app a
+durable loop is not possible — say so and offer a timed transition triggered
+from app code instead. For continuous animation in tldraw-offline:
 
 - Drive a `requestAnimationFrame` loop that updates shape props each frame off a
   clock (`performance.now()`), and **keep a handle so it is cancelable** — an
@@ -59,10 +62,10 @@ on open. For continuous animation:
 - Bound the work: animate a handful of shapes, not hundreds; guard against the
   document being closed or the shape being deleted mid-loop.
 
-Authoring the script is this skill's job. Running it against the live canvas —
-opening the file, injecting the durable script, editing shapes — is what the
-`tldraw-offline` agent handles; hand execution to it rather than driving the app
-from here.
+Authoring the script is this skill's job. When the `tldraw-offline` agent skill
+is installed, hand execution — opening the file, injecting the durable script —
+to it; otherwise give the user the script and the app's steps for pasting it
+into the document.
 
 ## Constraints to state up front
 

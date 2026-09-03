@@ -50,11 +50,15 @@
     },
     {
       "prompt": "should we migrate our monolith to microservices?",
-      "note": "near-boundary: falsification-review's own trigger phrasing — security-diff-review declares this out of scope, so it must not claim it"
+      "note": "near-boundary: falsification-review's own trigger phrasing — a see-also neighbour this skill borrows a discipline from; a decision sanity-check with no code change must route to it, not here"
     },
     {
       "prompt": "threat model this payments service before we start the audit",
       "note": "near-boundary: threat-model's own trigger phrasing — security-diff-review declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "how should we fix these findings from the review?",
+      "note": "near-boundary: hardening-proposal's own trigger phrasing — remediation planning over an existing finding list, not a review of a change"
     }
   ]
 }

@@ -62,10 +62,10 @@ damage to trust.
 Rank each confirmed finding with the impact-times-likelihood frame and the
 deployment-context weighting in
 [references/severity-policy.md](references/severity-policy.md). Where a
-threat-model exists for the repository, its severity basis governs; this
-review inherits it rather than inventing a new scale. Reachability by an
-anonymous production request outranks a path that needs admin access or a
-local developer shell.
+threat model exists for the repository (`docs/THREAT_MODEL.md`, or wherever
+the user points), its severity basis governs; this review inherits it rather
+than inventing a new scale. Reachability by an anonymous production request
+outranks a path that needs admin access or a local developer shell.
 
 ## Report
 

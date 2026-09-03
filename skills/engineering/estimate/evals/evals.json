@@ -7,7 +7,7 @@
       "prompt": "roughly what would it cost to run this workload on GCP for a year?"
     },
     {
-      "prompt": "size the COBOL-to-Java rewrite before we commit to it — range, not a promise"
+      "prompt": "the CFO wants to know what the AWS bill looks like after we go to three regions and I don't have a number I trust"
     },
     {
       "prompt": "is the data backfill feasible before Q4 closes? put numbers on it and tell me how sure you are"
@@ -16,7 +16,7 @@
       "prompt": "how many support engineers do we need at 2x growth? work it out properly"
     },
     {
-      "prompt": "give me a defensible timeline for the SOC2 push — with your confidence stated"
+      "prompt": "we told the customer 'end of quarter' for the SOC2 controls and now I need to know if that was reckless"
     },
     {
       "prompt": "leadership wants a number for the SSO work by Friday and I don't want to just make one up",

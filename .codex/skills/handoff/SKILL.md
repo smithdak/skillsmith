@@ -39,7 +39,8 @@ Collect, in priority order:
 - Nothing that requires the conversation to interpret ("as discussed",
   "the earlier approach") — inline the referent or drop the item.
 - No secrets, tokens, or credentials, even redacted ones.
-- Default to one screen of content; split into sections only past ~40 lines.
+- Default to one screen of content. Keep the five sections below even when
+  short; omit an empty section rather than padding it.
 
 ## Output format
 

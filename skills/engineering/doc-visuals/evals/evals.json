@@ -52,6 +52,14 @@
     {
       "prompt": "split our FAQ into separate pages",
       "note": "structure/splitting — information-architecture"
+    },
+    {
+      "prompt": "make me a tldraw diagram of the deploy flow",
+      "note": "near-boundary: tldraw-diagram's own trigger phrasing — an editable canvas file, not a mermaid block in a document"
+    },
+    {
+      "prompt": "improve the readme, it's not doing us any favors on GitHub",
+      "note": "near-boundary: readme-authoring's own trigger phrasing — the page's claims and order, not its visual elements"
     }
   ]
 }

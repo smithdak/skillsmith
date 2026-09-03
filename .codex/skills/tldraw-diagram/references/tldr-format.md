@@ -38,6 +38,9 @@ omit `camera`, `instance`, and `instance_page_state` (session state).
 
 ### shape — geo box (rectangle, ellipse, diamond, …)
 
+Label prop drifts by schema: `props.text` below is the older form; newer SDKs
+use `props.richText` — copy whichever the exported sample carries.
+
 ```json
 {
   "id": "shape:box1", "typeName": "shape", "type": "geo",

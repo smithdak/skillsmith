@@ -82,4 +82,4 @@ is not guessable from the category alone.
 **Content**
 - [ ] Copy specific and in the product's voice; controls name their action.
 - [ ] Synthetic material labeled; no invented commercial claims.
-- [ ] `slop-detector.mjs` run clean (or every hit consciously resolved).
+- [ ] `scripts/slop-detector.py` run clean (or every remaining hit waived inline with `slop-ignore:` and the reason recorded).

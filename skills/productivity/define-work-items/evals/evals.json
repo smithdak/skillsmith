@@ -52,6 +52,10 @@
     {
       "prompt": "will the team understand this handoff doc without me there to explain it?",
       "note": "near-boundary: cold-read's own trigger phrasing — define-work-items declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "triage the backlog",
+      "note": "near-boundary: issue-triage's own trigger phrasing — routing filed items, not authoring a new one"
     }
   ]
 }

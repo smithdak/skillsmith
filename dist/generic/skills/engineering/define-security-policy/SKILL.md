@@ -33,8 +33,8 @@ Before drafting, settle the questions the policy answers:
   deprecated branches).
 - **Security invariants** — the properties the project commits to holding:
   tenant isolation, authentication on privileged routes, no secrets in
-  logs. A threat-model, where one exists, is the source of these; the policy
-  states them as public commitments.
+  logs. A threat model (`docs/THREAT_MODEL.md`, where one exists) is the
+  source of these; the policy states them as public commitments.
 - **Reportability criteria** — what counts as a reportable vulnerability
   versus an accepted limitation, so reporters self-filter.
 - **Accepted risks and exclusions** — the things that are known and

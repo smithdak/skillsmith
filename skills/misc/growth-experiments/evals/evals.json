@@ -50,6 +50,10 @@
     {
       "prompt": "interpret this churn cohort chart",
       "note": "descriptive analysis, no controlled experiment"
+    },
+    {
+      "prompt": "rate these two email subject line variants and tell me which wins",
+      "note": "near-boundary: content-scorer's own trigger phrasing — no traffic, no counts, so this is panel judgment, not a significance test; growth-experiments must not claim it"
     }
   ]
 }

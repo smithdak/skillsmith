@@ -59,12 +59,14 @@ not forever.
 
 Sections, in order:
 
-1. **Status and date** — proposed / accepted / superseded-by-N.
+1. **Status, date, and reversibility class** — proposed / accepted /
+   superseded-by-N, and whether this is a two-way or one-way door.
 2. **Context** — the forces and the goal, with dated volatile facts.
-3. **Options considered** — each with its tradeoffs, including the
-   rejected ones *with the reason they lost*. This section is the
-   anti-relitigation device: a future reader re-proposing a rejected
-   option must first explain what changed.
+3. **Options considered** — the tradeoff matrix: each live option
+   scored on the dimensions that decide this class of choice, unknown
+   cells marked unknown, plus the rejected options *with the reason
+   they lost*. This section is the anti-relitigation device: a future
+   reader re-proposing a rejected option must first explain what changed.
 4. **Decision** — what was chosen and the driver that decided it.
 5. **Consequences** — what becomes easier, what becomes harder, what
    is now accepted risk. Honest negatives are the part future readers

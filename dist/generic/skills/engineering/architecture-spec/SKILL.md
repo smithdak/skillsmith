@@ -10,6 +10,7 @@ description: >-
 license: MIT
 metadata:
   skillsmith-composes: "doc-visuals, falsification-review"
+  skillsmith-see-also: "ground-truth-research"
   skillsmith-invocation: "user"
   skillsmith-maturity: "stable"
 user-invocable: true
@@ -65,6 +66,8 @@ documentation the spec contains.
 Run the falsification-review discipline on the draft: strongest
 counterargument to the central architecture choice, the crux per major
 decision, and confidence with drivers. For a spec the team will build
-against, escalate to the falsification-reviewer agent with the complete
-document. Resolve or register every finding — a finding converted into an
+against, escalate to the falsification-reviewer agent (shipped with the
+epistemics plugin) with the complete document; if that agent is not
+installed, run the same pass inline with the full document in context.
+Resolve or register every finding — a finding converted into an
 O-item is handled; a finding ignored is a defect.

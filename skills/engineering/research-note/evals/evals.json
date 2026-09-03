@@ -51,6 +51,10 @@
     {
       "prompt": "what's the latest version of Bun and does it compile to Windows targets",
       "note": "near-boundary: ground-truth-research's own trigger phrasing — research-note declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "fan out and research what actually happened in the WordPress vs WP Engine dispute — don't trust any single account",
+      "note": "near-boundary: deep-research's own trigger phrasing — broad, contested, needs parallel investigators; research-note must not claim it"
     }
   ]
 }

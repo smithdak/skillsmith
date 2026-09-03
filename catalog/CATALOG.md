@@ -186,4 +186,5 @@ tldraw canvas tooling: author editable .tldr files from a description, convert M
 
 | Skill | Script | Interpreter | Network | SHA-256 |
 |---|---|---|---|---|
-| tldraw-diagram | scripts/validate_tldr.py | python3 | no | `a3e66f9d7061a729…` |
+| tldraw-diagram | scripts/__pycache__/validate_tldr.cpython-312.pyc | unknown | no | `7106211c765ff402…` |
+| tldraw-diagram | scripts/validate_tldr.py | python3 | no | `53d590ff21477ab0…` |

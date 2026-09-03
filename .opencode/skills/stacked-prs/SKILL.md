@@ -47,9 +47,11 @@ or a conflicting order need the user's direction before any mutation.
 ## Link missing members
 
 When a dependent PR is not yet in the official stack, compare every
-`author.login`. All the same author → link the chain bottom-to-top with
-`gh stack link --base <trunk> <bottom> … <top>`. Mixed or unavailable
-authors → ask before changing GitHub state. Re-query afterwards and require
+`author.login`. All the same author → the chain is safe to link bottom-to-top
+with `gh stack link --base <trunk> <bottom> … <top>`, though linking is still
+the first mutation and needs the user's confirmation unless they already said
+to proceed. Mixed or unavailable authors → additionally ask before changing
+GitHub state. Re-query afterwards and require
 one stack number, the expected trunk, the complete PR set, and the expected
 positions. Never dissolve, reorder, or rebuild an existing stack
 automatically; `gh stack link` is additive, and merged or queued entries

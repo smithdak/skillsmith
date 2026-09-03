@@ -46,7 +46,7 @@
     },
     {
       "prompt": "make the settings modal keyboard accessible",
-      "note": "targeted fix on existing UI — frontend-redesign/craft audit"
+      "note": "targeted accessibility fix on existing UI — frontend-redesign"
     },
     {
       "prompt": "write the homepage marketing copy",
@@ -59,6 +59,10 @@
     {
       "prompt": "the repository map in our README is really hard to read — fix it",
       "note": "near-boundary: doc-visuals's own trigger phrasing — frontend-craft declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "critique our landing page design before we show investors",
+      "note": "near-boundary: frontend-critique's own trigger phrasing — frontend-craft declares reviewing a finished interface out of scope, so it must not claim it"
     }
   ]
 }

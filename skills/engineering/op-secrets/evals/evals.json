@@ -1,7 +1,7 @@
 {
   "should_trigger": [
     {
-      "prompt": "replace my .env secrets with 1Password op:// references"
+      "prompt": "new hires keep asking me to Slack them the Stripe test key — can the repo just reference it in 1Password so they run one command?"
     },
     {
       "prompt": "set up op run so this project pulls its API keys from 1Password"
@@ -58,6 +58,10 @@
     {
       "prompt": "make me a setup wizard for Supabase — env keys, auth redirect URLs, the works",
       "note": "near-boundary: wizard's own trigger phrasing — op-secrets declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "wrap the deploy step in op run inside our GitHub Actions job",
+      "note": "near-boundary: both skills use op run, but a GitHub Actions job belongs to op-github-secrets"
     }
   ]
 }

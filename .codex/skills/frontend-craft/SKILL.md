@@ -139,10 +139,11 @@ Build fully, inspect once — desktop and mobile screenshots together
 in one batched round — fix everything that round shows in one batch,
 confirm with at most one more round, and stop polishing. Open-ended
 self-QA burns the session doing worse what a final review does better.
-Run `scripts/slop-detector.mjs <files-or-dir>` once before delivering:
-it deterministically catches the highest-signal slop patterns in
-markup/CSS; act on its hits, and treat a clean run as necessary, not
-sufficient.
+Run `python scripts/slop-detector.py <files-or-dir>` once before
+delivering (exit 1 = hits; waive a deliberate pattern inline with
+`<!-- slop-ignore: <rule-id> -->`): it deterministically catches the
+highest-signal slop patterns in markup/CSS; act on its hits, and treat
+a clean run as necessary, not sufficient.
 
 ## Boundaries
 

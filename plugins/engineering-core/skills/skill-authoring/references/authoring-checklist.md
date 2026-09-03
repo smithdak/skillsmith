@@ -42,10 +42,11 @@ repo-root NOTICES.md.*
 - **Update suppressors** — "work silently", "don't narrate your progress",
   "hold all findings for the end". Written against models that over-narrated;
   current ones under-narrate, so the instruction removes updates the reader
-  wanted. State when user-facing text *is* wanted instead (V15).
+  wanted. State when user-facing text *is* wanted instead (skillsmith
+  validator rule V15 flags these).
 - **Blanket anti-formatting rules** — "never use bullets", "no headers".
   Current models under-format, so the ban strips structure the reader wanted.
-  Say when formatting is appropriate instead (V15).
+  Say when formatting is appropriate instead.
 - **Scaffolding for a weaker model** — enumerated steps for judgment work,
   emphasis added because an instruction was once underweighted, prohibitions
   against habits the model no longer has. Prescription that outlived its

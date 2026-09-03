@@ -52,8 +52,8 @@
       "note": "deck construction"
     },
     {
-      "prompt": "expert panel this blog post before I publish it",
-      "note": "near-boundary: content-scorer's own trigger phrasing — outbound-builder declares this out of scope, so it must not claim it"
+      "prompt": "panel-review this cold email before it goes to 500 prospects",
+      "note": "near-boundary: content-scorer's own trigger phrasing — same artifact (a cold email), but the ask is to score a finished draft, not to build or rewrite the cadence; outbound-builder must not claim it"
     }
   ]
 }

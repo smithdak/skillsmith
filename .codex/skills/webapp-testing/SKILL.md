@@ -49,10 +49,11 @@ supposed to do; the browser shows what it does.
    fixed sleeps.
 
 Always launch Chromium headless, use one viewport for the whole run, and
-close the browser when done. Keep inspection rounds **bounded**: gather
-desktop and mobile evidence in one batched round, apply fixes in one
-batch, confirm with at most one more round, then stop — open-ended
-screenshot-fix loops burn the session without converging faster than
+close the browser when done. Keep inspection rounds **bounded**: one
+reconnaissance round (add a mobile viewport only when the question is
+about layout), one action-and-assert round, and at most one confirming
+round after any fix the user or another skill applies — open-ended
+screenshot loops burn the session without converging faster than
 that. Patterns for element discovery, static-file
 automation, and console capture, in both Python and TypeScript, are in
 [references/playwright-patterns.md](references/playwright-patterns.md).

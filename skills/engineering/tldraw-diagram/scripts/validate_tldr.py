@@ -5,10 +5,10 @@ Checks, per the tldraw-diagram skill's verify bar:
   - file parses as JSON
   - required top-level keys: tldrawFileFormatVersion, schema, records
   - every record has a typeName and a unique id
-  - id prefixes are well-formed (shape:, page:, binding:, asset:, instance:)
+  - id prefixes are well-formed (document:, shape:, page:, binding:, asset:, plus session-state prefixes)
   - every non-null parentId resolves to an existing record
   - every arrow binding fromId/toId resolves to existing records
-  - document records only (instance:* session state is reported as a warning)
+  - document records only (session-state records — instance:, instance_page_state:, camera:, pointer: — are reported as a warning)
 
 Usage: validate_tldr.py <file.tldr> [more.tldr ...]
 Exit 0 = clean; exit 1 = errors found. Errors and counts print to stdout.
@@ -17,8 +17,9 @@ import json
 import sys
 
 REQUIRED_KEYS = ("tldrawFileFormatVersion", "schema", "records")
-ALLOWED_PREFIXES = ("shape:", "page:", "binding:", "asset:", "instance:")
-DOCUMENT_PREFIXES = ("shape:", "page:", "binding:", "asset:")
+ALLOWED_PREFIXES = ("document:", "shape:", "page:", "binding:", "asset:", "instance:", "instance_page_state:", "camera:", "pointer:")
+DOCUMENT_PREFIXES = ("document:", "shape:", "page:", "binding:", "asset:")
+SESSION_PREFIXES = ("instance:", "instance_page_state:", "camera:", "pointer:")
 
 
 def fail(errors, path, msg):
@@ -60,7 +61,7 @@ def validate(path):
             continue
         if not rid.startswith(ALLOWED_PREFIXES):
             fail(errors, path, f"id prefix not recognized: {rid}")
-        if rid.startswith("instance:"):
+        if rid.startswith(SESSION_PREFIXES):
             instance_count += 1
         if rid in by_id:
             dupes.add(rid)
@@ -90,7 +91,7 @@ def validate(path):
 
     if instance_count:
         warnings.append(
-            f"{path}: {instance_count} instance:* session-state record(s); "
+            f"{path}: {instance_count} session-state record(s) (instance:/camera:/pointer:); "
             "generated files can omit them"
         )
 

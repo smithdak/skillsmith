@@ -35,6 +35,11 @@ its token is set as a GitHub secret — with the token value never echoed.
 ## 2 — Reference secrets, don't store them
 
 For each secret a workflow needs, pick its `op://vault/item/field` reference.
+Use references the user confirms exist (or have them run
+`op item get <item> --vault <vault>` and report the field names) — do not
+invent vault, item, or field names; a wrong reference fails only when the job
+runs. If an item is missing, list the `op item create` command for the human
+rather than guessing a path.
 Config that is not secret (public URLs, ids) stays as plain workflow env or
 repo variables — do not route it through the vault.
 
@@ -67,8 +72,11 @@ repo's existing action-pinning convention.
 - Every job that previously read `${{ secrets.X }}` now either loads `X` via the
   action or wraps its command in `op run`; the only remaining stored secret is
   the service-account token.
-- No step echoes a secret; confirm masking by checking that a deliberately
-  referenced value shows as `***` in a test log, not by printing the real value.
+- No step echoes a real secret. Prove resolution by exit status: the load step
+  succeeds and a downstream step that needs the value succeeds. If the user
+  wants to see masking work, load one throwaway non-secret item (e.g.
+  `MASK_CANARY: op://CI/masking-canary/value` holding a known dummy string) and
+  echo only that — it should print as `***`.
 - The service account is read-only and vault-scoped — over-broad access is the
   main risk here.
 - Report which references CI now depends on and confirm the token secret name

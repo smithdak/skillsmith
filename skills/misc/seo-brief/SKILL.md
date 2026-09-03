@@ -56,6 +56,13 @@ tutorial. Fighting the implied format is a ranking disadvantage.
 
 ## Map what ranks and what it misses
 
+If a web search or fetch tool is available, pull the current top
+results for the keyword and base the map on them, noting the date. If
+not, say so explicitly in the brief — the map is then from training
+knowledge, the gap analysis is a hypothesis to verify against a live
+search before writing — and keep the section header as "What ranks
+(unverified)".
+
 Describe the top-ranking content for the target keyword. Name the
 common structure (what sections appear in most top results), the
 questions those pieces answer, and — critically — the questions

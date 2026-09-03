@@ -57,7 +57,10 @@ them, with nothing persisted:
 
 - **`op run -- <command>`** runs the command with the referenced secrets present
   as environment variables for the process lifetime only, and masks them in
-  output. This is the default for local dev and CI steps.
+  output. This is the default for local dev and for any non-GitHub runtime
+  (a server, a container entrypoint). For GitHub Actions jobs, stop here and
+  hand off to op-github-secrets — it holds the one-token/service-account
+  model for CI.
 - **`op inject`** templates a file of references into resolved values — use only
   when a tool cannot read env vars, and never write the output to a committed
   path.
@@ -68,8 +71,8 @@ service account scoped to the minimum vaults.
 
 ## 4 — Verify without leaking
 
-- `op run --no-masking -- printenv` is **not** how to check — that defers
-  masking. Instead confirm resolution succeeds via exit status and that the app
+- `op run --no-masking -- printenv` is **not** how to check — that switches
+  masking off, so every resolved value prints in clear. Instead confirm resolution succeeds via exit status and that the app
   starts; never echo values to prove they resolved.
 - Confirm the committed template contains only `op://` references and plain
   config — grep the diff for anything key-shaped before it is staged.

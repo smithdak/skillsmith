@@ -42,7 +42,9 @@ Three levels, each with a tighter budget than the last:
 1. **Description** — always in context. A sentence or two. Costs tokens on
    every turn whether or not the skill fires, so it stays lean.
 2. **Body (SKILL.md)** — loaded on trigger. The workflow itself, kept under
-   the body ceiling. Everything the model needs *every time* the skill runs.
+   the body ceiling — 500 lines / 5,000 tokens unless the host repository's
+   policy sets a tighter one. Everything the model needs *every time* the
+   skill runs.
 3. **References** — loaded on demand, one level deep. Templates, rubrics,
    long tables, class-specific detail the model needs *sometimes*. A body
    that inlines what belongs in a reference pays its cost on every run.
@@ -89,7 +91,7 @@ ones that bite most often:
 
 A finished skill has: a description that a stranger could use to decide,
 correctly, whether it applies — carrying what, when, and a differentiator;
-a body under budget that assumes the skill has already been chosen; on-demand
+a body under that budget that assumes the skill has already been chosen; on-demand
 detail in flat references; and evals that pin real triggering phrasings, not
 restatements of the description. Read the description back as if you were the
 router: if two neighboring skills would both claim the same prompt, the

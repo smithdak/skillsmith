@@ -55,6 +55,10 @@
     {
       "prompt": "build a landing page for our developer tool",
       "note": "near-boundary: frontend-craft's own trigger phrasing — frontend-redesign declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "what do you think of this dashboard UI? give me a real design review with scores — don't change anything yet",
+      "note": "near-boundary: frontend-critique's own trigger phrasing (assessment without fixes) — frontend-redesign declares this out of scope, so it must not claim it"
     }
   ]
 }

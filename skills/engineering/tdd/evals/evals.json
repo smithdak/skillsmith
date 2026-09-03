@@ -51,6 +51,10 @@
     {
       "prompt": "this service class has 40 public methods — help me shrink the interface",
       "note": "near-boundary: deep-modules's own trigger phrasing — tdd declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "I keep getting 'cannot read properties of undefined' somewhere inside the cart reducer — help me find where it actually comes from",
+      "note": "near-boundary: diagnose-bugs' own trigger phrasing — mechanism unknown, so diagnosis precedes any failing test; tdd must not claim it"
     }
   ]
 }

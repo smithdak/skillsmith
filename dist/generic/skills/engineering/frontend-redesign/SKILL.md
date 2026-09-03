@@ -108,6 +108,9 @@ The output names the derived system, states refine-vs-replace up
 front, lists diagnosed findings across all three axes each with its
 minimal fix, and orders fixes by impact-per-effort. Applied changes
 preserved behavior and did not regress accessibility. The detector ran
-clean over touched files. A "redesign" that rewrote what was asked to
+over touched files and every remaining hit is either fixed or an
+incumbent-identity choice recorded in the findings and waived inline
+with `slop-ignore: <rule-id>` — a refinement pass does not strip the
+display face the product already owns. A "redesign" that rewrote what was asked to
 be refined — or a refinement that left the specificity findings
 unspoken — has done a different job than the one asked for.

@@ -1,6 +1,6 @@
 # AI-slop patterns
 
-*Adapted from petergyang/no-ai-slop (MIT); see repo-root NOTICES.md.*
+*Adapted from petergyang/no-ai-slop (MIT, https://github.com/petergyang/no-ai-slop); full license text in the skillsmith repository's NOTICES.md.*
 
 The tells that mark writing as machine-generated. Use this list two ways:
 as anti-patterns to exclude when writing a voice spec, and as a checklist

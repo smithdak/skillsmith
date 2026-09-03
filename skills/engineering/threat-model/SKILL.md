@@ -51,7 +51,9 @@ depends on who can reach it.
 
 ## Produce the model
 
-Write these sections:
+Write the model to `docs/THREAT_MODEL.md` at the repository root (or the
+path the user names — confirm it in the reply), so a later diff review or
+SECURITY.md can find and cite it. Sections:
 
 - **Overview** — what the system is, what it protects, and the one or two
   assets whose compromise would matter most.

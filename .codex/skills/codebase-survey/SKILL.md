@@ -24,8 +24,10 @@ Execute both bundled scripts from the repo root and use their output only:
 
 - `scripts/inventory.sh <repo-root>` — size and shape: file counts by
   extension, line counts, top-level structure, largest files.
-- `scripts/deps.sh <repo-root>` — every dependency manifest present, with
-  dependency counts per manifest.
+- `scripts/deps.sh <repo-root>` — every dependency manifest within three
+  directory levels, with dependency counts for package.json, go.mod,
+  Cargo.toml, and requirements.txt; other manifests (pyproject.toml,
+  Gemfile, pom.xml, build.gradle) are listed for manual inspection.
 
 These are scripts because their answers are facts: recomputing them by
 reading files burns context and invites transcription errors.

@@ -1,6 +1,6 @@
 {
   "name": "engineering-core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose",
   "author": {
     "name": "Dakota"

@@ -24,7 +24,12 @@ the product. A cold email needs a busy VP who deletes 90% of their
 inbox before the second sentence. Always include:
 
 - **AI Humanizer** — scores whether the prose reads as human or
-  generated. Weight: 1.5×. Non-negotiable on every content type.
+  generated: hollow reach-for-impact words (delve, leverage,
+  seamless), "it's not X, it's Y" contrast puffery, throat-clearing
+  openers, importance puffery ("crucially"), synonym cycling, uniform
+  sentence rhythm, and summary-recap endings. Weight: 1.5x, on every
+  content type, because generated-sounding prose is the defect a
+  model-written revision is most likely to introduce.
 - **Target Reader** — scores whether someone who matches the intended
   audience would keep reading and take the desired action.
 
@@ -49,8 +54,11 @@ Rules for revision:
   user rather than picking a side.
 - Do not add length to satisfy a score. If a panelist wanted more
   depth, that depth should replace something weaker, not pad the end.
-- The AI Humanizer's 1.5× weight means a humanizer score below 7
-  blocks a passing aggregate. Fix prose before other dimensions.
+- A Humanizer score below 7 is a hard block: treat the round as
+  failing regardless of the aggregate, because generated-sounding
+  prose is the defect a model-written revision is most likely to
+  introduce and the one readers forgive least. Fix prose before other
+  dimensions.
 
 ## Report honestly
 

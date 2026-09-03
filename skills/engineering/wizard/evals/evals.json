@@ -41,8 +41,8 @@
       "note": "explanation of existing code, not a generated procedure"
     },
     {
-      "prompt": "automate nightly database backups",
-      "note": "unattended automation, no human journey"
+      "prompt": "stop pasting secrets into GitHub repo settings — have CI pull them from 1Password",
+      "note": "near-boundary: op-github-secrets's own trigger phrasing — wizard writes gh secrets as a side effect of a human journey, it does not own CI-side secret loading"
     },
     {
       "prompt": "explain how IAM roles work",

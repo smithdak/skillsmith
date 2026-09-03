@@ -40,7 +40,7 @@
     },
     {
       "prompt": "write the annual report",
-      "note": "reporting artifact, forward-looking state doc"
+      "note": "reporting artifact — a backward-looking summary, not a forward-looking state doc"
     },
     {
       "prompt": "email Sarah a status update",
@@ -49,6 +49,14 @@
     {
       "prompt": "will the team understand this handoff doc without me there to explain it?",
       "note": "near-boundary: cold-read's own trigger phrasing — handoff declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "write up what went wrong with the sync job",
+      "note": "near-boundary: postmortem's own trigger phrasing — retrospective, not forward-looking state"
+    },
+    {
+      "prompt": "write a ticket for the login timeout bug",
+      "note": "near-boundary: define-work-items' own trigger phrasing — work not yet done, not work in flight"
     }
   ]
 }

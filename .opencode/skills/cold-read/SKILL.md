@@ -54,8 +54,9 @@ checked for. For deliverables leaving the session — handoffs, runbooks,
 work items someone else will execute — spawn the `cold-reader` agent with
 the document and the named audience only, never the conversation: the
 agent's ignorance is the instrument. Reserve the agent for documents
-others will act on (subagent review costs ~7x tokens); inline passes
-suffice while a draft is still iterating in-session.
+others will act on (a subagent review costs several times the tokens of an
+inline pass); inline passes suffice while a draft is still iterating
+in-session.
 
 ## Failure handling
 

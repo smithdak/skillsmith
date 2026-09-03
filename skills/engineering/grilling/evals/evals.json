@@ -4,7 +4,7 @@
       "prompt": "grill me on this browser-extension idea before I write any code"
     },
     {
-      "prompt": "we're thinking of adding multi-tenant support — interrogate me until the scope is actually clear"
+      "prompt": "I keep changing my mind about what the MVP for the scheduling tool even is — help me pin it down before I open the editor"
     },
     {
       "prompt": "poke holes in my onboarding flow concept — where is it still fuzzy?"
@@ -19,7 +19,7 @@
       "prompt": "interrogate this idea before we staff it: an internal marketplace for reusable components"
     },
     {
-      "prompt": "help me think through the freemium boundary — ask me everything I haven't decided"
+      "prompt": "we've got a one-pager for the multi-tenant thing but every time someone reads it they ask a question nobody can answer"
     },
     {
       "prompt": "I've got a rough concept for usage-based pricing — push back on it hard before I waste a month",

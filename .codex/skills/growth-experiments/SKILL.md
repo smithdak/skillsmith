@@ -5,6 +5,7 @@ license: "MIT"
 metadata:
   skillsmith-invocation: "user"
   skillsmith-maturity: "experimental"
+  skillsmith-see-also: "content-scorer"
 ---
 
 # growth-experiments
@@ -43,10 +44,16 @@ overrides a primary metric win.
 the user: what is the smallest improvement that would change a
 decision? Use that as MDE. Run the bundled calculator rather than
 computing by hand — `python3 scripts/experiment_stats.py design
---baseline <rate> --mde <effect> --daily-traffic <sessions/day>` prints
-required n per variant at 80% power and 95% confidence (two-tailed),
-the estimated runtime in days, and a warning when runtime exceeds four
-weeks (long tests accumulate time-series confounds).
+--baseline <rate> --mde <effect> --mde-type relative|absolute
+--daily-traffic <sessions/day>` prints required n per variant at 80%
+power and 95% confidence (two-tailed), the estimated runtime in days,
+and a warning when runtime exceeds four weeks (long tests accumulate
+time-series confounds). `--mde-type` decides how `--mde` is read; the
+script defaults to relative. A user who says "a 3-point lift" means
+absolute (`--mde 0.03 --mde-type absolute`); one who says "15% better"
+means relative (`--mde 0.15`). Echo the `mde_absolute` and
+`expected_variant_rate` fields from the output back to the user so a
+mismatch is caught before the sample size is trusted.
 
 **Flag pre-experiment confounds.** Check for: novelty effect
 (change that wears off), seasonality (test spans a known traffic

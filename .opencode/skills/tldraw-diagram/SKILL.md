@@ -36,8 +36,9 @@ So never invent the schema from memory. Anchor to a real export:
 
 If no export is available, generate against the skeleton in
 [references/tldr-format.md](references/tldr-format.md) and tell the user it
-targets the current tldraw v3 format and may need a re-save if their version
-differs. Treat that as a fallback, not the default path.
+targets the tldraw v3-era record format — the skeleton's props may lag the
+installed SDK — and may need a re-save in their tldraw version. Treat that as a
+fallback, not the default path.
 
 ## Author the records
 
@@ -54,8 +55,10 @@ differs. Treat that as a fallback, not the default path.
    attached when a box moves needs a `binding` record (`type: "arrow"`,
    `fromId` = the arrow, `toId` = the shape) per endpoint — not just start/end
    points. Match how the exported sample encodes them.
-5. **Text lives on shapes.** A labeled box carries its label in the geo shape's
-   `props.text`; use a standalone `text` shape only for free-floating labels.
+5. **Text lives on shapes.** A labeled box carries its label on the geo shape's
+   label prop — `props.text` in older schemas, `props.richText` in newer ones;
+   copy whichever the exported sample uses. Use a standalone `text` shape only
+   for free-floating labels.
 
 ## Verify before handing off
 

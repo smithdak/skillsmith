@@ -66,8 +66,9 @@ tokens).
   confirm briefly and move on — a clean bill of health is a valid finding.
 - One pass per conclusion. Re-running until an objection appears is
   p-hacking, not rigor.
-- The pass produces content for the response (counterargument, crux,
-  confidence), not narration about having performed it.
+- The pass's product is content in the response — counterargument, crux,
+  confidence. A one-line note that the position survived the pass is
+  useful; a play-by-play of the pass is not.
 
 ## Verify before returning
 

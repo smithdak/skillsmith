@@ -6,6 +6,7 @@ metadata:
   skillsmith-composes: "output-contract"
   skillsmith-invocation: "model"
   skillsmith-maturity: "experimental"
+  skillsmith-see-also: "writing-for-agents"
 ---
 
 # voice-setup
@@ -24,6 +25,10 @@ offering:
 
 - `repo_agents_md` / `repo_claude_md`: `absent`, `unmanaged`, or `managed`.
 - `global_claude_md` / `global_opencode_agents_md`: same states, under `$HOME`.
+- `repo_opencode_dir` / `repo_opencode_config` / `global_opencode_config`:
+  presence signals only — they confirm opencode is in use, which makes
+  `AGENTS.md` (repo) or `~/.config/opencode/AGENTS.md` (global) the right
+  target. The block is never written into JSON config.
 - `shadowing_hazard`: warns that creating the global opencode AGENTS.md will
   shadow an existing `~/.claude/CLAUDE.md` fallback.
 
@@ -33,30 +38,34 @@ Ask with concrete options, never open-ended:
 
 1. **Scope** — repo `AGENTS.md`, repo `CLAUDE.md`, both, plus any global
    file. Global writes require explicit consent, every time.
-2. **Tuning** — recommended default (all bans, reading order on, no caps) or
-   custom: drop reading-order? soften caps on (`--caps soft`)? drop any ban
-   item (`--ban` subset)? Point at `references/presets.md` semantics when
-   the user asks what a toggle does.
+2. **Tuning** — recommended default (all five reply rules, reading order
+   on, no caps) or custom: drop the file rule (`--no-reading-order`)? add a
+   soft length line (`--caps soft`)? drop any reply rule (`--rules` subset
+   of `preambles,narration,recaps,reexplain,format`)? Point at
+   `references/presets.md` when the user asks what a toggle does.
 
-### 3. Preview, then apply
+### 3. Handle the shadowing hazard
+
+When `shadowing_hazard` is set and the user chooses
+`~/.config/opencode/AGENTS.md`, say before asking consent that opencode will
+stop reading `~/.claude/CLAUDE.md` entirely, and offer one fix: append a
+one-line pointer into `~/.claude/CLAUDE.md` (or symlink one file to the
+other) so neither loader loses its rules.
+
+### 4. Preview, then apply
 
 Run `scripts/apply-contract.sh --dry-run` with the chosen flags, show the
 rendered block, get confirmation, then run it for real. The script replaces
 an existing managed block in place and never touches content outside the
 markers; unmanaged files get the block appended.
 
-### 4. Handle the shadowing hazard
-
-When targeting `~/.config/opencode/AGENTS.md` while `~/.claude/CLAUDE.md`
-exists without the contract, say so plainly and offer one fix: append a
-one-line pointer into `~/.claude/CLAUDE.md` (or symlink one file to the
-other) so neither loader loses its rules.
-
 ### 5. Verify and report
 
-Re-run `scripts/detect-harnesses.sh` and report one line per target:
-`created | updated | appended <path>`. Remind that instruction files load at
-session start — quit and restart the agent session for them to take effect.
+Re-run `scripts/detect-harnesses.sh`: every chosen target must now read
+`managed`; anything else is a failed apply. Then report one line per target
+using apply-contract's own output (`created | updated | appended <path>`) and
+remind that instruction files load at session start — quit and restart the
+agent session for them to take effect.
 
 ## Boundaries
 

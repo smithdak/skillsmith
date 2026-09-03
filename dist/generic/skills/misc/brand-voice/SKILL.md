@@ -103,5 +103,8 @@ output, corporate filler, or a sample that didn't fit the pattern).
 Write the voice spec to `brand-voice.md` in the project root (or
 the location the user specifies). Return the spec inline and confirm
 the path. A saved file means the spec can be referenced in future
-sessions — paste it into prompts for content-scorer or
-outbound-builder to enforce voice in those workflows.
+sessions — paste it into the prompt for outbound-builder (or any
+drafting task) so new copy is written in voice from the start.
+content-scorer does not enforce a voice spec; if voice compliance
+matters, ask for it as a separate check against `brand-voice.md`
+rather than expecting the panel to do it.

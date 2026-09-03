@@ -4,7 +4,7 @@
       "prompt": "create an AGENTS.md so codex stops putting tests in the wrong folder"
     },
     {
-      "prompt": "our CLAUDE.md is three years stale — rewrite it from how the repo actually works now"
+      "prompt": "the repo instructions file says to run yarn but we moved to bun a year ago and agents keep failing on install — fix the file so it matches reality"
     },
     {
       "prompt": "agents keep editing generated files; encode that boundary somewhere they'll actually read it"

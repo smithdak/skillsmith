@@ -41,6 +41,14 @@
     {
       "prompt": "you've been way too verbose lately. shorter replies from now on.",
       "note": "near-boundary: output-contract's own trigger phrasing — voice-setup declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "agents keep editing generated files; encode that boundary somewhere they'll actually read it",
+      "note": "near-boundary: writing-for-agents' own trigger phrasing — an AGENTS.md/CLAUDE.md rule that is not the reply-shape block, so voice-setup must not claim it"
+    },
+    {
+      "prompt": "create an AGENTS.md so codex stops putting tests in the wrong folder",
+      "note": "near-boundary: instruction-file authoring for conventions, not the output contract"
     }
   ]
 }

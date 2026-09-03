@@ -45,7 +45,7 @@
     },
     {
       "prompt": "find the bug in the checkout flow",
-      "note": "debugging, not documenting — no skill"
+      "note": "near-boundary: active debugging — diagnose-bugs claims it; postmortem declares 'debugging the bug itself' out of scope"
     },
     {
       "prompt": "research how Postgres advisory locks behave under failover and leave notes in the repo",

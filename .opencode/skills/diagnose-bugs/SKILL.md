@@ -37,8 +37,9 @@ No hypothesis work starts before the bug reproduces on demand:
   clue. Ask for the missing environment detail rather than
   simulating confidence.
 
-**Done when:** a single command fails on demand, and its output is
-captured.
+**Done when:** a single command fails on demand — or, for flakes and
+regressions, fails at a measured rate or exceeds a measured threshold
+under a fixed command and iteration count — and its output is captured.
 
 ## Phase 2 — Read the evidence before theorizing
 
@@ -91,8 +92,8 @@ declared — leftover debug output is its own defect.
   (The red-green mechanics are the tdd discipline.)
 - Re-run the full suite, not just the new test — fixes move
   behavior, and neighbors break quietly.
-- Explain the mechanism in one paragraph: what was wrong, why it
-  produced the observed symptom, why the fix holds. If the root
+- Explain the mechanism as cause, not correlation: what was wrong,
+  why it produced the observed symptom, why the fix holds. If the root
   cause was subtle, systemic, and costly to rediscover, offer the
   postmortem discipline for the write-up.
 
@@ -103,15 +104,19 @@ declared — leftover debug output is its own defect.
   never deleted quietly.
 - No speculative hardening shipped alongside the fix — unrelated
   "while we're in here" changes become separate suggestions.
-- If the mechanism stays out of reach after a real effort through
-  this loop, stop at the evidence: report what was established,
-  what was excluded, and the sharpest open question — do not
-  present a guess as a diagnosis.
+- If the loop stalls, work through `references/stuck-protocol.md`
+  (re-read the raw evidence, list and check assumptions, change
+  altitude, invert the search, check the domain gotchas) before
+  giving up. If the mechanism is still out of reach, stop at the
+  evidence: report what was established, what was excluded, and the
+  sharpest open question — do not present a guess as a diagnosis.
 
 ## Verify before returning
 
 The original repro was shown failing before the fix and passing
-after it, by command. A regression test pins the mechanism and the
+after it (for flakes and regressions: across the same iteration
+count, at the pre-fix rate versus zero / under the threshold), by
+command. A regression test pins the mechanism and the
 full suite is green. All temporary instrumentation is gone. The
 closing explanation states the mechanism — cause, not just
 correlation — and names the evidence that proved it.

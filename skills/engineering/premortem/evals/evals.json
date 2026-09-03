@@ -10,10 +10,10 @@
       "prompt": "before we sign this vendor contract, stress-test it: what kills this a year from now?"
     },
     {
-      "prompt": "run a premortem on the Q3 replatform plan and give me kill triggers for the big risks"
+      "prompt": "the replatform plan is signed off and nobody on the review raised anything — that can't be right, where would this actually come apart?"
     },
     {
-      "prompt": "we sign the datacenter-exit contract Friday — premortem the migration plan first"
+      "prompt": "we exit the datacenter Friday. if this turns into a six-month disaster, what would the postmortem say the first warning sign was?"
     },
     {
       "prompt": "stress-test our SOC2 timeline: assume we missed the audit date; write me the story of why"
@@ -53,11 +53,11 @@
     },
     {
       "prompt": "write an architecture spec for our new ingestion service",
-      "note": "near-boundary: architecture-spec's own trigger phrasing — premortem declares this out of scope, so it must not claim it"
+      "note": "near-boundary: architecture-spec's own trigger phrasing — a see-also neighbour whose request this skill routes to, so it must not claim it"
     },
     {
       "prompt": "write a ticket for the login timeout bug",
-      "note": "near-boundary: define-work-items's own trigger phrasing — premortem declares this out of scope, so it must not claim it"
+      "note": "near-boundary: define-work-items's own trigger phrasing — a see-also neighbour whose request this skill routes to, so it must not claim it"
     }
   ]
 }

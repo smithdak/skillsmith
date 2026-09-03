@@ -54,6 +54,14 @@
     {
       "prompt": "what should I write about on the topic of AI in customer support?",
       "note": "near-boundary: content-angles's own trigger phrasing — content-scorer declares this out of scope, so it must not claim it"
+    },
+    {
+      "prompt": "my cold email reply rate is 0.8%, help me optimize the sequence",
+      "note": "near-boundary: outbound-builder's own trigger phrasing — rewrite with reply-rate data, not panel scoring of a finished draft"
+    },
+    {
+      "prompt": "results are in: A 11.2%, B 12.9%, ~9k users each — is it real or noise?",
+      "note": "near-boundary: growth-experiments' own trigger phrasing — 'which variant wins' with run data is a significance test, not expert-panel judgment"
     }
   ]
 }

@@ -63,10 +63,11 @@ targets the head branch of the one directly below it.
 gh stack link --base <trunk> <bottom-pr> <next-pr> ... <top-pr>
 ```
 
-Additive only. Same-author chains may be linked without asking; mixed
-authors require the user's go-ahead. Re-run the GraphQL query afterwards and
-require one stack number, the expected trunk, the full PR set, and the
-expected positions.
+Additive only. A same-author chain needs no ownership check, but linking is
+still the first mutation: confirm before it unless the user already said to
+proceed. Mixed or unavailable authors additionally need the user's explicit
+go-ahead. Re-run the GraphQL query afterwards and require one stack number,
+the expected trunk, the full PR set, and the expected positions.
 
 ## Refresh — **mutates**
 
@@ -117,12 +118,15 @@ carries the fix.
 ## Post-rewrite re-audit
 
 ```sh
-gh pr view <pr> --json headRefOid,reviewDecision,mergeStateStatus,statusCheckRollup,reviewThreads
+gh pr view <pr> --json headRefOid,reviewDecision,mergeStateStatus,statusCheckRollup,latestReviews
+gh api repos/{owner}/{repo}/pulls/{pr}/comments --paginate --jq '.[] | {id, commit_id, original_commit_id, in_reply_to_id}'
 gh pr checks <pr>
 ```
 
-Compare `headRefOid` with what each approval and inline comment was anchored
-to. Pre-rewrite OIDs are not current evidence.
+Compare `headRefOid` against `latestReviews[].commit.oid` (what each approval
+was anchored to) and against each inline comment's `commit_id`. Any anchor
+that does not match the current head is a pre-rewrite OID and is not current
+evidence.
 
 ## Land — **mutates**
 
