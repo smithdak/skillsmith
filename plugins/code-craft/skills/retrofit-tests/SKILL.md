@@ -1,16 +1,12 @@
 ---
 name: retrofit-tests
 description: >-
-  Adds tests to code that already works and has none: characterization
-  tests that pin current behavior at its seams before that behavior is
-  changed, prioritised by what is about to move or is frightening to
-  touch, each one proven by breaking the code and watching it fail. Use
-  this skill when the user says "add tests to this module", "we have no
-  tests for this", "get this under test before the refactor", "raise
-  coverage on X", "write characterization tests", or points at legacy
-  code they need to change safely. Not for building new behavior
-  test-first (tdd), debugging a failing test (diagnose-bugs), running an
-  existing suite, or browser-level verification (webapp-testing).
+  Adds characterization tests to working code that has none: pins current
+  behavior at its seams before it changes, prioritised by risk. Use when the
+  user says "add tests to this module", "get this under test before the
+  refactor", "raise coverage on X", or must change legacy code safely. Not
+  for new code test-first (tdd), a broken test (diagnose-bugs), or browser
+  checks (webapp-testing).
 license: MIT
 metadata:
   skillsmith-see-also: "tdd, deep-modules, diagnose-bugs"

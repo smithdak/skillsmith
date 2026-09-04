@@ -1,6 +1,6 @@
 ---
 name: "postmortem"
-description: "Writes an incident or bug post-mortem for a defect that was subtle, systemic, and costly to rediscover: a 30-second executive summary, summary, impact, a timeline anchored to evidence (logs, commits, sequence numbers), the root cause as a mechanism plus why every safety net missed it, guardrails added with linked tests and rules, and lessons. Use this skill when the user says \"write a post-mortem for this outage\", \"do an RCA on the duplicate-charge bug\", \"write up what went wrong with the sync job\", \"incident report for yesterday\", or has finally found a root cause and wants it documented for the team. Not for forward-looking specs (architecture-spec, feature-spec), session-state handoffs, triaging issues, writing tickets, research notes on an open question, or debugging the bug itself."
+description: "Writes an incident or bug post-mortem once the root cause is known: evidence-anchored timeline, mechanism, why every safety net missed it, guardrails. Use when the user says \"write a post-mortem for this outage\", \"do an RCA on this bug\", or wants a found root cause documented. Not for finding the cause (diagnose-bugs), what could fail (failure-mode-analysis), or tickets (define-work-items)."
 license: "MIT"
 metadata:
   skillsmith-composes: "doc-visuals"

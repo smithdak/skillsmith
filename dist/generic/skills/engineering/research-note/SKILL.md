@@ -1,13 +1,12 @@
 ---
 name: research-note
 description: >-
-  Investigates a question against primary sources and lands the
-  findings as a durable, cited Markdown note in the repo. Use this
-  skill when the user says "research X and write it up", "look into
-  this and leave notes in the repo", "document what you find about Y",
-  or wants reading legwork turned into a permanent reference. Not for
-  quick inline fact checks, verifying a single claim before acting, or
-  summarizing a document the user supplies.
+  Investigates a question against primary sources and lands the findings as a
+  durable, cited Markdown note in the repo. Use when the user says "research X
+  and write it up", "look into this and leave notes in the repo", or wants
+  reading legwork made a permanent reference. Not for one volatile fact
+  (ground-truth-research), a fan-out report (deep-research), or summarizing a
+  supplied document.
 license: MIT
 metadata:
   skillsmith-composes: "ground-truth-research"

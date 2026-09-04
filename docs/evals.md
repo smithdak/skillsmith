@@ -66,7 +66,7 @@ separates "drive development with tests" from "run/fix existing tests".
 ```sh
 bun packages/cli/src/main.ts eval               # all skills; writes results file
 bun packages/cli/src/main.ts eval tdd           # one skill; does NOT write results
-bun packages/cli/src/main.ts eval --model claude-sonnet-4-6 --concurrency 4
+bun packages/cli/src/main.ts eval --model claude-sonnet-5 --concurrency 4
 bun packages/cli/src/main.ts eval tdd --repeat 9   # nine judgements, majority wins
 bun packages/cli/src/main.ts eval --repeat 3 --escalate 9   # the recommended full run
 ```
@@ -75,7 +75,7 @@ bun packages/cli/src/main.ts eval --repeat 3 --escalate 9   # the recommended fu
 
 The judge is stochastic near a decision boundary, and at `--repeat 1` a case's
 result carries that variance whole. Measured on one real case
-(`issue-triage`, "anything in the backlog still waiting on my input?"): 17 of
+(`issue-triage`, since archived: "anything in the backlog still waiting on my input?"): 17 of
 28 judgements passed — about 60% — and two separate 5-vote samples landed
 *unanimous in opposite directions*. A single failing case is therefore not
 evidence of a regression, and neither is a single passing one.
@@ -106,9 +106,9 @@ says in its own output that its failures carry full judge variance.
   .env` and fill it in — `.env` is gitignored, and Bun loads it automatically
   from the repo root. A Claude subscription does not cover API calls; this
   needs an API key with billing.
-- Cost intuition: 53 skills × ~12 cases ≈ 640 judge calls, each embedding the
+- Cost intuition: 39 skills × ~12 cases ≈ 470 judge calls, each embedding the
   whole listing (~9k input tokens) and returning ~20 output tokens against the
-  default `claude-sonnet-4-6` judge. Input dominates, but the listing is a
+  default `claude-sonnet-5` judge. Input dominates, but the listing is a
   byte-identical prefix on every call and carries a `cache_control` breakpoint,
   so only the first few calls pay for it — a couple of dollars per run rather
   than the ~$16 the uncached shape cost. `--concurrency N` means the first N

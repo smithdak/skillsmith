@@ -1,11 +1,11 @@
 ---
 name: "second-order-effects"
-description: "Traces a proposed change beyond its first-order intent — policy, pricing, product rule, API contract, moderation rule, org process — mapping how affected actors adapt rationally, who games it, what couples to it, and where the new equilibrium settles. Use this skill when the user says \"what are the unintended consequences\", \"if we do X what happens next\", \"play this out\", \"who will game this\", \"second-order effects of X\", or is about to ship a rule whose success depends on how people respond to it. Not for rehearsing execution failure of an agreed plan (premortem), testing whether the premise itself is true (falsification-review), modeling attacker entry points (threat-model), or explaining the concept in the abstract."
+description: "Traces a proposed policy, pricing, or product rule past its first-order intent: how affected actors adapt, who games it, and where the equilibrium settles. Use when the user says \"unintended consequences\", \"play this out\", \"who will game this\", or is about to ship a rule people will adapt around. Not for plan risk (premortem), premise truth (falsification-review), or attackers (threat-model)."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
-  skillsmith-see-also: "premortem, falsification-review, threat-model, estimate"
+  skillsmith-see-also: "premortem, falsification-review, threat-model"
 ---
 
 # second-order-effects

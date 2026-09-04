@@ -35,6 +35,14 @@ export const LIMITS = {
   skillBodyMaxTokens: 5000,
   /** Fraction of model context allotted to the skill listing (skillListingBudgetFraction). */
   skillListingBudgetFraction: 0.01,
+  /**
+   * Per-plugin listing ceiling (chars): the sum over a plugin's shipped skills of
+   * name + description + when_to_use. Half of what skillListingBudgetFraction
+   * yields on a 200k-token window (0.01 × 200_000 tokens × ~4 chars/token ≈
+   * 8_000), so two plugins fit before Claude Code starts dropping descriptions.
+   * Overridable in skillsmith.toml [policy]."max-plugin-listing-chars".
+   */
+  pluginListingCharCap: 4000,
   /** Compaction re-attach: first N tokens of each invoked skill are re-attached. */
   compactionReattachPerSkill: 5000,
   /** Compaction re-attach: combined budget across skills. */

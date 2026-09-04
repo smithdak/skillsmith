@@ -21,6 +21,10 @@
     {
       "prompt": "getting Supabase configured takes about twenty clicks across four browser tabs and I always miss one. can you make me something that holds my hand?",
       "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
+    },
+    {
+      "prompt": "every time someone new joins they spend a whole afternoon bouncing between the Auth0 dashboard, Vercel, and our .env and still end up pinging me for the values — can you make that a script that just walks them through it?",
+      "note": "situation phrasing: onboarding pain described without 'wizard' or 'setup' — the human-in-the-loop journey (dashboards, captured values, .env) is the tell"
     }
   ],
   "should_not_trigger": [
@@ -41,12 +45,16 @@
       "note": "explanation of existing code, not a generated procedure"
     },
     {
-      "prompt": "stop pasting secrets into GitHub repo settings — have CI pull them from 1Password",
-      "note": "near-boundary: op-github-secrets's own trigger phrasing — wizard writes gh secrets as a side effect of a human journey, it does not own CI-side secret loading"
+      "prompt": "write a GitHub Actions step that loads our secrets from 1Password at job start",
+      "note": "unattended CI automation, no human journey; formerly op-github-secrets, archived, no live skill"
     },
     {
       "prompt": "explain how IAM roles work",
       "note": "explanation, not a generated procedure"
+    },
+    {
+      "prompt": "plan how we move off Heroku in phases — what goes first, what can roll back, where the cutover risk is",
+      "note": "near-boundary: a phased migration plan is migration-plan's product; wizard only scripts a procedure once its steps are already known"
     }
   ]
 }

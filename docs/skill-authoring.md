@@ -68,7 +68,7 @@ Claude Code extensions ([schema](../packages/core/src/schemas/claude-code-frontm
 | `metadata` | string→string map; the `skillsmith-*` conventions below live here |
 | `when_to_use` | optional extra trigger text; counts against the V2 cap |
 | `user-invocable` | expose as a `/slash` command |
-| `disable-model-invocation` | only the user can trigger it (see `discovery-map` for a real use) |
+| `disable-model-invocation` | only the user can trigger it (no shipped skill uses it today) |
 | `argument-hint` | valid in Claude Code, **fails the Cowork importer** — avoid |
 | `model` / `effort` / `context: fork` / `agent` | execution overrides; use sparingly |
 

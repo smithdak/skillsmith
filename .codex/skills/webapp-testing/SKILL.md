@@ -1,6 +1,6 @@
 ---
 name: "webapp-testing"
-description: "Tests and debugs a locally running web app in a real browser via Playwright: starts the dev server with a bundled with_server helper, then does reconnaissance before action — navigate, wait for network idle, screenshot and inspect the DOM, discover selectors, then click, type, and assert — capturing console logs to verify UI behavior; static HTML is loaded over file://. Use this skill when the user says \"open the app and click through the signup flow\", \"the page renders blank — check the browser console\", \"screenshot each step of checkout on localhost:3000\", \"write a Playwright script that fills the form and checks the toast\", or wants UI behavior verified in a browser rather than in unit tests. Not for unit-level red-green development (tdd), building or restyling UI (frontend-craft, frontend-redesign), or security review of a diff."
+description: "Verifies UI behavior in a local web app in a real browser via Playwright — clicks, assertions, screenshots, console logs. Use when the user says \"click through the signup flow\", \"tell me what the console says\", or \"screenshot each step of the checkout\". Not for unit-level red-green (tdd), building or restyling UI (frontend-craft, frontend-redesign), or scored design review (frontend-critique)."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"

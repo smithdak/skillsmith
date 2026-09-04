@@ -1,17 +1,12 @@
 ---
 name: diagnose-bugs
 description: >-
-  Runs a disciplined root-cause diagnosis for a bug, flaky test,
-  performance regression, or unexplained behavior: reproduce
-  deterministically, read the evidence before theorizing, then drive
-  a one-variable-at-a-time hypothesis loop until the mechanism is
-  proven. Use this skill when the user says "why is this failing",
-  "figure out this bug", "this test is flaky", "it works on my
-  machine", "find the regression", or hands over a stack trace,
-  error message, or misbehaving system to investigate. Not for
-  building features test-first (tdd), documenting an already-found
-  root cause (postmortem), security review of a change
-  (security-diff-review), or explaining how working code functions.
+  Finds the root cause of a bug, flaky test, or regression: reproduce, read
+  the evidence, one hypothesis at a time until the mechanism is proven. Use
+  when the user says "why is this failing", "this test is flaky", "it works
+  on my machine", or hands over a stack trace. Not for writing up a found
+  cause (postmortem), what could fail (failure-mode-analysis), or diff
+  security (security-diff-review).
 license: MIT
 metadata:
   skillsmith-see-also: "tdd, postmortem, security-diff-review"

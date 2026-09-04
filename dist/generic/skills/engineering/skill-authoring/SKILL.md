@@ -1,13 +1,12 @@
 ---
 name: skill-authoring
 description: >-
-  Authors and audits agent skills so they trigger reliably and stay within
-  their token budget: a description that routes, a body scoped by
-  progressive disclosure, and deterministic work pushed to scripts and
-  references. Use this skill when the user says "write a skill", "author a
-  SKILL.md", "why isn't my skill triggering", "review this skill", or "audit
-  our skills for quality". Not for writing the underlying tool or script a
-  skill wraps, and not for general prose editing.
+  Authors and audits agent skills so they trigger reliably and fit their token
+  budget: a description that routes, a body scoped by progressive disclosure,
+  deterministic work pushed to scripts. Use when the user says "write a
+  skill", "why isn't my SKILL.md triggering", or "audit our skills". Not for
+  AGENTS.md or CLAUDE.md (writing-for-agents), the script a skill wraps, or
+  prose editing.
 license: MIT
 metadata:
   skillsmith-invocation: "both"

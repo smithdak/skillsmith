@@ -1,6 +1,6 @@
 ---
 name: "ground-truth-research"
-description: "Verifies volatile facts against live sources before asserting them or designing against them, and attaches an as-of basis to every time-sensitive claim. Use this skill when a task depends on current versions, API surfaces, prices, rankings, model or tool capabilities, ecosystem or market state, or when the user says \"latest\", \"current\", or \"still\" about anything that changes. Not for settled knowledge: established science, history, protocol fundamentals."
+description: "Verifies one volatile fact against live sources before asserting it or designing against it, and attaches an as-of basis to the claim. Use when a task depends on current versions, APIs, prices, or tool capabilities, or the user says \"latest\", \"current\", or \"still\" about anything that changes. Not for settled knowledge, a fan-out report (deep-research), or a durable repo note (research-note)."
 license: "MIT"
 metadata:
   skillsmith-invocation: "model"

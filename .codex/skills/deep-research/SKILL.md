@@ -1,6 +1,6 @@
 ---
 name: "deep-research"
-description: "Orchestrates a heavyweight fan-out research harness: decomposes a broad question into independent angles, runs parallel investigators across distinct source modalities, adversarially verifies every load-bearing claim, and synthesizes one cited, dated report. Use this skill when the user says \"do deep research on X\", \"research this thoroughly\", \"fan out and research\", \"give me a comprehensive fact-checked report\", or asks a broad or contested question that no single search thread can cover. Not for a single volatile fact, a bounded question one investigator covers end to end, or summarizing material the user supplies."
+description: "Fans a broad or contested question out to parallel investigators, checks each load-bearing claim, and delivers one cited, dated report. Use when the user says \"do deep research on X\", \"research this thoroughly\", or \"fan out and research\", or the question outgrows one thread. Not for one volatile fact (ground-truth-research), a durable repo note (research-note), or summarizing supplied material."
 license: "MIT"
 metadata:
   skillsmith-composes: "ground-truth-research"

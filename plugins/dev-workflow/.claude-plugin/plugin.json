@@ -1,0 +1,13 @@
+{
+  "name": "dev-workflow",
+  "version": "0.1.0",
+  "description": "Moving work between people and sessions: handoffs, cold reads, work items, guided setup wizards",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

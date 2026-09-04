@@ -1,0 +1,66 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "be straight with me — did the migration actually run or not?",
+      "note": "asks for faithful reporting on a result the user cannot see"
+    },
+    {
+      "prompt": "you said the tests passed but I just ran them and three fail. what happened?",
+      "note": "complaint about a false done report — the faithful-reporting rule"
+    },
+    {
+      "prompt": "stop asking me questions and just make a call, I'll tell you if it's wrong",
+      "note": "assumptions-over-questions, stated as the user would say it"
+    },
+    {
+      "prompt": "your replies are too verbose, I read these all day",
+      "note": "length complaint — brevity default"
+    },
+    {
+      "prompt": "load the communication contract",
+      "note": "explicit load by name"
+    },
+    {
+      "prompt": "every answer opens with 'great question' — knock it off and just answer",
+      "note": "sycophancy complaint"
+    },
+    {
+      "prompt": "when you're not sure, say so — I can't tell your guesses from things you actually checked",
+      "note": "calibration: mark observed vs inferred vs assumed"
+    },
+    {
+      "prompt": "I keep having to scroll back through your messages to work out whether the thing actually worked",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary — tests under-triggering, the axis lexical overlap hides"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "clean up the comments before merge",
+      "note": "near-boundary: prose-hygiene owns repo docs and comments"
+    },
+    {
+      "prompt": "write an AGENTS.md for this repo so codex knows the conventions",
+      "note": "near-boundary: writing-for-agents owns instruction files for agents"
+    },
+    {
+      "prompt": "will this handoff make sense without me in the room?",
+      "note": "near-boundary: cold-read owns checking that a document stands alone"
+    },
+    {
+      "prompt": "set up these reply rules in this repo so every session picks them up",
+      "note": "near-boundary: instructions-setup owns persisting the contract into instruction files"
+    },
+    {
+      "prompt": "write a short poem about deploy day for the team retro",
+      "note": "creative writing follows the requester's shape, not the contract"
+    },
+    {
+      "prompt": "run bun test and tell me what's broken",
+      "note": "asks for the run, not for how the reply is shaped — a task prompt, not a communication one"
+    },
+    {
+      "prompt": "refactor this 200-line function to be more concise",
+      "note": "code conciseness, not reply conciseness"
+    }
+  ]
+}

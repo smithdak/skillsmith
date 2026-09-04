@@ -45,8 +45,8 @@
       "note": "UI construction — frontend-craft"
     },
     {
-      "prompt": "estimate the revenue impact of per-seat pricing",
-      "note": "quantity forecast — estimate; feeds this skill but is not it"
+      "prompt": "forecast next quarter's support ticket volume from the last two years of data",
+      "note": "quantity forecast, not a rule people adapt around; no live owner since estimate was archived"
     },
     {
       "prompt": "how long would SSO actually take us? give me something defensible, not a vibe",

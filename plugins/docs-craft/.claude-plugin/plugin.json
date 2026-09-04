@@ -1,0 +1,13 @@
+{
+  "name": "docs-craft",
+  "version": "0.1.0",
+  "description": "Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: "doc-visuals"
-description: "Crafts the visual layer of technical documents — repository maps, mermaid diagrams, code blocks, and tables — so structure lands at a glance and every element survives its renderer. Use this skill when producing or revising a document that contains a directory tree, an architecture or flow diagram, command examples, or comparison tables, or when the user says \"add a diagram\", \"the repo map is hard to read\", \"make this README scannable\", or \"clean up the formatting in this doc\". Not for prose editing, verifying a document is self-contained, or reviewing technical correctness."
+description: "Crafts the visual layer of technical docs — directory trees, mermaid diagrams, code blocks, tables — so structure lands at a glance and survives rendering. Use when the user says \"add a diagram\", \"the repo map is hard to read\", \"make this README scannable\", or a diagram renders broken. Not for prose (prose-hygiene), splitting content (information-architecture), or self-containment (cold-read)."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"

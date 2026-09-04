@@ -8,6 +8,78 @@ without a bump — and why every current version below has an entry.
 Entries cover each plugin's **current** version. Earlier versions are in git
 history; this file starts where the changelog rule (V16) began.
 
+## Migration — 2026-09-03 catalog restructure
+
+The catalog was curated to the disciplines that separate a frontier model from
+a weaker one and regrouped by job so a session installs only what it needs
+(Claude Code lists every installed skill's description in the system prompt
+within ~1% of the context window; rule V17 now keeps each plugin under half of
+that). Every description was rewritten to ≤ 400 characters. Retired plugin
+names stop receiving updates; reinstall by job:
+
+| Retired plugin | Install instead |
+|---|---|
+| `engineering-core` | `architecture` (architecture-spec, decision-record) · `planning` (feature-spec) · `code-craft` (codebase-survey, postmortem) · `dev-workflow` (wizard) · `docs-craft` · `agent-instructions` (skill-authoring) |
+| `epistemics` | `planning` (falsification-review, premortem, second-order-effects, grilling) · `research` |
+| `productivity-tools` | `dev-workflow` (handoff, cold-read, define-work-items) · `agent-instructions` (writing-for-agents) |
+| `agent-voice` | `agent-instructions` — `output-contract` is now `communication-contract`; `voice-setup` and `/voice-setup` are now `instructions-setup` and `/instructions-setup` |
+| `marketing`, `secrets-ops`, `pr-workflow` | nothing — their skills are archived (see below) |
+
+```
+/plugin uninstall engineering-core@skillsmith-marketplace
+/plugin install architecture@skillsmith-marketplace
+```
+
+Archived under [`archive/`](archive/README.md), no longer generated: brand-voice,
+content-angles, content-scorer, growth-experiments, outbound-builder,
+podcast-repurposer, seo-brief, op-secrets, op-github-secrets, stacked-prs,
+issue-triage, estimate, discernment-nudge, discovery-map,
+define-security-policy.
+
+## architecture 0.1.0
+
+- New plugin. Takes `architecture-spec` and `decision-record` from engineering-core and `deep-modules` from code-craft, and adds four skills: `architecture-review` (judges an existing system against its claimed invariants with `depgraph.sh` import-graph and `churn.sh` change-frequency evidence; findings carry options and kill triggers, never a bare rewrite), `api-design` (contract-first design of a surface others program against: consumers first, error model and compatibility policy before the happy path), `migration-plan` (reversible, verified phases for a live A→B transition, with a pattern table), and `failure-mode-analysis` (FMEA over dependencies: down, slow, partial, wrong; ranked by likelihood × impact × detectability, with a mitigation catalog and game-day tests).
+- All seven descriptions ≤ 400 chars. New skills are `experimental` and unmeasured until the next eval run.
+
+## planning 0.1.0
+
+- New plugin: `grilling`, `feature-spec`, `premortem`, `falsification-review`, `second-order-effects`, plus the `falsification-reviewer` agent, from engineering-core and epistemics. `premortem` and `grilling` no longer route large efforts to `discovery-map` (archived); they route to `define-work-items`. Descriptions rewritten to ≤ 400 chars.
+
+## research 0.1.0
+
+- New plugin: `ground-truth-research`, `deep-research`, `research-note` from epistemics. Descriptions rewritten to ≤ 400 chars.
+
+## code-craft 0.5.0
+
+- Gains `codebase-survey` and `postmortem` from engineering-core; `deep-modules` moves to the `architecture` plugin (`tdd` still composes it across the boundary). Descriptions rewritten to ≤ 400 chars.
+
+## dev-workflow 0.1.0
+
+- New plugin: `handoff`, `cold-read`, `define-work-items`, the `cold-reader` agent (from productivity-tools) and `wizard` (from engineering-core).
+- `wizard` template library v2: `--list` prints the stage plan with no side effects, `--resume` skips stages recorded in a state file and `--from N` restarts at a stage, and `WIZARD_NONINTERACTIVE=1` answers prompts from the environment for smoke tests. New `scripts/verify.sh` replaces the manual static trace: syntax, shellcheck, library-unchanged, stage count, every `set_secret` matched against `secrets.*` in workflows, every `write_env` against `.env.example`.
+
+## docs-craft 0.1.0
+
+- New plugin: `prose-hygiene`, `readme-authoring`, `doc-visuals`, `information-architecture` from engineering-core. Descriptions rewritten to ≤ 400 chars (`prose-hygiene` was the catalog's longest at 1,033).
+
+## agent-instructions 0.1.0
+
+- New plugin: `writing-for-agents` (from productivity-tools), `skill-authoring` (from engineering-core), and the transformed agent-voice pair.
+- `output-contract` → `communication-contract`: no longer a brevity style guide. It now encodes how a frontier model reports — outcome first, the message stands alone, failures and skipped steps stated plainly, observed vs inferred vs assumed, assumptions over questions for reversible work, disagreement said then built on, no sycophancy, a progress cadence stated positively, deliberate expansion, format for the reader. The "takeaway on the final line" rule is gone; it contradicted answer-first reading.
+- `voice-setup` → `instructions-setup` (`/instructions-setup`): renders the contract as five modules (`reporting,calibration,questions,brevity,progress`); legacy `--rules` keys and `--no-reading-order` map with a stderr note. The managed-block marker keeps its `agent-voice:output-contract` prefix so blocks written by v1 are replaced in place; the block is now `v2`.
+
+## security 0.3.0
+
+- `define-security-policy` archived; `threat-model`, `security-diff-review`, `hardening-proposal` descriptions rewritten to ≤ 400 chars, with `threat-model` bounded against the new `failure-mode-analysis` (adversarial vs accidental).
+
+## frontend 0.5.0
+
+- Descriptions rewritten to ≤ 400 chars; `webapp-testing` no longer names the removed tldraw plugin.
+
+---
+
+## Earlier versions and retired plugin names
+
 ## agent-voice 0.3.0
 
 - `voice-setup` names its scripts' real flags (`--no-reading-order`, `--caps soft`, `--rules`), explains every detector output key, handles the opencode shadowing hazard before applying rather than after, and verifies by re-running detection. `presets.md` dates its precedence claim to the installed opencode version. Evals: `writing-for-agents` phrasings as negatives.

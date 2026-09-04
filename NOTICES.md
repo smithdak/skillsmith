@@ -13,6 +13,9 @@ satisfy those terms. Apache-2.0 material in particular carries a
 state-your-changes obligation, met by the inline "Adapted from …" lines in the
 affected files.
 
+Skills retired from the catalog live under [archive/](archive/README.md); the
+obligations below follow them there unchanged.
+
 ---
 
 ## openai/codex-security
@@ -22,7 +25,7 @@ affected files.
 - Adapted into: `skills/engineering/threat-model/`,
   `skills/engineering/security-diff-review/`,
   `skills/engineering/hardening-proposal/`,
-  `skills/engineering/define-security-policy/`, and the
+  `archive/skills/security/define-security-policy/` (archived), and the
   `skills/engineering/falsification-review/references/validation-guidance.md`
   reference.
 - Nature of changes: the methodology (threat-model structure, the
@@ -105,7 +108,7 @@ the license.
 - Source: https://github.com/petergyang/no-ai-slop
 - License: MIT, Copyright (c) 2026 Peter Yang
 - Adapted into:
-  `skills/misc/brand-voice/references/ai-slop-patterns.md`.
+  `archive/skills/marketing/brand-voice/references/ai-slop-patterns.md` (archived).
 - Nature of changes: the AI-writing "slop" pattern taxonomy and the
   protect-intentional-style principle were adapted as an anti-pattern
   reference for the existing `brand-voice` skill. The original is a distinct,
@@ -125,7 +128,7 @@ the license.
 - Adapted into: `skills/engineering/webapp-testing/` (from the
   `webapp-testing` skill, including `scripts/with_server.py` and the
   `references/playwright-patterns.md` reference) and
-  `skills/productivity/discernment-nudge/` (from the `discernment-nudge`
+  `archive/skills/judgment/discernment-nudge/` (archived) (from the `discernment-nudge`
   skill).
 - Nature of changes: the webapp-testing decision tree,
   reconnaissance-then-action pattern, and server-lifecycle helper were
@@ -154,7 +157,7 @@ https://www.apache.org/licenses/LICENSE-2.0 .
   recall batteries as `scripts/recall-batteries.sh` and the keep-rules and
   coverage-by-location references), `skills/engineering/postmortem/` (from
   `docs/postmortem/` — the write-one-when criteria and section structure),
-  and `skills/engineering/stacked-prs/` (from the `dsh-merging-stacked-prs`
+  and `archive/skills/workflow/stacked-prs/` (archived) (from the `dsh-merging-stacked-prs`
   skill and the `responding-to-pr-review-on-a-stack` cookbook, including
   the `gh stack` command and GraphQL reference).
 - Nature of changes: the leakage taxonomy, the resolvable-at-HEAD test, the

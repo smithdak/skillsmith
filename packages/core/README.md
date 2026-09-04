@@ -35,7 +35,7 @@ Every finding (`src/diagnostics.ts`) carries a rule id, a path-anchored location
 
 One line per rule; the fix-oriented deep reference is [docs/validation-rules.md](../../docs/validation-rules.md).
 
-### Quality tier (V1–V16)
+### Quality tier (V1–V17)
 
 | Rule | Enforces |
 |---|---|
@@ -55,6 +55,7 @@ One line per rule; the fix-oriented deep reference is [docs/validation-rules.md]
 | V14 | Category folder is allowlisted and matches any declared category; drafts cannot be shipped in a plugin |
 | V15 | No update suppressors ("work silently") or blanket anti-formatting rules ("never use bullets") — patterns that invert on current models; quoted citations are exempt |
 | V16 | Every shipped plugin version has a `## <name> <version>` entry in CHANGELOG.md (the readable half of the version-guard bump) |
+| V17 | Summed listing chars (name + description + when_to_use) per plugin ≤ policy `max-plugin-listing-chars` (default 4000, half a 200k-window listing budget) |
 
 ### Security tier (S1–S7)
 

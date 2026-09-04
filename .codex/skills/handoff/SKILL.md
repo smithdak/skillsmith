@@ -1,6 +1,6 @@
 ---
 name: "handoff"
-description: "Produces a structured work handoff a cold reader can act on without access to the conversation. Use this skill when the user says \"handoff\", \"hand this off\", asks for \"handoff notes\" or \"transition notes\", or wants to document where things stand before stopping, switching contexts, or transferring work to someone else. Not for incident retrospectives (postmortem) or tickets for work not yet done (define-work-items)."
+description: "Produces a structured handoff of in-flight work the next session or person can act on without the conversation. Use when the user says \"handoff\", \"hand this off\", or \"handoff notes\", or wants to document where things stand before stopping or transferring work. Not for incident retrospectives (postmortem), tickets for unstarted work (define-work-items), or checking a doc stands alone (cold-read)."
 license: "MIT"
 metadata:
   skillsmith-composes: "cold-read"

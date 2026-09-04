@@ -1,11 +1,11 @@
 ---
 name: "frontend-craft"
-description: "Designs and builds high-craft web UI that does not read as machine-generated: names the visitor's success mode, commits to one visual world, sets explicit variance/motion/density dials, and refuses the generic defaults that mark AI-built pages. Use this skill when the user says \"build a landing page\", \"design a hero section\", \"make the page you're building feel crafted, not AI-generated\", or is generating new marketing, portfolio, or product-site frontend. Not for backend or data work, polishing or upgrading UI that already exists (frontend-redesign), reviewing a finished interface (frontend-critique), writing the marketing copy itself, or diagrams inside technical docs."
+description: "Builds new web UI with real visual character, not the generic AI-template look. Use when the user says \"build a landing page\", \"design a hero section\", \"doesn't look AI-generated\", or is starting a marketing, portfolio, or product site. Not for upgrading existing UI (frontend-redesign), scored design review (frontend-critique), writing the copy, or diagrams in docs (doc-visuals)."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
-  skillsmith-see-also: "frontend-redesign, frontend-critique, webapp-testing, brand-voice, doc-visuals"
+  skillsmith-see-also: "frontend-redesign, frontend-critique, webapp-testing, doc-visuals"
 ---
 
 # frontend-craft

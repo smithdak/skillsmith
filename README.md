@@ -5,7 +5,7 @@
 [![Bun](https://img.shields.io/badge/Bun-%E2%89%A51.3.14-000000?logo=bun&logoColor=white)](https://bun.sh)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**An engineering pipeline for agent skills — validated, measured, versioned, and built for more than one harness — plus the 50-skill catalog it maintains.**
+**An engineering pipeline for agent skills — validated, measured, versioned, and built for more than one harness — plus the 39-skill catalog it maintains.**
 
 A *skill* is a small instruction pack that teaches a coding agent to do one job well: review a diff for security bugs, run test-driven development, write a handoff, model threats before an audit. Most skill repositories are a folder of markdown that nobody measures. This one treats skills as software: every skill has a schema, a security inventory, a version, a changelog entry, and a **measured trigger rate** — and one command compiles the sources into installable plugins for Claude Code and plain Agent-Skills trees for Codex and OpenCode.
 
@@ -24,7 +24,7 @@ A *skill* is a small instruction pack that teaches a coding agent to do one job 
 
 ```
 /plugin marketplace add smithdak/skillsmith
-/plugin install engineering-core@skillsmith-marketplace
+/plugin install architecture@skillsmith-marketplace
 ```
 
 **Use them from Codex or OpenCode:** copy the tree under [`dist/generic/`](dist/generic/) (or the harness-specific ones under `.codex/skills/` and `.opencode/skills/`) into your harness's skills directory. Same sources, no Claude Code dependency.
@@ -35,26 +35,40 @@ A *skill* is a small instruction pack that teaches a coding agent to do one job 
 ## The catalog
 
 <!-- skillsmith:start -->
-[![Skills](https://img.shields.io/badge/skills-50-brightgreen)](catalog/CATALOG.md)
-[![Plugins](https://img.shields.io/badge/plugins-10-blue)](catalog/CATALOG.md)
+[![Skills](https://img.shields.io/badge/skills-39-brightgreen)](catalog/CATALOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-9-blue)](catalog/CATALOG.md)
 
-**10 installable plugins, 50 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
+**9 installable plugins, 39 skills, 2 agents.** Install individually — a skill belongs to exactly one plugin. Versions below are generated from `skillsmith.toml`; per-skill detail lives in [catalog/CATALOG.md](catalog/CATALOG.md).
 
 | Plugin | Version | Skills | What it's for |
 |---|---|---|---|
-| **productivity-tools** + `cold-reader` agent | `0.4.0` | `cold-read` · `define-work-items` · `handoff` · `issue-triage` · `writing-for-agents` | Work discipline: handoffs, transitions, work-item definition, issue triage |
-| **epistemics** + `falsification-reviewer` agent | `0.9.0` | `deep-research` · `discernment-nudge` · `estimate` · `falsification-review` · `grilling` · `ground-truth-research` · `premortem` · `research-note` · `second-order-effects` | Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research |
-| **engineering-core** | `0.8.0` | `architecture-spec` · `codebase-survey` · `decision-record` · `discovery-map` · `doc-visuals` · `feature-spec` · `information-architecture` · `postmortem` · `prose-hygiene` · `readme-authoring` · `skill-authoring` · `wizard` | Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose |
-| **code-craft** | `0.4.0` | `deep-modules` · `diagnose-bugs` · `retrofit-tests` · `tdd` | Implementation discipline: test-driven red-green loops, characterization tests for code that has none, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions |
-| **security** | `0.2.0` | `define-security-policy` · `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring |
-| **frontend** | `0.4.0` | `frontend-craft` · `frontend-critique` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
-| **marketing** | `0.3.0` | `brand-voice` · `content-angles` · `content-scorer` · `growth-experiments` · `outbound-builder` · `podcast-repurposer` · `seo-brief` | Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design |
-| **secrets-ops** | `0.2.0` | `op-github-secrets` · `op-secrets` | 1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account |
-| **pr-workflow** | `0.2.0` | `stacked-prs` | Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension |
-| **agent-voice** | `0.3.0` | `output-contract` · `voice-setup` | How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks |
+| **architecture** | `0.1.0` | `api-design` · `architecture-review` · `architecture-spec` · `decision-record` · `deep-modules` · `failure-mode-analysis` · `migration-plan` | Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes |
+| **planning** + `falsification-reviewer` agent | `0.1.0` | `falsification-review` · `feature-spec` · `grilling` · `premortem` · `second-order-effects` | Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects |
+| **research** | `0.1.0` | `deep-research` · `ground-truth-research` · `research-note` | Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo |
+| **code-craft** | `0.5.0` | `codebase-survey` · `diagnose-bugs` · `postmortem` · `retrofit-tests` · `tdd` | Implementation discipline: test-first loops, characterization tests, root-cause diagnosis, codebase orientation, post-mortems |
+| **dev-workflow** + `cold-reader` agent | `0.1.0` | `cold-read` · `define-work-items` · `handoff` · `wizard` | Moving work between people and sessions: handoffs, cold reads, work items, guided setup wizards |
+| **docs-craft** | `0.1.0` | `doc-visuals` · `information-architecture` · `prose-hygiene` · `readme-authoring` | Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture |
+| **agent-instructions** | `0.1.0` | `communication-contract` · `instructions-setup` · `skill-authoring` · `writing-for-agents` | Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup |
+| **security** | `0.3.0` | `hardening-proposal` · `security-diff-review` · `threat-model` | Security review discipline: threat modeling, diff-scoped review with sibling sweeps, decision-ready hardening proposals |
+| **frontend** | `0.5.0` | `frontend-craft` · `frontend-critique` · `frontend-redesign` · `webapp-testing` | Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright |
 <!-- skillsmith:end -->
 
 Skills compose — `architecture-spec` runs a falsification pass before it finishes; `feature-spec` hands the reader off to `cold-read`. Every declared pairing is in the catalog. Adapted skills carry their attribution in [NOTICES.md](NOTICES.md).
+
+### Install sets
+
+Claude Code puts every installed skill's name and description into the system prompt inside a budget of about 1% of the context window — roughly 8,000 characters on a 200k model — and, when that overflows, drops descriptions starting with the skills you invoke least. Every plugin here stays under half of that budget (rule V17), so pick two or three by the work in front of you:
+
+| Set | Plugins | When |
+|---|---|---|
+| **Build** | `architecture` + `code-craft` | Designing and implementing: specs, interfaces, migrations, test-first loops, root-cause diagnosis |
+| **Plan and judge** | `planning` + `research` | Before committing to anything: grill the idea, spec it, premortem it, verify the volatile facts |
+| **Ship** | `docs-craft` + `dev-workflow` + `agent-instructions` | Handing work to people and agents: READMEs, handoffs, work items, instruction files |
+| add-on | `security`, `frontend` | Security review discipline; high-craft web UI and browser verification |
+
+Skills that compose across plugins (`architecture-spec` → `falsification-review`, `feature-spec` → `cold-read`, `tdd` → `deep-modules`) fall back to an inline pass when the other plugin is absent. To keep a plugin installed but trim its listing, set individual skills to `"name-only"` in Claude Code's `skillOverrides` setting; on 1M-context models the whole catalog fits.
+
+Retired skills live in [`archive/`](archive/README.md), outside the pipeline, with the reason each was cut and what to reach for instead.
 
 ## How it works
 

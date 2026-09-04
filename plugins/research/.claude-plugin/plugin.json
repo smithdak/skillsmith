@@ -1,0 +1,13 @@
+{
+  "name": "research",
+  "version": "0.1.0",
+  "description": "Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

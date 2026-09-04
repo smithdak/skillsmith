@@ -1,6 +1,6 @@
 ---
 name: "cold-read"
-description: "Verifies that a document is self-sufficient for its intended audience — readable and actionable with zero access to the conversation or author. Use this skill before presenting any document someone else will act on (handoffs, work items, runbooks, READMEs, onboarding docs), or when the user asks \"will this make sense without me\", \"check this is self-contained\", or \"review this for completeness before I send it\". Not for correctness review, copyediting, or summarization."
+description: "Verifies that a document stands alone for its intended audience — actionable with no access to the conversation or author. Use before sending any document someone else will act on, or when the user asks \"will this make sense without me\", \"check this is self-contained\", or \"review this for completeness before I send it\". Not for correctness (falsification-review), copyediting, or summarization."
 license: "MIT"
 metadata:
   skillsmith-invocation: "model"

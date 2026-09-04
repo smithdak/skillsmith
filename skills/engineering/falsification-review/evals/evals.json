@@ -1,7 +1,8 @@
 {
   "should_trigger": [
     {
-      "prompt": "should we migrate our monolith to microservices?"
+      "prompt": "I'm recommending we migrate the monolith to microservices — sanity check this before I take it to the team",
+      "note": "a conclusion already reached and about to be presented; a still-open choice would be decision-record"
     },
     {
       "prompt": "I think we should rewrite this service in Rust — thoughts?"

@@ -1,14 +1,12 @@
 ---
 name: threat-model
 description: >-
-  Establishes a repository-scoped threat model before any security finding
-  work begins: trust boundaries, assets, attacker stories, and a severity
-  calibration basis the rest of the review inherits. Use this skill when the
-  user says "threat model this service", "what's our attack surface", "map
-  the trust boundaries before the audit", or before running a security
-  review that would otherwise anchor to a single diff or subsystem. Not for
-  triaging an existing finding, reviewing one changed file, or explaining a
-  named vulnerability class.
+  Whole-repo threat model, built before security review: trust boundaries,
+  assets, attacker stories, and the severity basis reviews inherit. Use when
+  the user says "threat model this service", "what's our attack surface", or
+  "map the trust boundaries". Not for accidental failures
+  (failure-mode-analysis), one change (security-diff-review), or fixing
+  findings (hardening-proposal).
 license: MIT
 metadata:
   skillsmith-see-also: "codebase-survey"

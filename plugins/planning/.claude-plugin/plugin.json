@@ -1,0 +1,13 @@
+{
+  "name": "planning",
+  "version": "0.1.0",
+  "description": "Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

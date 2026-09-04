@@ -1,6 +1,6 @@
 ---
 name: "decision-record"
-description: "Guides a single technical or business decision to a conclusion and lands it as a numbered decision record (ADR): context, genuinely distinct options, the tradeoff matrix, the choice with its driver, accepted consequences, reversibility class, and an observable revisit trigger. Use this skill when the user says \"write an ADR\", \"help us decide between X and Y and document it\", \"record why we chose X so it doesn't get relitigated\", \"we picked Postgres over DynamoDB — write it up\", or is weighing one build-vs-buy, tooling, license, or architecture choice. Not for whole-system architecture documents (architecture-spec), product feature specs (feature-spec), neutral option surveys with no decision sought, or recalling what a past record says."
+description: "Settles one technical or business decision and lands it as a numbered ADR: options, tradeoffs, choice and driver, and a revisit trigger. Use when the user says \"write an ADR\", \"help us decide between X and Y and document it\", or \"record why we chose X so it doesn't get relitigated\". Not for whole-system documents (architecture-spec), how to transition (migration-plan), or neutral comparisons."
 license: "MIT"
 metadata:
   skillsmith-composes: "ground-truth-research"

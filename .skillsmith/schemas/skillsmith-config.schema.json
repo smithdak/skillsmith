@@ -157,6 +157,12 @@
           "exclusiveMinimum": 0,
           "maximum": 9007199254740991
         },
+        "max-plugin-listing-chars": {
+          "default": 4000,
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
         "min-trigger-hit-rate": {
           "default": 0.85,
           "type": "number",
@@ -189,6 +195,7 @@
       "required": [
         "max-skill-body-tokens",
         "max-listing-chars",
+        "max-plugin-listing-chars",
         "min-trigger-hit-rate",
         "security-tier",
         "network-allowlist",

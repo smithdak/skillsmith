@@ -1,12 +1,12 @@
 ---
 name: architecture-spec
 description: >-
-  Co-authors a versioned architecture specification through iterative
-  artifact revisions: design invariants, open-decisions register, volatility
-  isolation, and kill/pivot triggers. Use this skill when the user asks to
-  "write an architecture spec", "spec out" a system, "draft a design doc",
-  or turn a technical discussion into a specification. Not for explaining
-  architectural concepts or reviewing an existing document.
+  Co-authors a versioned architecture spec for a new or redesigned system:
+  design invariants, open decisions, and kill/pivot triggers.
+  Use when the user says "write an architecture spec", "spec out" a system,
+  or "draft a design doc". Not for judging an existing system
+  (architecture-review), one feature (feature-spec), one decision
+  (decision-record), or reviewing a draft (falsification-review).
 license: MIT
 metadata:
   skillsmith-composes: "doc-visuals, falsification-review"
@@ -67,7 +67,7 @@ Run the falsification-review discipline on the draft: strongest
 counterargument to the central architecture choice, the crux per major
 decision, and confidence with drivers. For a spec the team will build
 against, escalate to the falsification-reviewer agent (shipped with the
-epistemics plugin) with the complete document; if that agent is not
+planning plugin) with the complete document; if that agent is not
 installed, run the same pass inline with the full document in context.
 Resolve or register every finding — a finding converted into an
 O-item is handled; a finding ignored is a defect.

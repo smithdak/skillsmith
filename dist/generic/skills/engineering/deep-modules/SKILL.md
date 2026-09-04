@@ -1,14 +1,12 @@
 ---
 name: deep-modules
 description: >-
-  Provides the deep-module design discipline — small interfaces hiding
-  large implementations, seams, adapters, depth as caller leverage —
-  for designing or critiquing module boundaries. Use this skill when
-  the user asks to "design this module's interface", "decide where the
-  seam goes", "shrink this API", "make this easier to test", or
-  questions whether an abstraction earns its keep. Not for system-wide
-  architecture documents, visual design, or mechanical refactors that
-  change no interface.
+  Applies deep-module discipline to one module's boundary: small
+  interfaces hiding large implementations, seams, adapters. Use when the
+  user says "design this module's interface", "decide where the seam
+  goes", "shrink this API", or asks whether an abstraction earns its keep.
+  Not for a contract others program against (api-design), a whole-system
+  document (architecture-spec), or mechanical refactors.
 license: MIT
 metadata:
   skillsmith-see-also: "architecture-spec"

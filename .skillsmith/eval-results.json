@@ -1,25 +1,34 @@
 {
-  "judgeModel": "claude-sonnet-4-6",
-  "runDate": "2026-09-03",
+  "judgeModel": "claude-sonnet-5",
+  "runDate": "2026-09-04",
   "repeat": 3,
   "escalate": 9,
-  "listingSha": "5ef9a435604df42a80375037c058a8b549f607cf9619665557564be9e52f8719",
+  "listingSha": "30c995854b2e75c728199f9344904bdaa154ab43304236b20d22f65ff29180d7",
   "skills": {
+    "api-design": {
+      "hitRate": 1,
+      "cases": 17,
+      "failing": 0,
+      "descriptionSha": "785de70983595d61fa128b2782ddb409644ae3d46cfd96caf1f8715750fcfdf2",
+      "evalsSha": "95ef5b7253785b457013b9b64a248abe86a58a3da0b476f954aba2b694824bfc",
+      "failingPrompts": [],
+      "flakyPrompts": []
+    },
+    "architecture-review": {
+      "hitRate": 1,
+      "cases": 15,
+      "failing": 0,
+      "descriptionSha": "911b621033f26c47fff1f59a5a803f589f196c31e1e3dfb42d51a8bc80c32912",
+      "evalsSha": "c0dff4389fa50fa8fb7d72597c68ae2b213d0b52a829b1fd97b55bc903bc85dd",
+      "failingPrompts": [],
+      "flakyPrompts": []
+    },
     "architecture-spec": {
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "e8c66982e1181a8afaf1f29ed1974931ab3efccfde862584651b643ef47a839f",
+      "descriptionSha": "2184a872acf4b76ca800c1ff21ba9186b6ae7f47ad144467f167ff4cab4f8810",
       "evalsSha": "1483ccd69be814838365ee7ceea845018187d9422ca741b609fecd0f33200fa5",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "brand-voice": {
-      "hitRate": 1,
-      "cases": 16,
-      "failing": 0,
-      "descriptionSha": "d0e6a00749183a41d58dd34675ef15edb0e358e50357c9374fdf33dc9b515d5c",
-      "evalsSha": "f30ade9154344a678b29012a4a2d8f207cdc412f128fc220cdb4ca232f5e518a",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -27,7 +36,7 @@
       "hitRate": 1,
       "cases": 14,
       "failing": 0,
-      "descriptionSha": "0b8210d7a091c307927838d241f9aec6d50e8b35ec2504c28f919a31e755b61f",
+      "descriptionSha": "e0dc032aeef29cf610781d38328994fd99a0f1c40898932c42f290bb5922b59e",
       "evalsSha": "9daffd130dd79049b71950a4a8b78850c9404172ce4f9129137605b9fd0d71be",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -36,26 +45,17 @@
       "hitRate": 1,
       "cases": 14,
       "failing": 0,
-      "descriptionSha": "f21313b9a5e44029042e70ac4c5160626efe061e0ca074191d559bfc90ac9b2b",
+      "descriptionSha": "3755b8760cc9d7119c40d7295b2d5e49e7934f6f756a7e01148dae3d8b0d525a",
       "evalsSha": "47833b337079d7db1083f6f7efea546bd48da8b7c81a6e6f8bf95369bc47a1f5",
       "failingPrompts": [],
       "flakyPrompts": []
     },
-    "content-angles": {
+    "communication-contract": {
       "hitRate": 1,
-      "cases": 16,
+      "cases": 15,
       "failing": 0,
-      "descriptionSha": "11dbd33b8efd4dda38f6658cd197908fbb0e7bff969ae119ec3108a07ac8c456",
-      "evalsSha": "953dac6941723f1c25481707e57b4853cde61388a1f1a277597aff24916e0170",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "content-scorer": {
-      "hitRate": 1,
-      "cases": 17,
-      "failing": 0,
-      "descriptionSha": "25714ffa2e3a18ddfb878ce7281c1e7bef648ed1f3621c0d86217610f3ab11f6",
-      "evalsSha": "f7dfce8b361353b938d3c7157d48019f94f1dd8f274fa6dbf9e2dd57077bb86b",
+      "descriptionSha": "eb19120bd46fc248979c17f6270fee1ffcd52741ddea495c703b78966a836a65",
+      "evalsSha": "0bb98bce1d0d528dc5ed1632d007a281fe4ea70a56f41b361272c690d8f0ac83",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -63,37 +63,28 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "46e80b96659a47e97a03db75d9b1eb8c6f39eb4b7b4d4488f45a4435d6790f17",
+      "descriptionSha": "d863887071d4929803e0907cfaec3694c3e313f5a535bf66b2b6c3112b28e028",
       "evalsSha": "17819d078b3aa4427083cfaf48e4c459985e674961f69d0831bf4e2a4e3528d0",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "should we migrate our monolith to microservices?"
+      ]
     },
     "deep-modules": {
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "57558ab81da56735e9e6ae99e8f744509c1758474e9dc7cbd786b4251730fdf1",
+      "descriptionSha": "0ea98a251daef7121b045c757b2997e1bf6ed44126ad37a5e8f7aa1c7b3000d2",
       "evalsSha": "dabf6324a7c83228ecc323a1d3945016d1750c187ca3ea5ef1168735af39ff84",
       "failingPrompts": [],
       "flakyPrompts": []
     },
     "deep-research": {
-      "hitRate": 0.933,
-      "cases": 15,
-      "failing": 1,
-      "descriptionSha": "b52f22a9104fad63ba1dc6678bb826f3f130a6f8bcec881def9afec21542de4b",
-      "evalsSha": "a3683dfe6afb51eb1a6e81cf1f9ea73fdbf8cea3b367f62454214074d4a5e43c",
-      "failingPrompts": [
-        "every article I find on GPU instance pricing contradicts the last one — I need something I can actually put in front of finance"
-      ],
-      "flakyPrompts": []
-    },
-    "define-security-policy": {
       "hitRate": 1,
-      "cases": 14,
+      "cases": 15,
       "failing": 0,
-      "descriptionSha": "7d64649d6ebefdd03899a4dd2c498ff66961dbf68663d6587ef61270774dc745",
-      "evalsSha": "0f9b5578ed61afc66a3f846677370294205c568e33c5a167317ef9e8ee1dbe06",
+      "descriptionSha": "a99cf66d85b6fba3cf44d056d0c6506c9fdd88a11cef849a268049f799cbc638",
+      "evalsSha": "c6104469042597645a6a45b097e26bcb72c07478f071db92c4e5a00250a267a0",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -101,7 +92,7 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "d3fe0af821ff540bca2746d9a44ceca69fc223a6bf588f2b89e941a19f21e19d",
+      "descriptionSha": "cd8ca221ac26e038729109d524d2ec6a2fc8a1c6f99aba7fda3070af8f486904",
       "evalsSha": "f1d9eea6a3fa421fe1ef858fe30059357a3a7d3304348e5b8f4aaa81efb07016",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -110,26 +101,8 @@
       "hitRate": 1,
       "cases": 18,
       "failing": 0,
-      "descriptionSha": "6f7e708418bdd82baa80b13c821b380c69cc754cc2043fcbdb252e72fa79692d",
+      "descriptionSha": "38eb76ae855f6eede13a4b59c10f3265534993a7729fbbbb38231086b28aacbc",
       "evalsSha": "02b11af1028b207787f6e50b922bf0928839b4b5f0b4f960d4072d9839ae26b4",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "discernment-nudge": {
-      "hitRate": 1,
-      "cases": 17,
-      "failing": 0,
-      "descriptionSha": "f7ec8e376e43fbaf1a726f3cd15468d8a24f43b0e964aef9c658a5fac4171a00",
-      "evalsSha": "a4f74d66a2153528c3ea1c6b693ccc204d4dacb2c5b9694149ff6c0cd2b39338",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "discovery-map": {
-      "hitRate": 1,
-      "cases": 15,
-      "failing": 0,
-      "descriptionSha": "d8b473e9bcd65821e3478177eea6783b5af1322ac5e68bcc2191ebbb4c62506e",
-      "evalsSha": "5e97a10282ca314b4da74b25339da3330b0ae77710ad8ceb1847f957fcbdb7ef",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -137,17 +110,17 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "42f5068309d67cb8b71ec2d17900f7239273a0db300d398057c9595545c3beb4",
+      "descriptionSha": "05b580e5a0a3b2223a516302854291896752f5b9b9c0fd6caa49e71bcfc08264",
       "evalsSha": "1abd234cabb154a661dab4aa981051966cd446edfd9198abbb2cd83b2af99075",
       "failingPrompts": [],
       "flakyPrompts": []
     },
-    "estimate": {
+    "failure-mode-analysis": {
       "hitRate": 1,
-      "cases": 16,
+      "cases": 15,
       "failing": 0,
-      "descriptionSha": "39fbe43363e522dba2385668476eff6bb0a8a54c3b535ac6b865894d070aa46a",
-      "evalsSha": "5c8fd46a2ab1976a39ec0f1d93bc4924939cd2edde652c446d2a020759edd480",
+      "descriptionSha": "06d92e4cccbf6ca27bd9059d6c7c6509ccb30a5f7fc57036955c86eeec2bc4fb",
+      "evalsSha": "5c157586c4221cec71dc0d58ca6123f0f000fd7369b722f7697760ad4bcfce5f",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -155,16 +128,17 @@
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "fa90ddd787b79986fa3f26dd60c5cb673a12728ffa13365acd2341c2ec66fdfe",
-      "evalsSha": "2592f80b1f85d429aa16a7018eebe5a727d0bac49e5dcdb43cd4e084a4023c3a",
+      "descriptionSha": "748de4e343d474f80247d21d2974d125dcc36826d1b7618402a85846fce92557",
+      "evalsSha": "549d69768ab7a13963f3712be1a55ecf9bdca2410154127068ca002974c07fd1",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [],
+      "runDate": "2026-09-04"
     },
     "feature-spec": {
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "b64eb5ac160d58a37b12e02b101dd1c54ac42e4f880486294b508d2ff6b5dff8",
+      "descriptionSha": "5f392d13e40d9b027bdd8b629377c5bed0884d9422ecf10990f792eb414da822",
       "evalsSha": "b1c793876f7ff42d0ee3a95361d1abdbba33675d2d1656a761de653726d13baa",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -173,7 +147,7 @@
       "hitRate": 1,
       "cases": 17,
       "failing": 0,
-      "descriptionSha": "9c2000f7fefcb23417464c78f6d641e78926448b6ba414364429241361b14bca",
+      "descriptionSha": "97ba932e7180722057b1b866686117633fad7332d87a2e5ef0345c286d1c4355",
       "evalsSha": "f2949135ba41b52a37ecb623e3cdafc1597911ced6003792d8fbe17d5ae07cb7",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -182,52 +156,35 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "983822c8469dc7e008ec9013ad3fee2fa76b5f9722937ed1a717a591baff4bd7",
+      "descriptionSha": "5f85edb195ea0ecee2825c8ef6415952b0337a0f9b716b841d512ea2bcf3ba1a",
       "evalsSha": "303306841e4f7b8d73aa37753b0e2d1dec322b04e56d925db3601e4362d545a8",
       "failingPrompts": [],
-      "flakyPrompts": [
-        "audit this UI and tell me how to make it look more polished"
-      ]
+      "flakyPrompts": []
     },
     "frontend-redesign": {
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "0a17cc1dbf86601eb3d4aa913f71163ea4c5a1ef02d0b95612a8aefafa70c804",
+      "descriptionSha": "1eaf8bd1a87cd80d960a2d3add6aff02ad664b7e68c5032260db739ac7771d44",
       "evalsSha": "b9983a92a58aaeffa05d6910f89748250b51fd80862331a210e6abcc1cbf1560",
       "failingPrompts": [],
-      "flakyPrompts": [
-        "our dashboard works fine but it looks like it was built in 2014 — what would you change?"
-      ]
+      "flakyPrompts": []
     },
     "grilling": {
       "hitRate": 1,
       "cases": 17,
       "failing": 0,
-      "descriptionSha": "47241d6c5d399f90bd3a146264a0773e2c3163076015a94fa125e997b5481160",
+      "descriptionSha": "ac651ab575576ea48fb5c712f905308281d0e20698690dba4ccd341169a829bc",
       "evalsSha": "3224df833dfd0493c570d9ade6791d0c495049ce00afbb312fdd9b55ce8cbb71",
       "failingPrompts": [],
       "flakyPrompts": []
     },
     "ground-truth-research": {
-      "hitRate": 0.923,
-      "cases": 13,
-      "failing": 1,
-      "descriptionSha": "b325b1dcc638edf5ad1ee4c9c8a5976ee53a250c1487e28fe9e93a6a15543d6e",
-      "evalsSha": "c53d958d21727fc8cb195a23e543ae66bd88cbfc0d6202cdea59661ed92f4a83",
-      "failingPrompts": [
-        "what's the best vector database right now"
-      ],
-      "flakyPrompts": [
-        "what's the best vector database right now"
-      ]
-    },
-    "growth-experiments": {
       "hitRate": 1,
-      "cases": 15,
+      "cases": 13,
       "failing": 0,
-      "descriptionSha": "f1ac4a7e1aa613c284dfa877ef9d35d03edef1e8c7ba3f3021bf2442db7987a7",
-      "evalsSha": "41ba5af77acba1a9e1a49fbb8e47d9984b487c60eb500520c060c177f284b1aa",
+      "descriptionSha": "3d00547013ae7e7df812fe861da05a5232aa189ff9e28588370c7150d1801cd5",
+      "evalsSha": "c53d958d21727fc8cb195a23e543ae66bd88cbfc0d6202cdea59661ed92f4a83",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -235,7 +192,7 @@
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "fc4561c9057a3c3b45937b90e3a2f452e9aca3fc035fe208b7ec68da5d4b28a3",
+      "descriptionSha": "61a2447f5ddeadc610874531abd1c043745857e1f3ad21a848c69817a74d9086",
       "evalsSha": "33ff4527e84f8d987c0674f29c766cc57f5a164f8c62e8d6f735494412f534be",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -244,87 +201,43 @@
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "5f46a5fdbaaf2c54b92a31e59c5aada9938c9f43826760297cc969fa715de668",
+      "descriptionSha": "342e8ee8cf1758a12ff40ae4f8ea2a0b93fcccbb00da074f05c0c050d5ac7063",
       "evalsSha": "e4b6c3d3ce42371ab8dbe346a00eda2e1bcac9dcee8d4324c188ae905eb86bcb",
       "failingPrompts": [],
       "flakyPrompts": []
     },
     "information-architecture": {
-      "hitRate": 0.941,
+      "hitRate": 1,
       "cases": 17,
-      "failing": 1,
-      "descriptionSha": "0e2c9ddb993ddd137e6068acc69208038d19a5ead8afa4044ec260bc16e26464",
+      "failing": 0,
+      "descriptionSha": "aa98ea842473d6d99b6f57a38c21c034105792ede3317b14b27d851863ae20f4",
       "evalsSha": "12b536268fd131e037f039995803a86aecdbf28930c0fd7f8f33dc4b3cc06132",
-      "failingPrompts": [
-        "this SKILL.md has ballooned to 800 lines, help me break it into a landing file plus references"
-      ],
-      "flakyPrompts": []
-    },
-    "issue-triage": {
-      "hitRate": 1,
-      "cases": 14,
-      "failing": 0,
-      "descriptionSha": "75b2bc6b9bea435ad6793f70f19ab3b88ac547d716be925904de0decd2a31b1b",
-      "evalsSha": "a8d7b18bd04edb2565dd401a547413e70700f73065934be247653f8c812bad0c",
       "failingPrompts": [],
       "flakyPrompts": []
     },
-    "op-github-secrets": {
+    "instructions-setup": {
       "hitRate": 1,
-      "cases": 17,
+      "cases": 13,
       "failing": 0,
-      "descriptionSha": "51bb637e1d115a00718085db45fc7bbc2fb7f68318c33e18b97488e9d412fc8e",
-      "evalsSha": "26aa99f78d25b9fbef9eea80284a077f032dcd0be8386695d75a2af823bb8b30",
-      "failingPrompts": [],
-      "flakyPrompts": [
-        "rotate the OP_SERVICE_ACCOUNT_TOKEN now that someone left"
-      ]
-    },
-    "op-secrets": {
-      "hitRate": 1,
-      "cases": 17,
-      "failing": 0,
-      "descriptionSha": "379ca55909941e20b1adf4a3ccbfcc8146166a9a365a367a5604ed311553ef82",
-      "evalsSha": "13429bf390bd3829106d9c1aa003299249322873015ea6909f30370261bf552e",
+      "descriptionSha": "f13472fbcb01805335dfe4e8275bcdb271a4a1ab991bd0c68fe1b90675b0dabb",
+      "evalsSha": "6dc44511c8b390787d8ce478976aaba846ce9e94026481a3794f0fe067799925",
       "failingPrompts": [],
       "flakyPrompts": []
     },
-    "outbound-builder": {
+    "migration-plan": {
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "de6481b26c689066c943263c01ed2e2f3a3b4eeb33a25f355ceddf72d1d03d4b",
-      "evalsSha": "2451a6d348105ab9c2d3ad10464de38abc4d21bf4be0af0e43ea95a58fddd1e0",
+      "descriptionSha": "2cb21bb2bfff95aec64be1159349c43c74b3f46ab7ba680af2e1db0f943df9ec",
+      "evalsSha": "649ed05d0276f17471b024b2bcc6cb9f5e89afc3862ca22669d0bf9519216c00",
       "failingPrompts": [],
       "flakyPrompts": []
-    },
-    "output-contract": {
-      "hitRate": 1,
-      "cases": 16,
-      "failing": 0,
-      "descriptionSha": "4a1e0c59512c828792f0bc87f1427da5aec708e36a070db111424749df912fed",
-      "evalsSha": "6336d2cb726e440b36f8a9f7e42186069f86730403a4a645243eafc213c9df6d",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "podcast-repurposer": {
-      "hitRate": 0.938,
-      "cases": 16,
-      "failing": 1,
-      "descriptionSha": "2dbaec8077cccfa62cd17f168a584b2cec869ed99f7da03393b892e3304ddf7f",
-      "evalsSha": "4293f19922fae93fc8a081bb62ec0a16e40e04165bc86a5d14fbe5c03ea8ddb7",
-      "failingPrompts": [
-        "extract pull quotes and a LinkedIn post from this interview transcript"
-      ],
-      "flakyPrompts": [
-        "extract pull quotes and a LinkedIn post from this interview transcript"
-      ]
     },
     "postmortem": {
       "hitRate": 1,
       "cases": 19,
       "failing": 0,
-      "descriptionSha": "1fdc7001e027303ea1a72fec3606ab7baca444413221eadbfcf3ece1841d9486",
+      "descriptionSha": "c0c6945f32d3ca61de7126bb78c0844d9574b9e8a62f7434a1e08d52b65727c0",
       "evalsSha": "ee62564b09429dbd8e281ebed2c43064c0ab9767591634e69dbf300494cb7b52",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -333,7 +246,7 @@
       "hitRate": 1,
       "cases": 17,
       "failing": 0,
-      "descriptionSha": "89ebdf407e5a2439e7a0165dda97bc30b407e7fc7674766b09063e150332cd97",
+      "descriptionSha": "80b02ae174d9322c1fd60abaaed176428f9e820c316d5e5499d11ab6f50ad057",
       "evalsSha": "d4e09000c7c70a04615a3a63e8c8bdcb9da8fca8d91429d049f11073ce63ed9c",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -342,7 +255,7 @@
       "hitRate": 1,
       "cases": 17,
       "failing": 0,
-      "descriptionSha": "0c7b331aefc2bfbd7b03db272d4b36c822a4aa74a5b12e94107a89d20a5445f0",
+      "descriptionSha": "2076e6ec82aed3b200a320c88782676f95e191c8948ec240c6e544764c8dac81",
       "evalsSha": "043256eeeb7563ba70f8193b109b9d6ccb2222a5ff23ecddf464de00ac54e35c",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -351,8 +264,8 @@
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "ee0ec2d400f813ccffe071a8c2da373c44d5d87dca2f572ac2c1814a132ab987",
-      "evalsSha": "b8102271a8c75ad024d6fea5df556932f88c6126d5941f694fe637ea5ef20e20",
+      "descriptionSha": "37960118223ec72a62a38110f77e24b04b1034a1049e11fa24d8aba93e9390b4",
+      "evalsSha": "cf2ea196803c71576bad1375b82835fbdad4473d0231656a86134322ccb1bab6",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -360,16 +273,18 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "d8cb324dc8bba5cd22d9b85e72b1b5253ca0d6771610617e0e9300ba283102d4",
+      "descriptionSha": "abf4c9591748a9641060322af142c02cdd7a084ab2aa3c26f46f3c4586a871ed",
       "evalsSha": "9bbd5728c74950b986315b875a8a78ce00118e8b37a6404b8757d12251447b98",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "does Bun's fetch follow redirects by default? investigate properly and save notes in the repo"
+      ]
     },
     "retrofit-tests": {
       "hitRate": 1,
       "cases": 12,
       "failing": 0,
-      "descriptionSha": "ef56dd5d092d887f94bed6ec841b9b29f1e9e1f21f85aca9f813b1ffe0bf0f20",
+      "descriptionSha": "9b7e3806e21043d5a42cff43ef060e071c12b1736c2d5319cd034322ee48cf03",
       "evalsSha": "cb0c3f4ba27c036ac34b76da6309b3526dad5997ec5f8c4165915a693f498a18",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -378,8 +293,8 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "08d4beddbce139dc7934250b3d10194aae64765bf331b49e58da6b6cc35164c8",
-      "evalsSha": "311e54e7adc49c13daa0472c512b334ab381f92cae37c89c676f457a619150ef",
+      "descriptionSha": "ddac44919a6d92e30f0c086eedb765a0865bcfb70b1a995a602603204de2b693",
+      "evalsSha": "2afc6d734b0573cf0609e13948060c14a3c773bfb4873625f27eac394348eb27",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -387,17 +302,8 @@
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "3f19c9f0393a7c75c6ce85b88b7d9e6f1f91a24baa4baeb52b81d4829ef7e034",
+      "descriptionSha": "5872fa6c8eeb6bfcd7074fa48590ea1b99f0b3331347a0dec865ee9b7e274885",
       "evalsSha": "808b98e0011138a9a268ea5f31d5f3fe97d94ea636273f24db2f21aa8f639ed4",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "seo-brief": {
-      "hitRate": 1,
-      "cases": 16,
-      "failing": 0,
-      "descriptionSha": "ff40ac6c7d0726068ba3586d1d830691258ee478ce1ceac06d025053d62ad8a6",
-      "evalsSha": "693ac882e12561ad1a6c413edf73122a79d94cce30eff5cd07ec6c8af1454353",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -405,17 +311,8 @@
       "hitRate": 1,
       "cases": 14,
       "failing": 0,
-      "descriptionSha": "8f21a7ffc862c944699098307c7eeceb976d41bce8b9207ca260f47fed58731d",
+      "descriptionSha": "50fb3670ceae47533a0756d1e5e57295688bf89efe358c17d37f2e713567a381",
       "evalsSha": "293de5ef54dd5e60b06e3d12139c42cb35ceedd92e11a306cb07ca4ead848186",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "stacked-prs": {
-      "hitRate": 1,
-      "cases": 19,
-      "failing": 0,
-      "descriptionSha": "0cd579af87e015f9dead97df754d48488cd43f57aabf28cbb29c7575a3f41eee",
-      "evalsSha": "f4d26b7de0c8a325b0ac9487773bc763f50a3aafc2e33b571116dcab23a41f16",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -423,7 +320,7 @@
       "hitRate": 1,
       "cases": 15,
       "failing": 0,
-      "descriptionSha": "b39d113a52882b4f5ce9e92942ada4433cc6070a228ae3a993214aeee25c644e",
+      "descriptionSha": "3f2051e32bd13f7552fc68b56477fee1ce15dcaed80fbc31b501193896f71f77",
       "evalsSha": "66492d39a5802a4b41eec656494cbe3cc248c5c089dea211d9609ca8e9c84c6c",
       "failingPrompts": [],
       "flakyPrompts": []
@@ -432,17 +329,8 @@
       "hitRate": 1,
       "cases": 14,
       "failing": 0,
-      "descriptionSha": "8dd30564424e6e30f2f91303aafe8113314dbb1df1ebd345d36f8992ce2a13d6",
+      "descriptionSha": "16b172301a9fd703651303c05e04d53b98cb04ed43291306842a5c39000f0b2f",
       "evalsSha": "bb035ce9cb3a382b116f35ca04e95ed2817e05b768ee7bf6c533615b6170d1cf",
-      "failingPrompts": [],
-      "flakyPrompts": []
-    },
-    "voice-setup": {
-      "hitRate": 1,
-      "cases": 12,
-      "failing": 0,
-      "descriptionSha": "28ccf4ca8fd7b7b0c3888816315cfd921667dfffc625cb51cef55219def73d71",
-      "evalsSha": "21ccae6e7b3c2333e9927d5e16fcd4c17f6e7b25a2ea1d8468dbcb726ab51db9",
       "failingPrompts": [],
       "flakyPrompts": []
     },
@@ -450,25 +338,27 @@
       "hitRate": 1,
       "cases": 18,
       "failing": 0,
-      "descriptionSha": "1f2b6a0af5e4ba784b9657d56472df3d3feb4064b36ac2a74c7b37233026067e",
+      "descriptionSha": "d93b9a33d2e838f91ce2c94886570e1d1c3e79bbbdbdffe68b5336b651a31226",
       "evalsSha": "40eb1d14b6cb35d7a73ba8cc41347eee0bd3ba79ba6852e227a739a11b875958",
       "failingPrompts": [],
       "flakyPrompts": []
     },
     "wizard": {
       "hitRate": 1,
-      "cases": 13,
+      "cases": 15,
       "failing": 0,
-      "descriptionSha": "7b98562818fcb08d55780d235ad3fd5ce37efd1adb38d8deac4558c6275c0409",
-      "evalsSha": "83e4097ac35178776b5b47214ca6af4e8fe76d7478ff707906183b51c6371cdb",
+      "descriptionSha": "52bd06b972d22f1c35b50ae923cc79ba5ca27f550af13be3d9fad7f685d29aea",
+      "evalsSha": "61a040571418bcc7a4cf6689301d23ba6f90406fe7ba6f1eae005aad8285dffb",
       "failingPrompts": [],
-      "flakyPrompts": []
+      "flakyPrompts": [
+        "how do I set up Stripe webhooks?"
+      ]
     },
     "writing-for-agents": {
       "hitRate": 1,
       "cases": 16,
       "failing": 0,
-      "descriptionSha": "33d89e52590d64c8e846e15f2c1921535a897252aabb7ee6812ebfb9a0762926",
+      "descriptionSha": "4894330572f882b98969808c0c54df5255a3d1f5b5dc2df135ffe5c956bc806b",
       "evalsSha": "cfee12d4cce11741556508d2e14d35933af6b65fbb8aa663ed94bc4895f5c19c",
       "failingPrompts": [],
       "flakyPrompts": []

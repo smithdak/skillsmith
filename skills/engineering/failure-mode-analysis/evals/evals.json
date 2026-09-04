@@ -1,0 +1,60 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "what happens to the app if redis goes down?"
+    },
+    {
+      "prompt": "how resilient is this service? walk through what breaks when each of its dependencies fails"
+    },
+    {
+      "prompt": "list the failure modes of this design before we build it"
+    },
+    {
+      "prompt": "what breaks when the payment API times out or starts returning 500s?"
+    },
+    {
+      "prompt": "do an FMEA on the order pipeline — I want to know which dependency failures we can't even detect"
+    },
+    {
+      "prompt": "we're adding a third-party geocoding call to the signup path — if their service has a bad day, what does that do to us and how do we contain it?"
+    },
+    {
+      "prompt": "the checkout flow talks to six other services and I have no idea which of them we could actually survive losing",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary (no 'failure mode', 'resilient', 'goes down', 'breaks when') — tests under-triggering"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "what's our attack surface on this service?",
+      "note": "near-boundary: threat-model's own trigger phrasing — adversarial, not accidental failure"
+    },
+    {
+      "prompt": "what could go wrong with the launch plan for next month?",
+      "note": "near-boundary: premortem's own trigger phrasing — risk to a plan, not a system's behavior under dependency failure"
+    },
+    {
+      "prompt": "why did the service crash last night?",
+      "note": "near-boundary: diagnose-bugs — root-causing a failure that already happened"
+    },
+    {
+      "prompt": "write up yesterday's outage for the team",
+      "note": "near-boundary: postmortem — documenting a past incident"
+    },
+    {
+      "prompt": "add exponential backoff to this fetch call",
+      "note": "implementing one mitigation the user has already chosen — no analysis requested; plain coding task, no skill applies"
+    },
+    {
+      "prompt": "explain what a circuit breaker is",
+      "note": "concept explanation, not an analysis of a system"
+    },
+    {
+      "prompt": "review the module boundaries in this service — is the layering right?",
+      "note": "near-boundary: architecture-review — structural judgment, not behavior under failure"
+    },
+    {
+      "prompt": "plan the migration from Postgres 12 to 16 with zero downtime",
+      "note": "near-boundary: migration-plan — sequencing a change, not analyzing a system's failure modes"
+    }
+  ]
+}

@@ -1,10 +1,11 @@
 ---
 name: "wizard"
-description: "Generates an interactive bash wizard that walks a human step by step through a manual procedure — third-party service setup, a one-off migration, an A-to-B state transition — opening each URL, capturing values with confirmation gates, and writing .env entries and GitHub Actions secrets. Use this skill when the user says \"make me a setup wizard\", \"write a script that walks me through setting up\" a service, or \"turn this runbook into an interactive script\". Not for fully automatable work (write a plain script), answering setup questions in chat, or unattended CI automation."
+description: "Generates an interactive bash wizard that walks a human through a manual procedure, capturing values into .env and GitHub secrets. Use when the user says \"make me a setup wizard\", \"write a script that walks me through setting up <service>\", or keeps re-explaining a multi-tab setup. Not for fully automatable work (plain script), the phased plan itself (migration-plan), or unattended CI automation."
 license: "MIT"
 metadata:
   skillsmith-invocation: "user"
   skillsmith-maturity: "experimental"
+  skillsmith-see-also: "migration-plan"
 ---
 
 # wizard
@@ -20,10 +21,12 @@ project from one state to another.
 The UX is already solved by [scripts/template.sh](scripts/template.sh) —
 progress with time remaining, confirmation gates, cross-platform URL
 opening (including WSL and Git Bash), hidden secret entry, idempotent
-`.env` upserts, `gh secret`/`gh variable` writes, and a closing summary.
-The job here is only to scope the procedure and author its stages. The
-library above the `STAGES` marker is identical in every wizard; that
-consistency is the point — never hand-edit it.
+`.env` upserts, `gh secret`/`gh variable` writes, a closing summary, and
+`--list` / `--resume` / `--from N` handling with a state file. The job
+here is only to scope the procedure and author its stages. The library
+above the `STAGES` marker is identical in every wizard; that consistency
+is the point — never hand-edit it, and `scripts/verify.sh` fails if it
+was.
 
 A wizard is ephemeral by default — built for one run, saved to a scratch
 or `scripts/` path in the target repo, deleted when the job is done.
@@ -64,8 +67,8 @@ could follow.
 
 Copy `scripts/template.sh` to the target path. Replace the example stage
 with one `stage` per step, in dependency order, using the library
-helpers — `stage`, `say`/`step`, `open_url`, `ask`/`ask_secret`,
-`write_env`, `set_secret`/`set_var`, `pause`/`confirm` — and set
+helpers — `stage`, `say`/`step`/`note`, `open_url`, `ask`/`ask_secret`,
+`write_env`, `set_secret`/`set_var`, `pause`/`confirm`, `run` — and set
 `TOTAL_STAGES` and `TOTAL_MINUTES` to honest estimates (this drives the
 time-remaining display).
 
@@ -76,19 +79,65 @@ irreversible action. Each `stage` clears the screen so only the current
 step is visible — keep a stage to one focused task so nothing the human
 needs scrolls away. Don't touch the library above the marker.
 
+Two conventions the library depends on:
+
+- Every command a stage executes goes through `run "what it does" cmd
+  args...`. The library makes each helper a no-op under `--list` and in
+  a stage skipped by `--resume`; a raw command in a stage body has no
+  such guard and runs anyway. `confirm` passes in those modes, so
+  `confirm "Drop the old DB?" && run "drop old DB" ...` is safe and
+  `confirm ... && dropdb ...` is not.
+- A captured value that is never persisted — it only drives a later step,
+  such as a project id used to build a URL — gets `# pure` at the end of
+  its `ask` line, so `verify.sh` knows it is intentional. Note that such
+  a value is empty after `--resume` skips the stage that asked for it;
+  `write_env` it if a later stage needs it.
+
+Preview as you write: `bash <script> --list` prints every stage with the
+values it captures and writes, without prompting, opening a browser, or
+touching anything. It is the fastest way to check the plan from step 1
+survived into the script.
+
 ## 4 — Verify and hand off
 
-- `bash -n <script>`; run `shellcheck` if available; `chmod +x <script>`.
-  On Windows the chmod does not persist — set the bit in git instead
-  (`git update-index --chmod=+x <script>`) if the wizard is committed,
-  or Linux checkouts get a non-executable script.
-- Don't run it end-to-end — it opens browsers and blocks on human input.
-  Trace it statically instead: every value from step 1 is captured and
-  lands where step 1 said, and every `set_secret` name exactly matches a
-  `secrets.*` reference in CI.
-- Tell the user how to run it. For Windows users, name Git Bash
-  explicitly — `& "C:\Program Files\Git\bin\bash.exe" <script>` from
-  PowerShell — because a bare `bash` resolves to the WSL shim on most
-  machines and dies with an execvpe error. If it's a repeatable setup
-  path, commit it and link it from the README so the next person runs
-  the script instead of asking an AI.
+Run the deterministic checks:
+
+```sh
+scripts/verify.sh <script> <repo-dir>
+```
+
+It parses the script, runs `shellcheck` when installed, confirms the
+library section is byte-identical to `template.sh`, checks
+`TOTAL_STAGES` against the `stage` calls, cross-references every
+`set_secret` name with `secrets.*` in `.github/workflows/*` (a mismatch
+is a FAIL — CI would silently read an empty secret), every `write_env`
+var with `.env.example`, and that every `ask` is persisted or marked
+pure. Fix every FAIL; treat a warn as a question to settle with the user.
+Then `chmod +x <script>` — on Windows the bit does not persist, so if the
+wizard is committed set it in git (`git update-index --chmod=+x
+<script>`) or Linux checkouts get a non-executable script.
+
+Smoke-test without a human when it matters (a repeatable wizard that is
+going to be committed): `WIZARD_NONINTERACTIVE=1` makes every
+`ask`/`ask_secret VAR` read `$VAR` from the environment (unset is a hard
+error naming the variable), auto-continues `pause`/`confirm`, and prints
+URLs instead of opening them — so `WIZARD_NONINTERACTIVE=1 API_URL=...
+API_TOKEN=... ENV_FILE=/tmp/x.env bash <script>` exercises the whole
+flow in CI or a scratch directory. Don't run it interactively yourself —
+it opens browsers and blocks on input.
+
+Tell the user how to run it:
+
+- `bash <script>` to run; `bash <script> --list` to preview the stages
+  first; `bash <script> --help` for the flags.
+- Interrupted (Ctrl-C, a closed tab, a failed `gh`)? `bash <script>
+  --resume` skips the stages already completed and offers saved `.env`
+  values as defaults; `--from N` restarts at stage N. Progress lives in
+  `.<script-name>.state` in the directory the wizard was run from — stage
+  numbers only, never a value or secret — and `finish` deletes it.
+- For Windows users, name Git Bash explicitly — `& "C:\Program
+  Files\Git\bin\bash.exe" <script>` from PowerShell — because a bare
+  `bash` resolves to the WSL shim on most machines and dies with an
+  execvpe error.
+- If it's a repeatable setup path, commit it and link it from the README
+  so the next person runs the script instead of asking an AI.

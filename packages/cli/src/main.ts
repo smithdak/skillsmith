@@ -278,7 +278,7 @@ const evalCmd = defineCommand({
   args: {
     ...sharedArgs,
     skill: { type: "positional" as const, description: "restrict to one skill", required: false },
-    model: { type: "string" as const, description: "judge model", default: "claude-sonnet-4-6" },
+    model: { type: "string" as const, description: "judge model", default: "claude-sonnet-5" },
     concurrency: { type: "string" as const, description: "parallel judge calls", default: "4" },
     repeat: {
       type: "string" as const,

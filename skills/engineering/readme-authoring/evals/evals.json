@@ -45,8 +45,8 @@
       "note": "changelog content, not the front page"
     },
     {
-      "prompt": "add badges to the README header",
-      "note": "cosmetic edit only"
+      "prompt": "fix the typo in the README title",
+      "note": "mechanical edit only; no skill applies"
     },
     {
       "prompt": "the repository map in our README is really hard to read — fix it",

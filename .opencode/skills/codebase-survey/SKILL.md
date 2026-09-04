@@ -1,6 +1,6 @@
 ---
 name: "codebase-survey"
-description: "Maps an unfamiliar repository fast: deterministic inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. Use this skill when the user says \"survey this codebase\", \"help me get oriented in this repo\", \"map out this project\", or has inherited or cloned a codebase and needs orientation. Not for explaining a specific function, finding a specific bug, or reviewing a change."
+description: "Maps an unfamiliar repository fast: inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. Use when the user says \"survey this codebase\", \"help me get oriented in this repo\", \"map out this project\", or has inherited a codebase. Not for judging its structure (architecture-review), a new design (architecture-spec), one bug (diagnose-bugs), or one function."
 license: "MIT"
 metadata:
   skillsmith-composes: "doc-visuals"

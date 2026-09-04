@@ -1,17 +1,12 @@
 ---
 name: writing-for-agents
 description: >-
-  Writes and rewrites documents whose primary reader is an AI agent —
-  AGENTS.md / CLAUDE.md repository-instruction files, agent onboarding
-  notes, and pointer docs — encoding conventions, verbatim commands,
-  and boundaries so any coding agent lands productive and stays out of
-  trouble. Use this skill when the user says "write an AGENTS.md",
-  "our CLAUDE.md is stale", "agents keep doing X — encode a rule",
-  "make the setup work for both Claude Code and Codex", or wants
-  instructions set up for coding agents. Not for authoring SKILL.md
-  files (skill-authoring), human-facing READMEs (readme-authoring),
-  checking documents stand alone (cold-read), or trimming leaked
-  narration from comments (prose-hygiene).
+  Writes AGENTS.md, CLAUDE.md, and other docs an AI agent reads: conventions,
+  verbatim commands, and boundaries so agents land productive. Use when the
+  user says "create an AGENTS.md", "agents keep doing X — encode a rule", or
+  "make it work for both Claude Code and Codex". Not for SKILL.md files
+  (skill-authoring), READMEs (readme-authoring), or how the agent replies
+  (communication-contract).
 license: MIT
 metadata:
   skillsmith-see-also: "skill-authoring, readme-authoring, cold-read, prose-hygiene"

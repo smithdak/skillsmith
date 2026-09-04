@@ -42,7 +42,7 @@ Profile split encoded at this tier: `argument-hint` in SKILL.md frontmatter is
 valid for Claude Code but **fails the Cowork importer** (error under `--profile cowork`) —
 describe arguments in the body instead.
 
-## Quality tier (V1–V16)
+## Quality tier (V1–V17)
 
 ### V1 — name equals directory, no forbidden substrings
 **Error · all profiles · [`agent-skills-standard.ts`](../packages/core/src/schemas/agent-skills-standard.ts)**
@@ -221,6 +221,23 @@ consumer updating a plugin sees a new number and nothing else.
 The CLI passes the file's contents, or an empty string when it is absent — so
 deleting `CHANGELOG.md` warns once per plugin rather than silently switching
 the rule off.
+
+### V17 — per-plugin listing ceiling
+**Warning · all profiles · [`validate.ts`](../packages/core/src/validate.ts)**
+
+The sum of `name` + `description` + `when_to_use` across every skill a
+`[[plugin]]` ships must stay under `[policy]."max-plugin-listing-chars"`
+(default 4000 via `LIMITS.pluginListingCharCap`). Claude Code puts every
+installed skill's name and description into the system prompt inside a budget
+of about 1% of the context window (≈ 8,000 characters on a 200k model) and,
+when that overflows, drops descriptions starting with the skills the user
+invokes least — so a fresh install loses exactly the skills nobody has tried.
+The default is half that budget: two plugins fit before anything is dropped.
+
+V2 bounds one skill; V17 bounds the plugin, which is the unit users install.
+A plugin over the ceiling either splits along a job boundary or shortens its
+descriptions (the repo's own policy sets `max-listing-chars` to 400 for that
+reason).
 
 ## Security tier (S1–S7)
 

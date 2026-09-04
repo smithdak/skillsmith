@@ -1,14 +1,12 @@
 ---
 name: tdd
 description: >-
-  Drives implementation through the red–green loop: agree the seams
-  under test up front, write one failing test, make it pass minimally,
-  repeat in vertical slices. Use this skill when the user says
-  "test-drive this", "let's do TDD", "write the test first",
-  "red-green-refactor", or wants a feature or bugfix built test-first.
-  Not for retrofitting tests onto existing untested code
-  (retrofit-tests), running an existing suite, or debugging a broken
-  test.
+  Drives a feature or bugfix through the red–green loop: agree the seams,
+  write one failing test, pass it minimally, repeat in vertical slices. Use
+  when the user says "let's do TDD", "write the failing test first",
+  "red-green-refactor", or wants code built test-first. Not for existing
+  untested code (retrofit-tests), a broken test (diagnose-bugs), running a
+  suite, or browser checks (webapp-testing).
 license: MIT
 metadata:
   skillsmith-composes: "deep-modules"

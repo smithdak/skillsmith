@@ -4,7 +4,8 @@
       "prompt": "do a deep research pass on the state of local-first sync engines — multiple sources, and verify the claims"
     },
     {
-      "prompt": "every article I find on GPU instance pricing contradicts the last one — I need something I can actually put in front of finance"
+      "prompt": "every article I find on GPU instance pricing contradicts the last one — I need a proper cross-provider comparison I can put in front of finance",
+      "note": "situation phrasing: contradictory sources across many providers is a fan-out question, not one volatile fact"
     },
     {
       "prompt": "nobody agrees on what actually happened in the WordPress vs WP Engine fight and I need the real timeline, not one side's blog post"

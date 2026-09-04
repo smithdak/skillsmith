@@ -1,0 +1,67 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "design the API for our new invoicing service — three teams will consume it and I want to get the shape right before anyone writes code"
+    },
+    {
+      "prompt": "how should we version this endpoint? we need to change the response shape for /orders and mobile clients can't update fast"
+    },
+    {
+      "prompt": "review our REST API before we open it to partners, it grew organically and I'm sure the naming is all over the place"
+    },
+    {
+      "prompt": "we're publishing a TypeScript SDK for the platform — what should the exported surface look like and what do we promise about stability?"
+    },
+    {
+      "prompt": "define the event schema the checkout service emits to the warehouse and analytics consumers, including how we'll evolve it later"
+    },
+    {
+      "prompt": "write the GraphQL schema for the mobile app's feed, with pagination and a proper error contract"
+    },
+    {
+      "prompt": "what should an error response look like across all our endpoints? right now every handler returns something different"
+    },
+    {
+      "prompt": "the partner integrations keep breaking every time we ship, and the last three tickets were all about fields we changed — we need to sort out what we promise them and stop guessing",
+      "note": "situation phrasing: describes the circumstance without reusing the description's routing vocabulary (no 'API', 'contract', 'version', 'endpoint', 'REST') — tests under-triggering on a consumer-promise problem"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "this class has 40 public methods, shrink it",
+      "note": "near-boundary: deep-modules' own trigger phrasing — one internal module's interface, not a contract other teams program against"
+    },
+    {
+      "prompt": "where should the seam go between the sync engine and the storage layer?",
+      "note": "near-boundary: deep-modules — internal seam placement, no external consumers"
+    },
+    {
+      "prompt": "write an architecture spec for the whole payments platform",
+      "note": "near-boundary: architecture-spec — whole-system document, not one interface's contract"
+    },
+    {
+      "prompt": "add a POST /users route to the express app that creates a user and returns 201",
+      "note": "implementing an endpoint against a shape already decided; no skill applies, or tdd if driven test-first"
+    },
+    {
+      "prompt": "generate a Python client from our openapi.yaml",
+      "note": "SDK generation from an existing contract consumes api-design's output; no skill applies"
+    },
+    {
+      "prompt": "we picked cursor pagination over offset last quarter — write it up so it doesn't get relitigated",
+      "note": "near-boundary: decision-record — recording an already-made decision, not designing the surface"
+    },
+    {
+      "prompt": "is our service layering sound or have we ended up with a distributed monolith?",
+      "note": "near-boundary: architecture-review — judging an existing system's structure, not designing a contract"
+    },
+    {
+      "prompt": "call the Stripe API to create a payment intent and handle the webhook",
+      "note": "consuming a third party's API, not designing one; implementation work with no skill"
+    },
+    {
+      "prompt": "explain the difference between REST and GraphQL",
+      "note": "concept explanation, no design task"
+    }
+  ]
+}

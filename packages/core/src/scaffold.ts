@@ -47,6 +47,7 @@ skills = []
 [policy]
 "max-skill-body-tokens" = 5000
 "max-listing-chars" = 1536
+"max-plugin-listing-chars" = 4000
 "min-trigger-hit-rate" = 0.85
 "security-tier" = "strict"
 "network-allowlist" = []

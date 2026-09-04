@@ -40,6 +40,12 @@ export const policySchema = z.strictObject({
     .int()
     .positive()
     .default(LIMITS.listingCharCap),
+  /** V17: ceiling on one plugin's summed listing chars (name + description + when_to_use). */
+  "max-plugin-listing-chars": z
+    .number()
+    .int()
+    .positive()
+    .default(LIMITS.pluginListingCharCap),
   "min-trigger-hit-rate": z.number().min(0).max(1).default(0.85),
   "security-tier": z.enum(["strict", "standard"]).default("strict"),
   /** S2 allowlist: network-touching commands permitted under strict tier. */

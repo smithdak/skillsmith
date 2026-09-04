@@ -1,6 +1,6 @@
 ---
 name: "information-architecture"
-description: "Organizes a body of content or a pile of files into a structure a stranger can navigate — deciding what splits into its own file, how pieces nest, what lands up front versus on demand, and how each is named, ordered, and linked. Use this skill when a document or README has grown into one long dump, when a folder or repo has become a flat or \"misc\"-ridden pile, or when the user says \"organize these files\", \"this doc should be split up\", \"where should this live\", \"give this a sensible structure\", or \"the information architecture is a mess\". Not for authoring the visual elements inside a document (see doc-visuals), writing the prose, or reviewing technical correctness."
+description: "Organizes content or a pile of files into a structure a stranger can navigate: what splits, how pieces nest, what lands up front. Use when the user says \"organize these files\", \"this doc should be split up\", \"where should this live\", or a doc or folder has become one long dump. Not for diagrams and trees (doc-visuals), a README rewrite (readme-authoring), or repo orientation (codebase-survey)."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"

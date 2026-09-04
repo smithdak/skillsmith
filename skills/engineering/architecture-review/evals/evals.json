@@ -1,0 +1,60 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "review our architecture — we've been adding features to this service for two years and I want to know if the structure still holds up"
+    },
+    {
+      "prompt": "is this codebase structured well, or have we just gotten used to it?"
+    },
+    {
+      "prompt": "where is the coupling in this system? every change to billing seems to end up touching payments and notifications too"
+    },
+    {
+      "prompt": "do an architecture review of packages/ before we plan next quarter's work"
+    },
+    {
+      "prompt": "our ADRs say the domain layer never imports from infrastructure — check whether that's still true and what else has drifted from the original design"
+    },
+    {
+      "prompt": "we're arguing about splitting the monolith. before anyone proposes a rewrite, tell me what is actually wrong with the current structure and what the options are"
+    },
+    {
+      "prompt": "small changes keep turning into three-day jobs that touch half the repo, and nobody can say which parts are supposed to depend on which anymore",
+      "note": "situation phrasing: describes the circumstance without any of the description's vocabulary (no 'architecture', 'structure', 'coupling', 'review') — tests under-triggering"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "help me get oriented in this repo, I just inherited it and have no idea what's where",
+      "note": "codebase-survey owns first-contact orientation and inventory; no judgment of the structure is requested"
+    },
+    {
+      "prompt": "write an architecture spec for the new ingestion pipeline",
+      "note": "architecture-spec owns authoring a spec for a system that does not exist yet"
+    },
+    {
+      "prompt": "this service class has 30 public methods — help me shrink its interface",
+      "note": "deep-modules owns a single interface's design; no system-wide judgment requested"
+    },
+    {
+      "prompt": "the checkout endpoint has been returning 500s intermittently since yesterday's deploy, find the bug",
+      "note": "diagnose-bugs owns a specific defect; the structure of the system is not the question"
+    },
+    {
+      "prompt": "what happens if redis goes down? walk me through the failure modes",
+      "note": "failure-mode-analysis owns dependency-failure behavior and blast radius"
+    },
+    {
+      "prompt": "plan how we move from the monolith to services without breaking prod along the way",
+      "note": "migration-plan owns the A-to-B transition once the target is chosen"
+    },
+    {
+      "prompt": "explain what hexagonal architecture is and when people use it",
+      "note": "concept explanation, not a review of an existing system"
+    },
+    {
+      "prompt": "design the REST API for the new orders service",
+      "note": "api-design owns contract-first interface design for a new surface"
+    }
+  ]
+}

@@ -68,7 +68,7 @@ each one's output is drift-checked like every other generated artifact.
 
 ```toml
 [[plugin]]
-name = "engineering-core"            # kebab-case, required, unique
+name = "architecture"                # kebab-case, required, unique
 version = "0.1.0"                    # optional; see version-source
 version-source = "changesets"        # "changesets" (default) | "manual"
 description = "..."                  # optional; shows in marketplace + catalog
@@ -107,6 +107,7 @@ composition edges) are in [`skillsmith.toml`](../skillsmith.toml).
 [policy]
 "max-skill-body-tokens" = 5000       # V4 token ceiling (chars/4 estimate)
 "max-listing-chars" = 1536           # V2 cap: description + when_to_use listing budget
+"max-plugin-listing-chars" = 4000   # V17 ceiling: summed listing chars per plugin
 "min-trigger-hit-rate" = 0.85        # eval gate: below this → V8 error
 "security-tier" = "strict"           # "strict" | "standard"
 "network-allowlist" = []             # S2: script paths allowed to touch the network
@@ -119,6 +120,11 @@ composition edges) are in [`skillsmith.toml`](../skillsmith.toml).
   [`constants.ts`](../packages/core/src/constants.ts)) — the V2 cap on
   `description` + `when_to_use`, the budget each skill gets in the
   system-prompt listing.
+- **`max-plugin-listing-chars`** (default 4000, from
+  `LIMITS.pluginListingCharCap`) — the V17 ceiling on the summed listing
+  chars of every skill one plugin ships; half of Claude Code's ~8,000-char
+  listing budget on a 200k window, so two plugins fit before descriptions
+  are dropped.
 - **`min-trigger-hit-rate`** (default 0.85) — after `skillsmith eval`, any
   skill scoring below this emits a V8 error ([evals guide](evals.md)).
 - **`security-tier`** — under `strict`, S2 (undeclared network-touching

@@ -6,12 +6,28 @@
 #
 # Everything above the "STAGES" marker is the wizard library: do not hand-edit
 # it. Author the per-step stages below the marker.
+#
+# Flags:   --list          print the stage plan; no prompts, no browser, no writes
+#          --resume        skip stages recorded as completed in the state file
+#          --from N        start at stage N, treating 1..N-1 as completed
+#          -h, --help      usage
+# Env:     ENV_FILE=path              where write_env upserts (default .env)
+#          WIZARD_NONINTERACTIVE=1    smoke-test mode: every ask/ask_secret VAR
+#                                     reads $VAR from the environment (missing
+#                                     = hard error), gates auto-continue, URLs
+#                                     are printed instead of opened.
+# State:   .<script-name>.state in the current directory holds completed stage
+#          numbers only — never a captured value. finish removes it.
 
 set -euo pipefail
 
 # ──────────────────────────────────────────────────────────────────────────
 # Wizard library — delightful, consistent UX. Identical across every wizard.
 # ──────────────────────────────────────────────────────────────────────────
+
+WIZARD_LIB_VERSION="2"
+WIZARD_MODE="${WIZARD_MODE:-run}"                    # run | list
+WIZARD_NONINTERACTIVE="${WIZARD_NONINTERACTIVE:-0}"  # 1 = no human present
 
 if [[ -t 1 ]] && command -v tput >/dev/null 2>&1 && [[ "$(tput colors 2>/dev/null || echo 0)" -ge 8 ]]; then
   BOLD=$(tput bold); DIM=$(tput dim); RESET=$(tput sgr0)
@@ -25,54 +41,147 @@ TOTAL_STAGES=0
 TOTAL_MINUTES=0
 
 _STAGE_INDEX=0
+_STAGE_ACTIVE=0   # 1 while the current stage's helpers should act
 _MINUTES_ELAPSED=0
 ENV_FILE="${ENV_FILE:-.env}"
 WRITTEN_ENV=()    # KEYs written to ENV_FILE this run
 WRITTEN_SECRET=() # secret NAMEs set this run
 SKIPPED=()        # things we couldn't do (e.g. gh missing)
 
+_SCRIPT_NAME=$(basename -- "$0")
+_STATE_FILE=".${_SCRIPT_NAME}.state"
+_RESUME=0
+_FROM=0
+
+_usage() {
+  cat <<USAGE
+Usage: $_SCRIPT_NAME [--list] [--resume] [--from N] [--help]   (wizard library v$WIZARD_LIB_VERSION)
+
+  --list       print the stage plan — each stage's number, title, and the
+               values it captures and writes. No prompts, browser, or writes.
+  --resume     skip the stages recorded as completed in $_STATE_FILE
+  --from N     start at stage N; stages 1..N-1 are treated as completed
+  -h, --help   this text
+
+Environment:
+  ENV_FILE=path             where write_env upserts values (default: .env)
+  WIZARD_NONINTERACTIVE=1   no human present: each ask/ask_secret VAR reads
+                            \$VAR from the environment (unset = hard error),
+                            pause/confirm auto-continue, open_url prints.
+
+State file: $_STATE_FILE (current directory) lists completed stage numbers
+only — never a captured value or secret. Removed when the wizard finishes.
+USAGE
+}
+
+die() { printf '%s✗ %s%s\n' "$RED" "$1" "$RESET" >&2; exit 1; }
+
+_is_int() { [[ "$1" =~ ^[0-9]+$ ]]; }
+
+while (( $# )); do
+  case "$1" in
+    --list)   WIZARD_MODE=list ;;
+    --resume) _RESUME=1 ;;
+    --from)   shift; _FROM="${1:-}" ;;
+    --from=*) _FROM="${1#--from=}" ;;
+    -h|--help) _usage; exit 0 ;;
+    *) _usage >&2; die "unknown argument: $1" ;;
+  esac
+  shift
+done
+if [[ -n "$_FROM" && "$_FROM" != 0 ]]; then
+  if ! _is_int "$_FROM" || (( _FROM < 1 )); then die "--from needs a stage number >= 1"; fi
+  _RESUME=1
+  # Restarting at N: everything before N counts as done, anything at/after N
+  # recorded from an earlier run is dropped.
+  : > "$_STATE_FILE"
+  for (( i = 1; i < _FROM; i++ )); do printf '%s\n' "$i" >> "$_STATE_FILE"; done
+fi
+
+# _done N — did an earlier run complete stage N (only consulted with --resume)?
+_done() {
+  (( _RESUME )) && [[ -f "$_STATE_FILE" ]] && grep -qx "$1" "$_STATE_FILE"
+}
+
+# _stage_complete — record the stage that just ended, if it actually ran.
+_stage_complete() {
+  (( _STAGE_ACTIVE && _STAGE_INDEX > 0 )) && [[ "$WIZARD_MODE" == run ]] || return 0
+  printf '%s\n' "$_STAGE_INDEX" >> "$_STATE_FILE"
+}
+
+# _interactive — true only when a human is at the keyboard in run mode.
+_interactive() { [[ "$WIZARD_MODE" == run && "$WIZARD_NONINTERACTIVE" != 1 ]]; }
+
+# _plan "verb" "detail" — one line of the --list plan.
+_plan() { printf '       %s%-9s%s %s\n' "$DIM" "$1" "$RESET" "$2"; }
+
 # _clear — wipe the terminal so only the current step is on screen. No-op when
-# output isn't a terminal, so piped logs stay readable.
+# output isn't a terminal or no human is watching, so logs stay readable.
 _clear() {
-  [[ -t 1 ]] || return 0
+  [[ -t 1 ]] && _interactive || return 0
   if command -v tput >/dev/null 2>&1; then tput clear; else printf '\033[2J\033[3J\033[H'; fi
 }
 
 # banner "Title" — opening frame: what this wizard does and how long it takes.
 banner() {
+  if [[ "$WIZARD_MODE" == list ]]; then
+    printf '%s%s%s — %s stages · about %s minutes\n' "$BOLD" "$1" "$RESET" "$TOTAL_STAGES" "$TOTAL_MINUTES"
+    return
+  fi
   _clear
   printf '\n%s%s  %s%s\n' "$BOLD" "$BLUE" "$1" "$RESET"
   printf '%s  %s stages · about %s minutes%s\n\n' \
     "$DIM" "$TOTAL_STAGES" "$TOTAL_MINUTES" "$RESET"
   printf '%s  You drive the browser; this wizard tells you exactly what to do and\n' "$DIM"
   printf '  captures the values you copy back. Stop any time with Ctrl-C and re-run\n'
-  printf '  later — it remembers values already saved.%s\n' "$RESET"
+  printf '  with --resume — finished stages are skipped and saved values kept.%s\n' "$RESET"
+  if [[ -f "$_STATE_FILE" ]] && ! (( _RESUME )); then
+    warn "found $_STATE_FILE from an earlier run — starting over anyway (use --resume to skip finished stages)"
+    rm -f "$_STATE_FILE"
+  fi
   pause "Ready to start?"
 }
 
 # stage "Name" <minutes> — clear the screen, then announce a stage and show
 # progress + time remaining. Clearing keeps only the current step on screen.
+# Under --list it prints the plan line; under --resume it skips a completed
+# stage — every helper in that stage then becomes a no-op.
 stage() {
-  _clear
+  _stage_complete
   _STAGE_INDEX=$((_STAGE_INDEX + 1))
   local remaining=$((TOTAL_MINUTES - _MINUTES_ELAPSED))
   (( remaining < 0 )) && remaining=0
   _MINUTES_ELAPSED=$((_MINUTES_ELAPSED + ${2:-0}))
+  if [[ "$WIZARD_MODE" == list ]]; then
+    _STAGE_ACTIVE=0
+    printf '  %s%s.%s %s %s(~%s min)%s\n' "$BOLD" "$_STAGE_INDEX" "$RESET" "$1" "$DIM" "${2:-0}" "$RESET"
+    return
+  fi
+  if _done "$_STAGE_INDEX"; then
+    _STAGE_ACTIVE=0
+    printf '  %s↷ stage %s/%s · %s — already done, skipping%s\n' "$DIM" "$_STAGE_INDEX" "$TOTAL_STAGES" "$1" "$RESET"
+    return
+  fi
+  _STAGE_ACTIVE=1
+  _clear
   printf '\n%s%s▸ Stage %s/%s · %s%s  %s(~%s min left)%s\n' \
     "$BOLD" "$BLUE" "$_STAGE_INDEX" "$TOTAL_STAGES" "$1" "$RESET" "$DIM" "$remaining" "$RESET"
 }
 
 # say "..." — a plain instruction line.
-say()  { printf '  %s\n' "$1"; }
+say()  { (( _STAGE_ACTIVE )) || return 0; printf '  %s\n' "$1"; }
 # step "..." — a numbered-feeling action the human takes in the browser.
-step() { printf '  %s•%s %s\n' "$BLUE" "$RESET" "$1"; }
-note() { printf '  %s%s%s\n' "$DIM" "$1" "$RESET"; }
+step() { (( _STAGE_ACTIVE )) || return 0; printf '  %s•%s %s\n' "$BLUE" "$RESET" "$1"; }
+note() { (( _STAGE_ACTIVE )) || return 0; printf '  %s%s%s\n' "$DIM" "$1" "$RESET"; }
 warn() { printf '  %s⚠ %s%s\n' "$YELLOW" "$1" "$RESET"; }
 
 # open_url URL — open in the human's browser, cross-platform incl. WSL and
 # Git Bash. explorer.exe exits 1 even on success, hence the `|| true`.
 open_url() {
   local url="$1"
+  if [[ "$WIZARD_MODE" == list ]]; then _plan opens "$url"; return; fi
+  (( _STAGE_ACTIVE )) || return 0
+  if ! _interactive; then printf '  %s↗ open%s %s\n' "$GREEN" "$RESET" "$url"; return; fi
   printf '  %s↗ opening%s %s\n' "$GREEN" "$RESET" "$url"
   { if   command -v wslview     >/dev/null 2>&1; then wslview "$url"
     elif command -v explorer.exe >/dev/null 2>&1; then explorer.exe "$url" || true
@@ -84,16 +193,33 @@ open_url() {
 
 # pause "msg" — wait for the human to confirm they've done the manual part.
 pause() {
+  (( _STAGE_ACTIVE )) || [[ "$WIZARD_MODE" == run && "$_STAGE_INDEX" == 0 ]] || return 0
+  if ! _interactive; then printf '  %s%s%s (auto)\n' "$DIM" "${1:-Continue}" "$RESET"; return; fi
   printf '  %s%s%s ' "$DIM" "${1:-Press Enter to continue}" "$RESET"
   read -r _ || true
 }
 
-# confirm "question" — y/N gate; returns success on yes.
+# confirm "question" — y/N gate; returns success on yes. Auto-yes when no
+# human is present; under --list it is recorded as a gate and passes, so
+# guard the irreversible action itself with `run`, never a raw command.
 confirm() {
   local reply=""
+  if [[ "$WIZARD_MODE" == list ]]; then _plan gate "$1"; return 0; fi
+  (( _STAGE_ACTIVE )) || return 0
+  if ! _interactive; then printf '  %s? %s%s [y/N] y (auto)\n' "$YELLOW" "$1" "$RESET"; return 0; fi
   printf '  %s? %s [y/N] ' "$YELLOW" "$1"
   read -r reply || true
   [[ "$reply" =~ ^[Yy] ]]
+}
+
+# run "what it does" cmd args... — execute a command as part of a stage. Under
+# --list it is described, not run; in a skipped stage it does not run.
+run() {
+  local what="$1"; shift
+  if [[ "$WIZARD_MODE" == list ]]; then _plan runs "$what"; return 0; fi
+  (( _STAGE_ACTIVE )) || return 0
+  printf '  %s$%s %s\n' "$DIM" "$RESET" "$what"
+  "$@"
 }
 
 # _existing KEY — current value of KEY in ENV_FILE, if any. Strips a
@@ -105,33 +231,30 @@ _existing() {
   printf '%s' "${line#*=}"
 }
 
-# ask KEY "Prompt" — read a value into $KEY. Offers the existing .env value as
-# a default on re-runs (Enter keeps it). Visible input (non-secret).
-ask() {
-  local key="$1" prompt="$2" current input
+# _capture KEY "Prompt" secret? — shared body of ask/ask_secret. Always leaves
+# $KEY defined so "$KEY" expansions below never trip set -u: empty under
+# --list, the saved .env value in a skipped stage, $KEY from the environment
+# when no human is present, else what the human types (Enter keeps saved).
+_capture() {
+  local key="$1" prompt="$2" secret="${3:-0}" current input
+  if [[ "$WIZARD_MODE" == list ]]; then
+    _plan captures "$key$( (( secret )) && printf ' (secret)')"
+    printf -v "$key" '%s' ""
+    return
+  fi
   current=$(_existing "$key" || true)
+  if ! (( _STAGE_ACTIVE )); then printf -v "$key" '%s' "$current"; return; fi
+  if ! _interactive; then
+    [[ -n "${!key+x}" ]] || die "WIZARD_NONINTERACTIVE=1 but $key is not set in the environment"
+    printf '  %s%s%s (from $%s)\n' "$BOLD" "$prompt" "$RESET" "$key"
+    return
+  fi
   if [[ -n "$current" ]]; then
     printf '  %s%s%s %s[Enter keeps current]%s ' "$BOLD" "$prompt" "$RESET" "$DIM" "$RESET"
   else
     printf '  %s%s%s ' "$BOLD" "$prompt" "$RESET"
   fi
-  read -r input || true
-  input=${input%$'\r'}
-  [[ -z "$input" && -n "$current" ]] && input="$current"
-  printf -v "$key" '%s' "$input"
-}
-
-# ask_secret KEY "Prompt" — like ask, but input is hidden.
-ask_secret() {
-  local key="$1" prompt="$2" current input
-  current=$(_existing "$key" || true)
-  if [[ -n "$current" ]]; then
-    printf '  %s%s%s %s[Enter keeps current]%s ' "$BOLD" "$prompt" "$RESET" "$DIM" "$RESET"
-  else
-    printf '  %s%s%s ' "$BOLD" "$prompt" "$RESET"
-  fi
-  read -rs input || true
-  printf '\n'
+  if (( secret )); then read -rs input || true; printf '\n'; else read -r input || true; fi
   # ConHost-hosted bash (PowerShell → bash.exe) can deliver Enter as a
   # literal \r in the buffer — inside an HTTP header that \r poisons
   # every request the value is used in. Strip it.
@@ -140,10 +263,19 @@ ask_secret() {
   printf -v "$key" '%s' "$input"
 }
 
+# ask KEY "Prompt" — read a value into $KEY. Offers the existing .env value as
+# a default on re-runs (Enter keeps it). Visible input (non-secret).
+ask() { _capture "$1" "$2" 0; }
+
+# ask_secret KEY "Prompt" — like ask, but input is hidden.
+ask_secret() { _capture "$1" "$2" 1; }
+
 # write_env KEY VALUE — upsert KEY=VALUE into ENV_FILE (creates it; replaces
 # any existing line). Idempotent.
 write_env() {
   local key="$1" value="$2" tmp
+  if [[ "$WIZARD_MODE" == list ]]; then _plan writes "$key → $ENV_FILE"; return; fi
+  (( _STAGE_ACTIVE )) || return 0
   touch "$ENV_FILE"
   tmp=$(mktemp)
   grep -vE "^${key}=" "$ENV_FILE" > "$tmp" || true
@@ -157,6 +289,8 @@ write_env() {
 # to a warning (and records it) if gh is unavailable or unauthenticated.
 set_secret() {
   local name="$1" value="$2"
+  if [[ "$WIZARD_MODE" == list ]]; then _plan secret "$name → GitHub Actions"; return; fi
+  (( _STAGE_ACTIVE )) || return 0
   if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
     if printf '%s' "$value" | gh secret set "$name" >/dev/null 2>&1; then
       WRITTEN_SECRET+=("$name")
@@ -171,6 +305,8 @@ set_secret() {
 # set_var NAME VALUE — set a GitHub Actions repo variable (non-secret).
 set_var() {
   local name="$1" value="$2"
+  if [[ "$WIZARD_MODE" == list ]]; then _plan variable "$name → GitHub Actions"; return; fi
+  (( _STAGE_ACTIVE )) || return 0
   if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
     if gh variable set "$name" --body "$value" >/dev/null 2>&1; then
       printf '  %s✓ set%s GitHub variable %s\n' "$GREEN" "$RESET" "$name"
@@ -181,15 +317,23 @@ set_var() {
   warn "skipped GitHub variable $name — gh not ready; set it later"
 }
 
-# finish — clear, then a closing summary of everything configured.
+# finish — clear, then a closing summary of everything configured. Removes the
+# state file: a finished wizard has nothing to resume.
 finish() {
+  _stage_complete
+  _STAGE_ACTIVE=0
+  if [[ "$WIZARD_MODE" == list ]]; then
+    (( _STAGE_INDEX == TOTAL_STAGES )) || warn "TOTAL_STAGES=$TOTAL_STAGES but $_STAGE_INDEX stage(s) defined"
+    return
+  fi
+  rm -f "$_STATE_FILE"
   _clear
   printf '\n%s%s  ✓ Setup complete%s\n' "$BOLD" "$GREEN" "$RESET"
-  (( ${#WRITTEN_ENV[@]} ))    && note "wrote ${#WRITTEN_ENV[@]} value(s) to $ENV_FILE: ${WRITTEN_ENV[*]}"
-  (( ${#WRITTEN_SECRET[@]} )) && note "set ${#WRITTEN_SECRET[@]} GitHub secret(s): ${WRITTEN_SECRET[*]}"
+  (( ${#WRITTEN_ENV[@]} ))    && printf '  %swrote %s value(s) to %s: %s%s\n' "$DIM" "${#WRITTEN_ENV[@]}" "$ENV_FILE" "${WRITTEN_ENV[*]}" "$RESET"
+  (( ${#WRITTEN_SECRET[@]} )) && printf '  %sset %s GitHub secret(s): %s%s\n' "$DIM" "${#WRITTEN_SECRET[@]}" "${WRITTEN_SECRET[*]}" "$RESET"
   if (( ${#SKIPPED[@]} )); then
     printf '\n'; warn "still to do by hand:"
-    for s in "${SKIPPED[@]}"; do note "  - $s"; done
+    for s in "${SKIPPED[@]}"; do printf '  %s  - %s%s\n' "$DIM" "$s" "$RESET"; done
   fi
   printf '\n'
 }
@@ -197,6 +341,8 @@ finish() {
 # ──────────────────────────────────────────────────────────────────────────
 # STAGES — author this section. One stage() per step the human takes.
 # Replace the example below. Set the two totals to match the stages you write.
+# Keep every action inside a helper (run for commands): raw commands execute
+# even under --list and in skipped stages.
 # ──────────────────────────────────────────────────────────────────────────
 
 TOTAL_STAGES=1

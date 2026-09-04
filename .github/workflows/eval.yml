@@ -8,7 +8,7 @@ name: Trigger evals
 # Three votes per case, escalating split cases to nine: at one vote a case
 # near a decision boundary fails about as often as it passes, which would
 # make this gate flap. Unanimous cases stop at three, so the escalation is
-# paid only on boundary cases. Roughly $7 a run at the catalog's current
+# paid only on boundary cases. Roughly $3 a run at the catalog's current
 # size — see docs/evals.md.
 on:
   workflow_dispatch:

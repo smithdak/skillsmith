@@ -9,53 +9,42 @@ folders into its skills directory.
 
 | Skill | Category | Description |
 |---|---|---|
-| `architecture-spec` | engineering | Co-authors a versioned architecture specification through iterative artifact revisions: design invariants, open-decisions register, volatility isolation, and kill/pivot triggers. |
-| `brand-voice` | misc | Extracts a brand voice specification from existing copy samples: identifies tone, vocabulary patterns, sentence structure, and anti-patterns, then produces a durable voice spec other content can be ch |
-| `codebase-survey` | engineering | Maps an unfamiliar repository fast: deterministic inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. |
-| `cold-read` | productivity | Verifies that a document is self-sufficient for its intended audience — readable and actionable with zero access to the conversation or author. |
-| `content-angles` | misc | Researches and generates distinct content angles for a topic: maps what is already saturated, identifies underserved perspectives, and produces a ranked set of angles each with a one-paragraph executi |
-| `content-scorer` | misc | Expert-panel scoring discipline for marketing content: assembles a panel of 7-10 domain experts, scores each dimension, and iterates toward a 90/100 aggregate in up to 3 rounds. |
-| `decision-record` | engineering | Guides a single technical or business decision to a conclusion and lands it as a numbered decision record (ADR): context, genuinely distinct options, the tradeoff matrix, the choice with its driver, a |
-| `deep-modules` | engineering | Provides the deep-module design discipline — small interfaces hiding large implementations, seams, adapters, depth as caller leverage — for designing or critiquing module boundaries. |
-| `deep-research` | engineering | Orchestrates a heavyweight fan-out research harness: decomposes a broad question into independent angles, runs parallel investigators across distinct source modalities, adversarially verifies every lo |
-| `define-security-policy` | engineering | Authors a repository's SECURITY.md interactively: scope, security invariants, what is in and out of bounds, reportability criteria, and accepted risks — with a diff preview and an approval gate before |
-| `define-work-items` | productivity | Defines and documents work items to a business-analyst standard: a consistent structure with title, status, description, tasks, and testable acceptance criteria, complete enough that an implementer ne |
-| `diagnose-bugs` | engineering | Runs a disciplined root-cause diagnosis for a bug, flaky test, performance regression, or unexplained behavior: reproduce deterministically, read the evidence before theorizing, then drive a one-varia |
-| `discernment-nudge` | productivity | Appends, at most once per conversation, two or three short specific follow-up questions ("A few things worth a second look:") to a substantive answer the user may act on, so they can check facts, prob |
-| `discovery-map` | engineering | Plans work too large and too foggy for one session as a shared map of investigation tickets, resolved one per session until the route to a named destination is clear. |
-| `doc-visuals` | engineering | Crafts the visual layer of technical documents — repository maps, mermaid diagrams, code blocks, and tables — so structure lands at a glance and every element survives its renderer. |
-| `estimate` | engineering | Produces calibrated estimates for uncertain quantities — duration, cost, size, headcount, throughput — by decomposing into estimable parts, anchoring each on base rates, bounding high and low independ |
-| `falsification-review` | engineering | Runs a falsification pass before a consequential conclusion is presented: strongest counterargument first, crux identification, and a check on what evidence would overturn the position. |
-| `feature-spec` | engineering | Synthesizes the current conversation into a build-ready feature spec (a PRD): problem, solution, user stories, implementation and testing decisions, out-of-scope — captured from what was already discu |
-| `frontend-craft` | engineering | Designs and builds high-craft web UI that does not read as machine-generated: names the visitor's success mode, commits to one visual world, sets explicit variance/motion/density dials, and refuses th |
-| `frontend-critique` | engineering | Runs a structured UX design review of a finished interface and lands a scored report: design-specificity verdict, Nielsen heuristics scored 0-4 with renormalization, cognitive-load checklist, persona  |
-| `frontend-redesign` | engineering | Upgrades the craft of an existing web UI without a rewrite: derives the current visual system from the code first, diagnoses defects and design-specificity against that evidence, then applies the smal |
-| `grilling` | engineering | Interrogates the user about a half-formed idea, plan, product concept, or architectural direction until every branch of its design tree resolves into a decision or an explicit open item — before any b |
-| `ground-truth-research` | engineering | Verifies volatile facts against live sources before asserting them or designing against them, and attaches an as-of basis to every time-sensitive claim. |
-| `growth-experiments` | misc | Designs statistically sound A/B experiments and interprets results: defines hypothesis and primary metric, calculates required sample sizes, flags confounds, and—given results—applies the appropriate  |
-| `handoff` | productivity | Produces a structured work handoff a cold reader can act on without access to the conversation. |
-| `hardening-proposal` | engineering | Turns a set of security findings into a decision-ready hardening proposal: clusters them by the invariant they violate, defines a falsifiable target invariant, and presents a baseline plus two or thre |
-| `information-architecture` | engineering | Organizes a body of content or a pile of files into a structure a stranger can navigate — deciding what splits into its own file, how pieces nest, what lands up front versus on demand, and how each is |
-| `issue-triage` | productivity | Moves issue-tracker items through an explicit triage state machine — categorize as bug or enhancement, verify the claim against the codebase, then route to needs-info, ready-for-agent, ready-for-human |
-| `op-github-secrets` | engineering | Wires GitHub Actions to pull secrets from 1Password at run time instead of storing long-lived copies in GitHub — using the 1Password load-secrets action with op:// references and a scoped service-acco |
-| `op-secrets` | engineering | Moves a project's secrets out of plaintext and into 1Password secret references (op:// URIs) that resolve at runtime via the op CLI, producing a safe-to-commit .env template and an op run launch path  |
-| `outbound-builder` | misc | Builds and optimizes cold outbound sequences: researches the prospect segment, drafts multi-touch email cadences with subject line variants, and tightens each touchpoint for reply rate. |
-| `output-contract` | productivity | Shapes every reply the agent writes: short chat output with the takeaway on the final line, summary-first file content, one-line pass/fail command reports, no opening throat-clearing, no post-task rec |
-| `podcast-repurposer` | misc | Converts a podcast episode or transcript into a set of platform-ready content assets: a long-form blog post, an email newsletter section, LinkedIn and X posts, and a pull-quote set. |
-| `postmortem` | engineering | Writes an incident or bug post-mortem for a defect that was subtle, systemic, and costly to rediscover: a 30-second executive summary, summary, impact, a timeline anchored to evidence (logs, commits,  |
-| `premortem` | engineering | Runs a premortem on an agreed plan before execution begins: assumes the effort failed, generates the history of that failure across execution, technical, human, and external causes, ranks them by expe |
-| `prose-hygiene` | engineering | Audits and trims comments, JSDoc, docs, READMEs, and decision notes for leaked authoring-session narration — "this PR adds", "used to / no longer", dead citations like "(decision 7)" or "rejected in r |
-| `readme-authoring` | engineering | Writes or rewrites the README that fronts a repository: derives every claim from the actual project rather than the previous README, orders sections so a newcomer can evaluate and install before contr |
+| `api-design` | engineering | Designs the contract for an interface others program against — REST, gRPC, GraphQL, events, or a library's public surface — consumers first, errors and compatibility before the happy path. |
+| `architecture-review` | engineering | Judges an existing system's structure: recovers claimed invariants, tests them against import-graph and churn evidence, and lands ranked findings with options and kill triggers. |
+| `architecture-spec` | engineering | Co-authors a versioned architecture spec for a new or redesigned system: design invariants, open decisions, and kill/pivot triggers. |
+| `codebase-survey` | engineering | Maps an unfamiliar repository fast: inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. |
+| `cold-read` | productivity | Verifies that a document stands alone for its intended audience — actionable with no access to the conversation or author. |
+| `communication-contract` | productivity | How the agent reports: outcome first, failures stated plainly, assumptions over questions. |
+| `decision-record` | engineering | Settles one technical or business decision and lands it as a numbered ADR: options, tradeoffs, choice and driver, and a revisit trigger. |
+| `deep-modules` | engineering | Applies deep-module discipline to one module's boundary: small interfaces hiding large implementations, seams, adapters. |
+| `deep-research` | engineering | Fans a broad or contested question out to parallel investigators, checks each load-bearing claim, and delivers one cited, dated report. |
+| `define-work-items` | productivity | Writes work items to a business-analyst standard, with testable acceptance criteria, so complete an implementer needs to ask nothing. |
+| `diagnose-bugs` | engineering | Finds the root cause of a bug, flaky test, or regression: reproduce, read the evidence, one hypothesis at a time until the mechanism is proven. |
+| `doc-visuals` | engineering | Crafts the visual layer of technical docs — directory trees, mermaid diagrams, code blocks, tables — so structure lands at a glance and survives rendering. |
+| `failure-mode-analysis` | engineering | Ranks the failure modes of a system or design — per dependency: down, slow, partial, or wrong — by likelihood × impact × detectability, with mitigations and game-day tests. |
+| `falsification-review` | engineering | Falsifies a consequential conclusion before it is presented: strongest counterargument first, the crux, and what evidence would overturn it. |
+| `feature-spec` | engineering | Synthesizes the conversation so far into a build-ready feature spec or PRD, never by re-interviewing. |
+| `frontend-craft` | engineering | Builds new web UI with real visual character, not the generic AI-template look. |
+| `frontend-critique` | engineering | Scored design review of a finished interface — heuristics 0-4, P0-P3 issues — no changes applied. |
+| `frontend-redesign` | engineering | Upgrades the craft of an existing web UI without a rewrite: the smallest changes that raise quality, behavior and identity preserved. |
+| `grilling` | engineering | Interrogates a half-formed idea or plan until every branch resolves into a decision or an explicit open item, before building starts. |
+| `ground-truth-research` | engineering | Verifies one volatile fact against live sources before asserting it or designing against it, and attaches an as-of basis to the claim. |
+| `handoff` | productivity | Produces a structured handoff of in-flight work the next session or person can act on without the conversation. |
+| `hardening-proposal` | engineering | Turns security findings into a hardening proposal: clusters them by violated invariant and lays out a baseline plus two or three distinct options with tradeoffs. |
+| `information-architecture` | engineering | Organizes content or a pile of files into a structure a stranger can navigate: what splits, how pieces nest, what lands up front. |
+| `instructions-setup` | productivity | Persists the communication contract into AGENTS.md, CLAUDE.md, or global files as a managed block. |
+| `migration-plan` | engineering | Plans a live system's transition in reversible, verified phases — data store, runtime, service, or API cutover. |
+| `postmortem` | engineering | Writes an incident or bug post-mortem once the root cause is known: evidence-anchored timeline, mechanism, why every safety net missed it, guardrails. |
+| `premortem` | engineering | Runs a premortem on an agreed plan: assumes it failed, narrates why, and turns the top risks into warning signals and kill triggers. |
+| `prose-hygiene` | engineering | Trims comments, JSDoc, and docs of session narration — "this PR adds", "used to / no longer", dead citations — so each fact stands at HEAD. |
+| `readme-authoring` | engineering | Writes or rewrites the README fronting a repository, derived from the actual project and ordered so a newcomer can evaluate and install first. |
 | `research-note` | engineering | Investigates a question against primary sources and lands the findings as a durable, cited Markdown note in the repo. |
-| `retrofit-tests` | engineering | Adds tests to code that already works and has none: characterization tests that pin current behavior at its seams before that behavior is changed, prioritised by what is about to move or is frightenin |
-| `second-order-effects` | engineering | Traces a proposed change beyond its first-order intent — policy, pricing, product rule, API contract, moderation rule, org process — mapping how affected actors adapt rationally, who games it, what co |
-| `security-diff-review` | engineering | Security review of a code change — a diff, pull request, or branch — anchored to what changed but deliberately swept out to sibling call sites of any shared helper the change touches. |
-| `seo-brief` | misc | Produces a keyword-anchored content brief: classifies search intent, identifies what top-ranking content covers and what it misses, and outputs a structured brief with H2 outline, secondary keywords,  |
-| `skill-authoring` | engineering | Authors and audits agent skills so they trigger reliably and stay within their token budget: a description that routes, a body scoped by progressive disclosure, and deterministic work pushed to script |
-| `stacked-prs` | engineering | Lands, reviews, and propagates review fixes across a stack of dependent GitHub PRs (A ← B ← C) with the official gh stack extension: reads PullRequest.stack via GraphQL as the membership authority, li |
-| `tdd` | engineering | Drives implementation through the red–green loop: agree the seams under test up front, write one failing test, make it pass minimally, repeat in vertical slices. |
-| `threat-model` | engineering | Establishes a repository-scoped threat model before any security finding work begins: trust boundaries, assets, attacker stories, and a severity calibration basis the rest of the review inherits. |
-| `voice-setup` | productivity | Interactive guided setup that persists the output-contract reply rules into real instruction files: detects which harness surfaces exist (AGENTS.md, CLAUDE.md, opencode configs, global scopes), interv |
-| `webapp-testing` | engineering | Tests and debugs a locally running web app in a real browser via Playwright: starts the dev server with a bundled with_server helper, then does reconnaissance before action — navigate, wait for networ |
-| `wizard` | engineering | Generates an interactive bash wizard that walks a human step by step through a manual procedure — third-party service setup, a one-off migration, an A-to-B state transition — opening each URL, capturi |
-| `writing-for-agents` | productivity | Writes and rewrites documents whose primary reader is an AI agent — AGENTS.md / CLAUDE.md repository-instruction files, agent onboarding notes, and pointer docs — encoding conventions, verbatim comman |
+| `retrofit-tests` | engineering | Adds characterization tests to working code that has none: pins current behavior at its seams before it changes, prioritised by risk. |
+| `second-order-effects` | engineering | Traces a proposed policy, pricing, or product rule past its first-order intent: how affected actors adapt, who games it, and where the equilibrium settles. |
+| `security-diff-review` | engineering | Security review of one code change — a diff, PR, or branch — anchored to what changed, swept out to sibling call sites of any shared helper it touches. |
+| `skill-authoring` | engineering | Authors and audits agent skills so they trigger reliably and fit their token budget: a description that routes, a body scoped by progressive disclosure, deterministic work pushed to scripts. |
+| `tdd` | engineering | Drives a feature or bugfix through the red–green loop: agree the seams, write one failing test, pass it minimally, repeat in vertical slices. |
+| `threat-model` | engineering | Whole-repo threat model, built before security review: trust boundaries, assets, attacker stories, and the severity basis reviews inherit. |
+| `webapp-testing` | engineering | Verifies UI behavior in a local web app in a real browser via Playwright — clicks, assertions, screenshots, console logs. |
+| `wizard` | engineering | Generates an interactive bash wizard that walks a human through a manual procedure, capturing values into .env and GitHub secrets. |
+| `writing-for-agents` | productivity | Writes AGENTS.md, CLAUDE.md, and other docs an AI agent reads: conventions, verbatim commands, and boundaries so agents land productive. |

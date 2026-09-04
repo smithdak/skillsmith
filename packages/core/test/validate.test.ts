@@ -45,6 +45,7 @@ function addSkill(
   name: string,
   opts: {
     body?: string;
+    description?: string;
     evals?: string | null;
     scripts?: Record<string, { content: string; exec?: boolean }>;
     references?: Record<string, string>;
@@ -55,7 +56,7 @@ function addSkill(
   mkdirSync(dir, { recursive: true });
   writeFileSync(
     join(dir, "SKILL.md"),
-    `---\nname: ${name}\ndescription: 'Use this skill when the user says "${name}".'\n---\n${opts.body ?? "Do the thing.\n"}`,
+    `---\nname: ${name}\ndescription: '${opts.description ?? `Use this skill when the user says "${name}".`}'\n---\n${opts.body ?? "Do the thing.\n"}`,
   );
   if (opts.evals !== null) {
     mkdirSync(join(dir, "evals"), { recursive: true });
@@ -402,6 +403,67 @@ describe("V16 — changelog covers every shipped plugin version", () => {
     const { root } = makeRepo();
     const config = cfgWith([{ name: "p", version: "1.2.0", skills: [] }]);
     expect(await v16(root, config, undefined)).toHaveLength(0);
+  });
+});
+
+describe("V17 — per-plugin listing ceiling", () => {
+  const cfgWith = (
+    plugins: { name: string; version?: string; skills: string[] }[],
+    cap?: number,
+  ) =>
+    validateSkillsmithConfig(
+      {
+        marketplace: { name: "m", owner: { name: "D" } },
+        categories: { allowed: ["engineering"] },
+        plugin: plugins,
+        policy: cap === undefined ? {} : { "max-plugin-listing-chars": cap },
+      },
+      { path: "skillsmith.toml" },
+    ).value!;
+
+  const v17 = async (root: string, config: SkillsmithConfig) => {
+    const d = await discover(root, { allowedCategories: config.categories.allowed });
+    const r = await validateAll(d, config, {});
+    return r.diagnostics.filter((x) => x.rule === "V17");
+  };
+
+  // 120-char descriptions that still satisfy V3 (quoted trigger phrasing).
+  const long = (name: string) =>
+    `Use this skill when the user says "${name}" or asks for the ${name} discipline in any form. ${"x".repeat(40)}`;
+
+  test("one plugin over the ceiling warns with the total and the cap", async () => {
+    const { root } = makeRepo();
+    addSkill(root, "alpha", { description: long("alpha") });
+    addSkill(root, "beta", { description: long("beta") });
+    const config = cfgWith([{ name: "p", version: "1.0.0", skills: ["alpha", "beta"] }], 200);
+    const found = await v17(root, config);
+    expect(found).toHaveLength(1);
+    expect(found[0]!.path).toBe("skillsmith.toml");
+    expect(found[0]!.message).toContain('plugin "p"');
+    expect(found[0]!.message).toContain("across 2 skills");
+    expect(found[0]!.message).toContain("ceiling is 200");
+  });
+
+  test("the same skills split across two plugins pass", async () => {
+    const { root } = makeRepo();
+    addSkill(root, "alpha", { description: long("alpha") });
+    addSkill(root, "beta", { description: long("beta") });
+    const config = cfgWith(
+      [
+        { name: "p", version: "1.0.0", skills: ["alpha"] },
+        { name: "q", version: "1.0.0", skills: ["beta"] },
+      ],
+      200,
+    );
+    expect(await v17(root, config)).toHaveLength(0);
+  });
+
+  test("the knob defaults from LIMITS and a skill missing from disk is not counted", async () => {
+    const { root } = makeRepo();
+    addSkill(root, "alpha");
+    const config = cfgWith([{ name: "p", version: "1.0.0", skills: ["alpha", "ghost"] }]);
+    expect(config.policy["max-plugin-listing-chars"]).toBe(4000);
+    expect(await v17(root, config)).toHaveLength(0);
   });
 });
 

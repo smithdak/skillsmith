@@ -1,6 +1,6 @@
 ---
 name: "frontend-redesign"
-description: "Upgrades the craft of an existing web UI without a rewrite: derives the current visual system from the code first, diagnoses defects and design-specificity against that evidence, then applies the smallest changes that raise quality — preserving working behavior, content, and identity unless the user asked for replacement. Use this skill when the user says \"improve how this looks\", \"audit this UI\", \"make our existing site look more polished\", \"clean up this page's design\", or points at a live interface that works but feels dated or unfinished. Not for building a new page from scratch (frontend-craft), reviewing a finished interface without fixing it (frontend-critique), backend work, or reviewing code for correctness."
+description: "Upgrades the craft of an existing web UI without a rewrite: the smallest changes that raise quality, behavior and identity preserved. Use when the user says \"improve how this looks\", \"audit this UI\", \"clean up this page's design\", or has a live UI that works but feels dated. Not for building a new page (frontend-craft), review without fixes (frontend-critique), backend work, or code correctness."
 license: "MIT"
 metadata:
   skillsmith-invocation: "both"

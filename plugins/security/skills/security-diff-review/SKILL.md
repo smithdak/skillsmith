@@ -1,14 +1,12 @@
 ---
 name: security-diff-review
 description: >-
-  Security review of a code change — a diff, pull request, or branch —
-  anchored to what changed but deliberately swept out to sibling call sites
-  of any shared helper the change touches. Use this skill when the user says
-  "security review this PR", "is this change safe to merge", "check this diff
-  for vulnerabilities", or asks for a security pass on a branch before it
-  ships. Not for auditing a whole repository from scratch, triaging an
-  already-filed finding, or establishing the trust boundaries a review runs
-  against.
+  Security review of one code change — a diff, PR, or branch — anchored to
+  what changed, swept out to sibling call sites of any shared helper it
+  touches. Use when the user says "security review this PR", "is this change
+  safe to merge", or "run a security pass on my feature branch". Not for trust
+  boundaries (threat-model), fixing a set of findings (hardening-proposal), or
+  whole-repo audits.
 license: MIT
 metadata:
   skillsmith-see-also: "threat-model, falsification-review"

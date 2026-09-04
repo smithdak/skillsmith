@@ -1,0 +1,13 @@
+{
+  "name": "agent-instructions",
+  "version": "0.1.0",
+  "description": "Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

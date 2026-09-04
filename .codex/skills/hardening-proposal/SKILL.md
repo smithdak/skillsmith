@@ -1,6 +1,6 @@
 ---
 name: "hardening-proposal"
-description: "Turns a set of security findings into a decision-ready hardening proposal: clusters them by the invariant they violate, defines a falsifiable target invariant, and presents a baseline plus two or three genuinely distinct options with an honest tradeoff matrix. Use this skill when the user says \"how should we fix these findings\", \"propose a hardening plan\", \"what are our options to close this class of bugs\", or has a list of vulnerabilities and needs an architectural response rather than one patch at a time. Not for writing a single fix, triaging findings, or authoring a security policy document."
+description: "Turns security findings into a hardening proposal: clusters them by violated invariant and lays out a baseline plus two or three distinct options with tradeoffs. Use when the user says \"how should we fix these findings\", \"propose a hardening plan\", or \"options to close this class of bugs\". Not for one change (security-diff-review), trust boundaries (threat-model), or triaging findings."
 license: "MIT"
 metadata:
   skillsmith-composes: "falsification-review"

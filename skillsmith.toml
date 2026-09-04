@@ -11,85 +11,84 @@ owner = { name = "Dakota" }
 allowed = ["engineering", "productivity", "misc"]
 
 # Groupings assemble skills/agents/hooks/mcp into installable plugins.
-# A skill belongs to exactly one plugin.
+# A skill belongs to exactly one plugin. Plugins are cut by job so a user
+# installs only what a session needs: Claude Code lists every installed
+# skill's description in the system prompt within ~1% of the context window
+# and drops descriptions when that overflows (V17 keeps each plugin under
+# half of that budget).
 [[plugin]]
-name = "productivity-tools"
-version = "0.4.0"
-description = "Work discipline: handoffs, transitions, work-item definition, issue triage"
-skills = ["cold-read", "define-work-items", "handoff", "issue-triage", "writing-for-agents"]
-agents = ["cold-reader"]
+name = "architecture"
+version = "0.1.0"
+description = "Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes"
+skills = ["api-design", "architecture-review", "architecture-spec", "decision-record", "deep-modules", "failure-mode-analysis", "migration-plan"]
 
 [[plugin]]
-name = "epistemics"
-version = "0.9.0"
-description = "Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research"
-skills = ["deep-research", "discernment-nudge", "estimate", "falsification-review", "grilling", "ground-truth-research", "premortem", "research-note", "second-order-effects"]
+name = "planning"
+version = "0.1.0"
+description = "Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects"
+skills = ["falsification-review", "feature-spec", "grilling", "premortem", "second-order-effects"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
-name = "engineering-core"
-version = "0.8.0"
-description = "Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose"
-skills = ["architecture-spec", "codebase-survey", "decision-record", "discovery-map", "doc-visuals", "feature-spec", "information-architecture", "postmortem", "prose-hygiene", "readme-authoring", "skill-authoring", "wizard"]
+name = "research"
+version = "0.1.0"
+description = "Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo"
+skills = ["deep-research", "ground-truth-research", "research-note"]
 
 [[plugin]]
 name = "code-craft"
-version = "0.4.0"
-description = "Implementation discipline: test-driven red-green loops, characterization tests for code that has none, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions"
-skills = ["deep-modules", "diagnose-bugs", "retrofit-tests", "tdd"]
+version = "0.5.0"
+description = "Implementation discipline: test-first loops, characterization tests, root-cause diagnosis, codebase orientation, post-mortems"
+skills = ["codebase-survey", "diagnose-bugs", "postmortem", "retrofit-tests", "tdd"]
+
+[[plugin]]
+name = "dev-workflow"
+version = "0.1.0"
+description = "Moving work between people and sessions: handoffs, cold reads, work items, guided setup wizards"
+skills = ["cold-read", "define-work-items", "handoff", "wizard"]
+agents = ["cold-reader"]
+
+[[plugin]]
+name = "docs-craft"
+version = "0.1.0"
+description = "Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture"
+skills = ["doc-visuals", "information-architecture", "prose-hygiene", "readme-authoring"]
+
+[[plugin]]
+name = "agent-instructions"
+version = "0.1.0"
+description = "Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup"
+skills = ["communication-contract", "instructions-setup", "skill-authoring", "writing-for-agents"]
+commands = ["instructions-setup"]
 
 [[plugin]]
 name = "security"
-version = "0.2.0"
-description = "Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring"
-skills = ["define-security-policy", "hardening-proposal", "security-diff-review", "threat-model"]
+version = "0.3.0"
+description = "Security review discipline: threat modeling, diff-scoped review with sibling sweeps, decision-ready hardening proposals"
+skills = ["hardening-proposal", "security-diff-review", "threat-model"]
 
 [[plugin]]
 name = "frontend"
-version = "0.4.0"
+version = "0.5.0"
 description = "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright"
 skills = ["frontend-craft", "frontend-critique", "frontend-redesign", "webapp-testing"]
 
-[[plugin]]
-name = "marketing"
-version = "0.3.0"
-description = "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
-skills = ["brand-voice", "content-angles", "content-scorer", "growth-experiments", "outbound-builder", "podcast-repurposer", "seo-brief"]
-
-
-[[plugin]]
-name = "secrets-ops"
-version = "0.2.0"
-description = "1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account"
-skills = ["op-github-secrets", "op-secrets"]
-
-[[plugin]]
-name = "pr-workflow"
-version = "0.2.0"
-description = "Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension"
-skills = ["stacked-prs"]
-
-[[plugin]]
-name = "agent-voice"
-version = "0.3.0"
-description = "How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks"
-skills = ["output-contract", "voice-setup"]
-commands = ["voice-setup"]
-
 [policy]
 "max-skill-body-tokens" = 5000
-"max-listing-chars" = 1536
+"max-listing-chars" = 400            # V2: this catalog's per-skill description target (harness cap is 1536)
+"max-plugin-listing-chars" = 4000    # V17: half a 200k-window listing budget per plugin
 "min-trigger-hit-rate" = 0.85
 "security-tier" = "strict"
 "network-allowlist" = []
 "composition-allowlist" = [
+  "architecture-spec->doc-visuals",
   "architecture-spec->falsification-review",
+  "codebase-survey->doc-visuals",
   "decision-record->ground-truth-research",
-  "discovery-map->cold-read",
-  "discovery-map->define-work-items",
-  "discovery-map->falsification-review",
-  "discovery-map->ground-truth-research",
   "feature-spec->cold-read",
   "feature-spec->deep-modules",
+  "grilling->ground-truth-research",
   "hardening-proposal->falsification-review",
+  "postmortem->doc-visuals",
+  "tdd->deep-modules",
 ]

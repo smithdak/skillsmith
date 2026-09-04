@@ -1,15 +1,12 @@
 ---
 name: readme-authoring
 description: >-
-  Writes or rewrites the README that fronts a repository: derives every claim
-  from the actual project rather than the previous README, orders sections so
-  a newcomer can evaluate and install before contributor tooling appears, and
-  leaves LICENSE, CONTRIBUTING, and CHANGELOG content in their own files. Use
-  this skill when the user says "write a README", "our README is out of
-  date", "improve the README", "the front page doesn't explain what this
-  does", or a repo's landing document no longer matches what it ships. Not
-  for the visual elements inside a document, reorganizing a multi-file docs
-  tree, or writing API reference.
+  Writes or rewrites the README fronting a repository, derived from the actual
+  project and ordered so a newcomer can evaluate and install first. Use when
+  the user says "write a README", "our README is out of date", or the landing
+  page no longer matches what ships. Not for diagrams and trees (doc-visuals),
+  a multi-file docs tree (information-architecture), or agent-facing docs
+  (writing-for-agents).
 license: MIT
 metadata:
   skillsmith-composes: "doc-visuals"

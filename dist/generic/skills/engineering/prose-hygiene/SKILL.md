@@ -1,21 +1,12 @@
 ---
 name: prose-hygiene
 description: >-
-  Audits and trims comments, JSDoc, docs, READMEs, and decision notes for
-  leaked authoring-session narration — "this PR adds", "used to / no
-  longer", dead citations like "(decision 7)" or "rejected in review",
-  justifications aimed at a reviewer, control-flow narration, hedges like
-  "probably fine for now" — restating each surviving fact so it stands at
-  HEAD while preserving every contract proposition (actor, condition,
-  modality, negative guarantee, ownership, failure mode), and checks that
-  public JSDoc, internal comments, and README say what that location
-  requires. Use this skill when the user says "clean up the comments
-  before we merge", "these docstrings read like a PR description", "strip
-  the history talk from the docs", "audit the comments for stale decision
-  references", or "make the comments read as if they were always true".
-  Not for diagrams or tables (doc-visuals), splitting a doc
-  (information-architecture), writing a README (readme-authoring),
-  checking a doc stands alone (cold-read), or proofreading.
+  Trims comments, JSDoc, and docs of session narration — "this PR adds", "used
+  to / no longer", dead citations — so each fact stands at HEAD. Use when the
+  user says "clean up the comments before we merge", "strip the history talk
+  from the docs", or docstrings read like a PR description. Not for diagrams
+  (doc-visuals), splitting a doc (information-architecture), or
+  self-containment (cold-read).
 license: MIT
 metadata:
   skillsmith-see-also: "doc-visuals, information-architecture, readme-authoring, cold-read"

@@ -1,0 +1,13 @@
+{
+  "name": "architecture",
+  "version": "0.1.0",
+  "description": "Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes",
+  "author": {
+    "name": "Dakota"
+  },
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills"
+  ]
+}

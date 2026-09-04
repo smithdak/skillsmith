@@ -1,6 +1,6 @@
 ---
 name: "define-work-items"
-description: "Defines and documents work items to a business-analyst standard: a consistent structure with title, status, description, tasks, and testable acceptance criteria, complete enough that an implementer needs to ask nothing. Use this skill when the user says \"write a ticket\", \"create a work item\", \"turn this into user stories\", \"document this as a backlog item\", or wants a bug, feature, or task written up for someone else to execute. Not for status queries, backlog prioritization, or effort estimation."
+description: "Writes work items to a business-analyst standard, with testable acceptance criteria, so complete an implementer needs to ask nothing. Use when the user says \"write a ticket\", \"create a work item\", \"turn this into user stories\", or wants a bug or feature written up for someone else to build. Not for a build-ready PRD (feature-spec), in-flight state (handoff), prioritization, or estimation."
 license: "MIT"
 metadata:
   skillsmith-composes: "cold-read"

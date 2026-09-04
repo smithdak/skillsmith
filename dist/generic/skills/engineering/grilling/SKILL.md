@@ -1,21 +1,16 @@
 ---
 name: grilling
 description: >-
-  Interrogates the user about a half-formed idea, plan, product
-  concept, or architectural direction until every branch of its
-  design tree resolves into a decision or an explicit open item —
-  before any building starts. Use this skill when the user says
-  "grill me on this", "poke holes in this idea", "interrogate me
-  until the scope is clear", "ask me the hard questions", "help me
-  think this through", or shows up with a vague idea they are about
-  to start acting on. Not for testing a conclusion already reached
-  (falsification-review), checking whether a written document stands
-  alone (cold-read), capturing decisions already made (feature-spec),
-  or writing tickets for known work (define-work-items).
+  Interrogates a half-formed idea or plan until every branch resolves into
+  a decision or an explicit open item, before building starts. Use when
+  the user says "grill me on this", "poke holes in this idea", "ask me the
+  hard questions", or has a vague idea they are about to act on. Not for
+  testing a conclusion (falsification-review), capturing decisions
+  (feature-spec), or tickets (define-work-items).
 license: MIT
 metadata:
   skillsmith-composes: "ground-truth-research"
-  skillsmith-see-also: "falsification-review, feature-spec, define-work-items, discovery-map"
+  skillsmith-see-also: "falsification-review, feature-spec, define-work-items"
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
 user-invocable: true
@@ -88,8 +83,8 @@ Convergence is a complete pass over the tree that produces no new
 branch. Then deliver: the updated two-line restatement, the decision
 log, and the open items — and route the result. One buildable unit
 goes to feature-spec or define-work-items; something larger than one
-session goes to discovery-map. Say which routing fits and why, then
-stop. A grill session that refuses to end stops being useful.
+session becomes a sequence of work items, each sized to a session.
+Say which routing fits and why, then stop. A grill session that refuses to end stops being useful.
 
 ## Boundaries
 

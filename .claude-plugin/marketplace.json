@@ -5,24 +5,29 @@
   },
   "plugins": [
     {
-      "name": "agent-voice",
-      "source": "./plugins/agent-voice",
-      "description": "How the agent talks: terse takeaway-last chat replies, summary-first files, one-line command reports — plus guided per-repo setup of those rules as managed instruction blocks"
+      "name": "agent-instructions",
+      "source": "./plugins/agent-instructions",
+      "description": "Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup"
+    },
+    {
+      "name": "architecture",
+      "source": "./plugins/architecture",
+      "description": "Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes"
     },
     {
       "name": "code-craft",
       "source": "./plugins/code-craft",
-      "description": "Implementation discipline: test-driven red-green loops, characterization tests for code that has none, deep-module interface design, and disciplined root-cause diagnosis for bugs, flakes, and regressions"
+      "description": "Implementation discipline: test-first loops, characterization tests, root-cause diagnosis, codebase orientation, post-mortems"
     },
     {
-      "name": "engineering-core",
-      "source": "./plugins/engineering-core",
-      "description": "Engineering workflow orchestrators: specs, surveys, decisions, post-mortems, guided setup wizards — plus the information-architecture, doc-visuals, prose-hygiene, readme-authoring, and skill-authoring disciplines they compose"
+      "name": "dev-workflow",
+      "source": "./plugins/dev-workflow",
+      "description": "Moving work between people and sessions: handoffs, cold reads, work items, guided setup wizards"
     },
     {
-      "name": "epistemics",
-      "source": "./plugins/epistemics",
-      "description": "Judgment discipline: elicitation grilling before work starts, premortems on agreed plans, falsification passes, adversarial review, crux identification, post-answer discernment nudges, live-source verification, durable research"
+      "name": "docs-craft",
+      "source": "./plugins/docs-craft",
+      "description": "Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture"
     },
     {
       "name": "frontend",
@@ -30,29 +35,19 @@
       "description": "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright"
     },
     {
-      "name": "marketing",
-      "source": "./plugins/marketing",
-      "description": "Marketing discipline: content scoring, outbound sequences, content angle research, podcast repurposing, and growth experiment design"
+      "name": "planning",
+      "source": "./plugins/planning",
+      "description": "Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects"
     },
     {
-      "name": "pr-workflow",
-      "source": "./plugins/pr-workflow",
-      "description": "Pull-request workflow discipline: landing and propagating review fixes across dependent GitHub PR stacks with the official gh stack extension"
-    },
-    {
-      "name": "productivity-tools",
-      "source": "./plugins/productivity-tools",
-      "description": "Work discipline: handoffs, transitions, work-item definition, issue triage"
-    },
-    {
-      "name": "secrets-ops",
-      "source": "./plugins/secrets-ops",
-      "description": "1Password-backed secret handling: convert projects to op:// references with op run, and load secrets into GitHub Actions via a scoped service account"
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo"
     },
     {
       "name": "security",
       "source": "./plugins/security",
-      "description": "Security review discipline: repository threat modeling, diff-scoped review with sibling-instance sweeps, decision-ready hardening proposals, and SECURITY.md authoring"
+      "description": "Security review discipline: threat modeling, diff-scoped review with sibling sweeps, decision-ready hardening proposals"
     }
   ]
 }

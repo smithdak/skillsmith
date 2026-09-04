@@ -417,6 +417,36 @@ export async function validateAll(
     }
   }
 
+  // ---- V17: per-plugin listing ceiling ----
+  // Claude Code lists every installed skill's name + description in the system
+  // prompt inside a budget of ~1% of the context window, and drops descriptions
+  // (least-invoked first) when the listing overflows. A plugin that alone eats
+  // most of that budget defeats installing plugins one at a time.
+  {
+    const cap = config.policy["max-plugin-listing-chars"];
+    const skillByName = new Map(discovery.skills.map((s) => [s.name, s]));
+    for (const grouping of config.plugin) {
+      let chars = 0;
+      let counted = 0;
+      for (const name of grouping.skills) {
+        const skill = skillByName.get(name);
+        if (!skill) continue; // a missing skill is generate's error to report
+        const fm = skill.frontmatter;
+        chars += skill.name.length + fm.description.length + (fm.when_to_use?.length ?? 0);
+        counted++;
+      }
+      if (chars > cap) {
+        diagnostics.push(
+          warning(
+            "V17",
+            "skillsmith.toml",
+            `plugin "${grouping.name}" lists ${chars} chars across ${counted} skills; the ceiling is ${cap} (≈ half a 200k-window listing budget) — split the plugin or shorten descriptions`,
+          ),
+        );
+      }
+    }
+  }
+
   // Hook sets: schema + S3 over the file contents (discovery reads them raw).
   for (const hookSet of discovery.hookSets) {
     try {

@@ -1,12 +1,12 @@
 ---
 name: "premortem"
-description: "Runs a premortem on an agreed plan before execution begins: assumes the effort failed, generates the history of that failure across execution, technical, human, and external causes, ranks them by expected cost, and converts the top risks into early- warning signals, mitigations, and observable kill/pivot triggers. Use this skill when the user says \"run a premortem\", \"what could go wrong with this plan\", \"stress-test this rollout\", \"before we commit — imagine it's a year later and this went badly\", or is about to start a migration, launch, rewrite, or release. Not for attacking whether a stated conclusion is correct (falsification-review), interrogating a still-fuzzy idea (grilling), or documenting a failure that already happened (postmortem)."
+description: "Runs a premortem on an agreed plan: assumes it failed, narrates why, and turns the top risks into warning signals and kill triggers. Use when the user says \"run a premortem\", \"stress-test this rollout\", \"imagine it's a year on and this went badly\", or is about to start a migration. Not for testing a conclusion (falsification-review), a fuzzy idea (grilling), or past failures (postmortem)."
 license: "MIT"
 metadata:
   skillsmith-composes: "falsification-review"
   skillsmith-invocation: "both"
   skillsmith-maturity: "experimental"
-  skillsmith-see-also: "grilling, falsification-review, architecture-spec, discovery-map, define-work-items"
+  skillsmith-see-also: "grilling, falsification-review, architecture-spec, define-work-items"
 ---
 
 # premortem
@@ -91,8 +91,9 @@ without an owner and a date is a wish.
 
 The premortem ends by changing something: plan revisions, guardrail
 tasks via define-work-items ("build the drift-diff script"),
-investigation tickets via discovery-map for the risks that are
-actually unknowns, or trigger lines appended to the plan document.
+investigation tasks — also via define-work-items, one per unknown —
+for the risks that are actually unknowns, or trigger lines appended
+to the plan document.
 Report which risks changed the plan, which produced tasks, and
 which were accepted as-is. If nothing changed anywhere, say so
 plainly — a premortem that alters nothing was either theater or the

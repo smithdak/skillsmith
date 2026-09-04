@@ -1,6 +1,6 @@
 ---
 name: "frontend-critique"
-description: "Runs a structured UX design review of a finished interface and lands a scored report: design-specificity verdict, Nielsen heuristics scored 0-4 with renormalization, cognitive-load checklist, persona red flags, and P0-P3 issues each with a concrete fix and the skill that should apply it. Use this skill when the user says \"critique this page\", \"review the design\", \"what do you think of this UI\", \"score our landing page's design\", or wants a design assessment before deciding what to change. Not for applying fixes (frontend-redesign), building new UI (frontend-craft), verifying behavior in a browser (webapp-testing), or security review."
+description: "Scored design review of a finished interface — heuristics 0-4, P0-P3 issues — no changes applied. Use when the user says \"critique this page\", \"review the design\", \"what do you think of this UI\", or wants an assessment before any changes. Not for applying fixes (frontend-redesign), building new UI (frontend-craft), browser checks (webapp-testing), or security review (security-diff-review)."
 license: "MIT"
 metadata:
   skillsmith-composes: "webapp-testing"

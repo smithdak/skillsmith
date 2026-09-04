@@ -1,0 +1,60 @@
+{
+  "should_trigger": [
+    {
+      "prompt": "plan the migration off Mongo onto Postgres — we can't take the site down and there's 400M documents"
+    },
+    {
+      "prompt": "how do we move everyone to the new auth service without downtime? old sessions have to keep working"
+    },
+    {
+      "prompt": "phase this Rails 5 to 7 upgrade so we can ship it in pieces instead of one giant PR"
+    },
+    {
+      "prompt": "we're splitting the orders module out of the monolith into its own service. what's the sequence so each step is reversible?"
+    },
+    {
+      "prompt": "cutover plan for retiring v1 of our public API — 300 partners still call it"
+    },
+    {
+      "prompt": "we need to swap S3 for GCS underneath the uploads feature while it keeps serving traffic, and I want to be able to back out at any point"
+    },
+    {
+      "prompt": "the new billing tables are ready and the old ones are still live. what order do we do things in so nothing gets lost and we can stop halfway if it goes sideways?",
+      "note": "situation phrasing: no 'migration', 'cutover', 'phase', or 'upgrade' — describes a live two-state system needing a safe ordering; tests under-triggering where lexical overlap is absent"
+    }
+  ],
+  "should_not_trigger": [
+    {
+      "prompt": "should we move to Postgres or stay on Mongo? help us decide and write it up",
+      "note": "decision-record: whether to migrate is still open; no destination to plan toward"
+    },
+    {
+      "prompt": "here's our rollout plan for the auth cutover — what could go wrong with it?",
+      "note": "premortem: risk pass on a plan that already exists"
+    },
+    {
+      "prompt": "write the Alembic migration that adds the customer_tier column with a backfill of 'free'",
+      "note": "writing the migration script itself; a code task, no plan needed"
+    },
+    {
+      "prompt": "make me a setup script that walks me through configuring Stripe webhooks and putting the keys in .env",
+      "note": "wizard: interactive human procedure, not a system transition plan"
+    },
+    {
+      "prompt": "rename UserManager to UserService and update the imports",
+      "note": "one-file refactor shipping in a single deploy; no skill applies"
+    },
+    {
+      "prompt": "write an ADR for choosing Kafka over RabbitMQ",
+      "note": "decision-record: documenting a choice, not planning a transition"
+    },
+    {
+      "prompt": "list every way the new payment pipeline could fail once it's running in production",
+      "note": "failure-mode-analysis: operational failure of the end state, not the transition"
+    },
+    {
+      "prompt": "is our current service layout worth keeping or is it time to restructure?",
+      "note": "architecture-review: judging the existing structure; may hand off to migration-plan after, but this ask is the judgment"
+    }
+  ]
+}
