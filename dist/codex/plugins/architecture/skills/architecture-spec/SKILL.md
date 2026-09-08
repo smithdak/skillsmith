@@ -1,0 +1,68 @@
+---
+name: "architecture-spec"
+description: "Co-authors a versioned architecture spec for a new or redesigned system: design invariants, open decisions, and kill/pivot triggers. Use when the user says \"write an architecture spec\", \"spec out\" a system, or \"draft a design doc\". Not for judging an existing system (architecture-review), one feature (feature-spec), one decision (decision-record), or reviewing a draft (falsification-review)."
+license: "MIT"
+metadata:
+  skillsmith-composes: "doc-visuals, falsification-review"
+  skillsmith-invocation: "user"
+  skillsmith-maturity: "experimental"
+  skillsmith-see-also: "ground-truth-research"
+---
+
+# architecture-spec
+
+Produce a specification the team can build against: decisions with
+rationale, not descriptions of intent. The document is versioned from v0.1
+and evolves by revision, never by rewrite — a spec that must be rewritten
+to absorb new information was structured wrong.
+
+## Before designing: establish ground truth
+
+Verify the volatile facts the design depends on — current versions, API
+surfaces, ecosystem state, what competing solutions already exist — against
+live sources, not recall. Every time-sensitive claim in the spec carries an
+as-of date. A spec built on stale ground truth fails at implementation, not
+review, which is the expensive place to fail.
+
+## Structure the document
+
+Load [references/spec-template.md](references/spec-template.md) for the
+full section template and per-section guidance. The load-bearing sections,
+in order of leverage:
+
+1. **Design invariants** — the handful of non-negotiables everything else
+   derives from. Number them (I1, I2, …) so later decisions can cite them.
+2. **Open-decisions register** — unresolved choices as numbered items
+   (O1, O2, …), each with the options, a recommendation, and what evidence
+   resolves it. An honest register beats premature resolution.
+3. **Volatility isolation** — name what will churn (external schemas,
+   vendor surfaces, model-specific behavior) and confine each to one
+   module, one file, or one section, so change has a known blast radius.
+4. **Kill/pivot triggers** — the observable conditions under which the
+   architecture is wrong, stated before building. Deciding these in
+   advance is cheap; deciding them mid-crisis is not.
+
+Directory trees, pipeline diagrams, and interface examples carry the
+spec's most-trusted claims — render them with the doc-visuals
+discipline so they stay legible and verifiable against the code. If that
+companion is unavailable, check paths, flows, and examples directly.
+
+## Work by revision
+
+Use the discussion mode the user requested: co-author unresolved decisions
+interactively, or produce a complete draft from available context when asked.
+Keep settled decisions and material open items visible without requiring a
+new approval for each section. Record rejected alternatives with the reason
+for rejection; they prevent relitigation and are the cheapest
+documentation the spec contains.
+
+## Before tagging a version
+
+Run the falsification-review discipline on the draft: strongest
+counterargument to the central architecture choice, the crux per major
+decision, and confidence with drivers. For a spec the team will build
+against, escalate to the falsification-reviewer agent (shipped with the
+planning plugin) with the complete document; if that agent is not
+installed, run the same pass inline with the full document in context.
+Resolve or register every finding — a finding converted into an
+O-item is handled; a finding ignored is a defect.

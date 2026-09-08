@@ -53,7 +53,7 @@ export function renderCatalog(
     const badges = evalResults !== undefined;
     lines.push(
       badges
-        ? "| Skill | Category | Invocation | Maturity | Triggering | Description |"
+        ? "| Skill | Category | Invocation | Maturity | Routing simulation | Description |"
         : "| Skill | Category | Invocation | Maturity | Description |",
     );
     lines.push(badges ? "|---|---|---|---|---|---|" : "|---|---|---|---|---|");

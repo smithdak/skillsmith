@@ -19,88 +19,51 @@ user-invocable: true
 
 *Adapted from anthropics/skills — webapp-testing (Apache-2.0); see repo-root NOTICES.md.*
 
-A claim about UI behavior is only as good as the browser run behind it. Drive
-the app in a real headless browser, look at the rendered state before choosing
-selectors, and keep the evidence — screenshots and console output — so every
-claim is reviewable after the fact. Reading the source shows what the app is
-supposed to do; the browser shows what it does.
+Verify the requested user flow in a real browser and retain evidence of the
+observed result. Source inspection alone does not establish UI behavior.
 
-## Decide the approach
+## Use the existing environment
 
-- **Static HTML** (a file, no server): read the file to identify selectors,
-  then load it over `file://`. If the markup is built at runtime or the read
-  is inconclusive, treat it as dynamic.
-- **Dynamic app, server not running**: start it with the bundled helper —
-  `scripts/with_server.py --help` first, then
-  `python scripts/with_server.py --server "npm run dev" --port 5173 -- <your command>`.
-  It starts one or more servers, waits for each port to accept connections,
-  runs the command, and tears the whole process tree down afterwards. Run it
-  as a black box; do not read it into context unless it fails.
-- **Dynamic app, server already running**: skip the helper and go straight
-  to reconnaissance against the existing origin. Never start a second copy
-  of a server the user already has up — verifying a replacement server
-  proves nothing about the page they are looking at.
+Prefer the project's Playwright setup or available browser tools. Reuse an
+existing server after checking it serves the intended application. If a server
+is needed, resolve [scripts/with_server.py](scripts/with_server.py) from the
+installed skill directory, inspect its help, and use it to manage startup and
+cleanup. Do not stop a server the user already had running.
 
-## Reconnaissance, then action
+Choose the project's runtime; do not add a second language environment for one
+check. If browser dependencies are missing, report the prerequisite or install
+within the authorized project scope. Static pages can use a file URL when
+their assets and browser behavior permit it; otherwise serve them locally.
 
-1. Navigate and wait: `page.goto(url)` then wait for `networkidle`.
-   Inspecting the DOM before the app's JavaScript has run is the single most
-   common way to get an empty or wrong selector list.
-2. Inspect the rendered state: a full-page screenshot, `page.content()`,
-   and locator sweeps (`button`, `a[href]`, `input, textarea, select`) to see
-   what is actually on the page and what it is called.
-3. Choose selectors from what the recon found — prefer roles and visible text
-   (`get_by_role`, `text=`), then stable ids; avoid brittle CSS chains.
-4. Act with those selectors, adding explicit waits (`wait_for_selector`,
-   `expect(locator).to_be_visible()`) at each state transition rather than
-   fixed sleeps.
+## Observe, act, assert
 
-Always launch Chromium headless, use one viewport for the whole run, and
-close the browser when done. Keep inspection rounds **bounded**: one
-reconnaissance round (add a mobile viewport only when the question is
-about layout), one action-and-assert round, and at most one confirming
-round after any fix the user or another skill applies — open-ended
-screenshot loops burn the session without converging faster than
-that. Patterns for element discovery, static-file
-automation, and console capture, in both Python and TypeScript, are in
+Attach console and page-error capture before navigation. Wait for the actual
+page state needed by the task, such as a visible control or loaded result.
+Do not require network idleness: polling, analytics, and persistent connections
+can make it unrelated to readiness.
+
+Inspect the rendered DOM and choose locators from observed roles, accessible
+names, or stable test identifiers. Act through those locators and assert the
+resulting user-visible behavior at each important transition. Prefer locator
+assertions and state waits to fixed sleeps. For layout questions, inspect the
+relevant desktop and mobile widths; use the user's requested browser when
+provided. Headless Chromium is a practical default, not a requirement.
+
+Example: after submitting signup, assert the account state or confirmation and
+check relevant errors. A successful click or HTTP 200 alone does not prove the
+signup completed.
+
+Patterns for Python and TypeScript are in
 [references/playwright-patterns.md](references/playwright-patterns.md).
 
-## Capture evidence
+## Finish with evidence
 
-Write screenshots and logs to a path the user can open and the repo ignores —
-the project's existing output or `.playwright` directory, or the session
-scratchpad — never to a sandbox-only path. Attach a `page.on("console", …)`
-handler before navigating so startup errors are captured, and keep the log
-when the task is "why is this page broken": the console usually names the
-failing module or request. Pair every behavioral claim in the report with
-the screenshot or log line that shows it.
+Save useful screenshots, logs, and reusable checks to a known output location
+and report paths the user can access. Match claims to the right evidence:
+assertions for behavior, screenshots for appearance, logs for failures.
+Batch related inspections and repeat only after changes or unresolved failures.
+Close browser contexts and servers started for this task.
 
-## Runtime
-
-Use the Playwright the project already has. A `package.json` that depends on
-`@playwright/test` or `playwright` means Node/TypeScript; otherwise use the
-Python sync API (`pip install playwright && playwright install chromium`).
-Do not add a second runtime to a project for one check. If a browser MCP
-server (Playwright, Chrome) is connected, it can replace the reconnaissance
-step; checks the user will re-run still become scripts, because a script is
-repeatable and a tool session is not.
-
-## Boundaries
-
-- This skill verifies behavior; it does not build or restyle interfaces.
-  New UI is `frontend-craft`, upgrading an existing one is
-  `frontend-redesign`.
-- Unit-level red-green work belongs to `tdd`. Reach for the browser when the
-  question is what the user sees, not whether a function returns the right
-  value.
-- Do not install browsers or dependencies globally without saying so;
-  prefer the project-local install.
-- Stop any server the helper started. A server left running outlives the
-  turn and confuses the next run.
-
-## Verify before returning
-
-Every claim about what the page does is backed by a screenshot or a console
-log captured after `networkidle`. Selectors in any returned script were
-observed in the rendered DOM, not guessed from source. Servers started by the
-helper are gone, and every cited output path exists.
+Report which steps passed, failed, or were not exercised. This skill verifies;
+frontend-craft and frontend-redesign implement interfaces, and tdd covers
+unit-level development.

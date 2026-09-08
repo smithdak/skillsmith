@@ -10,87 +10,51 @@ metadata:
 
 # information-architecture
 
-A structure is good when a stranger can predict where anything lives
-before opening it. The long file and the flat, "misc"-ridden folder fail
-the same test: both are organized by the order things were *produced*,
-not the way they will be *retrieved*. Information architecture is the
-arrangement — what splits, what nests, what lands up front — that makes
-the map match the reader's guess.
+Organize content around how readers retrieve it. A useful structure lets a
+stranger predict where to look and reach the answer without knowing the
+history of the files.
 
-Two disciplines govern every structure:
+## Inventory and audience
 
-1. **Organize by retrieval, not by production.** The unit of structure is
-   the question someone arrives with. Cluster pieces by the journey that
-   reaches them and name each cluster by the question it answers — not by
-   when it was written or which system produced it. An outline that
-   mirrors the author's process is an accident the reader has to decode.
-2. **Every item one obvious home; every home reachable.** Each piece
-   belongs in exactly one place a reader would look first, and every place
-   is reachable from the index. Two homes for one thing means the reader
-   guesses wrong half the time; a "misc" bucket is the confession that a
-   home is missing; an item reachable from nowhere may as well be deleted.
+Identify the audience and the questions they arrive with. List actual files or
+sections before moving anything. Use [scripts/inventory.sh](scripts/inventory.sh)
+from its installed location for file counts or a Markdown heading outline;
+read-only manual enumeration is sufficient when the helper cannot run.
 
-## Inventory from ground truth
+Separate source, generated, historical, and maintained reference material.
+Preserve ownership and links while changing navigation.
 
-Never restructure from memory. List the actual pieces first: for a folder,
-its items with sizes and counts; for an over-long file, its latent
-sections. Run `scripts/inventory.sh <path>` — it prints a directory's
-entries with line counts, or a markdown file's heading outline with the
-line span of each section, so the seams and the bloat show as fact rather
-than recollection — no clustering without an enumeration.
+## Group and layer
 
-## Cluster, layer, name, place
+Group pieces by the task or question that reaches them. Give each maintained
+fact an authoritative home; indexes and alternate navigation may link to that
+home without copying the content. Split when audiences, update cadence, or
+retrieval paths differ. Merge sections habitually read together.
 
-The method is four moves over the inventory:
+Keep common prerequisites and the navigation map near the entry point. Put
+conditional detail behind descriptive links. Prefer shallow navigation, but
+use deeper structure when the reader's task actually benefits from it rather
+than enforcing a universal depth limit.
 
-- **Cluster by retrieval.** Group the pieces by the question or journey
-  that reaches them. A group earns its own file or folder when it answers
-  a distinct question *and* is reached by a distinct path; if two
-  candidate groups are always read together, they are one.
-- **Layer by attention.** The landing surface holds the map plus the ~20%
-  every reader needs; the rest is on-demand detail, one level down. Depth
-  is a tax — each hop is a cost the reader pays, so a flat set of
-  well-named files beats a tidy deep tree past two levels. Detail nested
-  deeper than that is either a reference that wants promoting or content
-  that wants cutting.
-- **Name as the index.** A name is a promise about what is inside and a
-  fence against what is not. Names in a set stay parallel (same grain and
-  part of speech), predictable (guessable before opening), and disjoint
-  (no two a reader could confuse). Ordering, casing, and the
-  anti-patterns — "misc", "utils", overlapping names — are in
-  [references/naming-and-layering.md](references/naming-and-layering.md).
-- **Place and check.** Every item lands in one home; the index links every
-  home. Nothing orphaned, nothing in two places, no dumping ground.
+Choose parallel, predictable names and state what belongs in each collection.
+Use [references/naming-and-layering.md](references/naming-and-layering.md) for
+naming decisions and [references/splitting.md](references/splitting.md) for
+extracting an existing large document.
 
-## Splitting an existing dump
+## Move without breaking retrieval
 
-The common request is reactive: one file has grown too long, or a folder
-has gone flat. The move is the same method run from the inventory — but
-the seams have to be *found*, not assumed. The full playbook (detecting
-topic and audience shifts, the must-know / on-demand fault line,
-extraction mechanics, and keeping the original file as the landing
-surface so inbound links survive) is in
-[references/splitting.md](references/splitting.md). The one rule that
-governs it: the file everyone already links to stays as the map and keeps
-its name; the detail moves out beneath it, never the other way around.
+Keep an established entry path as an index or provide an explicit replacement.
+Update inbound links and anchors affected by extraction. Change generated
+surfaces through their source. Apply moves when requested; an assessment-only
+request produces a proposed mapping.
 
-## Rendering is a separate job
+Use doc-visuals for rendering when available, or show a simple verified tree
+inline. The visual should expose the navigation decision, not duplicate every
+file in the repository.
 
-Information architecture decides the structure; it does not draw the tree,
-the diagram, or the tables that live inside a document — that discipline
-runs after the structure is settled. Deciding a repository map belongs in
-the README is this skill; making that map scan is doc-visuals.
+## Completion
 
-## Verify before returning
-
-- **Predict-the-location test.** Cover the tree, name three things a
-  reader would look for, and check each lands on the right file on the
-  first guess. A miss is a naming or clustering fault, not the reader's.
-- Every item from the inventory has exactly one home, and every home is
-  reachable from the index.
-- No "misc"/"other" bucket, and no two names a reader could reasonably
-  confuse.
-- Nothing nests more than one level below the landing surface without a
-  reason named out loud.
-- The landing surface scans in a single pass — it is the map plus the
-  must-know, not the whole store.
+Check representative reader tasks against the structure. Every item has an
+intended home, every maintained destination is reachable, and moved references
+resolve. Explain material placement choices and unresolved ownership. Do not
+claim that a simulated location guess proves real user findability.

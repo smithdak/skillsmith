@@ -18,61 +18,40 @@ user-invocable: true
 
 # tdd
 
-The loop is red → green, one thin slice at a time. Running the loop is
-easy; the discipline is making it produce tests worth keeping — tests
-that specify behavior, survive refactors, and fail only when the
-product is actually broken.
+Build requested behavior through observable red → green cycles. The test must
+prove a product behavior and remain useful when the implementation changes.
 
-## Agree the seams before the first test
+## Choose the boundary
 
-Tests live at seams: public interfaces where behavior is observable
-without reaching inside (the deep-modules skill holds the vocabulary
-and placement rules). Before writing any test, name the seams under
-test and confirm them with the user — testing effort is finite, and
-agreeing seams up front is what lands it on critical paths and complex
-logic instead of every reachable edge case. No test gets written at an
-unconfirmed seam.
+Use the existing public interface that exposes the behavior: a function,
+request handler, command, or user action. The deep-modules discipline helps
+keep this interface smaller than its implementation. Infer the seam from the
+request and repository; explain a consequential choice briefly. Ask only when
+an unresolved requirement would change what correct behavior means.
 
-## The loop
+## Run a vertical slice
 
-- **Red before green.** Write one failing test and run it. It must
-  fail for the expected reason — a test failing on a typo or a missing
-  import proves nothing about the behavior it claims to specify.
-- **Minimal green.** Write only the code that passes the test: no
-  speculative parameters, no structure for tests not yet written.
-- **Vertical slices.** One seam, one test, one implementation per
-  cycle, each test responding to what the last cycle taught. Writing
-  all tests first specifies imagined behavior and locks in test
-  structure before the implementation has taught anything.
-- **Refactoring is a separate activity.** It happens under a green
-  suite, between cycles, and changes no behavior. Folding it into the
-  red→green transition destroys the evidence the loop exists to
-  produce.
+1. Write one test for the next behavior and run it. Confirm that the failure
+   demonstrates the missing behavior, rather than a typo or broken setup.
+2. Implement enough to pass it. Avoid options and abstractions for imagined
+   future requirements.
+3. Refactor under green tests when it improves the design, then select the
+   next behavior from the requirement and what the last slice revealed.
 
-## What a keeper test looks like
+For example, test that an expired coupon is rejected at checkout. Assert the
+observable result; do not assert which private helper performed the check.
 
-It exercises behavior through the public interface and reads like a
-specification — "expired coupon is rejected at checkout" tells a
-reader what the system does without opening the implementation. The
-implementation can be rewritten entirely and the test still runs and
-still means the same thing.
+Expected values come from the requirement, a worked example, or an independent
+reference. Recomputing the implementation inside the assertion proves nothing.
+Use controlled substitutes at external boundaries when real dependencies make
+the test unreliable; avoid mocks that freeze internal call sequences.
 
-## Anti-patterns
+## Verify
 
-- **Implementation-coupled** — mocks internal collaborators, tests
-  private functions, or verifies through a side channel (querying the
-  database instead of the interface). The tell: a refactor breaks the
-  test while behavior is unchanged.
-- **Tautological** — the assertion recomputes the expected value the
-  same way the code does, so it passes by construction. Expected
-  values come from an independent source of truth: a worked example,
-  a known-good literal, the spec.
-- **Horizontal slicing** — all tests written first, then all
-  implementation. Work vertically instead; see the loop rules.
+Observe the new test fail before the fix and pass after it. Run affected tests
+and required repository checks. Broaden the run when the change affects shared
+behavior; do not repeat an unchanged passing suite without a reason.
 
-## Verify before returning
-
-A cycle is complete when the new test was observed failing and then
-passing, the full suite is green, and no assertion in the new test
-references internal structure. A test never seen red is a hope, not
-evidence.
+Report the behavior implemented and verification actually performed. Keep
+unrelated cleanup out of the patch. Existing behavior that needs a safety net
+belongs to retrofit-tests; here each cycle introduces or corrects behavior.

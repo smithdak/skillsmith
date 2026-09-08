@@ -18,63 +18,47 @@ user-invocable: true
 
 # deep-research
 
-A single investigator answers a question with whichever sources it
-found first; a harness answers it with sources that were forced to
-disagree. The cost is real — many parallel subagents — so the skill
-applies when breadth, contest, or stakes justify it. A bounded
-question one investigator can cover end to end is research-note's
-job; a single volatile fact is an inline ground-truth-research check.
+Answer a broad or contested question with a cited synthesis whose important
+claims withstand source checks. Size the investigation to the user's decision,
+available tools, and budget.
 
-## Decompose before searching
+## Map the question
 
-Break the question into sub-questions and pick the angles that will
-answer them. Angles must be independent to be worth running in
-parallel: different source modalities (official docs and specs,
-source code, issue trackers and community threads, first-party
-announcements and news, academic work), different stakeholders,
-different time slices. Write the decomposition down before spawning
-anything — it is the coverage contract. An angle dropped for cost or
-time is reported as dropped, never silently absorbed.
+Identify independent subquestions, competing explanations, and the evidence
+that would resolve them. Choose source types appropriate to each: official
+docs, implementation, primary studies, releases, or first-hand observations.
+A single bounded inquiry may need only research-note; one changing fact can use
+ground-truth-research's verification discipline directly.
 
-## Fan out blind
+## Investigate independently
 
-One subagent per angle, run in parallel, each blind to the others'
-findings. Convergence between independent investigators is evidence;
-convergence between investigators reading each other is an echo.
-Each investigator returns claims, not prose: for every claim, the
-source that owns it (link) and the date accessed. The
-ground-truth-research discipline applies in full inside every
-investigator — volatile facts verified live, every time-sensitive
-claim carrying its as-of basis.
+When subagents are available and authorized, give each a bounded angle and
+minimum context without other investigators' conclusions. Request claims with
+supporting sources, dates, limitations, and contradictions. If delegation is
+unavailable, cover the angles sequentially and do not claim independent review.
 
-## Verify adversarially
+Use ground-truth-research's essential method even if the companion is absent:
+follow a claim to its primary source, verify volatile facts live, and attach
+an as-of basis. Distinguish a direct observation from its generalization.
+Multiple summaries of one upstream source are not independent corroboration.
 
-Pool the claims and dedupe them. Every load-bearing claim then gets
-an independent verifier whose brief is refutation: find the primary
-source and try to break the claim against it. A claim survives on
-sources, not on plausibility. Claims that fail are dropped or
-reported as contested with both sides cited; a claim no verifier
-could check against a primary source is reported as unverified,
-never quietly kept.
+## Challenge important claims
 
-## Ask what is missing
+For conclusions the answer depends on, inspect the cited material and seek the
+strongest counterevidence. A separate verifier is useful for costly decisions
+when available; another model's agreement is not a substitute for primary
+evidence. Preserve disagreement rather than averaging incompatible claims.
 
-Before synthesis, run a completeness pass over the coverage
-contract: which angle never ran, which claim is still unverified,
-which cited source was never actually read. What it finds becomes
-the next round of fan-out; the loop ends when a round comes back
-dry or two consecutive rounds add no newly confirmed claim — not
-when an arbitrary round count runs out, and never left running
-unbounded.
+Review coverage gaps before synthesizing. Continue when a specific unresolved
+claim could change the answer and a feasible check remains. Stop at the agreed
+budget or when further investigation adds no decision-relevant evidence;
+report the material gaps without pretending the search was exhaustive.
 
-## Synthesize one report
+## Deliver
 
-One report, answer first — a reader who stops after the opening
-section leaves correct. Then findings with a citation per claim,
-each claim labeled honestly: confirmed, single-source, contested, or
-unverified. Contradictions between sources are surfaced as
-contradictions, never averaged into a middle claim nobody made.
-Close with what was not established and the dated source list. The
-report itself carries its date — research is a snapshot. When the
-user wants the result to outlive the conversation, land it as a
-durable note the way research-note does and report the path.
+Lead with the answer, followed by the evidence needed to assess it. Label
+confirmed, inferred, single-source, contested, and unresolved claims as needed;
+attach citations near the claims they support. Date the report and distinguish
+source publication dates from access dates. Persist it when requested, following
+research-note's repository conventions. Do not imply that sources or angles
+were checked when they were not.

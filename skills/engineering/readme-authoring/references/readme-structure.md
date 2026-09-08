@@ -1,104 +1,82 @@
-# README structure
+# Design the README around a reader's first success
 
 *Adapted from github/awesome-copilot — create-readme (MIT); see repo-root
 NOTICES.md.*
 
-Copy the skeleton, then consult the per-section guidance and the pre-publish
-checklist below it.
+A README is a guided entry point. Its order depends on what the repository offers,
+how readers obtain it, and what proves it useful. Use this reference to make those
+choices; headings are not a required template.
 
-```markdown
-# <project>
+## Establish a factual brief
 
-<badges: build status, version, and one or two real signals>
+Before outlining, identify the primary audience, job, first useful result, actual
+installation route, essential prerequisites and meaningful limitation. Source these
+from manifests, public interfaces, release configuration, examples and owner docs.
+When something is unpublished, unsupported, proposed or unmeasured, keep that fact
+visible where it affects a decision. Do not fill an evidence gap with promotional
+language or a guessed command.
 
-**<One sentence: what this is.>** <One or two more: what it does for whom.>
+Choose the consumer before the contributor. A library user needs to call its API;
+a CLI user needs to transform an input; a contributor needs a checkout and test
+commands. If the repository is primarily a template or contribution project, its
+checkout workflow may itself be the first-use path.
 
-<link row: Quick start · Features · How it works · Development · Docs>
+## Choose an order that fits the product
 
-<Paragraph: the problem that justifies the project.>
+| Repository | Early proof | Route into first use |
+|---|---|---|
+| CLI | A small input → command → result | Real install or checkout steps, then that task |
+| Library | A short public-API call and return value | Published package and runtime, then runnable usage |
+| Web application | Existing screenshot of the core task | Demo link or local setup, including required services |
+| Template | What the generated project contains | Create/copy steps and the first successful run |
+| Documentation or dataset | A useful question it answers | A clear entry page, query or sample with its limitations |
 
-## Features
-## Quick start
-## <How it works — the model the user must hold>
-## Development
-## <Repository map / project layout, if the repo is large>
-## Documentation
-```
+Lead with the concrete job and reader. Follow with a small proof and the next action.
+For a tool with nontrivial setup, an early demonstration may precede installation,
+but label its prerequisites and later supply the full path. For a simple package,
+installation and the useful example can be one compact section. A feature list
+belongs early only when it helps readers evaluate fit better than an example does.
 
-## Per-section guidance
+## Give every section a job
 
-**Header** — the name, then badges that carry real signal (CI status,
-released version, size of the thing). Skip badges that assert something the
-repo does not back up. The bold one-liner is the sentence someone would
-repeat to a colleague; write it before anything else. The link row is
-navigation for a long page — omit it on a short one.
+**Opening:** name the artifact, what it enables, and the distinction that matters.
+Do not open with the repository's origin story, a slogan, or a list of “powerful”
+capabilities. Preserve a distinctive existing voice without making claims stronger
+than the evidence. A real screenshot, output or example usually proves more than
+a banner. Badges are optional signals; each needs a valid target and useful meaning.
 
-**Problem paragraph** — what goes wrong without this project. A README that
-opens with capabilities and never states the problem reads as a feature list
-for something the reader has no reason to want.
+**First use:** declare the starting state, obtain the actual package or checkout,
+create or point to usable input, perform a meaningful operation, and show what
+success looks like. Put credentials, platform limits and write behavior before the
+step they affect. Distinguish local-only work from commands that contact services.
 
-**Features** — capabilities, not adjectives. "Deterministic output — the same
-sources produce byte-identical artifacts on any platform" beats "powerful and
-reliable." Each bullet should be something a competitor could fail to do.
+**Fit and operating model:** explain a constraint or concept needed for safe,
+successful use. A preview/apply distinction or an immutable/generated boundary can
+be worth a small table or diagram. Internals that only maintainers need come later.
 
-**Quick start** — the shortest path from nothing to a working result. Install
-command, minimum configuration, first successful use. Every command here must
-have been run as written. Prerequisites go inline or in an admonition, not in
-a separate section the reader reaches after failing.
+**Deeper paths:** use informative links to actual owner docs. Keep API catalogs,
+contribution rules, license text and release history in their owner files. Link only
+what exists; do not create empty sections to complete a conventional checklist.
+Contributor commands follow the consumer path unless contributors are the audience.
 
-**How it works** — the mental model, including any invariant the user can
-violate (generated files, required version bumps, ordering constraints).
-This is where an admonition earns its place.
+Use a callout for a consequential prerequisite or trap, next to the affected action.
+The correct number may be zero. If many sections need warnings, first consider
+whether the reading order or default path needs repair. A short page can rely on the
+host's heading outline instead of adding a manual table of contents.
 
-**Development** — setup, the command table, and the gate that must pass before
-a change is proposed. Keep it after the consumer sections; a contributor will
-scroll, an evaluator will not.
+## Review the finished page
 
-**Documentation** — a table of the deeper docs with one line each on what is
-inside. This is the README's exit ramp, and it is what lets every other
-section stay short.
+- Read just the opening, headings, examples and links. Can a newcomer identify the
+  job, fit, proof and next action without guessing?
+- Trace first use from a clean starting point. Are directories, dependencies,
+  sample data and credentials accounted for? Is success observable?
+- Check claims, links, anchors, assets and command syntax against current sources.
+  Execute safe local examples where practical; record unexecuted steps accurately.
+- Inspect rendered Markdown at normal and narrow widths. Does its hierarchy survive
+  without decorative emphasis? Does each visual add information?
+- Remove repeated claims, filler sections and exhaustive reference material.
+  Keep an important tradeoff even when it prevents a neat sales pitch.
 
-## Admonition guide
-
-| Syntax | Use for |
-|---|---|
-| `> [!NOTE]` | Context a reader benefits from but can proceed without |
-| `> [!TIP]` | A better path most readers miss |
-| `> [!IMPORTANT]` | Something required for correct use |
-| `> [!WARNING]` | An action with a cost or a trap that bites in practice |
-| `> [!CAUTION]` | Risk of data loss or a hard-to-reverse outcome |
-
-Two to five across a whole README is a healthy range. More than that and
-readers start skipping them, which costs you the one that mattered.
-
-## What does not belong
-
-- **License text** — a badge and a `LICENSE` file.
-- **Contribution process** — link `CONTRIBUTING.md`.
-- **Changelog or release history** — link `CHANGELOG.md` or the releases page.
-- **Security policy** — link `SECURITY.md`.
-- **Exhaustive API or option reference** — link the docs; the README shows the
-  common path only.
-- **Roadmap promises** — they age badly and rarely get updated.
-
-## Pre-publish checklist
-
-**Accuracy (the failure mode that matters most)**
-- [ ] Every count and inventory was derived from the repository just now.
-- [ ] Module, command, and option names match the actual source.
-- [ ] Every documented command was run as written and succeeded.
-- [ ] Every link resolves to a path that exists.
-- [ ] Badges reflect real signals, and each points somewhere useful.
-
-**Structure**
-- [ ] A reader can answer "what is this" from the first two sentences.
-- [ ] Install and first use precede contributor tooling.
-- [ ] No section duplicates a dedicated file.
-- [ ] Deep material is linked, not inlined.
-
-**Formatting**
-- [ ] Admonitions used sparingly and for the right severity.
-- [ ] Emoji sparse or absent.
-- [ ] A logo appears only if the project actually has one.
-- [ ] Tables hold short enumerable facts; explanation sits in prose.
-- [ ] Trees, diagrams, and code blocks follow the doc-visuals rules.
+Keep authoring notes and verification reports out of the finished README. If a
+limitation affects users, express it as product guidance in the appropriate place.
+GitHub reference: [README placement, links and navigation](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes).

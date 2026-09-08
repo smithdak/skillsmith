@@ -1,7 +1,7 @@
 {
   "name": "planning",
-  "version": "0.1.0",
-  "description": "Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects",
+  "version": "0.2.0",
+  "description": "Turn ideas into specs, test assumptions, and anticipate failure.",
   "author": {
     "name": "Dakota"
   },

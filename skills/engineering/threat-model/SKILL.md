@@ -19,72 +19,50 @@ user-invocable: true
 
 *Adapted from openai/codex-security (Apache-2.0); see repo-root NOTICES.md.*
 
-A threat model built after the findings rationalizes them; one built before
-them decides what counts as a finding at all. Establish the model first, at
-the altitude of the whole repository — a review scoped to a diff inherits
-the diff's blind spots, and the most severe exposure is usually in code the
-diff never touched.
+Map assets, attacker capabilities, entry points, and trust boundaries so later
+reviews can assess vulnerabilities on a consistent basis.
 
-## Scope the whole repository, not the diff
+## Establish the system and scope
 
-The threat model covers the deployable system, not the change under review.
-Enumerate what an attacker would actually reach: network-facing entry
-points, authentication and authorization surfaces, data stores, secrets,
-and every place untrusted input crosses into trusted execution. Narrowing
-to a subsystem is the single most common way a review misses the real
-exposure — resist it even when the immediate task is a small change.
+Use the requested service or repository as the starting boundary. Trace its
+relevant dependencies and external interfaces far enough to understand trust
+changes. State exclusions; do not expand a scoped request into an unrelated
+whole-repository audit. Use codebase-survey when available for orientation, or
+inspect entry points, deployment configuration, and sensitive operations directly.
 
-For an unfamiliar codebase, establish structure first (the codebase-survey
-discipline produces the map this builds on): where the entry points are,
-which modules hold secrets or touch the database, how requests flow.
+Identify valuable data and operations, principals, tenant boundaries, and where
+untrusted input reaches privileged behavior. Distinguish stated deployment
+assumptions from verified configuration. Record what must be true for existing
+controls to hold.
 
-## Separate production paths from developer tooling
+## Build attacker stories
 
-A path reachable only by a developer running a local script is not the same
-risk as a path reachable by an anonymous request in production. State the
-deployment context for each surface: production, authenticated-user,
-admin-only, CI, or local-dev-only. A finding on a dev-only path may be real
-and still rank below a low-severity production finding — the calibration
-depends on who can reach it.
+For each material entry point identify an attacker, their starting access,
+the asset or operation they seek, and the path across a trust boundary. Ground
+stories in real interfaces while keeping hypothetical exploits distinct from
+confirmed findings. Account for authenticated users, administrators, supply
+chain or CI access, and anonymous production traffic where relevant.
 
-## Produce the model
+Developer-only reach is a different prerequisite from anonymous reach; neither
+is automatically low impact. A CI compromise exposing deployment credentials
+can matter more than a low-impact public endpoint. Rank using both access
+conditions and consequences.
 
-Write the model to `docs/THREAT_MODEL.md` at the repository root (or the
-path the user names — confirm it in the reply), so a later diff review or
-SECURITY.md can find and cite it. Sections:
+## Write and calibrate
 
-- **Overview** — what the system is, what it protects, and the one or two
-  assets whose compromise would matter most.
-- **Trust boundaries and assumptions** — where control changes hands
-  (client to server, service to service, tenant to tenant), and what each
-  side is trusted to have already enforced. Every assumption is a candidate
-  attacker entry.
-- **Attack surface and attacker stories** — the reachable entry points,
-  each with a concrete attacker narrative: who they are, what they start
-  with, what they are trying to reach. Ground each story in a real entry
-  point, not a hypothetical.
-- **Severity calibration basis** — the impact-times-likelihood frame the
-  review will apply, and the deployment-context weighting above. This is
-  the basis every later finding cites, so it is fixed here, once.
-
-Section-by-section guidance and a fill-in skeleton are in
+Follow the repository's model location, or use docs/THREAT_MODEL.md when none
+exists. Include scope, assets, trust boundaries, attacker stories, assumptions,
+controls, and a severity basis with its rationale. The expanded format is in
 [references/threat-model-guidance.md](references/threat-model-guidance.md).
 
-## Boundaries
+Preserve the user's risk priorities and existing model. Identify contradictions
+with observed behavior and propose explicit updates; writing a model does not
+make every assumption permanently authoritative. Revise when architecture,
+exposure, or important assumptions change.
 
-- The model is authoritative once written. If the user supplies a threat
-  model, treat it as the fixed basis and extend it — do not silently
-  replace their risk priorities with inferred ones.
-- A threat model is not a finding list. It states what an attacker could
-  aim at and how severity will be judged; the search for actual defects is
-  a later, separate step.
-- One model per repository and version. Re-derive it when the architecture
-  changes, not per pull request.
+## Completion
 
-## Verify before returning
-
-The model names the trust boundaries and the highest-value assets, gives at
-least one grounded attacker story per external entry point, and fixes a
-severity basis that separates production reach from developer-only reach. A
-model that lists components without stating who can reach them from outside
-has described the system, not its threats.
+The model connects attackers to assets through actual boundaries and makes
+uncertainty visible. It supplies a consistent assessment basis without claiming
+that listed threats are discovered vulnerabilities. Report the artifact and
+material coverage limits.

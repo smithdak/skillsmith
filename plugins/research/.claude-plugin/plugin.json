@@ -1,7 +1,7 @@
 {
   "name": "research",
-  "version": "0.1.0",
-  "description": "Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo",
+  "version": "0.2.0",
+  "description": "Verify current facts and write reports grounded in primary sources.",
   "author": {
     "name": "Dakota"
   },

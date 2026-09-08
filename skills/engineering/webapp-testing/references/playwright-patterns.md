@@ -4,8 +4,8 @@
 
 Three recurring shapes, each in the Python sync API and in TypeScript. Pick
 the runtime the project already has. Every example launches Chromium
-headless, waits for `networkidle` before touching the DOM, and closes the
-browser. Replace `OUT` with a directory the user can open and the repo
+headless and closes the browser. Wait for a relevant visible state rather
+than network idleness; replace example locators with ones observed in the app. Replace `OUT` with a directory the user can open and the repo
 ignores (an existing output folder, `.playwright/`, or the session
 scratchpad).
 
@@ -20,7 +20,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page(viewport={"width": 1280, "height": 800})
     page.goto("http://localhost:5173")
-    page.wait_for_load_state("networkidle")
+    page.get_by_role("main").wait_for(state="visible")
 
     for i, b in enumerate(page.locator("button").all()):
         print(f"button[{i}] {b.inner_text() if b.is_visible() else '[hidden]'}")
@@ -40,7 +40,7 @@ import { chromium } from "playwright";
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
 await page.goto("http://localhost:5173");
-await page.waitForLoadState("networkidle");
+await page.getByRole("main").waitFor({ state: "visible" });
 
 for (const [i, b] of (await page.locator("button").all()).entries()) {
   console.log(`button[${i}]`, (await b.isVisible()) ? await b.innerText() : "[hidden]");
@@ -115,9 +115,9 @@ with sync_playwright() as p:
     page.on("pageerror", lambda err: lines.append(f"[pageerror] {err}"))
 
     page.goto("http://localhost:5173")
-    page.wait_for_load_state("networkidle")
+    page.get_by_role("main").wait_for(state="visible")
     page.click("text=Dashboard")
-    page.wait_for_timeout(1000)                   # let async handlers log
+    page.get_by_role("heading", name="Dashboard").wait_for(state="visible")
     browser.close()
 
 with open("OUT/console.log", "w", encoding="utf-8") as f:
@@ -136,9 +136,9 @@ page.on("console", (msg) => lines.push(`[${msg.type()}] ${msg.text()}`));
 page.on("pageerror", (err) => lines.push(`[pageerror] ${err.message}`));
 
 await page.goto("http://localhost:5173");
-await page.waitForLoadState("networkidle");
+await page.getByRole("main").waitFor({ state: "visible" });
 await page.click("text=Dashboard");
-await page.waitForTimeout(1000);
+await page.getByRole("heading", { name: "Dashboard" }).waitFor({ state: "visible" });
 await browser.close();
 
 writeFileSync("OUT/console.log", lines.join("\n"));
@@ -147,8 +147,9 @@ console.log(`${lines.length} console messages -> OUT/console.log`);
 
 ## Pitfalls
 
-- Inspecting before `networkidle` on a dynamic app returns the pre-hydration
-  shell — empty button lists and missing text.
+- A visible shell may precede hydration. Wait for the control or result needed
+  by the task; a generic main landmark is only an example discovery anchor.
+  Network idleness is not application readiness, especially with polling.
 - A fixed `wait_for_timeout` is not proof a state was reached; assert with
   `wait_for_selector` / `expect(locator)` and use timeouts only to let
   logging drain.
@@ -156,3 +157,5 @@ console.log(`${lines.length} console messages -> OUT/console.log`);
   assert on a specific element with exact text.
 - Two servers on the same port, or a replacement server on a new port, do
   not verify the page the user is looking at — test the origin they use.
+
+Readiness basis: [Playwright load-state documentation](https://playwright.dev/docs/api/class-page#page-wait-for-load-state) recommends web assertions over network-idle waits.

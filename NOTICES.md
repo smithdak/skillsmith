@@ -181,4 +181,3 @@ contracts, color-strategy ladder, reflex-face ban list, saturated-look
 calibration, craft-floor bans, bounded verification passes, refinement-
 vs-replacement semantics, and the dual-assessment critique structure in
 frontend-critique. See https://github.com/pbakaus/impeccable.*
-

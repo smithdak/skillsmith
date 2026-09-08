@@ -26,7 +26,8 @@ export interface CheckResult {
 
 /** Directories whose contents are wholly owned by generation. (.skillsmith
  * itself is NOT listed: eval-results.json in it is source, not artifact.) */
-const GENERATED_ROOTS = ["plugins", "catalog", ".claude-plugin", ".skillsmith/schemas"] as const;
+const GENERATED_ROOTS = ["plugins", "catalog", ".claude-plugin", ".skillsmith/schemas",
+  "dist/codex", "dist/generic", ".codex/skills", ".opencode/skills"] as const;
 
 const posix = (p: string) => p.split(sep).join("/");
 
@@ -74,7 +75,7 @@ export async function checkPlan(
   const owned = new Set(plannedPaths(plan));
   for (const root of GENERATED_ROOTS) {
     const glob = new Bun.Glob(`${root}/**/*`);
-    for await (const rel of glob.scan({ cwd: repoRoot, onlyFiles: true })) {
+    for await (const rel of glob.scan({ cwd: repoRoot, onlyFiles: true, dot: true })) {
       const relPath = posix(rel);
       if (!owned.has(relPath)) {
         drifts.push({ kind: "stale", path: relPath });

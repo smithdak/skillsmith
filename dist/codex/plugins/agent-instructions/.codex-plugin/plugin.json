@@ -1,0 +1,18 @@
+{
+  "name": "agent-instructions",
+  "version": "0.2.0",
+  "description": "Write agent instructions and skills with clear scope and triggers.",
+  "author": {
+    "name": "Dakota"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Instructions",
+    "shortDescription": "Write agent instructions and skills with clear scope and triggers.",
+    "longDescription": "Write agent instructions and skills with clear scope and triggers.",
+    "developerName": "Dakota",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me choose a agent-instructions skill for my task."
+  }
+}

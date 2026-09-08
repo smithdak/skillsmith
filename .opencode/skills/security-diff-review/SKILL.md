@@ -10,66 +10,48 @@ metadata:
 
 # security-diff-review
 
-Review the change, but do not trust its edges. A diff shows the lines that
-moved; the vulnerability it introduces often lives in a line that did not —
-a sibling caller of the helper the change modified, a second route with the
-same missing check. Anchor to the change, expand along its real blast
-radius, and stop there.
+Review a code change for reachable vulnerabilities. Anchor findings to the
+diff and follow affected dependencies far enough to establish the security
+consequence. A clean review is a valid outcome.
 
-## Anchor, then expand deliberately
+## Trace the change
 
-Start from the changed lines. Expand outward only along paths the change
-actually affects:
+Read the changed lines, their callers, supporting code, and relevant controls.
+When a shared parser, authorization guard, escaping function, or query builder
+changes, inspect its other call sites for the same failure. Track unchecked
+callers as coverage limits instead of claiming the sweep is complete.
 
-- **Directly supporting code** — functions the change calls, callers of the
-  functions it changed, types and validators it relies on.
-- **The sibling-instance sweep** — when the change touches a *shared* helper
-  (a parser, an auth guard, an escaping or sanitizing function, a query
-  builder), the same pattern almost always exists at other call sites. If
-  the change fixes or weakens a check in one place, find every other place
-  that check should also hold. A patch that hardens one caller while three
-  siblings stay vulnerable is a partial fix reported as a complete one.
+For each candidate establish an untrusted source, a dangerous sink, a reachable
+path between them, and the missing or ineffective control. Account for
+middleware, wrappers, tenant boundaries, and deployment conditions. A category
+label or suspicious function name is insufficient evidence.
 
-Do not expand into unrelated subsystems. Repository-wide auditing is a
-different job; here the change defines the perimeter.
+Example: an endpoint may lack a visible ownership check while shared middleware
+already enforces it. Verify that middleware covers this route and the resource
+identifier used by the sink before reporting an authorization bypass.
 
-## Assess each candidate before reporting
+Use [references/static-finding-assessment.md](references/static-finding-assessment.md)
+for ambiguous reachability or confidence. Apply the falsification-review
+question to consequential findings: what existing control would defeat this
+attack, and is it present?
 
-For every suspected issue, establish the evidence chain before calling it a
-finding: an untrusted **source**, a dangerous **sink**, a **reachable path**
-between them, and the **absence of a control** that would stop it — assessed
-across any wrapper or boundary the path crosses. The full evidence order and
-confidence criteria are in
-[references/static-finding-assessment.md](references/static-finding-assessment.md).
+## Rank and report
 
-A candidate that cannot show a reachable source-to-sink path is a note, not
-a finding. Before reporting anything consequential, apply the falsification-review
-discipline: state what would prove the finding wrong and check for it —
-security reviews are where plausible-but-unreachable claims do the most
-damage to trust.
+Inherit the repository threat-model severity basis when available; otherwise
+use [references/severity-policy.md](references/severity-policy.md). Account for
+attacker prerequisites and user impact consistently across findings.
 
-## Assign severity on a fixed basis
+For each supported finding give the location, source-to-sink path, missing
+control, severity with its driver, and affected sibling callers. Separate
+unverified candidates from findings. Do not perform live attacks or mutate
+external systems merely to strengthen a review.
 
-Rank each confirmed finding with the impact-times-likelihood frame and the
-deployment-context weighting in
-[references/severity-policy.md](references/severity-policy.md). Where a
-threat model exists for the repository (`docs/THREAT_MODEL.md`, or wherever
-the user points), its severity basis governs; this review inherits it rather
-than inventing a new scale. Reachability by an anonymous production request
-outranks a path that needs admin access or a local developer shell.
+If no candidate survives, say that no vulnerabilities were found within the
+reviewed scope. State what was checked and material verification limits;
+absence of findings is not a guarantee that a change is safe to merge.
 
-## Report
+## Completion
 
-For each finding: the file and line, the source-to-sink path in one or two
-sentences, the missing control, the severity with its driver, and — when the
-sibling sweep found them — the other call sites carrying the same pattern. A
-clean review is a valid result; say the change is safe to merge and name
-what was checked, rather than manufacturing a finding to look thorough.
-
-## Verify before returning
-
-Every reported finding names a concrete source, sink, and reachable path,
-not a category label. Every shared helper the change touched has had its
-other call sites checked or been explicitly noted as not shared. The
-severity of each finding cites the same basis. If nothing survived
-assessment, the review says so plainly.
+Every finding has a reachable path and a consistent severity basis. The review
+states its actual scope, distinguishes evidence from assumptions, and accounts
+for shared callers without expanding into unrelated repository auditing.

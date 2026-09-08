@@ -10,59 +10,43 @@ metadata:
 
 # deep-modules
 
-A module earns its existence by hiding more than it exposes: a small
-interface over a large implementation. Depth is what callers and tests
-buy — more behavior per unit of interface learned — and locality is
-what maintainers get: change, bugs, and knowledge concentrated in one
-place instead of smeared across call sites. Use the vocabulary below
-exactly; consistent language is most of the leverage.
+Design a boundary that hides more complexity than it exposes. Evaluate what a
+caller must learn, not just the number of methods or lines of implementation.
 
-## Vocabulary
+## Inspect the interface
 
-- **Module** — anything with an interface and an implementation,
-  deliberately scale-agnostic: a function, a class, a package, a
-  tier-spanning slice.
-- **Interface** — everything a caller must know to use the module
-  correctly: the type surface plus invariants, ordering constraints,
-  error modes, required configuration, and performance
-  characteristics. Always wider than the type signature.
-- **Seam** — the place where behavior can be changed without editing
-  that place; where a module's interface lives. Placing the seam is a
-  design decision distinct from what sits behind it.
-- **Adapter** — a concrete thing satisfying an interface at a seam. A
-  role, not a substance: a thin adapter can front a large
-  implementation (a Postgres repo) or a fat one a tiny fake.
-- **Depth** — behavior exercised per unit of interface learned. Deep:
-  small interface, large implementation. Shallow: an interface nearly
-  as complex as what it hides.
+The interface includes types, invariants, ordering, configuration, errors, and
+performance assumptions. A seam is where an implementation can vary behind
+that contract; an adapter satisfies it.
 
-## Principles
+Write a short account of what callers must know. Then inspect real callers:
+which implementation details do they repeat, and which changes ripple outward?
+Move shared knowledge behind the boundary when that reduces total complexity.
 
-- **Depth is a property of the interface, not the implementation.** A
-  deep module may be built internally from small swappable parts with
-  internal seams used only by its own tests; none of that belongs to
-  the caller-facing interface.
-- **The deletion test.** Imagine deleting the module. Complexity
-  vanishes → it was a pass-through. Complexity reappears across N
-  callers → it was earning its keep.
-- **The interface is the test surface.** Tests and callers cross the
-  same seam. Wanting to test past the interface is evidence the
-  module is the wrong shape, not a reason for private-access tricks.
-- **One adapter is a hypothetical seam; two are a real one.** A seam
-  nothing varies across is pure interface cost — do not introduce it
-  until something actually varies.
-- **Accept dependencies, return results.** A module that constructs
-  its own collaborators or works by side effect forces every test to
-  arrange the world; one that takes dependencies and returns values
-  can be exercised with values alone.
+Use the deletion test: if removing an abstraction eliminates ceremony without
+moving useful behavior anywhere, it may be a pass-through. If its knowledge
+would be duplicated among callers, it earns its place. Translation, policy
+enforcement, and isolation can justify a small adapter even with one current
+implementation; do not invent a second implementation to satisfy a rule.
 
-## Applying it
+## Choose the seam
 
-When designing or reviewing an interface, push in one direction:
-fewer methods, simpler parameters, more hidden. For each module, state
-its full interface — invariants and error modes included — in a few
-sentences; an interface that resists a short statement is carrying the
-implementation's shape, and that is the finding. System-wide structure
-— which modules exist and the invariants they jointly serve — is
-architecture-spec's altitude; this discipline operates one interface
-at a time.
+Prefer interfaces stated in the consumer's terms. Group operations when they
+share an invariant, and separate them when they change for independent reasons.
+Fewer methods help only while the remaining methods stay understandable; a
+single operation with a bag of flags is not automatically deeper.
+
+Keep policy inside the responsible module and external effects behind a
+controllable boundary. Inject dependencies when that makes behavior testable;
+ordinary value-only modules do not need an interface framework.
+
+Example: expose a reservation operation that owns availability and atomic
+allocation rather than making every caller coordinate read-count-write steps.
+
+## Verify
+
+Show a representative caller and test through the proposed interface. Check
+that the caller no longer needs hidden ordering or storage knowledge, failure
+behavior is explicit, and a realistic implementation change stays local.
+Keep refactoring within the requested scope. System-wide decisions belong to
+architecture-spec.

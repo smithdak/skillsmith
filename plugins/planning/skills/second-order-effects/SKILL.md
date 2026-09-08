@@ -48,7 +48,8 @@ Take each significant adaptation and repeat the question. Per-seat
 pricing → customers invite fewer colleagues → collaboration drops →
 churn rises among exactly the accounts the pricing wanted to grow.
 Two steps is usually enough; three when the second step feeds back
-into the first (a loop). Mark which adaptations undermine the
+into the first (a loop). Treat these as hypotheses until supported by
+behavioral evidence, not inevitable predictions. Mark which adaptations undermine the
 intent, which merely accompany it, and which are neutral noise.
 
 ## Run the gaming pass
@@ -66,8 +67,8 @@ What else touches these same actors — other policies, SLAs, contracts,
 adjacent teams' roadmaps? Changes propagate through couplings their
 authors forgot. Then state the equilibrium: after adaptation settles,
 does the intended benefit persist, shrink to a fraction, or invert?
-An effect map without an equilibrium claim has traced ripples but
-refused to name the water level.
+Where multiple settling points remain plausible, describe their conditions
+and what observation would distinguish them; do not force a single forecast.
 
 ## Report the map
 

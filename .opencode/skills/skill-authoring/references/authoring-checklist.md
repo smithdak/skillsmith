@@ -1,81 +1,47 @@
-# Skill authoring — anti-patterns and ship checklist
+# Skill review checklist
 
 *Adapted from davidondrej/skills — effective-agent-skills (MIT); see
 repo-root NOTICES.md.*
 
-## Anti-patterns
+## Capability
 
-- **Workflow-in-description** — the description restates the steps, so the
-  model concludes it already has the procedure and never loads the body.
-  Descriptions route; bodies instruct.
-- **Paraphrase triggers** — the "use when" phrasings are reworded versions
-  of the description instead of phrasings a real user would type. Triggering
-  degrades because nothing matches how people actually ask.
-- **Missing differentiator** — no "Not for …" boundary, so the skill and its
-  nearest neighbor both claim the same request and routing becomes a
-  coin-flip.
-- **Kitchen-sink body** — everything the skill might ever need, inlined,
-  paid for on every run. Move sometimes-needed detail to references.
-- **Reference chains** — reference A links to reference B. The model cannot
-  reach B from the body directly; flatten so every reference is one hop.
-- **Deep references** — a `references/a/b.md` two levels down. Keep
-  references one level deep.
-- **Prose doing a script's job** — a deterministic transform written as
-  natural-language steps. It re-derives every run and drifts. Push it into a
-  script the skill calls.
-- **First/second-person narration** — "I will now…", "you should then…".
-  Prefer imperative/infinitive: "Cluster the findings", "Verify the path."
-- **Reasoning-extraction instructions** — "show your reasoning", "explain
-  your thought process" as an output demand. Specify the output artifact
-  instead.
-- **Unquoted colon-space in the description** — `foo: bar` inside an
-  unquoted YAML scalar can be parsed as a mapping by strict loaders. Quote
-  or use a block scalar.
-- **Over-constrained judgment / under-constrained mechanics** — freedom must
-  match consequence. A design task written as rigid steps is brittle; a
-  release gate written as loose principles is unreliable.
-- **Evals that echo the description** — cases lifted from the description
-  prove nothing. Use independent real phrasings, and include should-not
-  cases that are genuinely near the boundary. The sharpest negative is a
-  neighbouring skill's own trigger phrasing: if the differentiator works,
-  the neighbour claims it and this skill does not.
-- **Update suppressors** — "work silently", "don't narrate your progress",
-  "hold all findings for the end". Written against models that over-narrated;
-  current ones under-narrate, so the instruction removes updates the reader
-  wanted. State when user-facing text *is* wanted instead (skillsmith
-  validator rule V15 flags these).
-- **Blanket anti-formatting rules** — "never use bullets", "no headers".
-  Current models under-format, so the ban strips structure the reader wanted.
-  Say when formatting is appropriate instead.
-- **A boundary clause that describes the sibling's case** — "Not for
-  restructuring X into Y (sibling)". The description of the case recruits
-  the request toward the skill that carries the clause; measured at 0/9 on
-  a case that passed before the clause existed. Name the sibling only.
-- **Batch description edits** — rewriting many descriptions at once shifts
-  what every skill is judged against; regressions land on skills whose text
-  never changed. Edit one boundary at a time and re-measure both sides.
-- **Scaffolding for a weaker model** — enumerated steps for judgment work,
-  emphasis added because an instruction was once underweighted, prohibitions
-  against habits the model no longer has. Prescription that outlived its
-  model reduces output quality; cut it before adding to it.
+- One recognizable job, with useful inputs, output, and a completion check.
+- A non-obvious decision rule, example, domain constraint, or reusable tool
+  explains why loading the skill could improve the result.
+- The description routes realistic requests and distinguishes actual near
+  neighbors. Test exclusions; their wording can also attract adjacent tasks.
+- Quoted or block-scalar YAML keeps colon-space from changing the field type.
 
-## Ship checklist
+## Loaded context
 
-Before a skill is considered done:
+- The body is as short as the task permits. Aim for 250–600 words, preserving
+  essential constraints and respecting the repository's hard token ceiling.
+- References are conditional and linked directly from the body with a reason
+  to open them. Avoid moving bloat into a reference required on every run.
+- Instructions describe useful decisions, not ceremony or fixed report sizes.
+- Worked examples clarify a hard distinction; they are not universal rules.
+- Deterministic repeated work uses a tested helper when the benefit warrants it.
 
-- [ ] Name is kebab-case and equals its directory name.
-- [ ] Description carries what, when (quoted real phrasings), and a
-      differentiator; it does not summarize the workflow.
-- [ ] Description is quoted or block-scalar if it contains a colon.
-- [ ] Body is under the line and token ceilings.
-- [ ] Body assumes the skill was already selected — no re-triggering preamble.
-- [ ] Sometimes-needed detail is in references, one level deep, no chains.
-- [ ] Deterministic work is in scripts, not prose.
-- [ ] No instruction to reveal internal reasoning.
-- [ ] No update suppressors and no blanket anti-formatting rules.
-- [ ] Boundary clauses name siblings without describing their cases.
-- [ ] Evals: at least three should-trigger and three should-not-trigger,
-      real phrasings, near-boundary negatives, no placeholder text.
-- [ ] A verification section states the observable bar for "done".
-- [ ] Cross-skill mentions are declared (composition) or acknowledged
-      (see-also), not left as loose prose references.
+## Portability and behavior
+
+- Resources resolve relative to the installed skill, not the target repo.
+- Tool and runtime requirements are explicit. Optional companions have a
+  useful inline fallback; unavailable capabilities are reported honestly.
+- User intent, scope, and existing authorization survive the workflow.
+- Routine progress does not depend on repeated confirmation of known choices.
+- Instructions request evidence and useful outputs, not private reasoning.
+- References do not reintroduce rules the body removed.
+
+## Evidence
+
+- Routing cases include realistic positives and adjacent negatives.
+- Fresh validation tasks remain separate from prompts used to refine the text.
+- Outcome tests compare no skill, prior instructions, and the revision under
+  equivalent model, tool, and workspace conditions.
+- Mechanical assertions check artifacts; qualitative grades cite evidence.
+- Record task success, mistakes, unnecessary interruptions, time, and tokens.
+- Reports identify model and harness versions, suite and instruction hashes,
+  sample counts, and limits. Missing usage is unknown rather than zero.
+- Experimental is the default for a revised body until meaningful outcome
+  evidence supports a stronger maturity claim. Neither brevity nor a passing
+  schema establishes cross-model effectiveness.

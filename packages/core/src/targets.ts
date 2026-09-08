@@ -22,7 +22,7 @@ import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
 import type { GeneratePlan } from "./generate.ts";
 import { error } from "./diagnostics.ts";
 
-export type TargetId = "claude-code" | "generic" | "codex" | "opencode";
+export type TargetId = "claude-code" | "generic" | "codex" | "opencode" | "codex-plugin";
 
 /** Harness-specific roots whose frontmatter gets normalized on emit. */
 const NORMALIZED_TARGET_ROOTS: Record<string, number | null> = {
@@ -178,10 +178,64 @@ export const opencodeAdapter: TargetAdapter = {
   },
 };
 
+/** Native, independently installable bundles; no implicit conversion of host-specific agents or hooks. */
+export const codexPluginAdapter: TargetAdapter = {
+  id: "codex-plugin",
+  emit(ctx, plan) {
+    const json = (value: unknown) => JSON.stringify(value, null, 2) + "\n";
+    const entries: object[] = [];
+    for (const grouping of ctx.config.plugin) {
+      const root = `dist/codex/plugins/${grouping.name}`;
+      const skills = ctx.shippedSkills.filter((s) => grouping.skills.includes(s.name));
+      const mcp = plan.files.get(`plugins/${grouping.name}/.mcp.json`);
+      // Agent/command/hook-only Claude plugins have no supported Codex payload.
+      if (!skills.length && !mcp) continue;
+      for (const file of ctx.discovery.legalFiles ?? []) {
+        plan.copies.set(`${root}/${file.path}`, file.absPath);
+      }
+      emitNormalizedTarget(`${root}/skills`, { ...ctx, shippedSkills: skills }, plan);
+      if (mcp) plan.files.set(`${root}/.mcp.json`, mcp);
+      const title = grouping.name.split("-").map((w) => w[0]!.toUpperCase() + w.slice(1)).join(" ");
+      const description = grouping.description || `${title} skills`;
+      plan.files.set(`${root}/.codex-plugin/plugin.json`, json({
+        name: grouping.name, version: grouping.version ?? "0.1.0", description,
+        author: ctx.config.marketplace.owner,
+        ...(skills.length ? { skills: "./skills/" } : {}),
+        ...(mcp ? { mcpServers: "./.mcp.json" } : {}),
+        interface: {
+          displayName: title, shortDescription: description.slice(0, 100), longDescription: description,
+          developerName: ctx.config.marketplace.owner.name, category: "Productivity",
+          capabilities: [], defaultPrompt: `Help me choose a ${grouping.name} skill for my task.`,
+        },
+      }));
+      plan.files.set(`${root}/README.md`, [
+        `# ${title}`, "", description, "",
+        "This bundle contains portable skills and their scripts and references. Each skill can also be copied individually.",
+        "Open the selected SKILL.md for inputs, resource paths, and verification. Companion skills are optional unless stated otherwise.", "",
+        "| Skill | Instructions |", "|---|---|",
+        ...skills.map((s) => `| ${s.name} | [SKILL.md](skills/${s.name}/SKILL.md) |`), "",
+        "Model effectiveness is measured separately from packaging compatibility. See the repository's benchmark reports before inferring a quality improvement.", "",
+        ...(grouping.agents.length || grouping.commands.length || grouping.hooks.length ? [
+          "Claude-specific agents, commands, and hooks are available in the Claude Code distribution; this bundle does not translate them.", "",
+        ] : []),
+      ].join("\n"));
+      entries.push({
+        name: grouping.name, source: { source: "local", path: `./plugins/${grouping.name}` },
+        policy: { installation: "AVAILABLE", authentication: "ON_INSTALL" }, category: "Productivity",
+      });
+    }
+    plan.files.set("dist/codex/.agents/plugins/marketplace.json", json({
+      name: ctx.config.marketplace.name,
+      interface: { displayName: ctx.config.marketplace.name }, plugins: entries,
+    }));
+  },
+};
+
 const adapters: Record<Exclude<TargetId, "claude-code">, TargetAdapter> = {
   generic: genericAdapter,
   codex: codexAdapter,
   opencode: opencodeAdapter,
+  "codex-plugin": codexPluginAdapter,
 };
 
 /** Extra targets requested by config, in config order, deduped. */

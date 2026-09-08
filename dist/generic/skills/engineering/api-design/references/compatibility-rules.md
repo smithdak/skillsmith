@@ -51,7 +51,7 @@ signalling channel. Removal follows the window below.
 |---|---|
 | Add a field with a new field number | safe |
 | Add a new message, RPC, or service | safe |
-| Add an enum value | safe (proto3 enums are open) |
+| Add an enum value | wire-compatible for open enums; check generated APIs and exhaustive application handling |
 | Rename a field (field number unchanged) | safe on the wire, breaking for JSON mapping and generated code |
 | Remove a field and `reserve` its number and name | safe on the wire once no sender sets it |
 | Reuse a field number | breaking and silent; never do it |
@@ -88,11 +88,16 @@ before deprecating the original.
 
 ## Event schemas
 
-Consumers are decoupled in time — a message written today may be read
-by a consumer deployed next year — so every rule above is stricter: a
-published field is never removed, only ignored; the envelope carries an
-explicit schema version; producers upgrade first and consumers tolerate
-every version still in flight.
+Consumers are decoupled in time: retained messages may outlive a deployment.
+Specify which writer and reader schema versions must interoperate, including
+replay and rollback. Keep required historical schemas available. An explicit
+envelope version or schema-registry identifier must resolve unambiguously.
+
+Choose rollout order from compatibility checks. A new reader that accepts old
+messages can often deploy before the new producer; an old reader accepting new
+messages may permit producer-first deployment. Neither order is universally
+safe. Verify the deployed consumers and retained data before removing fields
+or dropping support for a version.
 
 ## Deprecation window
 
@@ -115,3 +120,5 @@ every version still in flight.
 
 A breaking change with no window is an outage the consumer discovers
 in production.
+
+For event rollout order, consult the configured [schema compatibility policy](https://docs.confluent.io/platform/current/schema-registry/fundamentals/schema-evolution.html). Reader/writer compatibility determines which side can deploy first.

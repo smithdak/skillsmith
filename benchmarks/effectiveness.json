@@ -1,0 +1,38 @@
+{
+  "name": "engineering-text-pilot-v1",
+  "cases": [
+    {
+      "id": "retry-decision",
+      "skill": "decision-record",
+      "task": "Write a decision record for payment retries. Our worker retries every error immediately up to five times. The payment provider supports idempotency keys, returns 429 with Retry-After, and sometimes times out after charging. We cannot change providers this quarter. Choose a retry policy; do not invent traffic or incident data.",
+      "success_criteria": [
+        "Distinguishes permanent errors from retryable throttling and transient failures.",
+        "Preserves a stable idempotency key across retries and addresses ambiguous timeout outcomes.",
+        "Compares at least two feasible options and explains the chosen policy and tradeoffs.",
+        "States a concrete revisit trigger without presenting invented measurements as facts."
+      ]
+    },
+    {
+      "id": "export-premortem",
+      "skill": "premortem",
+      "task": "Run a premortem for this agreed plan: ship CSV exports Friday. One API process reads every tenant's requested rows into memory, writes a file to shared object storage, and emails a download link valid for seven days. Export jobs retry on any error; there is no concurrency cap or cancellation. Support expects several enterprise customers to export at once. Give us an actionable review using only these facts.",
+      "success_criteria": [
+        "Explains a plausible failure chain involving concurrent exports and memory pressure.",
+        "Addresses tenant isolation or download access controls and retry duplication.",
+        "Ranks risks and attaches observable warning signals to the top risks.",
+        "States a concrete stop or rollback condition and practical mitigations."
+      ]
+    },
+    {
+      "id": "queue-failure-modes",
+      "skill": "failure-mode-analysis",
+      "task": "Analyze failure modes for an order worker that receives at-least-once queue messages, charges a payment API, then writes the order to Postgres before acknowledging the message. There is no distributed transaction. The provider supports idempotency keys. We have no latency or incident measurements yet. Produce a ranked analysis with mitigations.",
+      "success_criteria": [
+        "Identifies duplicate charging after a successful charge followed by a database failure or worker crash.",
+        "Considers slow or ambiguous provider responses as well as outright outages.",
+        "Proposes stable idempotency and recovery or reconciliation for partial completion.",
+        "Makes likelihood/impact/detectability reasoning explicit while labeling unmeasured estimates."
+      ]
+    }
+  ]
+}

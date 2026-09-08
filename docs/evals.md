@@ -1,152 +1,105 @@
-# Evals — measuring whether skills actually trigger
+# Routing evaluations
 
-A skill whose description never fires is dead weight, and one that fires on
-everything is worse. `skillsmith eval` measures the thing that actually
-determines triggering: the description's **selectivity against the whole
-catalog**, not the skill in isolation.
+`skillsmith eval` asks a model which skill it would choose from the full catalog's
+names and descriptions. This measures **simulated routing**, not actual invocation
+inside a host or whether a skill improves the completed task. For the latter, use
+[effectiveness comparisons](effectiveness.md) and workspace fixtures.
 
-## How the measurement works
+## Run with Astra and your subscription
 
-Implementation: [`packages/core/src/eval.ts`](../packages/core/src/eval.ts).
+```sh
+codex login                       # choose ChatGPT
+codex login status                # must say Logged in using ChatGPT
+bun packages/cli/src/main.ts eval tdd
+bun packages/cli/src/main.ts eval tdd --repeat 3 --escalate 9
+# Full catalog: start this only when you want to use that many sessions.
+bun packages/cli/src/main.ts eval --repeat 3 --escalate 9
+```
 
-1. Build the **listing** exactly as the runtime would present it: every
-   non-draft skill's `name` + `description`, sorted.
-2. For each eval case, ask a judge model: given this listing and this user
-   message, which single skill (if any) would be invoked? The judge answers
-   `{"skill": "<name>"}` or `{"skill": null}`, temperature 0, and is
-   instructed to pick nothing when in doubt.
-3. Score: a `should_trigger` case passes when the judge picks *the skill under
-   test*; a `should_not_trigger` case passes when it picks anything else —
-   including a different skill — or nothing. Confusion with a sibling skill
-   counts against you, which is the point.
-4. Hit rate = passing cases / total cases per skill. Any skill below
-   `[policy]."min-trigger-hit-rate"` (0.85 here) produces a V8 error.
+The defaults are `--model gpt-6-astra --effort medium --concurrency 1 --repeat 1`.
+Each judgement starts a fresh Codex session under your ChatGPT subscription.
+There is no API-key requirement or automatic API fallback. The adapter rejects
+API-key login and fixes the authentication method for each invocation. Subscription
+usage limits apply. Authentication and isolation details are in
+[the effectiveness guide](effectiveness.md#run-with-your-subscription).
 
-Temperature 0 reduces variance but does not eliminate it — eval is the one
-intentionally non-deterministic command, which is why its output is treated as
-a **source** (committed, only changed by rerunning) rather than a generated
-artifact. See [Architecture — why determinism is load-bearing](architecture.md#why-determinism-is-load-bearing).
+The current suite contains **606 cases across 39 skills**: one full pass needs 606
+sessions. Three votes per case need 1,818 sessions before escalation. Start with the
+skill whose description changed. `--concurrency` controls simultaneous sessions;
+`--timeout-ms` defaults to 300000 per session. There is no automatic retry or model
+substitution on access or usage-limit failure.
 
-## Writing `evals/evals.json`
+Model calls run locally after login. The manual GitHub workflow
+[eval.yml](../.github/workflows/eval.yml) checks evaluation infrastructure offline;
+it contains no provider secret or paid model call. Ordinary tests use fake runners.
 
-Schema ([`schemas/evals.ts`](../packages/core/src/schemas/evals.ts) — strict,
-unknown keys are errors):
+## What is scored
+
+1. Build a sorted listing of all non-draft skill names and descriptions.
+2. Give the listing and each case's message to the judge. It chooses one listed
+   skill or null using a constrained JSON response. It does not perform the task.
+3. A positive case passes when the named skill is selected. A negative case passes
+   when any other skill, or null, is selected.
+4. Take the strict majority across repeated judgements; ties fail. The fraction of
+   passing cases is the skill's hit rate. A rate below the configured minimum
+   (0.85 here) produces a V8 diagnostic.
+
+See [core evaluation logic](../packages/core/src/eval.ts) and the
+[Codex adapter](../packages/cli/src/codex-runner.ts). The schema allows one selection;
+a real host may invoke multiple skills, use a different listing, or never invoke one.
+
+## Write cases
+
+Each skill owns `evals/evals.json`:
 
 ```json
 {
   "should_trigger": [
-    { "prompt": "TDD this bugfix — failing test first, then the fix" },
-    { "prompt": "red-green-refactor the new rate limiter with me" }
+    {"prompt": "TDD this bugfix — failing test first, then the fix"},
+    {"prompt": "Build the rate limiter test-first"},
+    {"prompt": "Let's use red-green-refactor for the coupon rules"}
   ],
   "should_not_trigger": [
-    { "prompt": "run the test suite and tell me what's failing",
-      "note": "running tests, not driving development with them" }
+    {"prompt": "Run the test suite and summarize failures", "note": "Execution, not test-first development"},
+    {"prompt": "Add characterization tests around this existing parser"},
+    {"prompt": "Why does this test fail only on CI?"}
   ],
   "effectiveness": []
 }
 ```
 
-- ≥3 cases in each of `should_trigger` and `should_not_trigger` (V8).
-- `note` is optional documentation of why the case exists — most valuable on
-  should-not-trigger cases, where the boundary is the insight.
-- Prompts containing `TODO` are rejected as scaffold placeholders (V8).
-- `effectiveness` (task + success_criteria pairs for on/off baseline
-  comparison) is accepted but not yet executed — reserved for v0.2.
+At least three positive and three negative cases are required. Notes are optional;
+placeholder TODO prompts are invalid. Unknown keys fail the strict
+[schema](../packages/core/src/schemas/evals.ts). Optional effectiveness entries are
+not executed by this command; paired tasks use an explicit benchmark suite.
 
-**Write phrasings real users type, not paraphrases of the description.** If
-your should-trigger cases quote the description back, the eval measures
-string-matching, not triggering. The strongest should-not-trigger cases are
-*near misses* — requests adjacent to the skill's territory that belong to a
-sibling skill or to no skill. The example above (abridged from
-[`skills/engineering/tdd/evals/evals.json`](../skills/engineering/tdd/evals/evals.json))
-separates "drive development with tests" from "run/fix existing tests".
+Prefer natural requests, ambiguous boundaries and realistic sibling confusion over
+paraphrases of the description. Keep fresh validation cases outside the refinement
+loop. A model can memorize the desired distinction when the same cases repeatedly
+guide editing.
 
-## Running
+## Variance and persisted evidence
 
-```sh
-bun packages/cli/src/main.ts eval               # all skills; writes results file
-bun packages/cli/src/main.ts eval tdd           # one skill; does NOT write results
-bun packages/cli/src/main.ts eval --model claude-sonnet-5 --concurrency 4
-bun packages/cli/src/main.ts eval tdd --repeat 9   # nine judgements, majority wins
-bun packages/cli/src/main.ts eval --repeat 3 --escalate 9   # the recommended full run
-```
+Single votes are smoke checks. `--repeat N` shows whether the model consistently
+makes the same decision. `--escalate M` extends only split cases to M total votes;
+unanimous cases stop at N. This saves sessions but can miss an unstable case that
+happened to be unanimous. Review both `failingPrompts` and `flakyPrompts`; rerun
+consequential ambiguous cases before revising a description.
 
-### Judge variance: read `--repeat`, not a single run
+Full runs write [`.skillsmith/eval-results.json`](../.skillsmith/eval-results.json).
+The file records the runner/model/settings/version identifier, vote counts, listing
+hash, description hashes, case hashes, dates, failures and split votes. One-skill
+runs merge only when the existing listing, runner identifier and vote settings match.
+Otherwise results print without overwriting the old report. A new Astra result is
+never relabeled as an old Anthropic measurement or merged into it.
 
-The judge is stochastic near a decision boundary, and at `--repeat 1` a case's
-result carries that variance whole. Measured on one real case
-(`issue-triage`, since archived: "anything in the backlog still waiting on my input?"): 17 of
-28 judgements passed — about 60% — and two separate 5-vote samples landed
-*unanimous in opposite directions*. A single failing case is therefore not
-evidence of a regression, and neither is a single passing one.
+`generate` renders these measurements in the catalog's **Routing simulation** column.
+Rerun generation after updating committed results. Description, case or listing
+changes invalidate the corresponding evidence; validation checks those hashes.
+Body-only changes need separate outcome comparisons. They do not invalidate a
+measurement of unchanged descriptions, but old routing evidence says nothing about
+the rewritten body's quality.
 
-`--repeat N` judges each case N times and takes a strict majority; a tie
-fails, rather than rounding a coin flip up into a pass. Each case records the
-share of repeats that passed, and the results file lists `flakyPrompts`
-(split votes) separately from `failingPrompts`. That split is the point: a
-prompt that loses 0-of-9 is a routing gap worth fixing, and one that lands 6-of-9
-is a boundary case worth keeping — at `--repeat 1` the two are indistinguishable.
-
-Five votes is the practical minimum and still cannot resolve a ~60% case; use 9
-when you are about to act on the answer.
-
-Repeating every case nine times is wasteful, because almost every case is
-unanimous. `--escalate M` keeps judging only the cases whose first `--repeat N`
-votes split, until each has M votes. On the current catalog a
-`--repeat 3 --escalate 9` run costs about three single runs plus a few dozen
-extra calls — the price of resolving boundary cases is paid only on boundary
-cases. That is the recommended full run and what CI's `eval.yml` uses; the
-badge then reads `≥3 votes`. Its blind spot is a case that is *unanimously*
-wrong across the first three votes — nothing splits, so nothing escalates, and
-a ~25% case will land 0/3 about 40% of the time. A skill's `failingPrompts`
-therefore still deserve a `--repeat 9` look before being read as a defect. The default stays `--repeat 1`, and a repeat-1 run
-says in its own output that its failures carry full judge variance.
-
-- Requires `ANTHROPIC_API_KEY` (exit 2 if unset). Locally: `cp .env.example
-  .env` and fill it in — `.env` is gitignored, and Bun loads it automatically
-  from the repo root. A Claude subscription does not cover API calls; this
-  needs an API key with billing.
-- Cost intuition: 39 skills × ~12 cases ≈ 470 judge calls, each embedding the
-  whole listing (~9k input tokens) and returning ~20 output tokens against the
-  default `claude-sonnet-5` judge. Input dominates, but the listing is a
-  byte-identical prefix on every call and carries a `cache_control` breakpoint,
-  so only the first few calls pay for it — a couple of dollars per run rather
-  than the ~$16 the uncached shape cost. `--concurrency N` means the first N
-  calls race and all miss; that is the whole warm-up penalty. Every run prints
-  its own token totals, and zero cache reads means the prefix broke and the run
-  is roughly 10x overpriced. Not free either way, which is why CI runs evals
-  only on manual dispatch ([`.github/workflows/eval.yml`](../.github/workflows/eval.yml):
-  `gh workflow run eval.yml`).
-- The results file records, per skill, the sha256 of the description that was
-  measured and the exact prompts that failed — and, for the run as a whole, the
-  sha256 of the full listing the judge saw. The per-skill hash lets `validate`
-  warn when that description has been edited since the run; the listing hash
-  catches what it cannot: a skill added or removed, or a *neighbour's*
-  description edited. Every hit rate is a measurement against the whole
-  catalog, so any of those invalidates every number, not just one. Either way
-  a badge can never quote a figure for a catalog that no longer exists. The
-  failing-prompt list lets two runs be diffed, which is the only way to tell a
-  regression from a boundary case that flips between runs.
-- Failing cases print with the judge's actual pick, which tells you *which*
-  sibling skill is absorbing your traffic:
-
-```
-feature-spec: 88% (7/8)
-  FAIL [expected trigger] "spec out the export feature" → judged: architecture-spec
-```
-
-## Results, badges, and when to rerun
-
-Full runs write [`.skillsmith/eval-results.json`](../.skillsmith/eval-results.json)
-(committed): judge model, run date (day precision — same-day reruns stay
-byte-stable), and per-skill `{hitRate, cases, failing}`. Single-skill runs
-deliberately do not write it — a partial file would misrepresent the catalog.
-
-`skillsmith generate` reads the file and renders a **Triggering** badge column
-in [`catalog/CATALOG.md`](../catalog/CATALOG.md)
-(`100% (8/8, 3 votes, claude-sonnet-4-6, 2026-07-15)`), so consumers see measured
-triggering, not claimed triggering. After a full eval run, rerun `generate`
-and commit both files together, or `check` will report catalog drift.
-
-Rerun evals whenever you change any skill **description** (yours or a
-sibling's — selectivity is relative) and when adding a skill to the catalog.
+The committed routing report dated 2026-09-04 was produced by the historical
+`claude-sonnet-5` judge. It remains explicitly labeled with that provenance. It is
+not an Astra result. New local evals use your Codex subscription.

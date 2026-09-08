@@ -4,9 +4,9 @@
 
 ## agent-instructions
 
-Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup
+Write agent instructions and skills with clear scope and triggers.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
 | communication-contract | productivity | model | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | How the agent reports: outcome first, failures stated plainly, assumptions over questions. Use when the user says "be straight with me", "you said it passed but it didn't", "stop asking, just decide", "too verbose", or "load the communication contract". Not for repo docs (prose-hygiene), agent instructions (writing-for-agents), doc checks (cold-read), or persisting rules (instructions-setup). |
 | instructions-setup | productivity | model | experimental | 100% (13/13, ≥3 votes, claude-sonnet-5, 2026-09-04) | Persists the communication contract into AGENTS.md, CLAUDE.md, or global files as a managed block. Use when the user says "set up the communication contract in this repo", "/instructions-setup", "persist these reply rules", or "make the agent report honestly project-wide". Not for the rules (communication-contract), agent instructions in general (writing-for-agents), or READMEs (readme-authoring). |
@@ -24,13 +24,13 @@ Composes: instructions-setup → communication-contract
 
 ## architecture
 
-Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes
+Design interfaces, record decisions, review structure, and plan migrations.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
 | api-design | engineering | model | experimental | 100% (17/17, ≥3 votes, claude-sonnet-5, 2026-09-04) | Designs the contract for an interface others program against — REST, gRPC, GraphQL, events, or a library's public surface — consumers first, errors and compatibility before the happy path. Use when the user says "design the API for", "how should we version this endpoint", or "review our REST API". Not for one internal module's interface (deep-modules) or a whole-system spec (architecture-spec). |
 | architecture-review | engineering | model | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Judges an existing system's structure: recovers claimed invariants, tests them against import-graph and churn evidence, and lands ranked findings with options and kill triggers. Use when the user says "review our architecture", "is this codebase structured well", or "where is the coupling". Not for repo inventory (codebase-survey), new specs (architecture-spec), or one interface (deep-modules). |
-| architecture-spec | engineering | user | stable | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Co-authors a versioned architecture spec for a new or redesigned system: design invariants, open decisions, and kill/pivot triggers. Use when the user says "write an architecture spec", "spec out" a system, or "draft a design doc". Not for judging an existing system (architecture-review), one feature (feature-spec), one decision (decision-record), or reviewing a draft (falsification-review). |
+| architecture-spec | engineering | user | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Co-authors a versioned architecture spec for a new or redesigned system: design invariants, open decisions, and kill/pivot triggers. Use when the user says "write an architecture spec", "spec out" a system, or "draft a design doc". Not for judging an existing system (architecture-review), one feature (feature-spec), one decision (decision-record), or reviewing a draft (falsification-review). |
 | decision-record | engineering | both | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Settles one technical or business decision and lands it as a numbered ADR: options, tradeoffs, choice and driver, and a revisit trigger. Use when the user says "write an ADR", "help us decide between X and Y and document it", or "record why we chose X so it doesn't get relitigated". Not for whole-system documents (architecture-spec), how to transition (migration-plan), or neutral comparisons. |
 | deep-modules | engineering | model | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Applies deep-module discipline to one module's boundary: small interfaces hiding large implementations, seams, adapters. Use when the user says "design this module's interface", "decide where the seam goes", "shrink this API", or asks whether an abstraction earns its keep. Not for a contract others program against (api-design), a whole-system document (architecture-spec), or mechanical refactors. |
 | failure-mode-analysis | engineering | model | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Ranks the failure modes of a system or design — per dependency: down, slow, partial, or wrong — by likelihood × impact × detectability, with mitigations and game-day tests. Use when the user says "what happens if redis goes down", "how resilient is this service", or "failure modes of this design". Not for attackers (threat-model), plans (premortem), or past failures (diagnose-bugs, postmortem). |
@@ -47,11 +47,11 @@ Composes: api-design → deep-modules; architecture-review → deep-modules; arc
 
 ## code-craft
 
-Implementation discipline: test-first loops, characterization tests, root-cause diagnosis, codebase orientation, post-mortems
+Understand code, diagnose bugs, and develop with meaningful tests.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
-| codebase-survey | engineering | user | stable | 100% (14/14, ≥3 votes, claude-sonnet-5, 2026-09-04) | Maps an unfamiliar repository fast: inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. Use when the user says "survey this codebase", "help me get oriented in this repo", "map out this project", or has inherited a codebase. Not for judging its structure (architecture-review), a new design (architecture-spec), one bug (diagnose-bugs), or one function. |
+| codebase-survey | engineering | user | experimental | 100% (14/14, ≥3 votes, claude-sonnet-5, 2026-09-04) | Maps an unfamiliar repository fast: inventory scripts plus parallel subagent scans, synthesized into a path-anchored survey document. Use when the user says "survey this codebase", "help me get oriented in this repo", "map out this project", or has inherited a codebase. Not for judging its structure (architecture-review), a new design (architecture-spec), one bug (diagnose-bugs), or one function. |
 | diagnose-bugs | engineering | both | experimental | 100% (18/18, ≥3 votes, claude-sonnet-5, 2026-09-04) | Finds the root cause of a bug, flaky test, or regression: reproduce, read the evidence, one hypothesis at a time until the mechanism is proven. Use when the user says "why is this failing", "this test is flaky", "it works on my machine", or hands over a stack trace. Not for writing up a found cause (postmortem), what could fail (failure-mode-analysis), or diff security (security-diff-review). |
 | postmortem | engineering | both | experimental | 100% (19/19, ≥3 votes, claude-sonnet-5, 2026-09-04) | Writes an incident or bug post-mortem once the root cause is known: evidence-anchored timeline, mechanism, why every safety net missed it, guardrails. Use when the user says "write a post-mortem for this outage", "do an RCA on this bug", or wants a found root cause documented. Not for finding the cause (diagnose-bugs), what could fail (failure-mode-analysis), or tickets (define-work-items). |
 | retrofit-tests | engineering | both | experimental | 100% (12/12, ≥3 votes, claude-sonnet-5, 2026-09-04) | Adds characterization tests to working code that has none: pins current behavior at its seams before it changes, prioritised by risk. Use when the user says "add tests to this module", "get this under test before the refactor", "raise coverage on X", or must change legacy code safely. Not for new code test-first (tdd), a broken test (diagnose-bugs), or browser checks (webapp-testing). |
@@ -68,13 +68,13 @@ Composes: codebase-survey → doc-visuals (cross-plugin); postmortem → doc-vis
 
 ## dev-workflow
 
-Moving work between people and sessions: handoffs, cold reads, work items, guided setup wizards
+Write work items, check handoffs, and guide manual setup.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
-| cold-read | productivity | model | stable | 100% (14/14, ≥3 votes, claude-sonnet-5, 2026-09-04) | Verifies that a document stands alone for its intended audience — actionable with no access to the conversation or author. Use before sending any document someone else will act on, or when the user asks "will this make sense without me", "check this is self-contained", or "review this for completeness before I send it". Not for correctness (falsification-review), copyediting, or summarization. |
-| define-work-items | productivity | both | stable | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Writes work items to a business-analyst standard, with testable acceptance criteria, so complete an implementer needs to ask nothing. Use when the user says "write a ticket", "create a work item", "turn this into user stories", or wants a bug or feature written up for someone else to build. Not for a build-ready PRD (feature-spec), in-flight state (handoff), prioritization, or estimation. |
-| handoff | productivity | user | stable | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Produces a structured handoff of in-flight work the next session or person can act on without the conversation. Use when the user says "handoff", "hand this off", or "handoff notes", or wants to document where things stand before stopping or transferring work. Not for incident retrospectives (postmortem), tickets for unstarted work (define-work-items), or checking a doc stands alone (cold-read). |
+| cold-read | productivity | model | experimental | 100% (14/14, ≥3 votes, claude-sonnet-5, 2026-09-04) | Verifies that a document stands alone for its intended audience — actionable with no access to the conversation or author. Use before sending any document someone else will act on, or when the user asks "will this make sense without me", "check this is self-contained", or "review this for completeness before I send it". Not for correctness (falsification-review), copyediting, or summarization. |
+| define-work-items | productivity | both | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Writes work items to a business-analyst standard, with testable acceptance criteria, so complete an implementer needs to ask nothing. Use when the user says "write a ticket", "create a work item", "turn this into user stories", or wants a bug or feature written up for someone else to build. Not for a build-ready PRD (feature-spec), in-flight state (handoff), prioritization, or estimation. |
+| handoff | productivity | user | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Produces a structured handoff of in-flight work the next session or person can act on without the conversation. Use when the user says "handoff", "hand this off", or "handoff notes", or wants to document where things stand before stopping or transferring work. Not for incident retrospectives (postmortem), tickets for unstarted work (define-work-items), or checking a doc stands alone (cold-read). |
 | wizard | engineering | user | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Generates an interactive bash wizard that walks a human through a manual procedure, capturing values into .env and GitHub secrets. Use when the user says "make me a setup wizard", "write a script that walks me through setting up <service>", or keeps re-explaining a multi-tab setup. Not for fully automatable work (plain script), the phased plan itself (migration-plan), or unattended CI automation. |
 
 Agents: cold-reader
@@ -90,9 +90,9 @@ Composes: define-work-items → cold-read; handoff → cold-read
 
 ## docs-craft
 
-Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture
+Write READMEs, clarify diagrams, and organize technical documentation.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
 | doc-visuals | engineering | both | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Crafts the visual layer of technical docs — directory trees, mermaid diagrams, code blocks, tables — so structure lands at a glance and survives rendering. Use when the user says "add a diagram", "the repo map is hard to read", "make this README scannable", or a diagram renders broken. Not for prose (prose-hygiene), splitting content (information-architecture), or self-containment (cold-read). |
 | information-architecture | engineering | both | experimental | 100% (17/17, ≥3 votes, claude-sonnet-5, 2026-09-04) | Organizes content or a pile of files into a structure a stranger can navigate: what splits, how pieces nest, what lands up front. Use when the user says "organize these files", "this doc should be split up", "where should this live", or a doc or folder has become one long dump. Not for diagrams and trees (doc-visuals), a README rewrite (readme-authoring), or repo orientation (codebase-survey). |
@@ -111,9 +111,9 @@ Composes: readme-authoring → doc-visuals
 
 ## frontend
 
-Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright
+Build, critique, and refine interfaces; verify behavior in a browser.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
 | frontend-craft | engineering | both | experimental | 100% (17/17, ≥3 votes, claude-sonnet-5, 2026-09-04) | Builds new web UI with real visual character, not the generic AI-template look. Use when the user says "build a landing page", "design a hero section", "doesn't look AI-generated", or is starting a marketing, portfolio, or product site. Not for upgrading existing UI (frontend-redesign), scored design review (frontend-critique), writing the copy, or diagrams in docs (doc-visuals). |
 | frontend-critique | engineering | both | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Scored design review of a finished interface — heuristics 0-4, P0-P3 issues — no changes applied. Use when the user says "critique this page", "review the design", "what do you think of this UI", or wants an assessment before any changes. Not for applying fixes (frontend-redesign), building new UI (frontend-craft), browser checks (webapp-testing), or security review (security-diff-review). |
@@ -131,11 +131,11 @@ Composes: frontend-critique → webapp-testing
 
 ## planning
 
-Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects
+Turn ideas into specs, test assumptions, and anticipate failure.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
-| falsification-review | engineering | both | stable | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Falsifies a consequential conclusion before it is presented: strongest counterargument first, the crux, and what evidence would overturn it. Use when about to endorse a recommendation, estimate, or plan, or the user asks "should we", "is this the right call", or "sanity check this decision". Not for plan risk (premortem), writing a spec (architecture-spec), or neutral surveys of options. |
+| falsification-review | engineering | both | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Falsifies a consequential conclusion before it is presented: strongest counterargument first, the crux, and what evidence would overturn it. Use when about to endorse a recommendation, estimate, or plan, or the user asks "should we", "is this the right call", or "sanity check this decision". Not for plan risk (premortem), writing a spec (architecture-spec), or neutral surveys of options. |
 | feature-spec | engineering | user | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Synthesizes the conversation so far into a build-ready feature spec or PRD, never by re-interviewing. Use when the user says "turn this into a spec", "write up what we discussed as a PRD", "capture this thread as a spec", or wants a feature discussion made buildable. Not for architecture documents (architecture-spec), tickets (define-work-items), or eliciting requirements (grilling). |
 | grilling | engineering | both | experimental | 100% (17/17, ≥3 votes, claude-sonnet-5, 2026-09-04) | Interrogates a half-formed idea or plan until every branch resolves into a decision or an explicit open item, before building starts. Use when the user says "grill me on this", "poke holes in this idea", "ask me the hard questions", or has a vague idea they are about to act on. Not for testing a conclusion (falsification-review), capturing decisions (feature-spec), or tickets (define-work-items). |
 | premortem | engineering | both | experimental | 100% (17/17, ≥3 votes, claude-sonnet-5, 2026-09-04) | Runs a premortem on an agreed plan: assumes it failed, narrates why, and turns the top risks into warning signals and kill triggers. Use when the user says "run a premortem", "stress-test this rollout", "imagine it's a year on and this went badly", or is about to start a migration. Not for testing a conclusion (falsification-review), a fuzzy idea (grilling), or past failures (postmortem). |
@@ -147,21 +147,21 @@ Composes: feature-spec → cold-read (cross-plugin); feature-spec → deep-modul
 
 ## research
 
-Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo
+Verify current facts and write reports grounded in primary sources.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
 | deep-research | engineering | both | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Fans a broad or contested question out to parallel investigators, checks each load-bearing claim, and delivers one cited, dated report. Use when the user says "do deep research on X", "research this thoroughly", or "fan out and research", or the question outgrows one thread. Not for one volatile fact (ground-truth-research), a durable repo note (research-note), or summarizing supplied material. |
-| ground-truth-research | engineering | model | stable | 100% (13/13, ≥3 votes, claude-sonnet-5, 2026-09-04) | Verifies one volatile fact against live sources before asserting it or designing against it, and attaches an as-of basis to the claim. Use when a task depends on current versions, APIs, prices, or tool capabilities, or the user says "latest", "current", or "still" about anything that changes. Not for settled knowledge, a fan-out report (deep-research), or a durable repo note (research-note). |
+| ground-truth-research | engineering | model | experimental | 100% (13/13, ≥3 votes, claude-sonnet-5, 2026-09-04) | Verifies one volatile fact against live sources before asserting it or designing against it, and attaches an as-of basis to the claim. Use when a task depends on current versions, APIs, prices, or tool capabilities, or the user says "latest", "current", or "still" about anything that changes. Not for settled knowledge, a fan-out report (deep-research), or a durable repo note (research-note). |
 | research-note | engineering | both | experimental | 100% (15/15, ≥3 votes, claude-sonnet-5, 2026-09-04) | Investigates a question against primary sources and lands the findings as a durable, cited Markdown note in the repo. Use when the user says "research X and write it up", "look into this and leave notes in the repo", or wants reading legwork made a permanent reference. Not for one volatile fact (ground-truth-research), a fan-out report (deep-research), or summarizing a supplied document. |
 
 Composes: deep-research → ground-truth-research; research-note → ground-truth-research
 
 ## security
 
-Security review discipline: threat modeling, diff-scoped review with sibling sweeps, decision-ready hardening proposals
+Model threats, review security changes, and propose mitigations.
 
-| Skill | Category | Invocation | Maturity | Triggering | Description |
+| Skill | Category | Invocation | Maturity | Routing simulation | Description |
 |---|---|---|---|---|---|
 | hardening-proposal | engineering | user | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Turns security findings into a hardening proposal: clusters them by violated invariant and lays out a baseline plus two or three distinct options with tradeoffs. Use when the user says "how should we fix these findings", "propose a hardening plan", or "options to close this class of bugs". Not for one change (security-diff-review), trust boundaries (threat-model), or triaging findings. |
 | security-diff-review | engineering | both | experimental | 100% (16/16, ≥3 votes, claude-sonnet-5, 2026-09-04) | Security review of one code change — a diff, PR, or branch — anchored to what changed, swept out to sibling call sites of any shared helper it touches. Use when the user says "security review this PR", "is this change safe to merge", or "run a security pass on my feature branch". Not for trust boundaries (threat-model), fixing a set of findings (hardening-proposal), or whole-repo audits. |

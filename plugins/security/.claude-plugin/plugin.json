@@ -1,7 +1,7 @@
 {
   "name": "security",
-  "version": "0.3.0",
-  "description": "Security review discipline: threat modeling, diff-scoped review with sibling sweeps, decision-ready hardening proposals",
+  "version": "0.4.0",
+  "description": "Model threats, review security changes, and propose mitigations.",
   "author": {
     "name": "Dakota"
   },

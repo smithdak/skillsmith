@@ -4,7 +4,7 @@ description: "Verifies that a document stands alone for its intended audience �
 license: "MIT"
 metadata:
   skillsmith-invocation: "model"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
   skillsmith-see-also: "falsification-review"
 ---
 
@@ -12,9 +12,9 @@ metadata:
 
 A document that needs its author present is a conversation with extra
 steps. Before presenting a document others will act on, read it as its
-cold audience — someone with the document and nothing else — and fix what
-fails. Fixing before presenting is the discipline; presenting with
-caveats is the anti-pattern this skill exists to prevent.
+cold audience — someone with the document and nothing else. Fix the gaps when
+preparing or revising the document; an audit-only request returns findings.
+Do not invent facts merely to make an incomplete document appear finished.
 
 ## Cast the cold reader
 
@@ -51,12 +51,12 @@ have to ask, guess, or search:
 An inline pass is a *simulated* cold read — the simulator still holds the
 full conversation, and contamination is exactly the failure mode being
 checked for. For deliverables leaving the session — handoffs, runbooks,
-work items someone else will execute — spawn the `cold-reader` agent with
-the document and the named audience only, never the conversation: the
-agent's ignorance is the instrument. Reserve the agent for documents
-others will act on (a subagent review costs several times the tokens of an
-inline pass); inline passes suffice while a draft is still iterating
-in-session.
+work items someone else will execute — use an independent reader when
+available and authorized. Provide the document and named audience only, not
+the conversation. If the `cold-reader` agent or delegation is unavailable,
+run the same checks inline and describe that as a simulated read. No named
+agent is required to complete the skill. Use a separate reader where its
+benefit justifies its cost, not for every short document.
 
 ## Failure handling
 

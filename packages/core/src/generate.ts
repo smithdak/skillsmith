@@ -90,6 +90,9 @@ export function buildPlan(
   for (const grouping of config.plugin) {
     const pluginRoot = `plugins/${grouping.name}`;
     const version = resolveVersion(grouping, diagnostics);
+    for (const file of discovery.legalFiles ?? []) {
+      copies.set(`${pluginRoot}/${file.path}`, file.absPath);
+    }
 
     // --- resolve + assemble skills ---
     const resolvedSkills: DiscoveredSkill[] = [];

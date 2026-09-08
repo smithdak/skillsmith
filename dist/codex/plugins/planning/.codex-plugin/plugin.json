@@ -1,0 +1,18 @@
+{
+  "name": "planning",
+  "version": "0.2.0",
+  "description": "Turn ideas into specs, test assumptions, and anticipate failure.",
+  "author": {
+    "name": "Dakota"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Planning",
+    "shortDescription": "Turn ideas into specs, test assumptions, and anticipate failure.",
+    "longDescription": "Turn ideas into specs, test assumptions, and anticipate failure.",
+    "developerName": "Dakota",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me choose a planning skill for my task."
+  }
+}

@@ -4,6 +4,7 @@
  */
 export { SCHEMA_TARGET, STANDARD_TARGET, MODEL_BEHAVIOR_TARGET, LIMITS } from "./constants.ts";
 export * from "./diagnostics.ts";
+export { runEffectiveness, effectivenessSuiteSchema, type EffectivenessSuite, type EffectivenessRequest } from "./effectiveness.ts";
 
 export {
   agentSkillsStandardSchema,
@@ -119,6 +120,7 @@ export {
   runTriggerEvals,
   toResultsFile,
   mergeSkillResult,
+  evalResultsFileSchema,
   anthropicJudge,
   descriptionSha,
   renderListing,

@@ -18,90 +18,49 @@ user-invocable: true
 
 # decision-record
 
-Undocumented decisions relitigate themselves every quarter; a good
-record ends the argument by preserving why the winning option won —
-including the facts that were true when it was made. One record, one
-decision: a choice that bundles "which database, which host, which
-region" is three records linked together, because each gets revisited
-on its own schedule.
+Settle or record one consequential choice, preserving why the selected option
+wins and what would justify revisiting it. Separate choices that can change
+independently into separate records when that helps future decisions.
 
-## Size the process to the door
+## Establish the basis
 
-First classify reversibility. A **two-way door** — swap a library,
-rename an endpoint — earns a fast pass: brief options, decide, record.
-A **one-way door** — data model, vendor contract, public API shape —
-earns the full treatment below. Saying which door you're facing up
-front prevents both over-deliberating cheap choices and rushing
-expensive ones.
+Reuse the user's constraints and the repository's decisions. Identify the goal,
+live alternatives, and cost of reversing the choice. Spend more effort on
+costly commitments; a reversible local choice needs a brief record.
 
-## Establish context from ground truth
+Verify decision-changing volatile facts using the ground-truth-research
+discipline: consult the primary source and attach its date. When unavailable,
+state the uncertainty and how it affects the recommendation. Do not invent
+traffic, incident frequency, prices, or team preferences to fill a matrix.
 
-State the forces: constraints, scale numbers, team realities, the
-goal the decision serves. Where options differ on volatile facts —
-current pricing tiers, version capabilities, vendor limits — verify
-with the ground-truth-research discipline and date them in the
-record; a decision justified by last year's pricing table does not
-survive its first revisit.
+## Compare and choose
 
-## Generate options that differ in mechanism
+Compare feasible options on the dimensions that decide this choice. Include
+keeping the current approach when viable; do not manufacture a third option.
+State each option's main benefit, cost, and failure mode. Prefer qualitative
+tradeoffs to scores that imply measurements nobody has made.
 
-A baseline plus two alternatives, distinct in mechanism — not three
-flavors of one idea. Include the do-nothing baseline when it is real:
-"keep cron" is an option, and often a strong one. For each option
-capture what it optimizes for and what it sacrifices; an option whose
-downsides are unstated has not been stated.
-
-## Decide on a fixed basis
-
-Score the live options across the dimensions that actually decide
-this class of choice (operational cost, migration cost, failure
-modes, team familiarity, exit path) and mark unknown cells as unknown
-rather than guessing. Then choose and name the **driver**: the one
-consideration that made the winner win. Pressure-test the leading
-option before committing — strongest case against it, would anything
-flip the choice — the falsification-review discipline applied once,
-not forever.
+Name the driver that makes the chosen option win. Apply the falsification-review
+check: identify evidence that would overturn the choice and inspect it when
+available. Distinguish a proposed recommendation from an already accepted
+decision. A request to recommend is sufficient to recommend; acceptance must
+come from the user's decision or existing authority.
 
 ## Write the record
 
-Sections, in order:
+Follow the repository's ADR location and numbering, commonly docs/decisions/.
+Include status and date, context and constraints, feasible options and why they
+lost, the decision and its driver, consequences including an honest drawback,
+and an observable revisit trigger. State how reversal would work or why it is
+expensive. Preserve accepted records by linking superseding decisions.
 
-1. **Status, date, and reversibility class** — proposed / accepted /
-   superseded-by-N, and whether this is a two-way or one-way door, with
-   the one sentence that justifies the class.
-2. **Context** — the forces and the goal, with dated volatile facts.
-3. **Options considered** — the tradeoff matrix: each live option
-   scored on the dimensions that decide this class of choice, unknown
-   cells marked unknown, plus the rejected options *with the reason
-   they lost*. This section is the anti-relitigation device: a future
-   reader re-proposing a rejected option must first explain what changed.
-4. **Decision** — what was chosen and the driver that decided it.
-5. **Consequences** — what becomes easier, what becomes harder, what
-   is now accepted risk. Honest negatives are the part future readers
-   trust most.
-6. **Revisit trigger** — the observable condition that reopens the
-   decision ("p99 write latency exceeds 50ms for a week", "vendor
-   price exceeds $X/mo"). A record without a trigger either lives
-   forever or dies arbitrarily; state which events legitimately
-   reopen it.
+For example, a timeout after a charge is an ambiguous outcome: a retry policy
+must address idempotency and reconciliation, not merely choose a retry count.
+A threshold proposed for future monitoring is not an observed measurement.
 
-Place it where the repo keeps such records (`docs/decisions/` or
-`adr/`, following existing numbering) and report the path.
+## Completion
 
-## Verify before returning
-
-A reader at HEAD can reconstruct why the choice was made without this
-conversation. Every rejected option carries its reason. The driver is
-stated in one sentence. Consequences include at least one honest
-negative. The reversibility class is stated in the record itself, not
-only in the conversation. The revisit trigger is observable and dated
-conditions are attached where they matter.
-
-## Boundaries
-
-- Whole-system structure spanning many coupled decisions belongs to
-  architecture-spec; link the spec rather than duplicating it here.
-- Execution-failure rehearsal of the chosen path is premortem's job;
-  a record may link to one, not absorb it.
-- If no decision exists to document and none is sought, stop — a
-  neutral comparison survey is a different deliverable.
+A future reader can reconstruct the choice without the conversation, identify
+what remains unverified, and tell when to reopen it. Report the artifact path
+when one was written. Whole-system design belongs to architecture-spec;
+execution rehearsal belongs to premortem.

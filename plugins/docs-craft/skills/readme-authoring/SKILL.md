@@ -21,80 +21,57 @@ user-invocable: true
 *Adapted from github/awesome-copilot — create-readme (MIT); see repo-root
 NOTICES.md.*
 
-The README is the most-read and least-maintained file in a repository. It is
-written once when the project is small and then quietly falsified by every
-subsequent commit — the counts drift, the plugin list goes stale, the install
-command changes. A confidently wrong front page costs more trust than a
-sparse one, because a reader who catches one false claim stops believing the
-rest.
+Write the repository's front door: a specific reason to care, credible evidence
+of what ships, and a short path to a useful result. Preserve the project's
+voice and identity. A good README feels written for this project and reader.
 
-## Derive every claim from the repository
+## Recover the product and audience
 
-Treat the existing README as a hypothesis about a past version of the
-project, never as a source. Before writing, read the ground truth for each
-claim it makes or should make:
+Inspect manifests, public interfaces, examples, installation and release
+configuration, and relevant existing docs. Identify the primary reader and
+first useful task. Separate consumer setup from contributor setup. Treat the
+old README as claims to verify, including package availability, credentials,
+runtime requirements, counts, links, and performance claims.
 
-- **Counts and inventories** — how many modules, packages, plugins, or
-  commands actually exist. Count them from the filesystem or the manifest.
-- **Names and lists** — the real module, command, and option names, read from
-  the config or the CLI, not recalled from the prose.
-- **Commands** — run them as written. A documented command that fails is the
-  fastest way to lose a new user.
-- **Links** — confirm each target file exists at the path given.
+Use [references/readme-structure.md](references/readme-structure.md) to choose
+the reading order for this kind of repository. Select the relevant sections;
+do not copy a universal heading skeleton. Keep generated regions intact and
+change their source when their content needs updating.
 
-The most common README defect is not bad writing; it is a page describing a
-smaller, older version of the project with total confidence.
+## Make the opening earn attention
 
-## Order for the newcomer
+Name the concrete job and audience. Show one small, authentic proof: a command
+and result, a usable API example, or an existing screenshot of the main task.
+Explain the meaningful distinction or constraint. Give the reader an obvious
+next step. Use [references/readme-examples.md](references/readme-examples.md)
+when the opening is generic, the quick start stalls at installation, or the
+page reads like a brochure.
 
-A reader arrives with three questions in a fixed order: *what is this*, *should
-I care*, *how do I use it*. Answer them in that order, then serve contributors:
+Order installation and first use so the primary reader can succeed from the
+stated starting point. Include essential prerequisites and real sample input;
+show the observable result. Put a setup-changing limitation next to that path.
+Move exhaustive options, internals, and contributor machinery into linked docs
+when they obscure first use. Link owner files for licensing, contributions,
+security, and changes; do not create empty sections for absent files.
 
-1. **Header** — name, badges that reflect real signals (build status, version,
-   size of the thing), a one-line statement of what it is, and a short link
-   row to the major sections.
-2. **What and why** — what the project is and the problem that justifies it.
-3. **Features** — a scannable list of what it actually does, written as
-   capabilities rather than adjectives.
-4. **Quick start** — the shortest path to a working result. Install and first
-   use come before architecture.
-5. **How it works** — the model a user needs to hold, including the
-   invariants they can break.
-6. **Contributor material** — development setup, commands, and authoring
-   guides, after the consumer sections.
-7. **Documentation index** — a table pointing at the deeper docs.
+## Give the page a clear reading rhythm
 
-Depth belongs in linked documents. The README's job is to get someone to the
-right page, not to be every page.
+Use informative headings, short connected paragraphs, and selected examples.
+Apply doc-visuals when available; its essentials are inline: each visual earns
+its place, diagrams preserve actual behavior, paths are real, tables support a
+comparison, and copied commands exclude terminal prompts and captured output.
+Use the existing brand assets and useful badges only when available. Avoid
+invented banners, decorative diagrams, and repeated claims dressed as features.
 
-## Keep dedicated files dedicated
+## Verify the reader's path
 
-License, contribution process, changelog, security policy, and code of
-conduct each belong in their own file. The README links to them — a badge or
-a line in a docs table is enough. Inlining that content buries the material
-the reader actually came for, and it duplicates a file that will be updated
-independently and then disagree.
+Try the quick start in a clean temporary location when safe. Otherwise check
+syntax and prerequisites against source and state what could not be executed.
+Do not perform paid, destructive, or external mutations just to document them.
+Inspect rendered Markdown when possible, including narrow layouts, local links,
+anchors and images. Separate actual rendering from source-only review.
 
-## Formatting
-
-Use GitHub Flavored Markdown. Reach for GitHub admonitions
-(`> [!NOTE]`, `> [!TIP]`, `> [!IMPORTANT]`, `> [!WARNING]`, `> [!CAUTION]`)
-for the few statements that genuinely need to interrupt reading — an
-invariant a user can violate, a cost, a prerequisite. Their power comes from
-scarcity; a page of admonitions has none.
-
-Keep emoji sparse or absent; they read as decoration and date quickly. Use a
-logo in the header only if the project actually has one — do not invent or
-source one. Tables suit short enumerable facts, with the explanation in
-surrounding prose rather than crammed into cells. Repository maps, diagrams,
-and code blocks follow the doc-visuals discipline so each survives its
-renderer.
-
-## Verify before returning
-
-Check the finished page against the repository, not against the draft: every
-count and list matches what is actually there, every documented command runs
-as written, every link resolves to an existing path, and no section
-duplicates a dedicated file. Confirm the reader can answer "what is this and
-how do I start" from the top of the page alone. A README that reads well but
-misstates the project's size or install path has failed at its only job.
+Skim only the opening, headings, examples and links: can the intended reader
+explain what this does, whether it fits, and how to start? Remove repeated or
+low-value material before adding more sections. Return the finished document;
+put change summaries and verification limits in the completion message, outside its prose.

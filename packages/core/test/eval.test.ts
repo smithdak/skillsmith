@@ -9,6 +9,7 @@ import {
   anthropicJudge,
   toResultsFile,
   mergeSkillResult,
+  evalResultsFileSchema,
   buildPlan,
   validateSkillsmithConfig,
   type Judge,
@@ -145,7 +146,7 @@ describe("eval harness (mock judge)", () => {
 
     const withBadges = buildPlan(d, config, { evalResults: parsed });
     const catalog = withBadges.files.get("catalog/CATALOG.md")!;
-    expect(catalog).toContain("Triggering");
+    expect(catalog).toContain("Routing simulation");
     expect(catalog).toContain("100% (6/6, 1 vote, mock, 2026-07-11)");
     // without results: no badge column (back-compat)
     const without = buildPlan(d, config);
@@ -367,5 +368,24 @@ describe("mergeSkillResult: a single-skill run refreshes one entry without lying
     expect(mergeSkillResult({ ...file, listingSha: "0".repeat(64) }, one, "code-review", "2026-09-03")).toBeNull();
     const fewerVotes = await runTriggerEvals(d, config, { judge: keywordJudge, judgeModel: "mock", repeat: 1, skill: "code-review" });
     expect(mergeSkillResult(file, fewerVotes, "code-review", "2026-09-03")).toBeNull();
+    expect(mergeSkillResult({ ...file, judgeModel: "different-model" }, one, "code-review", "2026-09-03")).toBeNull();
   });
+
+  test("persisted results must carry valid provenance and consistent scores", async () => {
+    const { file } = await base();
+    expect(evalResultsFileSchema.safeParse(file).success).toBe(true);
+    expect(evalResultsFileSchema.safeParse({ ...file, listingSha: "" }).success).toBe(false);
+    file.skills["code-review"]!.hitRate = 0.123;
+    expect(evalResultsFileSchema.safeParse(file).success).toBe(false);
+  });
+});
+
+test("invalid vote/concurrency options fail before any judge calls", async () => {
+  const { root, config } = makeRepo();
+  const d = await discover(root, { allowedCategories: config.categories.allowed });
+  let calls = 0;
+  for (const options of [{ concurrency: 0 }, { concurrency: NaN }, { repeat: 1.5 }, { repeat: 3, escalate: 2 }]) {
+    await expect(runTriggerEvals(d, config, { ...options, judgeModel: "mock", judge: async () => { calls++; return null; } })).rejects.toThrow();
+  }
+  expect(calls).toBe(0);
 });

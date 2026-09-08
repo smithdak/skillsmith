@@ -1,7 +1,7 @@
 {
   "name": "code-craft",
-  "version": "0.5.0",
-  "description": "Implementation discipline: test-first loops, characterization tests, root-cause diagnosis, codebase orientation, post-mortems",
+  "version": "0.6.0",
+  "description": "Understand code, diagnose bugs, and develop with meaningful tests.",
   "author": {
     "name": "Dakota"
   },

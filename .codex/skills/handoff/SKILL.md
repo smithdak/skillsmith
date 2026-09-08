@@ -5,7 +5,7 @@ license: "MIT"
 metadata:
   skillsmith-composes: "cold-read"
   skillsmith-invocation: "user"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
 ---
 
 # handoff
@@ -66,7 +66,9 @@ Collect, in priority order:
 ## Verify before returning
 
 Run the cold-read discipline on the draft, casting the audience as the
-person continuing this work with no access to the conversation. On top of
+person continuing this work with no access to the conversation. If cold-read
+is unavailable, inspect the draft directly for dangling references, executable
+next actions, and checkable artifact states. On top of
 that pass, check the handoff-specific bar: every open item names a
 concrete next action, and every artifact state is a claim the reader can
 check (the command, the path, the version), not an assurance. Fix

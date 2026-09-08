@@ -1,0 +1,18 @@
+{
+  "name": "frontend",
+  "version": "0.6.0",
+  "description": "Build, critique, and refine interfaces; verify behavior in a browser.",
+  "author": {
+    "name": "Dakota"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Frontend",
+    "shortDescription": "Build, critique, and refine interfaces; verify behavior in a browser.",
+    "longDescription": "Build, critique, and refine interfaces; verify behavior in a browser.",
+    "developerName": "Dakota",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me choose a frontend skill for my task."
+  }
+}

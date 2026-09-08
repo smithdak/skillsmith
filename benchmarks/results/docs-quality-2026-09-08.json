@@ -1,0 +1,321 @@
+{
+  "suite": "docs-quality-pilot-v1",
+  "suiteSha": "547dce3c18dc8896adaed6bb78aa5e458963a49976cfd3cce82d936f2c3c93fd",
+  "runDate": "2026-09-08T17:57:11.436Z",
+  "runnerId": "codex-text-v1; auth=chatgpt; model=gpt-6-astra; effort=medium; cli=codex-cli 0.153.4",
+  "repeat": 1,
+  "instructionHashes": {
+    "doc-visuals": "3703995d990f869f12a7190b8b829ca81b0a328db09499dac8cc266070598bdd",
+    "readme-authoring": "85230d23339cb28313703df167c861eff87ec74714c687745e3a2d38e85507bf"
+  },
+  "previousInstructionHashes": {
+    "doc-visuals": "bdd35518f29bd99588cea18b29107914918565b163f696391734e2c417b2f98b",
+    "readme-authoring": "ff4f7c25f6647fe7a79e9a05e021242fe3914b3b40ef7400eeb097e7429025e8"
+  },
+  "previousPassRate": 1,
+  "revisionDelta": 0,
+  "summary": {
+    "off": {
+      "trials": 2,
+      "passed": 2,
+      "passRate": 1,
+      "meanDurationMs": 19465,
+      "usageTrials": 2,
+      "meanInputTokens": 9151.5,
+      "meanOutputTokens": 479
+    },
+    "previous": {
+      "trials": 2,
+      "passed": 2,
+      "passRate": 1,
+      "meanDurationMs": 17962.5,
+      "usageTrials": 2,
+      "meanInputTokens": 11390.5,
+      "meanOutputTokens": 473.5
+    },
+    "on": {
+      "trials": 2,
+      "passed": 2,
+      "passRate": 1,
+      "meanDurationMs": 18028.5,
+      "usageTrials": 2,
+      "meanInputTokens": 12949,
+      "meanOutputTokens": 449
+    }
+  },
+  "perSkill": {
+    "doc-visuals": {
+      "off": {
+        "trials": 1,
+        "passed": 1,
+        "passRate": 1,
+        "meanDurationMs": 24546,
+        "usageTrials": 1,
+        "meanInputTokens": 9146,
+        "meanOutputTokens": 573
+      },
+      "previous": {
+        "trials": 1,
+        "passed": 1,
+        "passRate": 1,
+        "meanDurationMs": 19796,
+        "usageTrials": 1,
+        "meanInputTokens": 11894,
+        "meanOutputTokens": 539
+      },
+      "on": {
+        "trials": 1,
+        "passed": 1,
+        "passRate": 1,
+        "meanDurationMs": 18441,
+        "usageTrials": 1,
+        "meanInputTokens": 13830,
+        "meanOutputTokens": 467
+      }
+    },
+    "readme-authoring": {
+      "off": {
+        "trials": 1,
+        "passed": 1,
+        "passRate": 1,
+        "meanDurationMs": 14384,
+        "usageTrials": 1,
+        "meanInputTokens": 9157,
+        "meanOutputTokens": 385
+      },
+      "previous": {
+        "trials": 1,
+        "passed": 1,
+        "passRate": 1,
+        "meanDurationMs": 16129,
+        "usageTrials": 1,
+        "meanInputTokens": 10887,
+        "meanOutputTokens": 408
+      },
+      "on": {
+        "trials": 1,
+        "passed": 1,
+        "passRate": 1,
+        "meanDurationMs": 17616,
+        "usageTrials": 1,
+        "meanInputTokens": 12068,
+        "meanOutputTokens": 431
+      }
+    }
+  },
+  "offPassRate": 1,
+  "onPassRate": 1,
+  "delta": 0,
+  "results": [
+    {
+      "case": "unpublished-cli-readme",
+      "skill": "readme-authoring",
+      "trial": 0,
+      "arm": "off",
+      "output": "# Patchdeck\n\nReview JSON configuration changes before applying them. Patchdeck compares two local JSON files, shows a field-level diff, and optionally updates the first file to match the second. No data leaves your machine.\n\n## Review your first diff\n\nFrom an existing checkout on macOS or Linux, with **Bun >=1.3.14**:\n\n```sh\nbun install --frozen-lockfile\nbun src/main.ts diff examples/current.json examples/desired.json\n```\n\nThe sample diff prints:\n\n```text\n~ retries: 2 -> 4\n~ region: us-east -> eu-west\n```\n\nDefault mode never writes. To review your own configuration, supply the current file first and the desired file second:\n\n```sh\nbun src/main.ts diff <current.json> <desired.json>\n```\n\nPatchdeck runs from the checkout; it is not published to a registry.\n\n## Apply a change\n\n**`--write` overwrites the current file to match the desired file.** Try it with copies of the samples:\n\n```sh\ncp examples/current.json examples/current-copy.json\ncp examples/desired.json examples/desired-copy.json\nbun src/main.ts diff examples/current-copy.json examples/desired-copy.json --write\n```\n\nOmit `--write` whenever you only want to review changes. There is no `--dry-run` flag.\n\n## Reference\n\n- [JSON format and comparison behavior](docs/format.md)\n- [Full CLI reference](docs/options.md)\n- [Contributor setup and tests](CONTRIBUTING.md) — source lives in `src/`, tests in `test/`.\n\nLicensed under the [MIT license](LICENSE).\n",
+      "criteria": [
+        {
+          "pass": true,
+          "reason": "The opening identifies JSON configuration review, field-level differences, and optional application. The exact two-line sample diff demonstrates the result without promotional claims."
+        },
+        {
+          "pass": true,
+          "reason": "Before contributor details, the README states the existing-checkout requirement, macOS/Linux support, Bun >=1.3.14, frozen-lockfile installation, the exact shipped-example command, and the given expected output."
+        },
+        {
+          "pass": true,
+          "reason": "It states that no data leaves the machine and default mode never writes. It explicitly warns that --write overwrites the current file, uses copied samples for application, and correctly states that --dry-run does not exist."
+        },
+        {
+          "pass": true,
+          "reason": "All installation instructions, capabilities, and documentation links match the verified facts. It accurately states that no registry publication exists and adds no unsupported visuals, measurements, or execution claims."
+        },
+        {
+          "pass": true,
+          "reason": "The reading order moves from purpose to first diff, safe application, and deeper references. Brief prose, useful headings, copyable sample commands, and emphasis on prerequisites and overwrite behavior support scanning without unnecessary sections or visuals."
+        }
+      ],
+      "pass": true,
+      "durationMs": 14384,
+      "usage": {
+        "inputTokens": 9157,
+        "outputTokens": 385
+      }
+    },
+    {
+      "case": "unpublished-cli-readme",
+      "skill": "readme-authoring",
+      "trial": 0,
+      "arm": "previous",
+      "output": "# Patchdeck\n\nReview JSON configuration changes before applying them. Patchdeck compares two local JSON files, shows a field-level diff, and optionally updates the first file to match the second. No data leaves your machine.\n\n## Review your first diff\n\nStart in an existing checkout on macOS or Linux with **Bun >=1.3.14**. Patchdeck is not published to a package registry.\n\nInstall dependencies and compare the included samples:\n\n```sh\nbun install --frozen-lockfile\nbun src/main.ts diff examples/current.json examples/desired.json\n```\n\nExpected output:\n\n```text\n~ retries: 2 -> 4\n~ region: us-east -> eu-west\n```\n\nThe default command never writes. To review your own configuration, pass the current file first and the desired file second:\n\n```sh\nbun src/main.ts diff current.json desired.json\n```\n\n## Apply a change\n\nAppending `--write` overwrites the first file to match the second. Try it on copies of the samples in a temporary directory:\n\n```sh\npatchdeck_example_dir=$(mktemp -d)\ncp examples/current.json \"$patchdeck_example_dir/current.json\"\ncp examples/desired.json \"$patchdeck_example_dir/desired.json\"\nbun src/main.ts diff \"$patchdeck_example_dir/current.json\" \"$patchdeck_example_dir/desired.json\" --write\n```\n\nFor a preview, omit `--write`; there is no `--dry-run` flag.\n\n## Further reading\n\n- [JSON format and comparison behavior](docs/format.md)\n- [Full CLI reference](docs/options.md)\n- [Contributor setup and tests](CONTRIBUTING.md) — implementation lives in `src/`, tests in `test/`.\n\nLicensed under the [MIT license](LICENSE).\n",
+      "criteria": [
+        {
+          "pass": true,
+          "reason": "The opening identifies JSON configuration review, field-level diffs, and optional application. The sample output demonstrates both actual field changes without promotional claims."
+        },
+        {
+          "pass": true,
+          "reason": "Before contributor details, the README specifies an existing checkout, macOS or Linux, Bun >=1.3.14, bun install --frozen-lockfile, the exact shipped example command, and the exact two-line expected output."
+        },
+        {
+          "pass": true,
+          "reason": "It states that no data leaves the machine, the default command never writes, and --write overwrites the first file. The apply example copies both samples into a temporary directory and uses those copies. It explicitly states that --dry-run does not exist."
+        },
+        {
+          "pass": true,
+          "reason": "It explicitly says Patchdeck is not published to a package registry and adds no unsupported availability, visuals, measurements, or features. All documentation links are among the verified files. There is no authoring commentary or claim of execution or renderer verification."
+        },
+        {
+          "pass": true,
+          "reason": "The page progresses from purpose to first diff, optional application, and deeper reading. Brief prose, useful headings, copyable commands, and descriptive links support that sequence without redundant matrices, diagrams, empty sections, or excessive navigation."
+        }
+      ],
+      "pass": true,
+      "durationMs": 16129,
+      "usage": {
+        "inputTokens": 10887,
+        "outputTokens": 408
+      }
+    },
+    {
+      "case": "unpublished-cli-readme",
+      "skill": "readme-authoring",
+      "trial": 0,
+      "arm": "on",
+      "output": "# Patchdeck\n\nReview JSON configuration changes before applying them. Patchdeck compares two files locally, shows a field-level diff, and can update the current file to match the desired file. No data leaves your machine, and the default command never writes.\n\n## Review the included example\n\nStart in the repository root of an existing checkout on macOS or Linux with **Bun >=1.3.14**. Patchdeck is not published to any registry.\n\nInstall dependencies and compare the sample files:\n\n```sh\nbun install --frozen-lockfile\nbun src/main.ts diff examples/current.json examples/desired.json\n```\n\nOutput:\n\n```text\n~ retries: 2 -> 4\n~ region: us-east -> eu-west\n```\n\nTo review your own configuration, supply the current file first and the desired file second:\n\n```sh\nbun src/main.ts diff current.json desired.json\n```\n\n## Apply changes to a copy\n\nAppending `--write` overwrites the first file to match the second. Try it with temporary copies of the samples:\n\n```sh\npatchdeck_example_dir=$(mktemp -d)\ncp examples/current.json \"$patchdeck_example_dir/current.json\"\ncp examples/desired.json \"$patchdeck_example_dir/desired.json\"\nbun src/main.ts diff \"$patchdeck_example_dir/current.json\" \"$patchdeck_example_dir/desired.json\" --write\n```\n\nFor a preview, omit `--write`; there is no `--dry-run` flag.\n\n## Read further\n\n- [Supported JSON and comparison behavior](docs/format.md)\n- [Full CLI reference](docs/options.md)\n- [Contributor setup and tests](CONTRIBUTING.md)\n\nPatchdeck is licensed under the [MIT license](LICENSE).\n",
+      "criteria": [
+        {
+          "pass": true,
+          "reason": "The opening explicitly describes reviewing JSON configuration changes through a field-level diff. The example shows both exact output lines, demonstrating the result without promotional claims."
+        },
+        {
+          "pass": true,
+          "reason": "The consumer path specifies an existing checkout, macOS or Linux, Bun >=1.3.14, bun install --frozen-lockfile, the exact diff command using shipped examples, and the given output before contributor links."
+        },
+        {
+          "pass": true,
+          "reason": "States that processing is local, no data leaves the machine, and the default command never writes. Explicitly says --write overwrites the first file; the apply example copies both samples into a temporary directory. Correctly states there is no --dry-run flag."
+        },
+        {
+          "pass": true,
+          "reason": "Uses only verified product claims and existing documentation links. States that Patchdeck is not published to a registry and invents no installation, releases, branding, badges, or measurements. Contains no authoring commentary or execution/renderer-verification claims."
+        },
+        {
+          "pass": true,
+          "reason": "The page progresses clearly from purpose to a copyable review example, protected apply example, and relevant deeper links. Headings and brief prose guide the reader, while the actual diff provides useful visual evidence without decorative or redundant sections."
+        }
+      ],
+      "pass": true,
+      "durationMs": 17616,
+      "usage": {
+        "inputTokens": 12068,
+        "outputTokens": 431
+      }
+    },
+    {
+      "case": "async-export-explanation",
+      "skill": "doc-visuals",
+      "trial": 0,
+      "arm": "previous",
+      "output": "Exports run asynchronously. **`202` means the queue accepted the job; completion is reported through polling.** The API returns `202` plus `job_id` immediately after queue acknowledgment, without waiting for the worker or including a download URL.\n\nSubmission checks tenant access before enqueueing and returns one of three outcomes:\n\n```mermaid\nsequenceDiagram\n    participant C as Client\n    participant A as API\n    participant Q as Queue\n    C->>A: Export request\n    A->>A: Tenant access check\n    alt Access denied\n        A-->>C: 403\n    else Access allowed\n        A->>Q: Export job\n        alt Enqueue rejected\n            Q-->>A: Rejection\n            A-->>C: 503\n        else Enqueue accepted\n            Q-->>A: Acknowledgment\n            A-->>C: 202 + job_id\n        end\n    end\n```\n\nRejected access returns `403` without enqueueing a job.\n\nLater, the worker consumes the queued job and writes the output file and final job status to **Store**, an internal service holding both files and job status. It records `ready` only after the file write succeeds. Processing failures trigger at most two retries after the first attempt—three attempts total. Once retries are exhausted, the worker records `failed`.\n\nThe client independently polls `GET /jobs/{job_id}`. **On every poll, the API checks tenant access before reading status from Store.** Knowing another tenant’s `job_id` does not bypass this check.\n\nFor an authorized poll, the job status determines what the API returns:\n\n| Job status | Error | Download URL |\n|---|---|---|\n| `pending` | — | None |\n| `failed` | Included | None |\n| `ready` | — | Short-lived URL |\n\nNo processing-time measurements, specific URL lifetime, cancellation, callbacks, or event streams are documented.",
+      "criteria": [
+        {
+          "pass": true,
+          "reason": "The sequence diagram places tenant authorization before enqueueing and queue acknowledgment before 202 + job_id. The opening explicitly says the response does not wait for worker completion or include a download URL."
+        },
+        {
+          "pass": true,
+          "reason": "Both submission rejection paths are shown: 403 for denied access without enqueueing, and 503 for rejected enqueue. Worker processing allows two retries after the first attempt, records failed after exhaustion, and records ready only after successful file writing."
+        },
+        {
+          "pass": true,
+          "reason": "Polling is explicitly independent. Every poll requires tenant authorization before reading Store, including when a caller knows another tenant’s job_id. The table gives no URL for pending or failed, an error for failed, and a short-lived URL only for ready."
+        },
+        {
+          "pass": true,
+          "reason": "The scoped submission diagram uses meaningful action and branch labels with consistent actors. The nearby acceptance-versus-completion takeaway is explicit. Worker behavior and polling use concise supporting prose and a table, without excessive diagram density or color-dependent meaning."
+        },
+        {
+          "pass": true,
+          "reason": "The section is self-contained, uses an appropriately fenced Mermaid sequence diagram, and provides readable prose and a compact status table. It defines Store and introduces no unsupported TTL, performance claims, additional files, callbacks, cancellation, or render-verification claims."
+        }
+      ],
+      "pass": true,
+      "durationMs": 19796,
+      "usage": {
+        "inputTokens": 11894,
+        "outputTokens": 539
+      }
+    },
+    {
+      "case": "async-export-explanation",
+      "skill": "doc-visuals",
+      "trial": 0,
+      "arm": "on",
+      "output": "Export requests are asynchronous. **`202` confirms queue acceptance** and includes `job_id`; the API returns immediately without waiting for the worker or providing a download URL.\n\n```mermaid\nsequenceDiagram\n    accTitle: Export request acceptance\n    accDescr: The API checks tenant access before enqueueing. Denied access returns 403, queue rejection returns 503, and queue acceptance returns 202 with a job ID.\n    participant C as Client\n    participant A as API\n    participant Q as Queue\n    C->>A: Submit export request\n    A->>A: Check tenant access\n    alt Access denied\n        A-->>C: 403 (no job enqueued)\n    else Access allowed\n        A->>Q: Enqueue job\n        alt Enqueue rejected\n            Q-->>A: Rejected\n            A-->>C: 503\n        else Enqueue accepted\n            Q-->>A: Acceptance acknowledged\n            A-->>C: 202 + job_id\n        end\n    end\n```\n\nLater, the worker consumes the queued job and writes its output file and final job status to **Store**, an internal service holding both files and job status. Processing failures allow at most two retries after the first attempt—three attempts total. After exhausting retries, the worker records `failed`. It records `ready` only after the file has been written successfully.\n\nThe client independently polls `GET /jobs/{job_id}` to learn the outcome. **On every poll, the API checks tenant access before reading status from Store.** Knowing another tenant’s `job_id` does not bypass this check.\n\n| Job status | Poll result |\n|---|---|\n| `pending` | No download URL |\n| `failed` | Error; no download URL |\n| `ready` | Short-lived download URL |\n\nCompletion timing and the download URL’s exact lifetime are not documented. Cancellation, callbacks, and event streams are also not documented.",
+      "criteria": [
+        {
+          "pass": true,
+          "reason": "The diagram places tenant authorization before enqueueing and queue acknowledgment before 202 + job_id. The opening explicitly says the response is immediate, does not wait for the worker, and includes no download URL."
+        },
+        {
+          "pass": true,
+          "reason": "The diagram shows 403 with no job enqueued for denied access and 503 for rejected enqueue. Supporting prose limits processing to two retries after the first attempt, records failed after exhaustion, and permits ready only after successful file writing."
+        },
+        {
+          "pass": true,
+          "reason": "Polling is explicitly independent, with tenant authorization on every poll before reading Store, including known foreign job IDs. The table gives no URL for pending or failed, includes an error for failed, and reserves a short-lived URL for ready."
+        },
+        {
+          "pass": true,
+          "reason": "Action and condition labels are meaningful, and the nearby opening explains acceptance versus completion. Actor references and abstraction remain consistent. The focused acceptance diagram, background-processing prose, and status table avoid excessive density, decoration, and reliance on color."
+        },
+        {
+          "pass": true,
+          "reason": "The section is self-contained, with a properly fenced Mermaid sequence diagram, readable paragraphs, and a useful status table. It introduces no unsupported TTL, performance guarantees, extra files, callbacks, cancellation behavior, or claims of render verification."
+        }
+      ],
+      "pass": true,
+      "durationMs": 18441,
+      "usage": {
+        "inputTokens": 13830,
+        "outputTokens": 467
+      }
+    },
+    {
+      "case": "async-export-explanation",
+      "skill": "doc-visuals",
+      "trial": 0,
+      "arm": "off",
+      "output": "## Export requests and job completion\n\nExports are asynchronous. **Acceptance is not completion:** the API returns `202` with a `job_id` as soon as the queue accepts the job. It does not wait for the worker or return a download URL.\n\n```mermaid\nsequenceDiagram\n    participant C as Client\n    participant A as API\n    participant Q as Queue\n\n    C->>A: Submit export request\n    A->>A: Check tenant access\n    alt Access denied\n        A-->>C: 403 — no job enqueued\n    else Access allowed\n        A->>Q: Enqueue job\n        alt Enqueue rejected\n            Q-->>A: Reject\n            A-->>C: 503\n        else Enqueue accepted\n            Q-->>A: Acknowledge\n            A-->>C: 202 + job_id\n        end\n    end\n```\n\n**Background processing.** Later, the worker consumes the job and writes its output file and final job status to **Store**, an internal service that holds both. The worker records `ready` only after the file write succeeds. If processing fails, it retries at most twice after the first attempt—three attempts total—then records `failed` if all attempts fail.\n\n**Polling for completion.** The client independently polls `GET /jobs/{job_id}`. On every poll, the API checks tenant access **before reading status from Store**. Knowing another tenant’s `job_id` does not bypass this check.\n\n| Job status | Poll result |\n| --- | --- |\n| `pending` | No download URL |\n| `failed` | An error; no download URL |\n| `ready` | A short-lived download URL |\n\nCompletion timing and the download URL’s exact lifetime are unspecified. Cancellation, callbacks, and event streams are not documented.",
+      "criteria": [
+        {
+          "pass": true,
+          "reason": "The sequence diagram checks tenant access before enqueueing and shows queue acknowledgment before 202 + job_id. The nearby introduction explicitly distinguishes acceptance from completion and excludes waiting for worker output or returning a download URL."
+        },
+        {
+          "pass": true,
+          "reason": "The diagram includes 403 with no enqueue for denied access and 503 for rejected enqueue. Supporting text limits processing to two retries after the first attempt, records failed after exhaustion, and permits ready only after a successful file write."
+        },
+        {
+          "pass": true,
+          "reason": "Polling is explicitly independent. Every poll requires tenant authorization before reading Store, including when another tenant’s job_id is known. The table gives no URL for pending or failed, an error for failed, and a short-lived URL only for ready."
+        },
+        {
+          "pass": true,
+          "reason": "The focused sequence diagram uses meaningful action and condition labels and consistent actor names. The adjacent acceptance-versus-completion takeaway explains its scope, while background processing and polling remain readable supporting text. No crucial distinction relies on color or decoration."
+        },
+        {
+          "pass": true,
+          "reason": "The answer is a self-contained section with a properly fenced Mermaid diagram, concise supporting paragraphs, and a two-column status table. It defines Store and introduces no unsupported TTL, performance claims, capabilities, additional files, or claims of render verification."
+        }
+      ],
+      "pass": true,
+      "durationMs": 24546,
+      "usage": {
+        "inputTokens": 9146,
+        "outputTokens": 573
+      }
+    }
+  ]
+}

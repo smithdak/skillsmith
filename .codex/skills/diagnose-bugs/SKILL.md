@@ -10,113 +10,53 @@ metadata:
 
 # diagnose-bugs
 
-Debugging is controlled experimentation, not guessing harder. The
-output is a proven mechanism — "given X, the system does Y because
-Z" — backed by a demonstration: the bug reproduced on demand, then
-shown gone. Guessing produces fixes that mask symptoms; the loop
-below makes each experiment cheap enough that the truth arrives
-before frustration does.
+Find the causal mechanism and, when a fix is requested, demonstrate that the
+fix removes it. Separate observed facts, hypotheses, and unverified claims.
 
-## Phase 1 — Reproduce deterministically
+## Establish the failure
 
-No hypothesis work starts before the bug reproduces on demand:
+Read the actual error, surrounding logs, relevant code, and recent changes.
+Record the invocation, inputs, environment, and expected versus observed result.
+Try the smallest reproduction that preserves the failure. For intermittent
+failures, hold the command and iteration count fixed and measure the rate;
+inspect seeds, ordering, concurrency, timing, and environment differences.
 
-- Capture the exact invocation: command, inputs, environment,
-  commit, seed. A repro that needs "the state it was in" is not yet
-  a repro.
-- Shrink the input. Half the dataset, half the document, one request
-  instead of a session — smaller repros run faster and exclude more
-  causes.
-- For flaky failures, find the lever: random seed, execution order,
-  parallelism, timing, locale, timezone, network conditions. Run the
-  suspected lever across many iterations (`--repeat`, seeds in a
-  loop) until failure rate is measurable — a lever moved from
-  "sometimes" to "one in twenty" is a lead, not noise.
-- If reproduction fails entirely, stop and say so: the report may be
-  environment-specific, and that difference is itself the first
-  clue. Ask for the missing environment detail rather than
-  simulating confidence.
+A missing reproduction is a limit on confidence, not a reason to stop reading
+available evidence. Form hypotheses that help obtain one. If the necessary
+state is inaccessible, name the missing evidence and the cheapest way to
+capture it; continue independent checks without inventing a root cause.
 
-**Done when:** a single command fails on demand — or, for flakes and
-regressions, fails at a measured rate or exceeds a measured threshold
-under a fixed command and iteration count — and its output is captured.
+## Discriminate between causes
 
-## Phase 2 — Read the evidence before theorizing
+For each experiment, choose one mechanism, predict an observable result, and
+change one relevant variable. Prefer the cheapest check that distinguishes
+the leading explanations. Bisect commits for regressions, shrink inputs for
+data-dependent failures, and inspect boundaries to locate where a value first
+becomes wrong. Discard a hypothesis when the observation contradicts it.
 
-Read the complete error, the full stack trace, the surrounding log
-lines — not the first line. Note which layer raised it and what the
-message literally claims. Most bugs die here: the stack names the
-module, the message names the violated expectation, the log names
-the request that carried bad data into it. Record what the evidence
-establishes versus what it merely suggests; theories come next, and
-they must survive contact with this record.
+Example: if a failure disappears when requests run serially, investigate shared
+state and ordering; increasing the timeout alone does not establish the cause.
 
-## Phase 3 — Run the hypothesis loop
+Use temporary instrumentation when observation requires it. Avoid recording
+credentials or sensitive payloads. Remove debugging changes after use, or keep
+an intentional diagnostic with a clear operational purpose. If investigation
+stalls, use [references/stuck-protocol.md](references/stuck-protocol.md).
 
-One cycle = one hypothesis, one prediction, one minimal experiment,
-one observation:
+## Fix and verify
 
-1. State the hypothesis as a mechanism: "X happens because Y".
-2. Predict what the next experiment shows if the hypothesis holds —
-   before running it. An experiment whose outcome fits any
-   hypothesis teaches nothing; sharpen it until it can fail.
-3. Change one variable at a time. Two simultaneous changes make
-   both results uninterpretable.
-4. Binary-search the surface: bisect history (`git bisect`) for
-   regressions, bisect the input for data-dependent failures, log
-   at interface boundaries to bracket which side of a boundary the
-   value goes wrong.
+Change the causal step with the smallest sufficient patch. Pin the original
+failure through an observable interface: see the regression test fail on the
+old behavior and pass with the fix. The tdd discipline supplies that loop.
+Run affected tests and the repository's required checks; widen testing when
+the changed dependency or unresolved evidence justifies it.
 
-Prefer experiments that read state over experiments that mutate it;
-prefer the cheapest observation that discriminates between the two
-leading hypotheses. When the evidence contradicts the hypothesis,
-discard the hypothesis, not the evidence.
+Report the mechanism, fix, evidence, and remaining limits. Distinguish a
+verified fix from a plausible mitigation. Keep unrelated hardening separate;
+do not skip failing tests to create a green result. Use postmortem for a
+requested durable incident account and security-diff-review for vulnerabilities.
 
-## Phase 4 — Instrument deliberately, then remove it
+## Completion
 
-When behavior must be watched rather than queried: add assertions
-or logging at module boundaries (function entry/exit, queue
-send/receive, cache hit/miss), never scattered mid-block. Log the
-value, the type, and the boundary name. Every instrument gets
-removed or converted into a permanent assertion before the fix is
-declared — leftover debug output is its own defect.
-
-## Phase 5 — Fix the mechanism and pin it
-
-- Fix the causal step, not the loudest symptom. Where a guard would
-  have caught it earlier, that placement decision is part of the
-  fix.
-- Pin the bug with a regression test written against the original
-  repro: it must fail on the pre-fix code and pass on the fixed
-  code. A fix without a pin reverts silently under the next refactor.
-  (The red-green mechanics are the tdd discipline.)
-- Re-run the full suite, not just the new test — fixes move
-  behavior, and neighbors break quietly.
-- Explain the mechanism as cause, not correlation: what was wrong,
-  why it produced the observed symptom, why the fix holds. If the root
-  cause was subtle, systemic, and costly to rediscover, offer the
-  postmortem discipline for the write-up.
-
-## Boundaries
-
-- No removing or skipping tests to make failures disappear; a test
-  that encodes wrong behavior gets rewritten with the reason stated,
-  never deleted quietly.
-- No speculative hardening shipped alongside the fix — unrelated
-  "while we're in here" changes become separate suggestions.
-- If the loop stalls, work through `references/stuck-protocol.md`
-  (re-read the raw evidence, list and check assumptions, change
-  altitude, invert the search, check the domain gotchas) before
-  giving up. If the mechanism is still out of reach, stop at the
-  evidence: report what was established, what was excluded, and the
-  sharpest open question — do not present a guess as a diagnosis.
-
-## Verify before returning
-
-The original repro was shown failing before the fix and passing
-after it (for flakes and regressions: across the same iteration
-count, at the pre-fix rate versus zero / under the threshold), by
-command. A regression test pins the mechanism and the
-full suite is green. All temporary instrumentation is gone. The
-closing explanation states the mechanism — cause, not just
-correlation — and names the evidence that proved it.
+The evidence connects input → causal step → symptom, and verification addresses
+the reported failure. If it cannot, report the unresolved mechanism and next
+useful experiment, without claiming the task is fixed.

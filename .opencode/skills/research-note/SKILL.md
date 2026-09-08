@@ -27,9 +27,10 @@ date. A note is worth committing precisely because its claims are
 load-bearing; an uncited claim in a committed note is a defect that
 future work inherits.
 
-The investigation delegates well: hand the question to a subagent and
-keep the main thread working — the note is what comes back, and its
-quality bar does not change with who wrote it.
+Delegate a bounded investigation when subagents are available, authorized,
+and useful alongside independent work. Otherwise investigate directly. If
+ground-truth-research is absent, use its essential check inline: inspect the
+owning source and date volatile claims. Missing companions do not block a note.
 
 ## Write the note
 

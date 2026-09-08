@@ -138,7 +138,8 @@
           "claude-code",
           "generic",
           "codex",
-          "opencode"
+          "opencode",
+          "codex-plugin"
         ]
       }
     },

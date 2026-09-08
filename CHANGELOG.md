@@ -8,6 +8,68 @@ without a bump — and why every current version below has an entry.
 Entries cover each plugin's **current** version. Earlier versions are in git
 history; this file starts where the changelog rule (V16) began.
 
+## architecture 0.2.0
+
+- Compact contracts, decisions, structural reviews, and migration/failure analysis; remove routine confirmation and unsupported numeric defaults; clarify compatibility and rollback limits.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## planning 0.2.0
+
+- Reuse settled decisions, ask consequential questions, keep forecasts conditional, and permit useful inline review without required companion agents.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## research 0.2.0
+
+- Bound verification by decision relevance, use authoritative evidence without redundant source quotas, and support sequential investigation when delegation is unavailable.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## code-craft 0.6.0
+
+- Compact diagnosis and test development, preserve concurrent execution and observable verification, and scale characterization and incident documentation to the task.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## dev-workflow 0.2.0
+
+- Support standalone handoffs and document checks, respect existing templates and authorization, and make wizard preview/resume and safe smoke-test rules explicit.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## docs-craft 0.3.0
+
+- Rewrite doc-visuals references around information hierarchy, useful proof, diagram semantics, honest repository maps, and copyable examples with observable results.
+- Replace the fixed README skeleton with audience-specific structures and worked CLI/library edits; connect both README references from the skill body.
+- Distinguish source checks, renderer parsing, and visual inspection; include light/dark and narrow-layout checks without arbitrary node, label, table-cell or callout quotas.
+- Add focused documentation-quality tasks evaluated through Astra with a Codex ChatGPT subscription.
+- Apply the revised skills to the repository's README and guides: complete Codex first use, a compact generated plugin chooser, task-based navigation, and a readable architecture diagram.
+
+## docs-craft 0.2.0
+
+- Compact reader-oriented documentation skills; preserve contractual meaning, resolve helpers from installed paths, and avoid executing external operations merely to verify examples.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## agent-instructions 0.2.0
+
+- Codify small, portable capabilities with model-specific evidence, preserve prior authorization, and distinguish instruction portability from demonstrated effectiveness.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## security 0.4.0
+
+- Ground findings in reachable paths, scope threat models to the requested system, avoid blanket safe-to-merge claims, and support inline proposal checks.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
+## frontend 0.6.0
+
+- Honor the brief, remove arbitrary choice-count and polish-round rules, make sibling tooling optional, and use application-state waits for browser verification.
+- Add an independently installable native Codex bundle, with portable skills, bundled resources, and attribution files. Claude Code packaging remains available.
+- Mark revised bodies experimental pending outcome evaluation. Routing descriptions and their recorded measurements are unchanged.
+
 ## Migration — 2026-09-03 catalog restructure
 
 The catalog was curated to the disciplines that separate a frontier model from

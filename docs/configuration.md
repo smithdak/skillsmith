@@ -43,7 +43,7 @@ a V14 error).
 
 ```toml
 # Root-level key: must appear before the first [table] header.
-targets = ["claude-code", "generic", "codex", "opencode"]
+targets = ["claude-code", "generic", "codex", "opencode", "codex-plugin"]
 ```
 
 Harness targets `generate` emits alongside the Claude Code plugins. Defaults
@@ -61,6 +61,12 @@ plan and inherit the drift gate:
   documented 1024-character description cap is enforced at generate time
   (an over-cap description errors naming the limit rather than truncating).
 
+- **`codex-plugin`** — independently installable bundles at
+  `dist/codex/plugins/<plugin>/` and a local marketplace under
+  `dist/codex/.agents/plugins/marketplace.json`. Skills are normalized and
+  include their resources; configured MCP servers and root attribution files
+  are included. Claude-specific agents, commands, and hooks are not translated.
+
 New targets land as adapters on the seam in `packages/core/src/targets.ts`;
 each one's output is drift-checked like every other generated artifact.
 
@@ -76,7 +82,7 @@ skills = ["architecture-spec", "codebase-survey"]   # default []
 agents = ["falsification-reviewer"]  # default []
 hooks  = []                          # default []; v0.1: AT MOST ONE hook set
 mcp    = []                          # default []
-commands = []                        # default []; reserved, not yet assembled
+commands = []                        # default []; Claude Code command sources
 ```
 
 Rules enforced at config-validation and generate time:
@@ -100,7 +106,7 @@ bumped by hand either way.
 
 ## `[policy]`
 
-Defaults shown; this repo's live values (including seven acknowledged
+Defaults shown; this repo's live values (including acknowledged
 composition edges) are in [`skillsmith.toml`](../skillsmith.toml).
 
 ```toml
@@ -116,6 +122,7 @@ composition edges) are in [`skillsmith.toml`](../skillsmith.toml).
 
 - **`max-skill-body-tokens`** (default 5000) — V4 fails a SKILL.md body whose
   chars/4 estimate exceeds it. The 500-line cap is fixed alongside it.
+  This catalog selects 1200 to keep its capability entrypoints small.
 - **`max-listing-chars`** (default 1536, from `LIMITS.listingCharCap` in
   [`constants.ts`](../packages/core/src/constants.ts)) — the V2 cap on
   `description` + `when_to_use`, the budget each skill gets in the

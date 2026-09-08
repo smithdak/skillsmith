@@ -4,74 +4,48 @@ description: "Verifies one volatile fact against live sources before asserting i
 license: "MIT"
 metadata:
   skillsmith-invocation: "model"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
 ---
 
 # ground-truth-research
 
-Training data is stale by default. For anything that changes — versions,
-APIs, prices, capabilities, who holds a role, what tools exist — recall is
-a hypothesis, not an answer. The failure mode this skill prevents is
-concrete: a design built on a remembered API surface fails at
-implementation, and an assertion built on a superseded fact fails in front
-of the user who acts on it.
+Verify a changing fact before someone acts on it. Treat remembered versions,
+prices, limits, and capabilities as hypotheses until checked against current
+evidence.
 
-## Classify before answering
+## Match verification to the claim
 
-Sort each load-bearing claim by volatility:
+Identify what must be true for the answer or decision to hold. Consult the
+source responsible for that fact: release metadata for versions, the official
+contract for supported behavior, or the relevant implementation and runtime
+for observed behavior. Use [references/source-rubric.md](references/source-rubric.md)
+for source selection. Stable facts can still need verification when uncertain
+or consequential; volatility is not the only reason to check.
 
-- **Stable** — settled science, history, protocol and language
-  fundamentals. Answer from knowledge; verification adds nothing.
-- **Slow-changing** — governance, org structures, major-version defaults.
-  Verify when the answer will be acted on; date it either way.
-- **Volatile** — versions, releases, prices, benchmarks, rankings,
-  ecosystem state, product capabilities. Verify before asserting, every
-  time, regardless of confidence in the recalled answer. High familiarity
-  with the old state is exactly what makes the stale answer convincing.
+Inspect the actual source and its scope, version, and date. A snippet or
+secondary summary is a discovery aid. Reuse evidence already checked in this
+session when its version and freshness still fit the question.
 
-## Verify
+A direct test establishes behavior in the tested environment. If it disagrees
+with documentation, report both and investigate version, configuration, or
+environment differences; one observation does not rewrite the supported
+contract for every user.
 
-- Prefer primary sources: the repository, the official docs, the release
-  notes, the announcement — over aggregators and secondary coverage.
-  Source-quality rubric and per-domain guidance in
-  [references/source-rubric.md](references/source-rubric.md).
-- Empirical beats documented when they disagree: what the tool does
-  outranks what its docs claim. Where feasible, test the claim directly
-  and report the observed behavior with the version observed.
-- Form an independent prior before adopting any number the user
-  supplied; when the two diverge, present both and the reason for the gap.
+## Resolve meaningful uncertainty
 
-## Corroborate, then close the gaps
+One authoritative source may settle a version number or documented limit.
+Seek independent corroboration when the claim is disputed, consequential, or
+not established by that source. Two pages repeating one announcement are one
+source. Additional searches need a specific question they can resolve.
 
-Stopping at the first plausible source is how a confident wrong answer gets
-through. Hold each load-bearing claim to a completion bar: corroborate it
-against multiple independent primary sources, or state explicitly that
-independent sources are scarce and the claim rests on one. Two pages
-repeating the same upstream press release are one source, not two.
-
-Before finishing, run one gap round: list what is still missing,
-contradictory, or resting on a single source, then do another pass to close
-those. Repeat until a pass surfaces nothing new. The gap round is where
-single-source claims and quiet contradictions get caught.
-
-Keep the three kinds of statement separate rather than blending them into a
-false consensus: what the sources **confirm**, what is **inferred** from
-them, and what remains **unresolved**. When sources genuinely disagree, present the
-disagreement and the stronger-sourced side — do not average them into a
-claim no source makes.
+Separate verified facts, inferences, and unknowns. Do not substitute model
+recall for a supplied observation merely to form an “independent prior.”
+Investigate a conflicting user-provided number on its evidence and scope.
 
 ## Report
 
-Every time-sensitive claim carries its basis: verified, with the source's
-date ("v0.43.0, released June 10, 2025, per the repo's releases page") —
-or flagged as training-vintage and possibly superseded. If verification
-fails or is unavailable, say the answer may be stale and name what would
-confirm it. Never silently substitute the remembered answer.
-
-## Verify before returning
-
-Scan the drafted response for undated volatile claims — version numbers,
-"currently", "the latest", capability assertions about living products.
-Each one either gains its as-of basis or gets reworded to a claim the
-evidence supports. An unverifiable claim stated with a flag is honest; the
-same claim stated bare is a defect.
+State the answer with its version or as-of basis and a direct source link.
+If verification is unavailable, say exactly what remains unverified and how
+that limits the answer. Do not claim browsing, testing, or freshness that did
+not occur. Completion means the decision-changing claim is supported or its
+uncertainty is explicit; endless corroboration is not required.

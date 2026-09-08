@@ -1,7 +1,7 @@
 {
   "name": "architecture",
-  "version": "0.1.0",
-  "description": "Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes",
+  "version": "0.2.0",
+  "description": "Design interfaces, record decisions, review structure, and plan migrations.",
   "author": {
     "name": "Dakota"
   },

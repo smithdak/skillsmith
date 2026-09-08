@@ -7,6 +7,13 @@ the way are decoded in the [validation rules reference](validation-rules.md).
 
 ## Anatomy of a skill
 
+The [capability standard](refinement.md) defines the editing and evidence bar:
+one useful job, non-obvious guidance, an observable completion check, and
+portable resources. Aim for 250–600 body words, shorter when sufficient.
+This catalog enforces a 1,200-token body ceiling using the chars/4 estimate;
+the tool's default for other repositories remains 5,000. A reference is for
+conditional detail, not a place to hide prose every invocation must load.
+
 ```
 skills/<category>/<name>/
   SKILL.md            # frontmatter (the contract) + body (the briefing)
@@ -20,7 +27,7 @@ The division of labor is the core authoring idea:
 - **Frontmatter description** — decides *whether* the skill loads. It is the
   only part the model sees before invoking.
 - **Body** — the briefing once loaded: goal, boundaries, verification. Capped
-  at 500 lines / ~5000 tokens (V4) because it competes with the user's actual
+  at the repository's configured token ceiling and 500 lines (V4) because it competes with the user's actual
   task for context.
 - **`scripts/`** — anything deterministic (counting, hashing, inventory).
   Recomputing facts by reading files burns context and invites transcription
@@ -84,7 +91,7 @@ Claude Code extensions ([schema](../packages/core/src/schemas/claude-code-frontm
 | `skillsmith-plugin` | must match the claiming grouping | generate-time cross-check |
 | `skillsmith-inspired-by` | free text attribution | humans |
 
-### 3. Write the description — it is the product
+### 3. Write the description — the routing surface
 
 The description is the trigger surface: the judge (and the real runtime)
 chooses among *all* catalog descriptions, so yours competes with its siblings.
@@ -146,6 +153,11 @@ compose disciplines, not each other.
 
 ≥3 should-trigger and ≥3 should-not-trigger cases, phrased the way users
 actually type, with near-miss negatives. Full guidance: [Evals](evals.md).
+Outcome quality needs separate [effectiveness tests](effectiveness.md).
+Compare no skill, the previous body, and the revision under equivalent
+conditions; include realistic failures and keep fresh validation tasks out of
+the editing loop. Revised bodies start experimental. Promote maturity only
+with linked task evidence, repeat observations, and explicit model/harness limits.
 
 ### 7. Promote
 

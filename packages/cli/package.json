@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "type": "module",
   "bin": { "skillsmith": "./src/main.ts" },
+  "scripts": { "typecheck": "bunx tsc --noEmit" },
+  "devDependencies": { "typescript": "^5", "@types/bun": "latest" },
   "dependencies": {
     "@skillsmith/core": "workspace:*",
     "citty": "^0.1.6"

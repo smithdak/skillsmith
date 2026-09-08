@@ -11,7 +11,7 @@ license: MIT
 metadata:
   skillsmith-composes: "cold-read"
   skillsmith-invocation: "both"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
 user-invocable: true
 ---
 
@@ -34,7 +34,8 @@ would change the work, ask. The gap checklist is in
 
 ## Structure every item identically
 
-Use the template in references/work-item-template.md, always with these
+Follow the issue tracker or repository's template when one exists; otherwise
+use references/work-item-template.md. Include the relevant
 fields: **title** (imperative, outcome-scoped), **status**, **type**,
 **description** (problem and why — context an implementer needs, not a
 solution mandate), **tasks** (concrete, ordered, each independently
@@ -45,8 +46,9 @@ pass/fail — "works correctly" is not a criterion), **out of scope**
 
 Rules that hold across every item:
 
-- Status may be `ready` only when open questions is empty. An item with
-  unresolved questions is `draft` no matter how complete it looks.
+- Status may be `ready` only when implementation-blocking questions are
+  resolved. Nonblocking follow-ups can remain explicitly identified; an item
+  with a missing acceptance decision stays `draft`.
 - Acceptance criteria verify the description's promise; tasks deliver it.
   A criterion no task produces, or a task no criterion checks, is a gap —
   reconcile before presenting.
@@ -64,4 +66,7 @@ immediately and know unambiguously when they are done? On top of that
 pass, check the work-item-specific bar: every AC is binary, tasks and
 criteria reconcile, the out-of-scope section answers the likely "does
 this include X?" questions, and status honestly reflects open questions.
-Fix failures before presenting.
+Fix failures before presenting. If cold-read is unavailable, perform its
+essential check inline: the implementer can act and verify completion without
+this conversation. Creating a draft locally does not authorize posting it to
+an external tracker unless the user requested that action.

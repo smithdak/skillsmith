@@ -1,0 +1,79 @@
+---
+name: "falsification-review"
+description: "Falsifies a consequential conclusion before it is presented: strongest counterargument first, the crux, and what evidence would overturn it. Use when about to endorse a recommendation, estimate, or plan, or the user asks \"should we\", \"is this the right call\", or \"sanity check this decision\". Not for plan risk (premortem), writing a spec (architecture-spec), or neutral surveys of options."
+license: "MIT"
+metadata:
+  skillsmith-invocation: "both"
+  skillsmith-maturity: "experimental"
+---
+
+# falsification-review
+
+Before presenting a consequential conclusion, subject it to an attempt to
+break it. The output changes only when the attempt succeeds — but the
+attempt must be real, not ceremonial. A conclusion that has survived a
+genuine falsification attempt is worth more than the same conclusion
+asserted; a conclusion that fails one was about to be a mistake.
+
+## When this applies
+
+Recommendations the user will act on: architecture and technology choices,
+estimates, plans, go/no-go calls, and any position the user has advanced
+for assessment. It does not apply to factual answers, how-to responses, or
+neutral option surveys where no judgment is being rendered.
+
+## The pass
+
+Work through these before writing the conclusion:
+
+1. **Steelman the opposite.** Construct the strongest case a competent
+   advocate would make against the position — evidence and mechanism, not a
+   strawman. If the position is the user's, this case leads the response.
+2. **Find the crux.** Identify the single consideration that, if resolved
+   the other way, flips the conclusion. If no such consideration exists,
+   the question may be underdetermined — say so instead of manufacturing
+   confidence.
+3. **Name the falsifier.** State what observable evidence would prove the
+   conclusion wrong, and check whether that evidence was actually looked
+   for. "Nothing could change my mind" is a defect, not confidence.
+4. **Separate reporting from endorsing.** Where the conclusion leans on a
+   consensus view, state whether the consensus is being endorsed or merely
+   relayed, and follow the evidence where they diverge.
+5. **Attach confidence with a driver.** High / moderate / low, and for
+   anything below high, the specific missing evidence that would raise it.
+
+## Falsifying a security finding
+
+When the conclusion under test is a security finding — "an attacker can do
+X" — the falsification bar is higher and class-specific: the honest move is
+to try to prove the attacker *cannot*, with proof at the altitude the
+vulnerability class demands. Proof tuples per class and a confidence
+calibration ladder are in
+[references/validation-guidance.md](references/validation-guidance.md).
+
+## Maker-checker escalation
+
+For consequential document-scale deliverables, a separate reviewer can reduce
+author-context bias. Use the `falsification-reviewer` agent when installed and
+delegation is available and authorized, providing the complete draft without
+the desired verdict. Otherwise run the checks inline and state that limitation
+when material. Another model's agreement is not independent source evidence;
+assess the findings themselves before revising the conclusion.
+
+## Boundaries
+
+- Do not manufacture disagreement. When the position survives the pass,
+  confirm briefly and move on — a clean bill of health is a valid finding.
+- One pass per conclusion. Re-running until an objection appears is
+  p-hacking, not rigor.
+- The pass's product is content in the response — counterargument, crux,
+  confidence. A one-line note that the position survived the pass is
+  useful; a play-by-play of the pass is not.
+
+## Verify before returning
+
+The response must contain: the strongest counterargument stated concretely
+enough that its advocate would recognize it; the crux, if one exists; and a
+confidence level with its driver. If the counterargument changed the
+conclusion, the response says so plainly rather than presenting the revised
+position as the original.

@@ -49,7 +49,8 @@ option, not two.
 Pressure-test the leading option with the
 falsification-review discipline: state the strongest case against it and the
 evidence that would flip the choice, before presenting it as the
-recommendation.
+recommendation. If the companion is unavailable, check the counterargument
+and the proposed control's failure mode directly before recommending it.
 
 ## Build the tradeoff matrix
 
@@ -60,7 +61,8 @@ where a dimension is genuinely unknown or a wash, write "unknown" or
 "neutral" rather than omitting the cell — an omitted tradeoff reads as no
 tradeoff and biases the choice. A before/after diagram for the recommended
 option makes the boundary change legible; render it with the doc-visuals
-discipline.
+discipline when available; otherwise use a simple diagram whose boundaries
+match the proposed mechanism.
 
 Matrix layout, the option skeleton, and the honesty gates are in
 [references/proposal-format.md](references/proposal-format.md).

@@ -68,13 +68,13 @@ Heuristic: the description contains neither "use when…"-style phrasing nor a
 quoted user phrase (`"..."` of 3+ chars). The description is the trigger
 surface; without explicit triggers, invocation reliability drops.
 **Fix:** state what the skill does *and* when, quoting phrasings real users type.
-See [Skill authoring — write the description](skill-authoring.md#3-write-the-description--it-is-the-product).
+See [Skill authoring — write the description](skill-authoring.md#3-write-the-description--the-routing-surface).
 
 ### V4 — body ceilings
 **Error · all profiles · [`validate.ts`](../packages/core/src/validate.ts)**
 
 Two independent caps: 500 lines (`LIMITS.skillBodyMaxLines`), and
-`[policy]."max-skill-body-tokens"` tokens (5000 here), estimated as
+`[policy]."max-skill-body-tokens"` tokens (1200 here; tool default 5000), estimated as
 chars/4 (±15%, deliberate — keeps validate dependency-free).
 **Fix:** move deterministic work into `scripts/`, on-demand detail into
 `references/`. A skill body is a briefing, not a manual.
@@ -116,7 +116,7 @@ description hash no longer matches is a **warning** (its number measures text
 that no longer exists); and a listing hash that no longer matches is one
 **warning** for the file (a skill was added or removed, or some description
 changed, so every number was measured against a different catalog). Measurement happens
-in `eval`, which needs an API key; gating happens here, so a below-floor skill
+in `eval`, which uses a Codex ChatGPT login; gating happens here, so a below-floor skill
 cannot reach a PR just because nobody re-ran the measurement.
 
 Non-draft skills need `evals/evals.json` with ≥3 `should_trigger` and ≥3

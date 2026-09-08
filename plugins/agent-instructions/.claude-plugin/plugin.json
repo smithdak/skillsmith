@@ -1,7 +1,7 @@
 {
   "name": "agent-instructions",
-  "version": "0.1.0",
-  "description": "Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup",
+  "version": "0.2.0",
+  "description": "Write agent instructions and skills with clear scope and triggers.",
   "author": {
     "name": "Dakota"
   },

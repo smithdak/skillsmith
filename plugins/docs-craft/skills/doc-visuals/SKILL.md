@@ -16,59 +16,58 @@ user-invocable: true
 
 # doc-visuals
 
-A reader trusts a directory tree or a diagram *more* than the prose
-around it — visual elements read as measured fact, so a noisy or stale
-one damages a document more than its absence would. Two disciplines
-govern every element:
+Make the document easier to understand by showing the relationship, comparison,
+or result that prose alone makes the reader reconstruct. Visual craft includes
+what to omit, where to place the evidence, and how it reads at the destination.
 
-1. **One element, one question.** Every map, diagram, block, or table
-   exists to answer a specific question the reader arrives with. Name
-   that question before building the element; if two questions emerge,
-   build two elements; if none, cut it. Introduce each element with the
-   sentence that states what it answers — the element must survive being
-   read without the surrounding prose.
-2. **Derive from ground truth, then verify against it.** Trees come from
-   the bundled script, diagrams from the code's actual flow, command
-   examples from commands actually run. Visual elements drift silently —
-   unlike prose, nobody greps them.
+## Choose what deserves attention
 
-## Repository maps
+Identify the reader's question and the publishing surface: GitHub README, docs
+site, exported report, or plain text. Preserve the project's visual identity.
+For a page that feels generic or cluttered, use
+[references/visual-composition.md](references/visual-composition.md) to establish
+hierarchy, choose a proof artifact, and remove competing emphasis.
 
-Run `scripts/repo-map.sh <root> [depth]` and build the map only from its
-output — a tree typed from memory invents files and misses renames. Then
-apply the formatting rules in
-[references/repo-maps.md](references/repo-maps.md): one entry per line,
-one aligned annotation column, elisions carry counts, generated
-territory explicitly marked, roughly twenty lines total.
+Choose the representation by what the reader must understand: a diagram for
+relationships, a table for decisions across shared attributes, a tree for
+navigation, a code example for first use, or a real screenshot for visible UI
+behavior. A short sentence can be the best visual edit. Avoid adding a diagram
+that merely repeats a list of features.
 
-## Diagrams
+## Build from verified facts
 
-Pick the type by the reader's question: how input becomes output —
-flowchart; who calls whom in what order — sequence; what states one
-thing moves through — state. A diagram is prose-sized at about twelve
-nodes; past that, split it by question rather than shrinking the font.
-Label edges with the artifact that flows, not connective verbs. Syntax
-constraints and renderer pitfalls (GitHub's mermaid is strict and
-theme-hostile): [references/mermaid.md](references/mermaid.md).
+- **Diagrams:** trace the actual boundary, ordering, branch conditions, and
+  outputs. Follow [references/mermaid.md](references/mermaid.md) for semantic
+  examples and rendering checks. Label edges with data, actions, or conditions
+  according to their meaning. Preserve a consequential failure or bypass path.
+- **Repository maps:** resolve `scripts/repo-map.sh` from this installed skill
+  and pass `<root> [depth]`. Its git mode lists tracked paths; inspect current
+  untracked/deleted files too when they matter. Curate the inventory using
+  [references/repo-maps.md](references/repo-maps.md); identify edit locations
+  and generated output without pretending to show every file.
+- **Examples and comparisons:** follow
+  [references/code-and-tables.md](references/code-and-tables.md). Supply needed
+  setup, distinguish commands from expected output, and make comparisons answer
+  a decision. Short sentences in table cells are fine when they scan well.
 
-## Code blocks and tables
+Introduce an element with the conclusion it helps establish. Give it enough
+labels and nearby explanation to remain useful without color or animation.
+Use existing authentic assets; do not fabricate screenshots, performance
+charts, directory counts, or runtime behavior to make a page look finished.
 
-Every fenced block carries a language tag; commands and their output
-never share a block; a snippet shows the minimum that runs, with no
-elision inside anything the reader will copy. Tables hold short
-enumerable facts — a cell that needs a full sentence marks a row that
-wants to be prose. Full rules with before/after pairs:
-[references/code-and-tables.md](references/code-and-tables.md).
+## Inspect the result
 
-## Verify before returning
+Parse diagrams and render them with the target's supported version when
+available. Inspect the rendered page at its normal content width and a narrow
+viewport: labels, reading order, crossings, wrapping, cropping, and contrast.
+Revise a crowded structure before shrinking text. Check light and dark themes
+when the destination supports them. Static source review alone is not a render
+check; name that limit when rendering is unavailable.
 
-- Every path in a repo map appears in the script output — nothing
-  invented, nothing stale.
-- Every mermaid block passes the pitfall checklist in
-  references/mermaid.md (reserved words, quoting, label budget).
-- Every code block is language-tagged and every command in one pastes
-  and runs as written.
-- Every table scans in a single pass: no wrapped cells, no
-  multi-sentence cells.
-- Each element still answers its named question with the surrounding
-  prose covered up.
+Verify paths, links, examples, and the represented behavior against evidence.
+Run safe local examples when practical; do not perform paid, destructive, or
+external mutations merely to verify documentation. Keep verification notes in
+the completion message, outside the finished document unless readers need the limitation.
+
+Finish when the reader can identify the important relationship or next action
+quickly, and the rendered element supports the same claim as its source.

@@ -1,62 +1,88 @@
-# Repository maps — formatting rules and a worked example
+# Repository maps: navigation with an honest scope
 
-A repository map answers one question: *where do I go for X?* It is a
-navigation aid, not an inventory — the script output is the inventory;
-the map is the curated view of it.
+A map helps a reader find where to change or inspect something. Start with that
+reader's task. A new user may need only the examples directory; a contributor may
+need the public API, implementation and tests. Do not put an inventory in the README
+just because the repository has many directories.
 
-## The rules
+## Inventory before selection
 
-1. **One entry per line.** Two directories sharing a line ("`misc/
-   drafts/`") forces the reader to parse instead of scan, and breaks the
-   annotation column.
-2. **One annotation column, aligned.** Every annotation starts at the
-   same column — two spaces past the longest path. Mid-file drift in the
-   annotation column is the single most common cause of "hard to read".
-3. **Annotations state role, not contents.** "the pipeline library", not
-   "core package". If the annotation restates the path, cut it — an
-   unannotated line is better than a redundant one.
-4. **Depth is a budget.** Default two levels; go deeper only where the
-   reader will actually navigate (source dirs), shallower where they
-   won't (vendored, generated).
-5. **Elisions carry counts.** `… 10 more skills` reads as scope;
-   a bare `…` reads as fatigue. Get counts from the script, not by
-   estimating.
-6. **Mark generated territory.** When a repo mixes hand-edited and
-   generated paths, the map must say which is which — it is the one fact
-   a newcomer cannot see from the tree itself.
-7. **About twenty lines.** A map that scrolls is a filing cabinet.
-   Merge low-traffic siblings into one elided line before cutting
-   anything the reader navigates to.
-8. **Trailing slash on directories,** none on files. Order by the
-   reader's journey — sources before generated, entry points before
-   support — not strictly by alphabet.
+Resolve `scripts/repo-map.sh` from the installed skill and pass the repository root
+and optional depth. Example invocation after setting the actual installed path:
+
+```sh
+sh "$skill_dir/scripts/repo-map.sh" "$repo_root" 2
+```
+
+In a git repository the helper uses `git ls-files`; its counts are **tracked files
+below each directory**, not immediate children or skill counts. It can include
+tracked deletions and omit new untracked files. Check the working tree before making
+claims about what exists now. Outside git, its file walk excludes `.git` and
+`node_modules`. Empty directories and filenames containing newlines are not reliably
+represented. Treat this output as a starting inventory with that scope.
+
+Verify selected paths on disk. If the document describes a release rather than the
+working tree, use that release's inventory. Never describe a cumulative file count
+as “N more modules.” Count the specific omitted entries when the number is useful;
+otherwise say the view is selected and omit the number.
+
+## Select an explanation, not a depth limit
+
+Keep the entry point and the places the reader will navigate. Expand one subtree
+when the distinction matters, and collapse generated, vendor or repetitive areas.
+A flat inventory table can be clearer than a tree when the question is “where do I
+change X?” If a map becomes long, split by task or link a deeper map. Do not merge
+unrelated paths onto one line to hit a line quota.
+
+Use one entry per line, trailing slashes for directories and consistent tree
+connectors. Align a short annotation column when it fits comfortably. An annotation
+states a role or edit boundary, rather than repeating the basename. Mark generated
+output when readers could mistake it for an edit location. In a narrow layout,
+shorten annotations or put roles in nearby prose instead of padding a wide column.
 
 ## Worked example
 
-Before — misaligned annotations, two dirs on one line, no
-generated/source distinction:
+These are invented paths for illustrating selection. Start with verified paths in
+the real repository.
+
+A complete inventory can bury the places a contributor needs:
 
 ```text
-src/           app code
-  api/    route handlers, one file per resource
-  jobs/  cron/   background work
-lib/     shared helpers
-dist/          output
+packages/
+  cli/
+  core/
+node_modules/
+dist/
+coverage/
+assets/
+examples/
 ```
 
-After — one column, one entry per line, roles and territory explicit:
+A task-specific map can answer “where do I add a command and its behavior?”:
 
 ```text
-src/           app code (hand-edited)
-  api/         route handlers, one file per resource
-  jobs/        background workers
-  cron/        schedule definitions the workers run on
-lib/           helpers shared by api/ and jobs/
-dist/          GENERATED build output — never edit
+packages/
+├── cli/src/       command arguments and user-facing output
+└── core/
+    ├── src/       reusable behavior
+    └── test/      behavior checks
+examples/          runnable usage examples
+dist/              generated output; edit the sources above
 ```
 
-## Verify
+Introduce it as **selected contributor paths**, so the omitted directories are not
+mistaken for an incomplete scan. If actual folder names are less clear, preserve
+the names and explain their roles; never rename the representation for aesthetics.
 
-Diff every path in the map against `repo-map.sh` output: no invented
-paths, no stale names, counts match. Then cover the prose around the map
-and check it still answers "where do I go for X?" on its own.
+When paths are unrelated in the hierarchy, a lookup table often serves better:
+
+| To change… | Start here |
+|---|---|
+| Command options | `packages/cli/src/` |
+| Shared behavior | `packages/core/src/` |
+| A runnable example | `examples/` |
+
+Verify every shown path and its claimed role, distinguish current sources from
+output, and remove counts or details that add maintenance cost without helping
+navigation. Keep the fence tagged `text` and inspect annotation wrapping in the
+rendered document.

@@ -25,7 +25,8 @@ interview and the judgment stay conversational.
 
 ### 1. Detect surfaces
 
-Run `scripts/detect-harnesses.sh` from the repo root. Read every KEY=VAL
+Resolve `scripts/detect-harnesses.sh` from the installed skill directory and
+run it with the target repo as the working directory. Read every KEY=VAL
 line before asking anything — the answers determine which targets are worth
 offering:
 
@@ -43,10 +44,12 @@ install; either is updated in place at step 4.
 
 ### 2. Interview
 
-Ask with concrete options, never open-ended:
+Reuse choices and authorization already supplied. Ask with concrete options
+only for unresolved scope or tuning:
 
 1. **Scope** — repo `AGENTS.md`, repo `CLAUDE.md`, both, plus any global
-   file. Global writes require explicit consent, every time.
+   file. Global writes require explicit authorization for those targets;
+   reuse it when already given in this session.
 2. **Tuning** — recommended default (all five modules, no caps) or custom:
    drop a module (`--rules` subset of
    `reporting,calibration,questions,brevity,progress`)? add a soft length
@@ -64,8 +67,10 @@ other) so neither loader loses its rules.
 
 ### 4. Preview, then apply
 
-Run `scripts/apply-contract.sh --dry-run` with the chosen flags, show the
-rendered block, get confirmation, then run it for real. The script replaces
+Resolve `scripts/apply-contract.sh` from the installed skill directory. Run
+`--dry-run` with the chosen flags and inspect the rendered block. Apply when
+the requested targets and rules are already authorized; seek confirmation
+only for a material unresolved choice or additional scope. The script replaces
 an existing managed block in place — v1 included — and never touches
 content outside the markers; unmanaged files get the block appended.
 
@@ -81,8 +86,8 @@ agent session for them to take effect.
 
 - Never write outside the chosen `--file` targets; the scripts create no
   backups because they destroy nothing outside markers.
-- Never flip a toggle the user did not choose; the recommended default still
-  requires their pick.
+- Honor specified tuning. A request to apply the default rules authorizes
+  those defaults without a second interview.
 - Re-running setup on a `managed` file is an update, not a duplicate.
 - The wording of the rules is `communication-contract`'s; this skill only
   places it. Other instruction-file content (conventions, boundaries, build

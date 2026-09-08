@@ -1,9 +1,11 @@
 #!/usr/bin/env bun
+import { CODEX_MODEL, CODEX_EFFORT, createCodexRunner, codexJudge } from "./codex-runner.ts";
 /**
- * skillsmith — thin CLI over @skillsmith/core (spec §3). Zero logic here:
- * load config, call core, render diagnostics, exit-code semantics.
+ * skillsmith — CLI orchestration over @skillsmith/core: filesystem and git
+ * access, argument validation, persistence, diagnostics, and process exits.
  */
 import { defineCommand, runMain } from "citty";
+import { effectivenessCmd } from "./effectiveness.ts";
 import { join, resolve, sep } from "node:path";
 import {
   discover,
@@ -25,7 +27,7 @@ import {
   runTriggerEvals,
   toResultsFile,
   mergeSkillResult,
-  anthropicJudge,
+  evalResultsFileSchema,
   type EvalResultsFile,
   forProfile,
   exitCode,
@@ -38,11 +40,17 @@ async function loadEvalResults(repoRoot: string): Promise<EvalResultsFile | unde
   const f = Bun.file(join(repoRoot, ".skillsmith/eval-results.json"));
   if (!(await f.exists())) return undefined;
   try {
-    return JSON.parse(await f.text()) as EvalResultsFile;
-  } catch {
-    console.error("skillsmith: .skillsmith/eval-results.json is invalid JSON — ignoring");
-    return undefined;
+    return evalResultsFileSchema.parse(JSON.parse(await f.text()));
+  } catch (error) {
+    console.error(`skillsmith: invalid .skillsmith/eval-results.json: ${String(error)}`);
+    process.exit(2);
   }
+}
+
+function parseProfile(value: string): Profile {
+  if (value === "claude-code" || value === "cowork" || value === "standard") return value;
+  console.error(`skillsmith: unknown profile "${value}"`);
+  process.exit(2);
 }
 
 async function loadConfig(repoRoot: string) {
@@ -86,7 +94,7 @@ const generateCmd = defineCommand({
   args: { ...sharedArgs, "dry-run": { type: "boolean", description: "print the plan without writing", default: false } },
   async run({ args }) {
     const repoRoot = resolve(process.cwd(), args.cwd);
-    const profile = args.profile as Profile;
+    const profile = parseProfile(args.profile);
     const config = await loadConfig(repoRoot);
     const discovery = await discover(repoRoot, {
       allowedCategories: config.categories.allowed,
@@ -158,7 +166,11 @@ const validateCmd = defineCommand({
   },
   async run({ args }) {
     const repoRoot = resolve(process.cwd(), args.cwd);
-    const profile = args.profile as Profile;
+    const profile = parseProfile(args.profile);
+    if (!["all", "schema", "quality", "security"].includes(args.tier)) {
+      console.error(`skillsmith: unknown tier "${args.tier}"`);
+      process.exit(2);
+    }
     const config = await loadConfig(repoRoot);
     const discovery = await discover(repoRoot, {
       allowedCategories: config.categories.allowed,
@@ -170,7 +182,7 @@ const validateCmd = defineCommand({
     const { diagnostics } = await validateAll(discovery, config, { evalResults, changelog });
 
     const tierOf = (rule: string) =>
-      rule.startsWith("S") ? "security" : rule === "SCHEMA" ? "schema" : "quality";
+      rule === "SCHEMA" ? "schema" : rule.startsWith("S") ? "security" : "quality";
     const filtered =
       args.tier === "all" ? diagnostics : diagnostics.filter((d) => tierOf(d.rule) === args.tier);
 
@@ -278,8 +290,10 @@ const evalCmd = defineCommand({
   args: {
     ...sharedArgs,
     skill: { type: "positional" as const, description: "restrict to one skill", required: false },
-    model: { type: "string" as const, description: "judge model", default: "claude-sonnet-5" },
-    concurrency: { type: "string" as const, description: "parallel judge calls", default: "4" },
+    model: { type: "string" as const, description: "Codex subscription judge model", default: CODEX_MODEL },
+    effort: { type: "string" as const, default: CODEX_EFFORT, description: "Codex reasoning effort" },
+    "timeout-ms": { type: "string" as const, default: "300000" },
+    concurrency: { type: "string" as const, description: "parallel Codex sessions", default: "1" },
     repeat: {
       type: "string" as const,
       description: "judgements per case; the majority wins (costs N x per run)",
@@ -293,29 +307,17 @@ const evalCmd = defineCommand({
   },
   async run({ args }) {
     const repoRoot = resolve(process.cwd(), args.cwd);
-    const profile = args.profile as Profile;
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      console.error("skillsmith eval: ANTHROPIC_API_KEY is not set — trigger evals require API access");
-      process.exit(2);
-    }
+    const profile = parseProfile(args.profile);
     const config = await loadConfig(repoRoot);
     const discovery = await discover(repoRoot, {
       allowedCategories: config.categories.allowed,
       listingCharCap: config.policy["max-listing-chars"],
     });
-    const tokens = { uncached: 0, cacheWrite: 0, cacheRead: 0 };
+    const codex = await createCodexRunner({ model: args.model, effort: args.effort, timeoutMs: Number(args["timeout-ms"]) });
+    console.error(`judge: ${codex.id}`);
     const report = await runTriggerEvals(discovery, config, {
-      judge: anthropicJudge({
-        apiKey,
-        model: args.model,
-        onUsage: (u) => {
-          tokens.uncached += u.inputTokens;
-          tokens.cacheWrite += u.cacheCreationInputTokens;
-          tokens.cacheRead += u.cacheReadInputTokens;
-        },
-      }),
-      judgeModel: args.model,
+      judge: codexJudge(codex),
+      judgeModel: codex.id,
       skill: args.skill as string | undefined,
       concurrency: Number(args.concurrency),
       repeat: Number(args.repeat),
@@ -345,15 +347,6 @@ const evalCmd = defineCommand({
           (report.escalate > report.repeat ? ` (each escalated to ${report.escalate} votes)` : ""),
       );
     }
-    // The skill listing is an identical prefix on every call, so cache reads
-    // should dominate after the first few. Zero reads means the prefix is not
-    // being reused and the run costs ~10x what it should.
-    console.error(
-      `\njudge input tokens: ${tokens.uncached} uncached · ${tokens.cacheWrite} cache write · ${tokens.cacheRead} cache read`,
-    );
-    if (tokens.cacheRead === 0) {
-      console.error("  warning: no cache hits — the listing prefix is not being reused");
-    }
     printDiagnostics(report.diagnostics, profile);
 
     const runDate = new Date().toISOString().slice(0, 10);
@@ -372,7 +365,7 @@ const evalCmd = defineCommand({
         console.error(`\nmerged ${args.skill} into .skillsmith/eval-results.json — run skillsmith generate to refresh its badge`);
       } else {
         console.error(
-          `\nnot merged: the committed results were measured against a different listing or vote config — a full \`skillsmith eval\` is needed`,
+          `\nnot merged: no compatible committed results (listing, judge model, and votes must match) — a full \`skillsmith eval\` is needed`,
         );
       }
     }
@@ -391,23 +384,23 @@ async function git(cwd: string, ...gitArgs: string[]): Promise<{ ok: boolean; st
 
 const posixPath = (p: string) => p.split(sep).join("/");
 
-/** First ref that resolves to a commit, so the guard degrades gracefully when
- * origin/main was never fetched (shallow checkout, fresh clone, local hook). */
+/** Resolve the requested baseline exactly; substituting HEAD disables the guard. */
 async function resolveBaseRef(cwd: string, preferred: string): Promise<string | undefined> {
-  for (const ref of [preferred, "main", "HEAD"]) {
-    if ((await git(cwd, "rev-parse", "--verify", "--quiet", `${ref}^{commit}`)).ok) return ref;
-  }
+  const resolved = await git(cwd, "rev-parse", "--verify", "--quiet", "--end-of-options", `${preferred}^{commit}`);
+  if (resolved.ok) return resolved.stdout.trim();
   return undefined;
 }
 
 /** Current committed plugin files, from disk (== committed once `check` is clean). */
 async function currentPluginFiles(repoRoot: string, name: string): Promise<Map<string, string>> {
   const files = new Map<string, string>();
-  const glob = new Bun.Glob(`plugins/${name}/**/*`);
-  // dot:true — plugin.json lives under the hidden .claude-plugin/ directory.
-  for await (const rel of glob.scan({ cwd: repoRoot, onlyFiles: true, dot: true })) {
-    const path = posixPath(rel);
-    files.set(path, await Bun.file(join(repoRoot, rel)).text());
+  for (const root of [`plugins/${name}`, `dist/codex/plugins/${name}`]) {
+    const glob = new Bun.Glob(`${root}/**/*`);
+    // Native manifests live in hidden directories.
+    for await (const rel of glob.scan({ cwd: repoRoot, onlyFiles: true, dot: true })) {
+      const path = posixPath(rel);
+      files.set(path, await Bun.file(join(repoRoot, rel)).text());
+    }
   }
   return files;
 }
@@ -415,11 +408,12 @@ async function currentPluginFiles(repoRoot: string, name: string): Promise<Map<s
 /** Baseline plugin files at a git ref (empty map ⇒ plugin didn't exist there). */
 async function baselinePluginFiles(repoRoot: string, ref: string, name: string): Promise<Map<string, string>> {
   const files = new Map<string, string>();
-  const listed = await git(repoRoot, "ls-tree", "-r", "--name-only", ref, "--", `plugins/${name}`);
-  if (!listed.ok) return files;
+  const listed = await git(repoRoot, "ls-tree", "-r", "--name-only", ref, "--", `plugins/${name}`, `dist/codex/plugins/${name}`);
+  if (!listed.ok) throw new Error(`cannot list baseline plugin ${name} at ${ref}`);
   for (const path of listed.stdout.split("\n").map((l) => l.trim()).filter(Boolean)) {
     const shown = await git(repoRoot, "show", `${ref}:${path}`);
-    if (shown.ok) files.set(posixPath(path), shown.stdout);
+    if (!shown.ok) throw new Error(`cannot read baseline file ${path} at ${ref}`);
+    files.set(posixPath(path), shown.stdout);
   }
   return files;
 }
@@ -440,8 +434,8 @@ const versionGuardCmd = defineCommand({
 
     const base = await resolveBaseRef(repoRoot, args.base);
     if (!base) {
-      console.error(`skillsmith version-guard: no baseline ref (tried ${args.base}, main, HEAD) — skipping`);
-      return;
+      console.error(`skillsmith version-guard: baseline "${args.base}" is unavailable — fetch it or supply --base <commit>`);
+      process.exit(2);
     }
 
     const baseline: PluginSnapshot[] = [];
@@ -471,7 +465,7 @@ const main = defineCommand({
     version: "0.1.0",
     description: `Generate, validate, and drift-check Claude Code skill monorepos (${SCHEMA_TARGET})`,
   },
-  subCommands: { init: initCmd, scaffold: scaffoldCmd, generate: generateCmd, check: checkCmd, "version-guard": versionGuardCmd, validate: validateCmd, eval: evalCmd },
+  subCommands: { init: initCmd, scaffold: scaffoldCmd, generate: generateCmd, check: checkCmd, "version-guard": versionGuardCmd, validate: validateCmd, eval: evalCmd, effectiveness: effectivenessCmd },
 });
 
 runMain(main);

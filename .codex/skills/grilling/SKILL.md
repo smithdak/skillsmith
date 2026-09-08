@@ -11,88 +11,45 @@ metadata:
 
 # grilling
 
-A vague idea survives by staying vague: every ambiguity is a future
-rework ticket, and each is cheapest the moment it is found. Grilling
-is structured interrogation whose exit condition is a resolved design
-tree — every branch closed by a decision, a recorded dependency, or
-an owned open question. It ends on convergence, never when questions
-run out and never while the user still has answers left to give.
+Turn an unsettled idea into decisions and explicit open questions. Focus the
+conversation on uncertainties that could change what gets built or whether it
+is worth building.
 
-## Restate before asking
+## Establish the target
 
-Open by restating the idea in two lines: what it is, and what
-success looks like. Get an explicit yes or a correction before the
-first question — questions aimed at the wrong target waste the
-user's patience and the session's credibility. Keep that restatement
-visible; every later answer updates it.
+Restate the intended outcome briefly using the existing conversation. If the
+goal is already clear, proceed to the first consequential question. Seek a
+correction when competing interpretations would send the discussion in
+different directions; do not require a ceremonial approval of a restatement.
 
-## Branch the design tree
+Identify the decision axes relevant to this idea: audience, scope, behavior,
+data, dependencies, failure modes, cost, and success criteria. Keep this map as
+working context; show it when it helps the user navigate a complex decision.
 
-Identify the decision axes the idea implies — who it serves, scope
-boundaries, the data model, failure modes, integration points,
-constraints and non-goals, how it earns or saves money or time. Each
-axis with no settled answer is an open branch. Draw the tree before
-questioning: it prevents tunnel vision on the first interesting
-unknown and reveals dependencies between branches (some answers
-collapse others).
+## Ask questions that change the plan
 
-## Question discipline
+Choose the highest-impact unresolved branch. Offer concrete alternatives with
+tradeoffs and a recommendation when evidence supports one. Use a short related
+batch when answers are independent; ask one question when it determines the
+next branch. Reuse prior answers and surface contradictions specifically.
 
-- **Batch 3–5 related questions per round**, grouped by branch. One
-  at a time drags; twenty at once is an interrogation, not a
-  collaboration.
-- **Make every question concrete.** Offer the live options with
-  their tradeoffs — "Should free users hit the API directly (simple,
-  abusable) or through a quota proxy (more moving parts)?" — never a
-  bare "what do you want?"
-- **Listen for contradictions** between answers and surface them the
-  moment they appear: earlier you said X, now Y — which holds?
-  Contradictions mark the exact spot where the idea was fuzzier than
-  it felt.
-- **Follow the answer, not the script.** An answer that opens two
-  new branches outranks the planned next question.
+Verify volatile facts through the ground-truth-research discipline: check the
+primary source, date the claim, and separate verified facts from assumptions.
+Do not ask the user to supply a fact available in the repository or live docs.
 
-## Resolve or record
+Record each answer as a decision with a reason, a narrower question, or an open
+item with its blocker and the point when an answer is needed. Do not invent
+user preferences or reopen settled choices for completeness.
 
-Every answer lands in exactly one of three places:
+## Converge
 
-1. **Decision** — record it with its one-line rationale in a running
-   decision log shown to the user as it grows.
-2. **Sub-branch** — the answer revealed finer questions; add them to
-   the tree and continue down that branch.
-3. **Open item** — genuinely unknowable in this session: record the
-   question, why it is blocked, who or what unblocks it, and the
-   latest point where it must be answered. Never invent an answer to
-   close a branch early; a recorded unknown is progress, a smuggled
-   guess is debt.
+Stop when the remaining uncertainty no longer blocks the next useful action,
+the user asks to stop, or progress depends on evidence outside this session.
+An owned open question is a valid result. Repeatedly expanding low-impact
+branches makes the exercise less useful.
 
-When an answer depends on a volatile fact (pricing tiers, current
-API limits, competitor behavior), resolve it with the
-ground-truth-research discipline instead of leaving it as folklore.
-
-## Converge and route
-
-Convergence is a complete pass over the tree that produces no new
-branch. Then deliver: the updated two-line restatement, the decision
-log, and the open items — and route the result. One buildable unit
-goes to feature-spec or define-work-items; something larger than one
-session becomes a sequence of work items, each sized to a session.
-Say which routing fits and why, then stop. A grill session that refuses to end stops being useful.
-
-## Boundaries
-
-- Never answer for the user. Supplying candidate options is the job;
-  supplying their choice is not.
-- Do not grind past convergence for thoroughness theater — a clean
-  tree with three owned open items is a finished session.
-- Grilling runs before conclusions exist. Once the user states a
-  position to be attacked, switch to falsification-review's mode:
-  steelman and crux, not more questions.
-
-## Verify before returning
-
-The restated goal survived the session unchanged or was explicitly
-corrected. Every branch terminates in a logged decision with
-rationale or an owned open item — none in silence. Contradictions
-raised during the session were resolved or converted into open
-items. The closing summary names its destination skill.
+Deliver the resulting decisions, material open items, and concrete next action.
+A feature-spec can capture the feature; define-work-items can decompose the
+agreed work. Apply their essential discipline inline if those skills are
+unavailable. A settled conclusion needing a counterargument belongs to
+falsification-review.

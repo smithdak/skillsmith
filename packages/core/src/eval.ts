@@ -17,11 +17,12 @@
  * bounds but does not eliminate variance; results carry the judge model for
  * that reason.
  *
- * The judge is injectable: tests use a deterministic fake; the default
- * implementation calls the Anthropic Messages API (ANTHROPIC_API_KEY).
- * Effectiveness suite (baseline on/off comparison) is deferred to v0.2.
+ * The judge is injectable: tests use a deterministic fake; the CLI uses
+ * Codex with ChatGPT authentication. A legacy Anthropic adapter is exported.
+ * Paired text-task effectiveness measurement lives in effectiveness.ts.
  */
 import { join } from "node:path";
+import { z } from "zod";
 import type { DiscoveryResult, DiscoveredSkill } from "./discovery.ts";
 import type { SkillsmithConfig } from "./schemas/skillsmith-config.ts";
 import { validateEvalsFile, type EvalsFile } from "./schemas/evals.ts";
@@ -173,7 +174,7 @@ export async function runTriggerEvals(
      * Judge each case this many times and take the strict majority. Judges are
      * stochastic near a decision boundary, so at repeat 1 a skill's measured
      * failures are dominated by variance rather than by description quality.
-     * Costs one API call per case per repeat.
+     * Uses one judge session per case per repeat.
      */
     repeat?: number;
     /**
@@ -186,6 +187,14 @@ export async function runTriggerEvals(
     escalate?: number;
   },
 ): Promise<EvalReport> {
+  for (const [name, value] of Object.entries({ concurrency: opts.concurrency, repeat: opts.repeat, escalate: opts.escalate })) {
+    if (value !== undefined && (!Number.isSafeInteger(value) || value < 1)) {
+      throw new Error(`${name} must be a positive integer`);
+    }
+  }
+  if (opts.escalate !== undefined && opts.escalate < (opts.repeat ?? 1)) {
+    throw new Error("escalate must be at least repeat");
+  }
   const diagnostics: Diagnostic[] = [];
   const listing = buildListing(discovery);
   const skills = discovery.skills.filter(
@@ -321,6 +330,27 @@ export interface EvalResultsFile {
   >;
 }
 
+/** Validate persisted measurements before allowing them to influence a gate. */
+export const evalResultsFileSchema = z.strictObject({
+  judgeModel: z.string().min(1),
+  runDate: z.iso.date(),
+  repeat: z.number().int().positive(),
+  escalate: z.number().int().positive(),
+  listingSha: z.string().regex(/^[a-f0-9]{64}$/),
+  skills: z.record(z.string(), z.strictObject({
+    hitRate: z.number().min(0).max(1),
+    cases: z.number().int().positive(),
+    failing: z.number().int().nonnegative(),
+    descriptionSha: z.string().regex(/^[a-f0-9]{64}$/),
+    evalsSha: z.string().regex(/^[a-f0-9]{64}$/),
+    runDate: z.iso.date().optional(),
+    failingPrompts: z.array(z.string()),
+    flakyPrompts: z.array(z.string()),
+  }).refine((s) => s.failing <= s.cases && s.failingPrompts.length === s.failing &&
+    Math.abs(s.hitRate - (s.cases - s.failing) / s.cases) <= 0.000501,
+  "inconsistent case counts or hit rate")),
+}).refine((r) => r.escalate >= r.repeat, "escalate must be at least repeat");
+
 /**
  * Merge one skill's fresh measurement into an existing results file. Sound
  * only when the run judged against the same listing the file records — a
@@ -334,6 +364,7 @@ export function mergeSkillResult(
   skillName: string,
   runDate: string,
 ): string | null {
+  if (existing.judgeModel !== report.judgeModel) return null;
   if (existing.listingSha !== report.listingSha) return null;
   if ((existing.repeat ?? 1) !== report.repeat || (existing.escalate ?? existing.repeat ?? 1) !== report.escalate) return null;
   const r = report.results.find((x) => x.skill === skillName);
@@ -376,7 +407,7 @@ export function toResultsFile(report: EvalReport, runDate: string): string {
 }
 
 // ---------------------------------------------------------------------------
-// Default judge: Anthropic Messages API. Structured output makes the reply
+// Optional legacy judge: Anthropic Messages API. Structured output makes the reply
 // schema-valid by construction; the listing block carries a cache breakpoint
 // so a full run reads the ~8k-token prefix from cache on every call but the
 // first few.

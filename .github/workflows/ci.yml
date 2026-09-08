@@ -22,11 +22,17 @@ jobs:
       - name: Drift gate (committed artifacts == generate output)
         run: bun packages/cli/src/main.ts check
       - name: Version guard (a plugin content change requires a version bump)
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         run: |
-          git fetch --no-tags origin main
-          bun packages/cli/src/main.ts version-guard --base origin/main
+          if [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ]; then
+            BASE_SHA=$(git hash-object -t tree -w /dev/null)
+            BASE_SHA=$(git -c user.name=CI -c user.email=ci@example.invalid commit-tree "$BASE_SHA" -m 'Empty initial baseline')
+          fi
+          bun packages/cli/src/main.ts version-guard --base "$BASE_SHA"
       - name: Tests
         run: bun test
       - name: Typecheck
-        run: bunx tsc --noEmit
-        working-directory: packages/core
+        run: |
+          bun run --cwd packages/core typecheck
+          bun run --cwd packages/cli typecheck

@@ -1,33 +1,34 @@
 # skillsmith documentation
 
-Start from who you are:
+To try a skill, start with the [README quick start](../README.md#quick-start).
+For a specific task, choose a guide below.
 
-**I want to install and use the skills**
-→ Root [README — Install the skills](../README.md#install-the-skills), then
-browse [catalog/CATALOG.md](../catalog/CATALOG.md) — every skill with its
-measured trigger rate and the script inventory (interpreter, network flag,
-SHA-256) of everything a plugin can execute. Security model:
-[SECURITY.md](../SECURITY.md).
+## Install and use
 
-**I want to write or change a skill**
-
-| Doc | What it answers |
+| Task | Guide |
 |---|---|
-| [Skill authoring](skill-authoring.md) | The full path from scaffold to shipped: folder anatomy, frontmatter reference, description craft, composition, promotion, the gate |
-| [Evals](evals.md) | How trigger measurement works, writing `evals.json`, running it, badges |
-| [Validation rules](validation-rules.md) | Every V/S rule, fix-oriented — open this when CI is red |
-| [Configuration](configuration.md) | `skillsmith.toml`: plugin groupings and every policy knob |
+| Choose a plugin or find one skill | [Catalog](../catalog/CATALOG.md) |
+| Install in Codex, Claude Code, or another harness | [Plugins and compatibility](plugins.md) |
+| Review scripts and trust boundaries | [Security model](../SECURITY.md) |
 
-**I want to work on the tool itself**
+## Author and evaluate
 
-| Doc | What it answers |
+| Task | Guide |
 |---|---|
-| [Architecture](architecture.md) | The pipeline (discover → validate → generate → check → eval), the invariants, why determinism is load-bearing, reading order |
-| [`packages/core` README](../packages/core/README.md) | The library surface, rule summary table, test layout |
-| [`packages/cli` README](../packages/cli/README.md) | Command and flag reference, exit codes |
+| Set up a checkout and submit a change | [Contributing](../CONTRIBUTING.md) |
+| Write a skill that triggers on the right tasks | [Skill authoring](skill-authoring.md) |
+| Refine the procedure and supporting references | [Refinement standard](refinement.md) |
+| Measure skill selection | [Routing evaluations](evals.md) |
+| Compare work with and without a skill | [Effectiveness evaluations](effectiveness.md) |
+| Review existing evidence | [Recorded Astra pilots](../benchmarks/results/README.md) |
+| Fix a validation finding | [Validation rules](validation-rules.md) |
 
-These documents were produced by dogfooding this repo's own skills —
-`codebase-survey` for ground truth, `define-work-items` for scoping,
-`falsification-review` and `cold-read` as the verification passes. Every
-normative claim is anchored to a source path; if a doc and the code disagree,
-the code is right and the doc has a bug — please file it.
+## Work on the compiler
+
+Read [Architecture](architecture.md) for source ownership, artifact planning and
+drift checks. Use the [CLI reference](../packages/cli/README.md) for commands and
+exit codes, [Configuration](configuration.md) for `skillsmith.toml`, and the
+[core package reference](../packages/core/README.md) for library entry points.
+
+Release history lives in the [changelog](../CHANGELOG.md); third-party provenance
+lives in [NOTICES.md](../NOTICES.md).

@@ -37,21 +37,21 @@ describe("renderReadmeBlock", () => {
     expect(block).toContain("(catalog/CATALOG.md)");
   });
 
-  test("renders every plugin with version and codepoint-sorted skills", () => {
-    expect(block).toContain("| **alpha-tools** | `0.1.2` | `solo-skill` |");
-    expect(block).toContain("`alpha-skill` · `beta-skill`");
+  test("links plugin details and keeps versions in the compact chooser", () => {
+    expect(block).toContain("| [alpha-tools](catalog/CATALOG.md#alpha-tools)<br>`0.1.2` |  |");
+    expect(block).toContain("[zeta-tools](catalog/CATALOG.md#zeta-tools)<br>`0.3.0`");
   });
 
   test("preserves skillsmith.toml plugin order", () => {
-    const rows = block.split("\n").filter((l) => l.startsWith("| **"));
-    expect(rows.map((r) => r.replace(/^\| \*\*/, "").replace(/\*\*.*$/, ""))).toEqual([
+    const rows = block.split("\n").filter((l) => l.startsWith("| ["));
+    expect(rows.map((r) => r.slice(3, r.indexOf("]")))).toEqual([
       "zeta-tools",
       "alpha-tools",
     ]);
   });
 
-  test("lists agents after the plugin name and escapes pipes in cells", () => {
-    expect(block).toContain("+ `checker` agent");
+  test("identifies agent compatibility and escapes pipes in cells", () => {
+    expect(block).toContain("Agent definitions ship in the Claude Code bundles.");
     expect(block).toContain("Has \\| pipes \\| in description");
     expect(block).not.toMatch(/\| Has \| pipes/);
   });
@@ -141,8 +141,8 @@ describe("buildPlan README integration", () => {
     const planWith = buildPlan(discovery, config, { readme: withMarkers });
     expect(planWith.files.has("README.md")).toBe(true);
     const out = planWith.files.get("README.md")!;
-    expect(out).toContain("**review-tools**");
-    expect(out).toContain("`code-review`");
+    expect(out).toContain("[review-tools](catalog/CATALOG.md#review-tools)");
+    expect(out).toContain("1 skill");
     expect(out).toContain("`0.2.0`");
   });
 });

@@ -1,20 +1,12 @@
-name: Trigger evals
+name: Evaluation fixtures (offline)
 
-# Manual dispatch only: eval calls the Anthropic API (costs real money, and
-# the judge is intentionally non-deterministic), and fork PRs never receive
-# secrets on a public repo anyway. Run it after changing descriptions or
-# eval cases: gh workflow run eval.yml
-#
-# Three votes per case, escalating split cases to nine: at one vote a case
-# near a decision boundary fails about as often as it passes, which would
-# make this gate flap. Unanimous cases stop at three, so the escalation is
-# paid only on boundary cases. Roughly $3 a run at the catalog's current
-# size — see docs/evals.md.
+# Subscription model runs happen locally with `codex login`.
+# This workflow checks evaluation infrastructure without API keys or model calls.
 on:
   workflow_dispatch:
 
 jobs:
-  eval:
+  fixtures:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +14,6 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - name: Trigger hit-rate evals (fails below policy minimum)
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: bun packages/cli/src/main.ts eval --repeat 3 --escalate 9
+      - name: Evaluation contracts and subscription runner
+        run: bun test packages/core/test/eval.test.ts packages/core/test/effectiveness.test.ts packages/cli/test
+      - run: bun packages/cli/src/main.ts validate --strict

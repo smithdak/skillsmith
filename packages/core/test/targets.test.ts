@@ -5,6 +5,8 @@ import { join } from "node:path";
 import {
   discover,
   buildPlan,
+  writePlan,
+  checkPlan,
   validateSkillsmithConfig,
   type SkillsmithConfig,
 } from "../src/index.ts";
@@ -85,6 +87,51 @@ describe("generic target adapter", () => {
     expect([...plan.copies.keys()].filter((d) => d.startsWith("dist/"))).toEqual([]);
     expect(plan.files.has("dist/generic/INDEX.md")).toBe(false);
   });
+});
+
+test("native Codex bundles are independently usable, deterministic, and drift-checked including hidden manifests", async () => {
+  const root = makeFixtureRepo();
+  await Bun.write(join(root, "NOTICES.md"), "Fixture attribution\n");
+  const discovery = await discover(root, { allowedCategories: ["engineering", "misc"] });
+  const config = baseConfig(["codex-plugin"]);
+  const plan = buildPlan(discovery, config);
+  const prefix = "dist/codex/plugins/all-tools";
+  const manifestPath = `${prefix}/.codex-plugin/plugin.json`;
+  const manifest = JSON.parse(plan.files.get(manifestPath)!);
+  expect(manifest.name).toBe("all-tools");
+  expect(manifest.version).toBe("1.0.0");
+  expect(manifest.skills).toBe("./skills/");
+  expect(manifest).not.toHaveProperty("hooks");
+  expect(manifest).not.toHaveProperty("mcpServers");
+  const marketplace = JSON.parse(plan.files.get("dist/codex/.agents/plugins/marketplace.json")!);
+  expect(marketplace.plugins[0].source.path).toBe("./plugins/all-tools");
+  expect(marketplace.plugins[0].policy.installation).toBe("AVAILABLE");
+  expect(plan.files.has(`${prefix}/skills/alpha-skill/SKILL.md`)).toBe(true);
+  expect(plan.copies.has(`${prefix}/skills/alpha-skill/notes.md`)).toBe(true);
+  expect([...plan.files]).toEqual([...buildPlan(discovery, config).files]);
+  await writePlan(plan, root);
+  expect((await checkPlan(plan, root)).clean).toBe(true);
+  const movedRoot = mkdtempSync(join(tmpdir(), "skillsmith-portable-"));
+  const { cp } = await import("node:fs/promises");
+  await cp(join(root, prefix), join(movedRoot, "all-tools"), { recursive: true });
+  expect(await Bun.file(join(movedRoot, "all-tools/NOTICES.md")).text()).toBe("Fixture attribution\n");
+  expect(await Bun.file(join(movedRoot, "all-tools/skills/alpha-skill/notes.md")).text()).toBe("extra asset\n");
+  await Bun.write(join(root, `${prefix}/.codex-plugin/stale.json`), "{}");
+  expect((await checkPlan(plan, root)).drifts).toContainEqual({ kind: "stale", path: `${prefix}/.codex-plugin/stale.json` });
+  const withoutTarget = buildPlan(discovery, baseConfig(["claude-code"]));
+  expect((await checkPlan(withoutTarget, root)).drifts).toContainEqual({ kind: "stale", path: manifestPath });
+});
+
+test("removed portable targets leave detectable stale skills without claiming host configuration", async () => {
+  const root = makeFixtureRepo();
+  const discovery = await discover(root, { allowedCategories: ["engineering", "misc"] });
+  await writePlan(buildPlan(discovery, baseConfig(["generic", "codex", "opencode"])), root);
+  await Bun.write(join(root, ".codex/config.toml"), "# user-owned configuration\n");
+  const checked = await checkPlan(buildPlan(discovery, baseConfig(["claude-code"])), root);
+  for (const path of ["dist/generic/skills/engineering/alpha-skill/SKILL.md", ".codex/skills/alpha-skill/SKILL.md", ".opencode/skills/alpha-skill/SKILL.md"]) {
+    expect(checked.drifts).toContainEqual({ kind: "stale", path });
+  }
+  expect(checked.drifts.some((drift) => drift.path === ".codex/config.toml")).toBe(false);
 });
 
 describe("codex + opencode adapters (normalized frontmatter)", () => {

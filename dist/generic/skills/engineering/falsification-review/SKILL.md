@@ -10,7 +10,7 @@ description: >-
 license: MIT
 metadata:
   skillsmith-invocation: "both"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
 user-invocable: true
 ---
 
@@ -60,12 +60,12 @@ calibration ladder are in
 
 ## Maker-checker escalation
 
-For document-scale deliverables — specs, sizing packs, plans, SOWs —
-inline checking is insufficient: the author's context biases the check.
-Spawn the `falsification-reviewer` agent with the complete draft and act on
-its findings before presenting. Reserve this for deliverables; inline passes
-suffice for conversational recommendations (subagent review costs ~7x
-tokens).
+For consequential document-scale deliverables, a separate reviewer can reduce
+author-context bias. Use the `falsification-reviewer` agent when installed and
+delegation is available and authorized, providing the complete draft without
+the desired verdict. Otherwise run the checks inline and state that limitation
+when material. Another model's agreement is not independent source evidence;
+assess the findings themselves before revising the conclusion.
 
 ## Boundaries
 

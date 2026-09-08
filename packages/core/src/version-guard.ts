@@ -48,6 +48,9 @@ export function pluginSnapshot(name: string, files: Map<string, string>): Plugin
       if (match) version = match[1] ?? "";
       content = content.replace(VERSION_FIELD, '"version":"<normalized>"');
     }
+    if (path.endsWith(".codex-plugin/plugin.json")) {
+      content = content.replace(VERSION_FIELD, '"version":"<normalized>"');
+    }
     hash.update(path);
     hash.update("\0");
     hash.update(content);

@@ -13,93 +13,47 @@ metadata:
 
 *Adapted from deepseek-ai/deepseek-harness — docs/postmortem (MIT); see repo-root NOTICES.md.*
 
-A post-mortem records why the process let a bug through, not the one-line
-fix. The fix is in the commit; what the commit cannot hold is the mechanism,
-the reason every safety net missed it, and the guardrails that make the same
-class of bug fail loudly next time. Write it so the next engineer who meets
-the symptom finds the mechanism in thirty seconds instead of re-deriving it
-over three days.
+Document an incident's established mechanism, impact, detection gaps, and
+practical prevention. Honor an explicit request for a postmortem; scale its
+length to the incident instead of requiring a minimum degree of complexity.
 
-## Decide whether it earns one
+## Recover the evidence
 
-A post-mortem is worth its cost only when all three hold:
+Collect relevant logs, timestamps, commits, reproduction commands, tests, and
+known impact. Separate the user-visible symptom, causal mechanism, and why
+existing checks failed to catch it. Distinguish containment from a permanent
+fix. Missing evidence stays missing; do not fabricate a complete timeline or
+infer a person's internal state from their actions.
 
-- **Subtle** — the mechanism is non-obvious; a careful engineer would
-  re-derive it the hard way.
-- **Systemic** — it escaped because of a gap in tests, tooling, or
-  conventions, not a one-off typo.
-- **Costly to rediscover** — it consumed real debugging time and would
-  again.
+If the mechanism remains unsettled, write the supported incident account and
+mark the root cause unresolved. Use diagnose-bugs for requested investigation.
+A useful preliminary record is possible without inventing a finished RCA.
 
-When one is missing, say so and offer the lighter form: a commit message
-that names the mechanism, an issue comment, or a line in the relevant doc.
-A post-mortem for a typo trains readers to skip post-mortems.
+## Explain why the system allowed it
 
-## Gather evidence before narrative
+Trace the cause and contributing conditions. For relevant tests, reviews, and
+monitors, state what each actually established and which failure it missed.
+A passing health endpoint, for example, may demonstrate process availability
+without demonstrating that a user can complete checkout.
 
-Collect the record first: log excerpts, commit SHAs, session or event ids,
-sequence numbers, timestamps, the failing test's name, the exact command
-that reproduced it. The timeline follows this evidence, not reconstructed
-intent — "the agent then assumed…" is a guess; "at sequence 31865 the agent
-launched bare Vite on :5173 and observed HTTP 200" is a fact a reader can
-check. Where the record is incomplete, say what is missing rather than
-smoothing over it.
+Keep the account factual and blameless. Explain system and process conditions
+rather than assigning motives or replacing causal detail with “human error.”
 
-Separate three things that are easy to conflate: what broke (the symptom
-users saw), the mechanism (the causal chain inside the system), and why it
-escaped (which checks existed, and what each one actually proved instead of
-what everyone assumed it proved).
+## Record corrective action
 
-## Structure
+Use [references/postmortem-template.md](references/postmortem-template.md) when
+a full report is useful. Include a concise outcome, impact and its evidence,
+timeline, mechanism, detection gaps, and corrective actions with owners or open
+assignments. Separate implemented guardrails from proposed follow-up work.
 
-Use the skeleton in
-[references/postmortem-template.md](references/postmortem-template.md).
-The sections, in order:
+For each important guardrail, explain the condition it detects and how to
+verify it against the failure. Do not claim it was tested unless it was. Use
+doc-visuals for the timeline if available, or a simple source-anchored table.
+Link requested architecture-spec, define-work-items, handoff, or research-note
+artifacts rather than duplicating their jobs or creating external tickets.
 
-1. **Executive summary** — one short paragraph a busy reader absorbs in
-   thirty seconds: what broke, the root cause in plain terms, why it
-   escaped, and the durable lesson. Write this last, from the finished
-   sections; it is the part most people will read.
-2. **Summary** — the setting and the defect in a few paragraphs: what the
-   system was doing, what the user expected, what happened instead.
-3. **Impact** — who was affected, for how long, what it cost, and what was
-   *not* affected (scope limits are evidence too).
-4. **Timeline** — ordered entries, each anchored to a concrete source:
-   a log line, a commit, a sequence number, a message. Render it as a list
-   or a table (the doc-visuals discipline applies — a table when every row
-   has the same columns, prose otherwise).
-5. **Root cause** — the mechanism, stated so that a reader could reproduce
-   it, followed by *why each safety net missed it*: the test that passed
-   and what it really asserted, the review that approved and what it could
-   not see, the monitor that stayed green and what it measures.
-6. **Guardrails added** — each one linked (test path, rule, doc, alert)
-   with the condition under which it now fails. A guardrail that would
-   pass on both the broken and the fixed code guards nothing; say how it
-   was proven to fail on the broken code.
-7. **Lessons** — generalizable rules, not restatements of the fix.
-   "HTTP 200 from a server is not proof the application booted" transfers;
-   "check for `window.__BOOT__`" does not.
+## Completion
 
-Keep it factual and blameless: name roles, commands, and components, not
-people's mistakes. The question is always what the system and process let
-happen, and what changes so it cannot happen silently again.
-
-## Boundaries
-
-- Backward-looking only. Design decisions the incident prompts belong in
-  `architecture-spec` or a decision record and are linked from Guardrails,
-  not argued here.
-- Where things stand for the next session is `handoff`; an open research
-  question is `research-note`; follow-up work becomes tickets via
-  `define-work-items`.
-- Do not debug inside the post-mortem — that is `diagnose-bugs`' loop. If
-  the root cause is not yet known, say so and stop at the evidence; a
-  post-mortem with a guessed mechanism is worse than none.
-
-## Verify before returning
-
-From the executive summary alone a reader can name the mechanism and the
-safety net that missed it. Every timeline entry cites evidence a reader
-could open. Every guardrail is linked and states what makes it fail. The
-Lessons section contains nothing that only applies to this one bug. Nothing
-in the document assigns blame to a person.
+A reader can understand what happened, what is established, what changed, and
+what remains unresolved. Each consequential claim has evidence, and actions
+address the mechanism or detection gap rather than merely restating the fix.

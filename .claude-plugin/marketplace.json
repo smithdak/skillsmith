@@ -7,47 +7,47 @@
     {
       "name": "agent-instructions",
       "source": "./plugins/agent-instructions",
-      "description": "Writing for agents: instruction files, skill authoring, the communication contract, and its guided setup"
+      "description": "Write agent instructions and skills with clear scope and triggers."
     },
     {
       "name": "architecture",
       "source": "./plugins/architecture",
-      "description": "Architecture discipline: specs, decision records, module depth, structural review, API contracts, migrations, failure modes"
+      "description": "Design interfaces, record decisions, review structure, and plan migrations."
     },
     {
       "name": "code-craft",
       "source": "./plugins/code-craft",
-      "description": "Implementation discipline: test-first loops, characterization tests, root-cause diagnosis, codebase orientation, post-mortems"
+      "description": "Understand code, diagnose bugs, and develop with meaningful tests."
     },
     {
       "name": "dev-workflow",
       "source": "./plugins/dev-workflow",
-      "description": "Moving work between people and sessions: handoffs, cold reads, work items, guided setup wizards"
+      "description": "Write work items, check handoffs, and guide manual setup."
     },
     {
       "name": "docs-craft",
       "source": "./plugins/docs-craft",
-      "description": "Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture"
+      "description": "Write READMEs, clarify diagrams, and organize technical documentation."
     },
     {
       "name": "frontend",
       "source": "./plugins/frontend",
-      "description": "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright"
+      "description": "Build, critique, and refine interfaces; verify behavior in a browser."
     },
     {
       "name": "planning",
       "source": "./plugins/planning",
-      "description": "Before building: grill the idea, spec the feature, premortem the plan, falsify the conclusion, trace second-order effects"
+      "description": "Turn ideas into specs, test assumptions, and anticipate failure."
     },
     {
       "name": "research",
       "source": "./plugins/research",
-      "description": "Live-source grounding: verify volatile facts, run fan-out research, land cited notes in the repo"
+      "description": "Verify current facts and write reports grounded in primary sources."
     },
     {
       "name": "security",
       "source": "./plugins/security",
-      "description": "Security review discipline: threat modeling, diff-scoped review with sibling sweeps, decision-ready hardening proposals"
+      "description": "Model threats, review security changes, and propose mitigations."
     }
   ]
 }

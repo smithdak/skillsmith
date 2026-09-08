@@ -5,64 +5,50 @@ license: "MIT"
 metadata:
   skillsmith-composes: "doc-visuals"
   skillsmith-invocation: "user"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
 ---
 
 # codebase-survey
 
-Orient in an unfamiliar repository and produce a survey a newcomer can
-navigate by. Every claim in the survey is path-anchored — a file, a
-directory, a manifest line — so the reader can verify rather than trust.
+Orient a newcomer with a map of the repository's purpose, entry points,
+important boundaries, commands, and verification limits. Anchor claims to paths
+or observed command output.
 
-The survey runs in the main conversation, not a fork: its output is the
-context the rest of the session builds on. (A fork would isolate the scan
-noise, but discards exactly the orientation the session needs.)
+## Inventory
 
-## Phase 1 — deterministic inventory (run, don't read)
+Resolve [scripts/inventory.sh](scripts/inventory.sh) and
+[scripts/deps.sh](scripts/deps.sh) from the installed skill directory, passing
+the target repository as their argument. Use the outputs for size, file types,
+and dependency manifests; inspect their documented coverage before treating
+them as exhaustive. If the shell or a helper is unavailable, use equivalent
+read-only file and manifest inspection and state the limitation.
 
-Execute both bundled scripts from the repo root and use their output only:
+## Trace the useful paths
 
-- `scripts/inventory.sh <repo-root>` — size and shape: file counts by
-  extension, line counts, top-level structure, largest files.
-- `scripts/deps.sh <repo-root>` — every dependency manifest within three
-  directory levels, with dependency counts for package.json, go.mod,
-  Cargo.toml, and requirements.txt; other manifests (pyproject.toml,
-  Gemfile, pom.xml, build.gradle) are listed for manual inspection.
+Inspect how the system starts, where its public behavior lives, how tests run,
+and conventions demonstrated by representative code. Cross-check docs against
+implementation. Describe visibly uncovered behavior as an observation, not a
+coverage measurement inferred from filenames.
 
-These are scripts because their answers are facts: recomputing them by
-reading files burns context and invites transcription errors.
+For a substantial repository, independent scans of entry points, tests, and
+conventions can run in parallel when subagents are available and authorized.
+Give each a bounded scope and request path-anchored findings. With no delegation,
+run the same scans sequentially. Do not require a particular model or agent
+name. [references/survey-guide.md](references/survey-guide.md) supplies scan
+briefs and a report shape.
 
-## Phase 2 — parallel subagent scans
+## Synthesize and check
 
-Dispatch these scans as parallel subagents, each returning path-anchored
-findings (briefs in
-[references/survey-guide.md](references/survey-guide.md)):
+Lead with purpose and stack, then a navigable map, important flows, commands,
+and material unknowns. Apply doc-visuals' essential check inline when the
+companion is absent: every tree path exists, diagrams match observed flows,
+and commands are labeled with their verification status.
 
-1. **entry-points** — how the system starts: binaries, main modules,
-   exported APIs, service definitions, CI entry commands.
-2. **test-posture** — what is tested, how it runs, and visibly untested
-   territory. The gap report matters more than the coverage report.
-3. **conventions** — the patterns the codebase actually follows (naming,
-   layering, error handling), observed from code, not from docs claiming
-   them. Note where docs and code disagree.
+Verify representative claims from different scans against their sources.
+When a claim fails, investigate the affected area rather than trusting its
+summary. Keep scan evidence and interpretation distinct. Retain the final map
+in the main conversation so later work can use it.
 
-Three scans is the default; add a **hot-spots** scan (recently churned or
-oversized modules) only when git history is available and the repo exceeds
-roughly 50k lines.
-
-## Phase 3 — synthesis
-
-Assemble the survey using the template in references/survey-guide.md.
-Render the visual elements — the Shape section's repository map, any
-diagram, every command example — with the doc-visuals discipline; a
-survey is navigation, and navigation that doesn't scan is noise.
-Ordering rule: purpose and stack first, unknowns last — and the unknowns
-section is mandatory. A survey that reports no unknowns after an hour in a
-foreign codebase is reporting confidence, not knowledge.
-
-## Verify before returning
-
-Spot-check three claims from different scans against the actual files. If
-a spot-check fails, the failing scan's findings are quarantined into the
-unknowns section rather than silently dropped. State clearly which parts
-of the survey are script-derived fact vs. scan-derived inference.
+The survey is complete when a newcomer can locate the relevant entry point,
+find how to run an appropriate check, and see which areas remain unexplored.
+Avoid inventing unknowns merely to populate a section.

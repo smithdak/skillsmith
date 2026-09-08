@@ -1,7 +1,7 @@
 # Feature spec template
 
-Every spec uses these sections in this order. Omit none; an honestly
-thin section beats a missing one.
+Use these sections when relevant to the feature. Follow an existing project
+template and keep empty sections out unless they communicate a real boundary.
 
 ```markdown
 # <feature name>
@@ -29,9 +29,9 @@ paragraphs; mechanism belongs in implementation decisions.
 ## User stories
 
 A numbered list in the form: as an `<actor>`, I want `<capability>`,
-so that `<benefit>`. Err on the side of extensive — edge actors
+so that `<benefit>`. Include relevant edge actors
 (admin, unauthenticated visitor, API consumer) and failure-path
-stories included. Number them (US1, US2, …) so testing decisions and
+stories when they change the implementation. Number them (US1, US2, …) so testing decisions and
 tickets can cite them.
 
 ## Implementation decisions
@@ -39,15 +39,12 @@ tickets can cite them.
 What was decided and why, one decision per bullet: modules to build or
 modify and the changes to their interfaces, schema changes, API
 contracts, architectural choices, clarifications the user supplied.
-Each decision traceable to the conversation or to the codebase. No
-file paths, no code snippets — except a snippet that encodes a
-decision more precisely than prose (schema, type shape, state
-machine), trimmed to its decision-rich part and marked with where it
-came from.
+Each decision traceable to the conversation or to the codebase. Use a stable path or a brief schema, type, or state-machine example when it
+removes ambiguity. Keep details tied to the decision and identify their source.
 
 ## Testing decisions
 
-The seams the feature is tested at (confirmed with the user), which
+The observable boundaries the feature is tested at, which
 user stories each seam covers, and prior art — existing tests in the
 codebase the new ones should resemble. State the standard once: tests
 exercise external behavior through the seam, never implementation

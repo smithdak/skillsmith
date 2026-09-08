@@ -18,48 +18,37 @@ user-invocable: true
 
 # feature-spec
 
-The conversation already contains the decisions; the spec's job is to
-make them survive it. Synthesize what was discussed and what the
-codebase shows — do not re-open settled questions or interview the
-user a second time. Whatever was genuinely never resolved goes into
-the spec as an explicit open item, not back to the user as a quiz.
+Turn the conversation and repository evidence into a specification an
+implementer can use without repeating the discussion. Preserve settled choices;
+mark unresolved decisions explicitly instead of inventing answers.
 
-## Ground it in the codebase
+## Recover the contract
 
-Explore current repo state wherever understanding is missing, and
-write the spec in the project's own vocabulary — module names, domain
-terms — so an implementer can map every sentence onto code they can
-find.
+Identify the user's problem, desired behavior, constraints, and excluded work.
+Inspect relevant existing behavior and use the project's domain vocabulary.
+Separate agreed decisions from recommendations and assumptions.
 
-## Sketch the test seams
+Describe acceptance scenarios with observable outcomes, including meaningful
+failure and boundary cases. Choose verification seams from existing public
+interfaces; the deep-modules discipline helps avoid tests tied to internals.
+Ask only if an unresolved choice changes the product contract. Do not require
+separate approval of routine test placement before writing the spec.
 
-Name the seams at which the feature will be verified, preferring
-existing seams over new ones and the highest seam that can carry the
-test — fewest total seams wins (the deep-modules discipline governs
-placement). This is the one point to confirm with the user before
-writing: seams are the spec's most expensive assumption, and a spec
-tested at the wrong seam is rewritten, not revised.
+## Write a usable artifact
 
-## Write to the template
+Use [references/spec-template.md](references/spec-template.md) when its full
+structure is useful; scale sections and story count to the feature. State the
+behavior, important implementation choices and their reasons, verification,
+non-goals, and open decisions with their blockers.
 
-Load [references/spec-template.md](references/spec-template.md) for
-the sections and per-section guidance: problem and solution from the
-user's perspective, an extensive numbered list of user stories,
-implementation decisions, testing decisions, out of scope, and open
-items. Two rules do most of the work:
+Include stable paths, schemas, or examples when they remove implementation
+ambiguity. Avoid file inventories and speculative implementation detail that
+merely duplicate the code. A proposed implementation is not an accepted decision.
 
-- Decisions, not descriptions: every implementation decision records
-  what was chosen and why, traceable to the conversation or the
-  codebase — nothing invented to make the spec look complete.
-- No file paths and no code snippets — they rot faster than the spec.
-  Exception: a snippet that encodes a decision more precisely than
-  prose can (a schema, a type shape, a state machine), trimmed to the
-  decision-rich part.
+## Completion
 
-## Verify before returning
-
-Run the cold-read discipline, casting the audience as an implementer
-who never saw this conversation: no dangling "as discussed", every
-decision self-contained, done-state unambiguous. Then stop at the
-spec's edge: decomposing it into executable tickets is
-define-work-items' job, not a reason to inflate the spec into one.
+Apply the cold-read discipline: an implementer without this conversation can
+identify what to build, how to verify it, and which decisions still need an
+answer. Perform that check inline if the skill is unavailable. Report the
+artifact and material open items. Use define-work-items for a requested task
+breakdown and architecture-spec for choices spanning the whole system.

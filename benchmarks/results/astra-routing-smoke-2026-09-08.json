@@ -1,0 +1,27 @@
+{
+  "kind": "routing-smoke",
+  "runDate": "2026-09-08T17:30:11.448Z",
+  "runnerId": "codex-text-v1; auth=chatgpt; model=gpt-6-astra; effort=medium; cli=codex-cli 0.153.4",
+  "listingSha": "30c995854b2e75c728199f9344904bdaa154ab43304236b20d22f65ff29180d7",
+  "repeat": 1,
+  "results": [
+    {
+      "prompt": "Implement this coupon rule with TDD: write and observe a failing test before the implementation.",
+      "expected": "tdd",
+      "judged": "tdd",
+      "pass": true
+    },
+    {
+      "prompt": "This test fails intermittently when two requests overlap. Find the root cause.",
+      "expected": "diagnose-bugs",
+      "judged": "diagnose-bugs",
+      "pass": true
+    },
+    {
+      "prompt": "What is 2 plus 2?",
+      "expected": null,
+      "judged": null,
+      "pass": true
+    }
+  ]
+}

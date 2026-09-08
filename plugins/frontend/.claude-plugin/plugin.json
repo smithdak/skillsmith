@@ -1,7 +1,7 @@
 {
   "name": "frontend",
-  "version": "0.5.0",
-  "description": "Frontend craft discipline: build high-craft web UI that refuses generic AI-default patterns, non-destructively audit and upgrade the craft of an existing interface, and verify UI behavior in a real browser with Playwright",
+  "version": "0.6.0",
+  "description": "Build, critique, and refine interfaces; verify behavior in a browser.",
   "author": {
     "name": "Dakota"
   },

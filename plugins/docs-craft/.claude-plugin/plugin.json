@@ -1,7 +1,7 @@
 {
   "name": "docs-craft",
-  "version": "0.1.0",
-  "description": "Technical writing for humans: READMEs, diagrams and tables, narration-free prose, information architecture",
+  "version": "0.3.0",
+  "description": "Write READMEs, clarify diagrams, and organize technical documentation.",
   "author": {
     "name": "Dakota"
   },

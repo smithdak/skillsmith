@@ -4,6 +4,9 @@
 
 One row per (component, mode) pair. Keep cells short; detail goes in
 the report sections below and is referenced by row id.
+Use this expanded form when the scope warrants it. Omit irrelevant columns;
+use an explained qualitative ranking when scores lack evidence. Proposed
+thresholds, costs, and owners remain proposals until calibrated or assigned.
 
 | Col | Meaning |
 |---|---|
@@ -20,6 +23,9 @@ the report sections below and is referenced by row id.
 
 ### Filled example
 
+The following is illustrative, including paths, scores, and numeric settings.
+It is not a set of measured defaults to copy into another system.
+
 | # | Component | Mode | Detection | Blast radius | Current behavior | L/I/D | RPN | Mitigation | Test |
 |---|---|---|---|---|---|---|---|---|---|
 | F1 | Redis session cache (`lib/session.ts:42`) | unavailable | Connection errors in app log; no alert (gap) | Login, checkout, any authenticated page | Hang: client has no connect timeout, requests pile up until the pool is exhausted, which stalls unauthenticated pages too | 3/5/4 | 60 | Connect + command timeout 200 ms; circuit breaker (5 failures / 30 s open); fallback to DB session lookup with a 2 s budget | Staging: `iptables` drop to Redis port; expect breaker open within 5 s, p99 login < 2.5 s via DB fallback, `redis_breaker_open` alert fires within 60 s |
@@ -32,9 +38,9 @@ the report sections below and is referenced by row id.
 
 As of <date>, against <branch/commit or design doc version>.
 
-## Top risks (ranked by RPN)
+## Top risks (ranked by evidence and consequence; RPN when supported)
 
-1. **F<n> — <component> / <mode>** (RPN <n>)
+1. **F<n> — <component> / <mode>** (priority and basis)
    - Why it ranks: <one line grounding L, I, D>
    - Mitigation: <class + configuration>
    - Cost: <hours/days; operational burden added>

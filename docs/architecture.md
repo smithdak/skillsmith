@@ -1,182 +1,143 @@
-# Architecture — how sources become artifacts
+# How sources become installable artifacts
 
-skillsmith is a compiler for skills: hand-edited sources go in, deterministic
-installable artifacts come out, and CI refuses any artifact that wasn't
-produced by the pipeline. This document explains the stages, the invariants
-that hold them together, and the design decisions a contributor needs before
-changing `packages/core`.
+skillsmith reads authored skills and plugin configuration, builds an artifact
+plan, and either writes that plan or checks the existing files against it.
+Contributors change the sources; the compiler owns the distributions.
 
 ## The three invariants
 
-1. **I1 — sources are hand-edited, artifacts are generated, never the reverse.**
-   Sources: `skills/`, `agents/`, `hooks/`, `mcp/`, `commands/`, `skillsmith.toml`.
-   Generated: `plugins/`, `.claude-plugin/marketplace.json`, `catalog/CATALOG.md`,
-   `.skillsmith/schemas/`. If a generated file looks wrong, fix the source and
-   rerun `generate`.
-2. **I2 — the drift gate is byte-exact.** `check` compares committed artifacts
-   against the *same plan bytes* `generate` would write — not a re-implementation,
-   the identical `GeneratePlan` ([`generate.ts`](../packages/core/src/generate.ts),
-   [`check.ts`](../packages/core/src/check.ts)). This only works because
-   generation is deterministic (below).
-3. **I3 — volatile surface data is data.** Everything that tracks a Claude Code
-   behavior that can change per minor release — schema target, length limits,
-   known hook events, proven agent toolsets — lives in
-   [`constants.ts`](../packages/core/src/constants.ts) and nowhere else. When
-   Claude Code changes, that file is the single edit point.
+1. **Authored sources own generated content.** Change `skills/`, `agents/`,
+   `commands/`, `hooks/`, `mcp/`, or `skillsmith.toml`, then regenerate.
+2. **Writing and checking share one plan.** `generate` and `check` use the same
+   `GeneratePlan`, so the drift gate compares the bytes the writer would emit.
+3. **Host compatibility is explicit.** Schema layers and target adapters describe
+   supported surfaces. Claude limits and known hook/tool names live in
+   [`constants.ts`](../packages/core/src/constants.ts); host adapters implement
+   their own packaging and runtime constraints.
 
 ## The pipeline
 
+Both commands build the same plan from source inputs. Only `generate` writes it;
+`check` reports differences without applying them.
+
 ```mermaid
-flowchart LR
-    S["sources<br/>skills/ agents/ hooks/ mcp/<br/>skillsmith.toml"] --> D["1 discover"]
-    D --> V["2 validate<br/>V-rules + S-rules"]
-    D & V --> G["3 generate<br/>GeneratePlan"]
-    G --> W["writePlan → plugins/<br/>marketplace.json, catalog/"]
-    G --> C["4 check<br/>drift gate"]
-    D --> E["5 eval<br/>LLM judge"]
-    E --> R[".skillsmith/eval-results.json<br/>(SOURCE, committed)"] --> G
+flowchart TD
+    accTitle: Shared artifact plan
+    accDescr: Source inputs are discovered and validated before planning. Generate writes the plan; check compares it with existing files.
+    Sources["Authored inputs"] --> Inspect["Discover and validate"]
+    Inspect --> Plan["Build artifact plan"]
+    Plan -->|generate| Write["Write files"]
+    Plan -->|check| Compare["Compare files"]
 ```
 
-1. **Discover** — [`discovery.ts`](../packages/core/src/discovery.ts) is the
-   **only** module that scans the filesystem for reads. It globs
-   `skills/*/*/SKILL.md`, `agents/**/*.md`, `hooks/*/hooks.json`,
-   `mcp/*.mcp.json`; skill and agent frontmatter is schema-validated at parse
-   time; hook and MCP file contents are read raw here and validated
-   downstream (hooks in stage 2, MCP at generate-time merge). Returns a
-   sorted `DiscoveryResult`.
-2. **Validate** — [`validate.ts`](../packages/core/src/validate.ts) +
-   [`composition.ts`](../packages/core/src/composition.ts) run the quality
-   (V) and security (S) rules that need file *contents* — bodies, scripts,
-   references, evals, hook sets. Also produces two artifacts consumed
-   downstream: the per-skill **script inventory** (path, interpreter,
-   network flag, SHA-256) and the declared **composition edges**.
-3. **Generate** — [`generate.ts`](../packages/core/src/generate.ts) is a pure
-   function `(DiscoveryResult, SkillsmithConfig) → GeneratePlan` — a map of
-   repo-relative path → content plus a source→dest copy list. No I/O;
-   `writePlan()` applies it to disk.
-4. **Check** — [`check.ts`](../packages/core/src/check.ts) diffs the plan
-   against the working tree. Three drift classes: **missing** (plan owns a
-   path that doesn't exist), **modified** (bytes differ), **stale** (a file
-   inside generated territory — `plugins/`, `catalog/`, `.claude-plugin/`,
-   `.skillsmith/schemas/` — the plan no longer owns). No behavior-altering
-   flags by design (`--cwd`/`--json` only).
-5. **Eval** — [`eval.ts`](../packages/core/src/eval.ts) runs LLM-judge
-   trigger evals — the one intentionally non-deterministic stage. See
-   [Evals](evals.md).
+`generate` gates on plan diagnostics; run `validate --strict` separately for the
+full source-quality and security gate, including warnings. Model evaluations are
+separate commands; they do not run as part of generation or drift checking.
 
-Supporting modules: [`catalog.ts`](../packages/core/src/catalog.ts) renders
-`CATALOG.md` from plan inputs; [`scaffold.ts`](../packages/core/src/scaffold.ts)
-builds init/scaffold file sets (never overwrites); [`diagnostics.ts`](../packages/core/src/diagnostics.ts)
-is the finding model; [`schemas/`](../packages/core/src/schemas/) holds a zod v4
-schema per source shape.
+| Stage | Responsibility |
+|---|---|
+| [Discover](../packages/core/src/discovery.ts) | Inventory source files and parse skill and agent frontmatter |
+| [Validate](../packages/core/src/validate.ts) | Check content, build script inventories, and resolve composition edges |
+| [Plan](../packages/core/src/generate.ts) | Render manifests and docs; schedule resource copies |
+| [Check](../packages/core/src/check.ts) | Report missing, modified and stale generated files |
+
+`buildPlan()` performs no filesystem I/O. It returns rendered content plus a
+destination-keyed copy map, allowing one source resource to ship to several hosts.
+`writePlan()` applies that plan. Discovery inventories files; validation and checks
+also read the contents they need.
 
 ## Why determinism is load-bearing
 
-`check` can only be a trustworthy CI gate if `generate` produces identical
-bytes on every machine, every run. The rules, all in
-[`generate.ts`](../packages/core/src/generate.ts) and its callees:
+The drift gate depends on reproducible output. Generation uses explicit JSON field
+order, stable collection ordering, LF line endings and final newlines. A changed
+artifact must be explainable by changed inputs or generator code.
 
-- **JSON key order is schema-defined**, not insertion-order: manifests are
-  built by constructing objects field-by-field in the schema's order, then
-  `canonicalJson()` (2-space indent, LF, trailing newline).
-- **Every list is sorted** before rendering — skills, agents, plugins, files,
-  composition edges, catalog rows.
-- **Text files end in exactly one newline; line endings are LF** — on Windows
-  too (this repo's history has a commit stripping CR from wizard input for the
-  same reason).
+Recorded routing results are inputs to the catalog. They live in
+`.skillsmith/eval-results.json` and change when evaluations are rerun; generating
+the same report does not repeat the model calls. Hashes tie each routing result to
+its description, cases and catalog context. The
+[routing guide](evals.md) explains invalidation and aggregation.
 
-The one deliberate exception: **eval output is non-deterministic**, so it is
-treated as a *source*, not an artifact — `.skillsmith/eval-results.json` is
-committed, consumed by `generate` for catalog badges, and only changes when a
-human reruns `eval`. Its `runDate` has day precision so same-day reruns stay
-byte-stable ([`eval.ts`](../packages/core/src/eval.ts) defines the contract;
-the CLI stamps the date).
+## Generated ownership
 
-## Managed blocks and multi-target output
+These are selected generated paths, not the full repository inventory:
 
-Two extensions ride the same plan → check pipeline rather than bypassing it:
+```text
+plugins/                  # Claude Code bundles
+catalog/                  # Skill catalog
+dist/
+├── codex/                # Native Codex plugins and marketplace
+└── generic/              # Portable skill trees
+.claude-plugin/           # Claude marketplace
+.skillsmith/schemas/      # Editor JSON schemas
+.codex/skills/            # Codex project skills
+.opencode/skills/         # OpenCode project skills
+```
 
-- **Managed README blocks** ([`readme-blocks.ts`](../packages/core/src/readme-blocks.ts)):
-  when `README.md` contains the `<!-- skillsmith:start -->` / `end` marker
-  pair, `generate` owns everything between them — badges, counts, and the
-  plugin table rendered from `skillsmith.toml`. Opt-in: no markers, no
-  ownership. With markers, hand-edits inside the block are drift.
-- **Harness targets** ([`targets.ts`](../packages/core/src/targets.ts)):
-  adapters that append per-harness artifacts to the same plan (the `generic`
-  Agent Skills tree ships every skill to `dist/generic/`). The plan's copies
-  map is **destination-keyed** precisely because one source must ship to many
-  targets — source-keying silently collapsed plugin copies when the second
-  target landed.
+`check` reports files inside these owned roots that the plan no longer contains,
+including hidden manifests. It also compares all planned outputs. The README
+opts into partial ownership with `<!-- skillsmith:start -->` and
+`<!-- skillsmith:end -->`: the generator owns the counts and plugin chooser
+between those markers; the surrounding prose stays authored.
 
-## The diagnostics model
+[Target adapters](../packages/core/src/targets.ts) append artifacts to the same
+plan. They normalize portable frontmatter and retain resources and attribution.
+Native Codex bundles include supported skills and configured MCP; Claude agents,
+commands and hooks remain in the Claude distribution. See
+[plugin compatibility](plugins.md#what-ships-to-each-host).
 
-Every finding carries four things ([`diagnostics.ts`](../packages/core/src/diagnostics.ts)):
-a rule id (`V1`–`V14`, `S1`–`S7`, `SCHEMA`), a path-anchored location, a
-severity, and the set of **profiles** it applies to.
+## Diagnostics and schema layers
 
-Profiles exist because the three validators this repo targets empirically
-enforce *different* rules:
+A [diagnostic](../packages/core/src/diagnostics.ts) carries a rule ID, source
+location, severity and applicable profiles. The profiles are `standard`,
+`claude-code` and `cowork`; they allow a field to be valid for one surface and
+rejected by another. `forProfile()` selects the applicable findings. See the
+[rule reference](validation-rules.md) for each failure and its fix.
 
-- `standard` — the Agent Skills open standard (agentskills.io), the portable subset;
-- `claude-code` — `claude plugin validate --strict` semantics;
-- `cowork` — the Cowork `.plugin` importer, stricter than the CLI.
+Frontmatter passes through the
+[Agent Skills schema](../packages/core/src/schemas/agent-skills-standard.ts) and
+[Claude extension schema](../packages/core/src/schemas/claude-code-frontmatter.ts).
+Host-owned surfaces warn on unknown fields. skillsmith-owned configuration and
+evaluation cases reject unknown keys. Generated JSON schemas supply editor
+validation from those same definitions.
 
-Example: `argument-hint` in SKILL.md frontmatter is fine in Claude Code but
-fails the Cowork importer, so the finding is an error scoped to `cowork` only.
-`forProfile()` filters findings; `exitCode()` maps them to process exits —
-errors always fail, warnings fail only under `--strict`. Every CLI command
-shares these semantics (exit 0 clean, 1 findings/drift, 2 usage/environment).
+## Model evaluations
 
-Two deliberate asymmetries in strictness:
+Two commands answer different questions:
 
-- **Anthropic-owned surfaces are tolerant**: unknown frontmatter/manifest
-  fields warn, because the Claude Code surface churns faster than this tool
-  releases.
-- **skillsmith's own surfaces are strict**: unknown keys in `skillsmith.toml`
-  or `evals.json` are hard errors ([`skillsmith-config.ts`](../packages/core/src/schemas/skillsmith-config.ts),
-  [`schemas/evals.ts`](../packages/core/src/schemas/evals.ts)).
+| Command | Question |
+|---|---|
+| `eval` | Does the model select the intended skill from the catalog? |
+| `effectiveness` | Does using the skill improve the answer on these tasks? |
 
-## The schema layers
+The CLI defaults to Astra through a Codex ChatGPT subscription. The
+[subscription adapter](../packages/cli/src/codex-runner.ts) verifies ChatGPT
+authentication, removes API credentials from child environments and creates fresh
+ephemeral sessions with structured output. Text runs disable host skills, plugins
+and tools; tool events, incomplete turns and malformed responses fail the run.
 
-SKILL.md frontmatter is validated in two layers
-([`agent-skills-standard.ts`](../packages/core/src/schemas/agent-skills-standard.ts),
-[`claude-code-frontmatter.ts`](../packages/core/src/schemas/claude-code-frontmatter.ts)):
+Core owns vote aggregation, arm comparisons and provenance through injected judge
+and runner interfaces. It does not require Codex. The
+[effectiveness guide](effectiveness.md) describes isolation, custom runners and
+what text benchmarks cannot establish.
 
-1. **Layer 1 — the open standard**: `name`, `description`, `license`,
-   `compatibility`, `metadata`, `allowed-tools`. Loose object: unknown keys
-   pass through so layer 2 decides unknown-field policy. Pinned to
-   `STANDARD_TARGET` (`agent-skills@2025-12`).
-2. **Layer 2 — Claude Code extensions**: `when_to_use`, `argument-hint`,
-   `disable-model-invocation`, `user-invocable`, `model`, `effort`,
-   `context: fork`, `hooks`, and friends. Pinned to `SCHEMA_TARGET`
-   (`claude-code@2.1.x`). This layer churns; that is why it is a separate file
-   and why its limits live in `constants.ts`.
+## Where to make a change
 
-`generateJsonSchemas()` ([`schemas/json-schemas.ts`](../packages/core/src/schemas/json-schemas.ts))
-exports six zod schemas as JSON Schema — skill frontmatter, plugin manifest,
-marketplace, skillsmith config, evals, hooks — emitted into
-`.skillsmith/schemas/` by `generate` (drift-guarded like any artifact; `init`
-seeds them plus the `.vscode` associations that point at them).
+| Change | Start here |
+|---|---|
+| Skill behavior or supporting examples | `skills/<category>/<name>/` |
+| Plugin membership, versions or policy | `skillsmith.toml` |
+| Validation, generation or scoring rules | [Core package](../packages/core/README.md) |
+| Commands, authentication or process handling | [CLI package](../packages/cli/README.md) |
+| Regression coverage | `packages/core/test/` and `packages/cli/test/` |
 
-## Where things run
+[CI](../.github/workflows/ci.yml) runs strict validation, drift and version checks,
+tests, and both package typechecks. The manually dispatched
+[evaluation workflow](../.github/workflows/eval.yml) tests evaluation fixtures
+offline. Subscription model runs happen locally.
 
-- `packages/cli` ([README](../packages/cli/README.md)) is deliberately
-  zero-logic: load config, call core, print diagnostics, exit. If a change
-  involves a decision, it belongs in core — the CLI has no tests *because*
-  there is nothing to test.
-- `packages/core` ([README](../packages/core/README.md)) holds everything and
-  the entire test suite (`packages/core/test/`). Tests inject a deterministic
-  judge for eval and use fixture repos for generate/check round-trips.
-- CI ([`.github/workflows/ci.yml`](../.github/workflows/ci.yml)) runs
-  `validate --strict` → `check` → `bun test` → `tsc --noEmit` on pushes to
-  `main` and on every PR. Evals run only on manual dispatch
-  ([`.github/workflows/eval.yml`](../.github/workflows/eval.yml)) — they call
-  the Anthropic API and cost real money.
-
-## Reading order for a new contributor
-
-1. [`diagnostics.ts`](../packages/core/src/diagnostics.ts) — the finding model everything returns.
-2. [`discovery.ts`](../packages/core/src/discovery.ts) — what a "source" is once parsed.
-3. [`generate.ts`](../packages/core/src/generate.ts) — how a plan is assembled.
-4. [`check.ts`](../packages/core/src/check.ts) — why the gate is trustworthy.
-5. [`validate.ts`](../packages/core/src/validate.ts) + the [rules reference](validation-rules.md) — the quality/security surface.
+Version guard compares shipped bytes in both `plugins/<name>/` and
+`dist/codex/plugins/<name>/` with an explicit Git baseline. It normalizes manifest
+versions before hashing. A content change requires a version bump; a version bump
+requires its changelog entry. CI uses the PR base or pre-push commit, and fails
+when a required baseline cannot be resolved.

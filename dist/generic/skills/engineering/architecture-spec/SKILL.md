@@ -12,7 +12,7 @@ metadata:
   skillsmith-composes: "doc-visuals, falsification-review"
   skillsmith-see-also: "ground-truth-research"
   skillsmith-invocation: "user"
-  skillsmith-maturity: "stable"
+  skillsmith-maturity: "experimental"
 user-invocable: true
 ---
 
@@ -51,13 +51,15 @@ in order of leverage:
 
 Directory trees, pipeline diagrams, and interface examples carry the
 spec's most-trusted claims — render them with the doc-visuals
-discipline so they stay legible and verifiable against the code.
+discipline so they stay legible and verifiable against the code. If that
+companion is unavailable, check paths, flows, and examples directly.
 
 ## Work by revision
 
-Iterate section-by-section with the user rather than presenting a complete
-spec for approval — locked decisions accumulate, open items shrink, and
-the register records both. Record rejected alternatives with the reason
+Use the discussion mode the user requested: co-author unresolved decisions
+interactively, or produce a complete draft from available context when asked.
+Keep settled decisions and material open items visible without requiring a
+new approval for each section. Record rejected alternatives with the reason
 for rejection; they prevent relitigation and are the cheapest
 documentation the spec contains.
 

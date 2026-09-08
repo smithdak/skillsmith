@@ -112,6 +112,8 @@ export interface DiscoveryResult {
   commands: DiscoveredCommand[];
   hookSets: DiscoveredHookSet[];
   mcpServers: DiscoveredMcpServer[];
+  /** Root attribution files copied into independently distributable plugins. */
+  legalFiles?: { path: string; absPath: string }[];
   diagnostics: Diagnostic[];
 }
 
@@ -293,7 +295,12 @@ export async function discover(repoRoot: string, opts: {
   hookSets.sort((a, b) => a.name.localeCompare(b.name));
   mcpServers.sort((a, b) => a.name.localeCompare(b.name));
 
-  return { skills, agents, commands, hookSets, mcpServers, diagnostics };
+  const legalFiles: { path: string; absPath: string }[] = [];
+  for (const path of ["LICENSE", "NOTICES.md"]) {
+    const absPath = join(repoRoot, path);
+    if (await Bun.file(absPath).exists()) legalFiles.push({ path, absPath });
+  }
+  return { skills, agents, commands, hookSets, mcpServers, legalFiles, diagnostics };
 }
 
 export { relative as _relative };

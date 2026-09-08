@@ -350,7 +350,7 @@ describe("V8 — re-gating on committed eval results", () => {
     expect(found[0]!.message).toContain("unmeasured");
   });
 
-  test("with no results file the gate stays silent — eval needs an API key", async () => {
+  test("with no results file the gate stays silent — eval needs model access", async () => {
     const { root, config } = makeRepo();
     addSkill(root, "anything");
     expect(await v8(root, config, undefined)).toHaveLength(0);

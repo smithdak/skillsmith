@@ -31,6 +31,18 @@ describe("pluginSnapshot", () => {
     expect(a.contentHash).not.toBe(b.contentHash);
   });
 
+  test("native manifests normalize their version but guard native-only content changes", () => {
+    const a = files("1.0.0", "same");
+    const b = files("1.1.0", "same");
+    const path = "dist/codex/plugins/demo/.codex-plugin/plugin.json";
+    a.set(path, JSON.stringify({ name: "demo", version: "1.0.0", description: "same" }));
+    b.set(path, JSON.stringify({ name: "demo", version: "1.1.0", description: "same" }));
+    expect(pluginSnapshot("demo", a).contentHash).toBe(pluginSnapshot("demo", b).contentHash);
+    const changed = new Map(a);
+    changed.set(path, JSON.stringify({ name: "demo", version: "1.0.0", description: "different" }));
+    expect(versionGuard([pluginSnapshot("demo", a)], [pluginSnapshot("demo", changed)])).toHaveLength(1);
+  });
+
   test("line-ending differences (CRLF vs LF) do not change the hash", () => {
     const lf = pluginSnapshot("demo", files("0.1.0", "line one\nline two\n"));
     const crlf = pluginSnapshot("demo", files("0.1.0", "line one\r\nline two\r\n"));
