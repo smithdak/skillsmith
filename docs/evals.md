@@ -23,8 +23,8 @@ API-key login and fixes the authentication method for each invocation. Subscript
 usage limits apply. Authentication and isolation details are in
 [the effectiveness guide](effectiveness.md#run-with-your-subscription).
 
-The current suite contains **606 cases across 39 skills**: one full pass needs 606
-sessions. Three votes per case need 1,818 sessions before escalation. Start with the
+The current suite contains **620 cases across 40 skills**: one full pass needs 620
+sessions. Three votes per case need 1,860 sessions before escalation. Start with the
 skill whose description changed. `--concurrency` controls simultaneous sessions;
 `--timeout-ms` defaults to 300000 per session. There is no automatic retry or model
 substitution on access or usage-limit failure.
@@ -86,7 +86,7 @@ unanimous cases stop at N. This saves sessions but can miss an unstable case tha
 happened to be unanimous. Review both `failingPrompts` and `flakyPrompts`; rerun
 consequential ambiguous cases before revising a description.
 
-Full runs write [`.skillsmith/eval-results.json`](../.skillsmith/eval-results.json).
+Full runs write `.skillsmith/eval-results.json`.
 The file records the runner/model/settings/version identifier, vote counts, listing
 hash, description hashes, case hashes, dates, failures and split votes. One-skill
 runs merge only when the existing listing, runner identifier and vote settings match.
@@ -100,6 +100,15 @@ Body-only changes need separate outcome comparisons. They do not invalidate a
 measurement of unchanged descriptions, but old routing evidence says nothing about
 the rewritten body's quality.
 
-The committed routing report dated 2026-09-04 was produced by the historical
-`claude-sonnet-5` judge. It remains explicitly labeled with that provenance. It is
-not an Astra result. New local evals use your Codex subscription.
+The [archived routing report dated 2026-09-04](../benchmarks/results/routing-2026-09-04.json)
+was produced by the historical `claude-sonnet-5` judge against the 39-skill catalog.
+It retains that provenance and cannot validate the current catalog. No current
+routing report is committed: the 40-skill catalog is unmeasured. Attempts to refresh
+the report on 2026-10-26 timed out and produced no replacement measurements.
+The catalog therefore displays unmeasured routing instead of historical scores.
+
+A successful full run creates a current report with the judge, vote settings,
+input hashes and date actually measured. Commit that report and regenerate the
+catalog together. Single-vote results are smoke checks; they do not establish
+routing stability or outcome improvement. Strict validation still rejects stale
+or below-threshold measurements when a current report is present.

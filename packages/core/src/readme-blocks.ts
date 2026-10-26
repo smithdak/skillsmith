@@ -33,7 +33,7 @@ export function renderReadmeBlock(data: ReadmeBlockData): string {
 
   const noun = (n: number, s: string, p: string) => `${n} ${n === 1 ? s : p}`;
   lines.push(
-    `**${noun(plugins.length, "installable plugin", "installable plugins")}, ${noun(skillCount, "skill", "skills")}, ${noun(agentCount, "agent", "agents")}.** Choose a plugin below to see its skills and recorded routing evaluations in the [catalog](${catalogPath}). Agent definitions ship in the Claude Code bundles.`,
+    `**${noun(plugins.length, "installable plugin", "installable plugins")}, ${noun(skillCount, "skill", "skills")}, ${noun(agentCount, "agent", "agents")}.** Choose a plugin below to see its skills and routing status in the [catalog](${catalogPath}). Agent definitions ship in the Claude Code bundles.`,
     "",
   );
 

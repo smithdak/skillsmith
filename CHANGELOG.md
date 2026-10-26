@@ -1,5 +1,13 @@
 # Changelog
 
+## Routing evidence — 2026-10-26
+
+- Archive the unchanged September routing report with its original provenance;
+  its 39-skill listing does not measure the current 40-skill catalog.
+- Mark current routing unmeasured and remove historical scores from current
+  catalog badges. Replacement evaluation attempts timed out; no scores were
+  inferred or relabeled. Strict validation rules remain unchanged.
+
 ## architecture 0.2.1
 
 - Refresh bundled third-party notices for the EGM adaptations.

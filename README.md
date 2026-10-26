@@ -42,7 +42,7 @@ For **Claude Code** or **a single portable skill**, follow
 ## Choose a plugin
 
 <!-- skillsmith:start -->
-**9 installable plugins, 40 skills, 2 agents.** Choose a plugin below to see its skills and recorded routing evaluations in the [catalog](catalog/CATALOG.md). Agent definitions ship in the Claude Code bundles.
+**9 installable plugins, 40 skills, 2 agents.** Choose a plugin below to see its skills and routing status in the [catalog](catalog/CATALOG.md). Agent definitions ship in the Claude Code bundles.
 
 | Plugin | Use it for |
 |---|---|

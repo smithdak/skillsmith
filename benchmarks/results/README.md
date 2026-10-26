@@ -50,7 +50,10 @@ large stdout and file outputs. There were 20 solve/grade sessions including reco
 
 [Routing report](astra-routing-smoke-2026-09-08.json): three explicit probes correctly
 selected tdd, diagnose-bugs and no skill. This verifies the Astra routing adapter;
-it is not a replacement for the existing 606-case historical routing report.
+it is not a replacement for the
+[606-case historical routing report](routing-2026-09-04.json). That report was
+measured by `claude-sonnet-5` against the 39-skill catalog and is preserved unchanged.
+The current 40-skill catalog is unmeasured; the archived scores do not describe it.
 
 ## Offline verification
 
