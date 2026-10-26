@@ -43,6 +43,7 @@ folders into its skills directory.
 | `second-order-effects` | engineering | Traces a proposed policy, pricing, or product rule past its first-order intent: how affected actors adapt, who games it, and where the equilibrium settles. |
 | `security-diff-review` | engineering | Security review of one code change — a diff, PR, or branch — anchored to what changed, swept out to sibling call sites of any shared helper it touches. |
 | `skill-authoring` | engineering | Authors and audits agent skills so they trigger reliably and fit their token budget: a description that routes, a body scoped by progressive disclosure, deterministic work pushed to scripts. |
+| `spec-drift` | engineering | Compares checked-in specifications with implemented behavior and reports evidence-backed discrepancies. |
 | `tdd` | engineering | Drives a feature or bugfix through the red–green loop: agree the seams, write one failing test, pass it minimally, repeat in vertical slices. |
 | `threat-model` | engineering | Whole-repo threat model, built before security review: trust boundaries, assets, attacker stories, and the severity basis reviews inherit. |
 | `webapp-testing` | engineering | Verifies UI behavior in a local web app in a real browser via Playwright — clicks, assertions, screenshots, console logs. |

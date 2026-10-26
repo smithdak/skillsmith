@@ -1,5 +1,49 @@
 # Changelog
 
+## architecture 0.2.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## planning 0.2.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## research 0.2.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## docs-craft 0.3.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## agent-instructions 0.2.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## security 0.4.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## frontend 0.6.1
+
+- Refresh bundled third-party notices for the EGM adaptations.
+
+## code-craft 0.7.0
+
+- Add experimental `spec-drift`: compare documented contracts with implementation
+  evidence, distinguishing missing behavior, stale references, conflicting
+  promises, planned work, and claims that cannot be verified locally.
+- Add routing cases and development outcome cases. Model routing and outcome
+  improvement have not been measured for this addition.
+
+## dev-workflow 0.3.0
+
+- Strengthen `cold-read` and `cold-reader` with explicit fresh-context setup,
+  audience-relative terminology checks and implementation-plan actionability.
+  Clearly documented open decisions can still block execution.
+- Recheck affected sections after fixes without requiring repeated approvals.
+  The routing description is unchanged; revised behavior remains experimental.
+
 Plugins are versioned and installed independently, so this file is organised by
 plugin rather than by date. Claude Code refreshes an installed plugin by
 version, never by content, which is why `version-guard` fails a content change

@@ -18,58 +18,58 @@ allowed = ["engineering", "productivity", "misc"]
 # half of that budget).
 [[plugin]]
 name = "architecture"
-version = "0.2.0"
+version = "0.2.1"
 description = "Design interfaces, record decisions, review structure, and plan migrations."
 skills = ["api-design", "architecture-review", "architecture-spec", "decision-record", "deep-modules", "failure-mode-analysis", "migration-plan"]
 
 [[plugin]]
 name = "planning"
-version = "0.2.0"
+version = "0.2.1"
 description = "Turn ideas into specs, test assumptions, and anticipate failure."
 skills = ["falsification-review", "feature-spec", "grilling", "premortem", "second-order-effects"]
 agents = ["falsification-reviewer"]
 
 [[plugin]]
 name = "research"
-version = "0.2.0"
+version = "0.2.1"
 description = "Verify current facts and write reports grounded in primary sources."
 skills = ["deep-research", "ground-truth-research", "research-note"]
 
 [[plugin]]
 name = "code-craft"
-version = "0.6.0"
+version = "0.7.0"
 description = "Understand code, diagnose bugs, and develop with meaningful tests."
-skills = ["codebase-survey", "diagnose-bugs", "postmortem", "retrofit-tests", "tdd"]
+skills = ["codebase-survey", "diagnose-bugs", "postmortem", "retrofit-tests", "spec-drift", "tdd"]
 
 [[plugin]]
 name = "dev-workflow"
-version = "0.2.0"
+version = "0.3.0"
 description = "Write work items, check handoffs, and guide manual setup."
 skills = ["cold-read", "define-work-items", "handoff", "wizard"]
 agents = ["cold-reader"]
 
 [[plugin]]
 name = "docs-craft"
-version = "0.3.0"
+version = "0.3.1"
 description = "Write READMEs, clarify diagrams, and organize technical documentation."
 skills = ["doc-visuals", "information-architecture", "prose-hygiene", "readme-authoring"]
 
 [[plugin]]
 name = "agent-instructions"
-version = "0.2.0"
+version = "0.2.1"
 description = "Write agent instructions and skills with clear scope and triggers."
 skills = ["communication-contract", "instructions-setup", "skill-authoring", "writing-for-agents"]
 commands = ["instructions-setup"]
 
 [[plugin]]
 name = "security"
-version = "0.4.0"
+version = "0.4.1"
 description = "Model threats, review security changes, and propose mitigations."
 skills = ["hardening-proposal", "security-diff-review", "threat-model"]
 
 [[plugin]]
 name = "frontend"
-version = "0.6.0"
+version = "0.6.1"
 description = "Build, critique, and refine interfaces; verify behavior in a browser."
 skills = ["frontend-craft", "frontend-critique", "frontend-redesign", "webapp-testing"]
 

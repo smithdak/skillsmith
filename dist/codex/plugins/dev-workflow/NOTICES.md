@@ -18,6 +18,34 @@ obligations below follow them there unchanged.
 
 ---
 
+## google/elephant-goldfish-model
+
+- Source: https://github.com/google/elephant-goldfish-model
+- Reviewed revision: `3d0b34821ce88ad328b0c9bf0e06d7eb5f1cd669`
+  (inspected 2026-10-26).
+- License: Apache License 2.0. A full copy ships in
+  `skills/engineering/spec-drift/references/egm-LICENSE.txt` and
+  `skills/productivity/cold-read/references/egm-LICENSE.txt`; installed plugin
+  copies live under `skills/<skill-name>/references/egm-LICENSE.txt`.
+- Adapted into: `skills/engineering/spec-drift/`,
+  `skills/productivity/cold-read/`, `agents/cold-reader.md`, and the workflow
+  guidance in `docs/spec-workflow.md`.
+- Nature of changes: the document-to-source drift comparison and isolated
+  comprehension/readiness review methods were re-expressed in skillsmith's
+  format. Drift findings require behavior-level evidence, account for renamed
+  code, distinguish draft/future work and contract conflicts, and preserve
+  verification gaps. The existing cold reader gained explicit context isolation,
+  audience-relative terminology checks and a distinction between acknowledged
+  open decisions and execution readiness. Fixed reviewer swarms, interactive
+  checkpoint gates, automatic documentation bootstrapping, host-specific tool
+  setup and mandatory report files were not imported. The Astro site, branding,
+  fonts and UI components were not copied.
+
+Changed files identify their adaptation inline. Existing skillsmith material in
+`cold-read` retains its MIT terms; adapted material remains under Apache-2.0.
+
+---
+
 ## openai/codex-security
 
 - Source: https://github.com/openai/codex-security

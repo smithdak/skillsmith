@@ -1,6 +1,6 @@
 # Repository-task development fixtures
 
-These three small tasks exercise implementation and review in a tool-using
+These small tasks exercise implementation and review in a tool-using
 harness. They complement the text-only effectiveness command. No model run is
 implied by the presence of fixtures or passing grader self-checks.
 
@@ -25,7 +25,10 @@ bun benchmarks/workspaces/diagnose-bugs/verify.ts "$trial_dir"
 ```
 
 Use tdd/verify.ts for the pricing task and the separate human rubric for the
-security review. Verification scripts return nonzero on a failed assertion.
+security review. The `spec-drift` task also uses a human rubric in `grading.md`:
+copy its `input/` tree and provide its `task.md`, keeping that rubric outside the
+solver workspace. Its local `checks.ts` confirms fixture behavior, not report
+quality. Verification scripts return nonzero on a failed assertion.
 They check delivered behavior; they cannot establish red-before-green without
 the execution transcript. Review the transcript for actual test runs,
 unnecessary approval requests, scope expansion, and false claims of completion.

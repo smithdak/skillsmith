@@ -7,7 +7,7 @@ description: >-
   sense without me", "check this is self-contained", or "review this for
   completeness before I send it". Not for correctness (falsification-review),
   copyediting, or summarization.
-license: MIT
+license: MIT AND Apache-2.0
 metadata:
   skillsmith-see-also: "falsification-review"
   skillsmith-invocation: "model"
@@ -16,6 +16,11 @@ user-invocable: true
 ---
 
 # cold-read
+
+*Adapted in part from google/elephant-goldfish-model — comprehension and
+implementation-readiness reviews (Apache-2.0). Changed to keep this skill focused
+on self-containment, with explicit context isolation and scoped rechecks. See
+repo-root NOTICES.md and references/egm-LICENSE.txt.*
 
 A document that needs its author present is a conversation with extra
 steps. Before presenting a document others will act on, read it as its
@@ -59,18 +64,30 @@ An inline pass is a *simulated* cold read — the simulator still holds the
 full conversation, and contamination is exactly the failure mode being
 checked for. For deliverables leaving the session — handoffs, runbooks,
 work items someone else will execute — use an independent reader when
-available and authorized. Provide the document and named audience only, not
-the conversation. If the `cold-reader` agent or delegation is unavailable,
+available and authorized. Start a fresh context without inherited conversation.
+Provide the document or path, named audience and their job, and permitted reference
+scope. Omit the author's explanation, expected verdict, and earlier findings.
+The reader checks the whole document and its explicit links before calling a term
+undefined; ordinary audience knowledge is not a defect. If the `cold-reader` agent
+or delegation is unavailable,
 run the same checks inline and describe that as a simulated read. No named
 agent is required to complete the skill. Use a separate reader where its
 benefit justifies its cost, not for every short document.
+
+For an implementation plan, have the reader identify the observable behavior,
+first action, failure handling, and completion check using the artifact. Flag
+missing product or interface decisions; routine choices of private helpers are
+not blockers. This tests whether the plan can be followed, not whether the design
+is correct. Verify claimed repository paths within the permitted scope.
 
 ## Failure handling
 
 Fixable failures get fixed inline. Genuine unknowns — things the author
 also cannot resolve — are surfaced as explicit open items with an owner,
-never smoothed over and never silently dropped. A document honest about
-its gaps passes; a document hiding them does not.
+never smoothed over and never silently dropped. Recheck changed sections and their
+dependencies after a fix; stop when no new material evidence warrants another pass.
+Explicit open items make a document honest, but an unresolved decision that blocks
+the audience's job still means it is not ready to execute. Report that distinction.
 
 ## Composing skills
 

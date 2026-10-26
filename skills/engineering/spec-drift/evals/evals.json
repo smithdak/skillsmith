@@ -1,0 +1,30 @@
+{
+  "should_trigger": [
+    { "prompt": "We shipped the billing rewrite last month. Compare docs/designs/billing.md with what is actually in this checkout." },
+    { "prompt": "The API guide promises retries on timeouts. Can you trace the implementation and tell me whether we deliver that?" },
+    { "prompt": "Go through our accepted designs and flag promises the service no longer keeps." },
+    { "prompt": "Which parts of this checked-in rollout spec are implemented, still planned, or contradicted by the code?" },
+    { "prompt": "Find stale contract details in the storage design by checking the live source files." },
+    { "prompt": "The README and the design disagree about retention. Compare both against the implementation without fixing anything." }
+  ],
+  "should_not_trigger": [
+    { "prompt": "Is this proposed architecture the right way to solve the problem?", "note": "design judgment before implementation" },
+    { "prompt": "Will a contractor understand this implementation plan without our conversation?", "note": "cold-read self-containment" },
+    { "prompt": "Write a README for this repository.", "note": "readme-authoring" },
+    { "prompt": "Why does the retry test intermittently fail?", "note": "diagnose-bugs" },
+    { "prompt": "Review the coupling and module boundaries in this codebase.", "note": "architecture-review" },
+    { "prompt": "Run the generated-artifact drift check.", "note": "deterministic compiler check, not semantic contract review" },
+    { "prompt": "Compare our desired Terraform configuration with the deployed resources.", "note": "infrastructure state drift" },
+    { "prompt": "Turn our discussion into a build-ready feature spec.", "note": "feature-spec" }
+  ],
+  "effectiveness": [
+    {
+      "task": "Compare an accepted jobs API spec with source. The spec promises 409 for duplicate keys, refers to src/queue.ts:enqueue, and labels tenant scheduling as future phase two. Source has moved to src/jobs/submit.ts:submitJob, preserves the API shape, permits duplicate keys with no middleware or storage constraint, and has no tenant scheduler. A private batching helper is undocumented. Return findings and coverage; do not edit.",
+      "success_criteria": "Finds the missing duplicate protection with a bounded request-to-storage trace; treats the old path as documentation staleness rather than missing functionality; excludes future scheduling from current defects; does not flag the private helper; does not edit; reports inspected scope."
+    },
+    {
+      "task": "Compare an accepted seven-day retention spec, a current operations guide promising thirty days, and source defaulting to seven. Neither document establishes precedence. Source calls an email provider after completion but only fake-provider unit tests are available, with no deployment access. Report discrepancies without changing policy or sending email.",
+      "success_criteria": "Reports the retention conflict without choosing which document wins; distinguishes source-wired email from unverified production delivery; does not claim all promises verified or send email; identifies the evidence needed to resolve both uncertainties."
+    }
+  ]
+}

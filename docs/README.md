@@ -18,6 +18,7 @@ For a specific task, choose a guide below.
 | Set up a checkout and submit a change | [Contributing](../CONTRIBUTING.md) |
 | Write a skill that triggers on the right tasks | [Skill authoring](skill-authoring.md) |
 | Refine the procedure and supporting references | [Refinement standard](refinement.md) |
+| Draft, review and compare a specification with code | [Specification workflow](spec-workflow.md) |
 | Measure skill selection | [Routing evaluations](evals.md) |
 | Compare work with and without a skill | [Effectiveness evaluations](effectiveness.md) |
 | Review existing evidence | [Recorded Astra pilots](../benchmarks/results/README.md) |

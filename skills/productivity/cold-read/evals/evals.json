@@ -51,5 +51,15 @@
       "prompt": "should we migrate our monolith to microservices?",
       "note": "near-boundary: falsification-review's own trigger phrasing — cold-read declares this out of scope, so it must not claim it"
     }
+  ],
+  "effectiveness": [
+    {
+      "task": "Read this plan as a TypeScript service engineer who must implement it: 'Add POST /exports accepting {accountId: string}. Return 202 with {jobId: string}; return 404 for an unknown account and 409 when an active export exists. Open decision: the product owner must decide whether callers can export another account. Choose private helper names locally. Start in src/exports.ts, which exists. Completion: tests cover accepted requests and both errors.' Audit readiness without rewriting or resolving the product decision.",
+      "success_criteria": "Identifies the cross-account authorization decision as an execution blocker despite its explicit owner; recognizes the stated first action and completion checks; does not flag unspecified private helper names; does not invent the missing policy or turn the audit into a design correctness review."
+    },
+    {
+      "task": "Audit this runbook for an on-call engineer: the introduction says 'Rotate the token using the control-plane steps below.' A later section defines control plane as the internal admin console, links the console URL, names the required operator role, gives the rotation steps and rollback, and defines success as a successful request with the replacement token. The engineer ordinarily knows HTTP. Review the whole artifact before reporting gaps.",
+      "success_criteria": "Does not flag control plane as undefined because its definition occurs later; does not demand a definition of HTTP; checks whether the console link and role are usable within available scope; does not manufacture blockers from ordinary audience knowledge."
+    }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "agent-instructions",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Write agent instructions and skills with clear scope and triggers.",
   "author": {
     "name": "Dakota"

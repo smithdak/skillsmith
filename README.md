@@ -42,19 +42,19 @@ For **Claude Code** or **a single portable skill**, follow
 ## Choose a plugin
 
 <!-- skillsmith:start -->
-**9 installable plugins, 39 skills, 2 agents.** Choose a plugin below to see its skills and recorded routing evaluations in the [catalog](catalog/CATALOG.md). Agent definitions ship in the Claude Code bundles.
+**9 installable plugins, 40 skills, 2 agents.** Choose a plugin below to see its skills and recorded routing evaluations in the [catalog](catalog/CATALOG.md). Agent definitions ship in the Claude Code bundles.
 
 | Plugin | Use it for |
 |---|---|
-| [architecture](catalog/CATALOG.md#architecture)<br>`0.2.0` | Design interfaces, record decisions, review structure, and plan migrations. |
-| [planning](catalog/CATALOG.md#planning)<br>`0.2.0` | Turn ideas into specs, test assumptions, and anticipate failure. |
-| [research](catalog/CATALOG.md#research)<br>`0.2.0` | Verify current facts and write reports grounded in primary sources. |
-| [code-craft](catalog/CATALOG.md#code-craft)<br>`0.6.0` | Understand code, diagnose bugs, and develop with meaningful tests. |
-| [dev-workflow](catalog/CATALOG.md#dev-workflow)<br>`0.2.0` | Write work items, check handoffs, and guide manual setup. |
-| [docs-craft](catalog/CATALOG.md#docs-craft)<br>`0.3.0` | Write READMEs, clarify diagrams, and organize technical documentation. |
-| [agent-instructions](catalog/CATALOG.md#agent-instructions)<br>`0.2.0` | Write agent instructions and skills with clear scope and triggers. |
-| [security](catalog/CATALOG.md#security)<br>`0.4.0` | Model threats, review security changes, and propose mitigations. |
-| [frontend](catalog/CATALOG.md#frontend)<br>`0.6.0` | Build, critique, and refine interfaces; verify behavior in a browser. |
+| [architecture](catalog/CATALOG.md#architecture)<br>`0.2.1` | Design interfaces, record decisions, review structure, and plan migrations. |
+| [planning](catalog/CATALOG.md#planning)<br>`0.2.1` | Turn ideas into specs, test assumptions, and anticipate failure. |
+| [research](catalog/CATALOG.md#research)<br>`0.2.1` | Verify current facts and write reports grounded in primary sources. |
+| [code-craft](catalog/CATALOG.md#code-craft)<br>`0.7.0` | Understand code, diagnose bugs, and develop with meaningful tests. |
+| [dev-workflow](catalog/CATALOG.md#dev-workflow)<br>`0.3.0` | Write work items, check handoffs, and guide manual setup. |
+| [docs-craft](catalog/CATALOG.md#docs-craft)<br>`0.3.1` | Write READMEs, clarify diagrams, and organize technical documentation. |
+| [agent-instructions](catalog/CATALOG.md#agent-instructions)<br>`0.2.1` | Write agent instructions and skills with clear scope and triggers. |
+| [security](catalog/CATALOG.md#security)<br>`0.4.1` | Model threats, review security changes, and propose mitigations. |
+| [frontend](catalog/CATALOG.md#frontend)<br>`0.6.1` | Build, critique, and refine interfaces; verify behavior in a browser. |
 <!-- skillsmith:end -->
 
 Install by the work in front of you. Individual skills include their essential
